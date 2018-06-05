@@ -1,0 +1,874 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<add>
+    <doc>
+        <field name="unique-id">ISI:000332038500042</field>
+        <field name="title">Spin caloritronics in graphene with Mn</field>
+        <field name="Author">Alberto Torres</field>
+        <field name="Author">Matheus P. Lima</field>
+        <field name="Author">A. Fazzio</field>
+        <field name="Author">Antonio J. R. da Silva</field>
+        <field name="publisher_journal_volume">AMER INST PHYSICS | APPLIED PHYSICS LETTERS | 104</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">We show that graphene with Mn adatoms trapped at single vacancies
+            features spin-dependent Seebeck effect, thus enabling the use of this
+            material for spin caloritronics. A gate potential can be used to tune
+            its thermoelectric properties in a way it presents either a total spin
+            polarized current, flowing in one given direction, or currents for both
+            spins flowing in opposite directions without net charge transport.
+            Moreover, we show that the thermal magnetoresistance can be tuned
+            between -100\% and +100\% by varying a gate potential. (C) 2014 AIP
+            Publishing LLC.
+        </field>
+        <field name="address">USA</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1063/1.4866184</field>
+        <field name="ISSN">0003-6951</field>
+        <field name="EISSN">1077-3118</field>
+        <field name="keyword-plus">TRANSPORT</field>
+        <field name="keyword-plus">CONDUCTANCE</field>
+        <field name="keyword-plus">FORMULA</field>
+        <field name="research-areas">Physics</field>
+        <field name="web-of-science-categories">Physics, Applied</field>
+        <field name="number-of-cited-references">31</field>
+        <field name="times-cited">12</field>
+        <field name="journal-iso">Appl. Phys. Lett.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331349600002</field>
+        <field name="title">Application of loop-mediated isothermal amplification assays for direct
+            identification of pure cultures of Aspergillus flavus, A. nomius, and A.
+            caelatus and for their rapid detection in shelled Brazil nuts
+        </field>
+        <field name="Author">Jie Luo</field>
+        <field name="Author">Marta H. Taniwaki</field>
+        <field name="Author">Beatriz T. Iamanaka</field>
+        <field name="Author">F. Rudi Vogel</field>
+        <field name="Author">Ludwig Niessen</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE BV | INTERNATIONAL JOURNAL OF FOOD MICROBIOLOGY | 172
+        </field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Brazil nuts have a high nutritional content and are a very important
+            trade commodity for some Latin American countries. Aflatoxins are
+            carcinogenic fungal secondary metabolites. In Brazil nuts they are
+            produced predominantly by Aspergillus (A.) nomius and A. flavus. In the
+            present study we applied and evaluated two sets of primers previously
+            published for the specific detection of the two species using
+            loop-mediated isothermal amplification (LAMP) technology. Moreover, a
+            primer set specific for A. caelatus as a frequently occurring
+            non-aflatoxigenic member of Aspergillus section Flavi in Brazil nuts was
+            newly developed. LAMP assays were combined with a simplified DNA release
+            method and used for rapid identification of pure cultures and rapid
+            detection of A. nomius and A. flavus from samples of shelled Brazil
+            nuts. An analysis of pure cultures of 68 isolates representing the major
+            Aspergillus species occurring on Brazil nuts showed that the three LAMP
+            assays had individual accuracies of 61.5\%, 84.4\%, and 93.3\% for A.
+            flavus, A. nomius, and A. caelatus, respectively when morphological
+            identification was used as a reference. The detection limits for conidia
+            added directly to the individual LAMP reactions were found to be 10(5)
+            conidia per reaction with the primer set ID9 for A. nomius and 10(4)
+            conidia per reaction with the primer set ID58 for A. flavus. Sensitivity
+            was increased to 10(1) and 10(2) conidia per reaction for A. nom. ius
+            and A. flavus, respectively, when sample preparation included a spore
+            disruption step. The results of LAMP assays obtained during the analysis
+            of 32 Brazil nut samples from different regions of Brazil and from
+            different steps in the production process of the commodity were compared
+            with results obtained from mycological analysis and aflatoxin analysis
+            of corresponding samples. Compared with mycological analysis of the
+            samples, the Negative Predictive Values of LAMP assays were 42.1\% and
+            12.5\% while the Positive Predictive Values were 61.5\% and 66.7\% for
+            A. nomius and A. flavus, respectively. When LAMP results were compared
+            with the presence of aflatoxins in corresponding samples, the Negative
+            Predictive Values were 22.2\% and 44.4\% and the Positive Predictive
+            Values were 52.2\% and 78.3\% for aflatoxins produced by A. nomius and
+            A. flavus, respectively. The LAMP assays described in this study have
+            been demonstrated to be a specific, sensitive and easy to use tool for
+            the survey of Brazil nuts for contaminations with potential
+            aflatoxin-producing A. nomius and A. flavus in low tech environments
+            where resources may be limited. (C) 2013 Elsevier B.V. All rights
+            reserved.
+        </field>
+        <field name="address">NETHERLANDS</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.ijfoodmicro.2013.12.001</field>
+        <field name="ISSN">0168-1605</field>
+        <field name="EISSN">1879-3460</field>
+        <field name="keyword">Loop-mediated isothermal amplification</field>
+        <field name="keyword">A. nomius</field>
+        <field name="keyword">A. flavus</field>
+        <field name="keyword">A.</field>
+        <field name="keyword">caelatus</field>
+        <field name="keyword">Brazil nut</field>
+        <field name="keyword">Rapid detection</field>
+        <field name="keyword-plus">SECTION FLAVI</field>
+        <field name="keyword-plus">AFLATOXIGENIC MOLDS</field>
+        <field name="keyword-plus">VISUAL DETECTION</field>
+        <field name="keyword-plus">LAMP</field>
+        <field name="keyword-plus">DNA</field>
+        <field name="keyword-plus">FOOD</field>
+        <field name="keyword-plus">FUNGI</field>
+        <field name="keyword-plus">PCR</field>
+        <field name="keyword-plus">SELENIUM</field>
+        <field name="keyword-plus">GROWTH</field>
+        <field name="research-areas">Food Science \&amp; Technology; Microbiology</field>
+        <field name="web-of-science-categories">Food Science \&amp; Technology; Microbiology</field>
+        <field name="number-of-cited-references">43</field>
+        <field name="times-cited">9</field>
+        <field name="journal-iso">Int. J. Food Microbiol.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000334012400007</field>
+        <field name="title">Antioxidant and intestinal anti-inflammatory effects of plant-derived
+            coumarin derivatives
+        </field>
+        <field name="Author">Aline Witaicenis</field>
+        <field name="Author">Leonardo Noboru Seito</field>
+        <field name="Author">Silveira Alexandre da Chagas</field>
+        <field name="Author">Luiz Domingues de Almeida Junior</field>
+        <field name="Author">Ana Carolina Luchini</field>
+        <field name="Author">Patricia Rodrigues-Orsi</field>
+        <field name="Author">Silvia Helena Cestari</field>
+        <field name="Author">Luiz Claudio Di Stasi</field>
+        <field name="publisher_journal_volume">ELSEVIER GMBH, URBAN \&amp; FISCHER VERLAG | PHYTOMEDICINE | 21</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Background: Coumarins, also known as benzopyrones, are plant-derived
+            products with several pharmacological properties, including antioxidant
+            and anti-inflammatory activities. Based on the wide distribution of
+            coumarin derivatives in plant-based foods and beverages in the human
+            diet, our objective was to evaluate both the antioxidant and intestinal
+            anti-inflammatory activities of six coumarin derivatives of plant origin
+            (scopoletin, scoparone, fraxetin, 4-methyl-umbeliferone, esculin and
+            daphnetin) to verify if potential intestinal anti-inflammatory activity
+            was related to antioxidant properties.
+            Methods: Intestinal inflammation was induced by intracolonic
+            instillation of TNBS in rats. The animals were treated with coumarins by
+            oral route. The animals were killed 48 h after colitis induction. The
+            colonic segments were obtained after laparotomy and macroscopic and
+            biochemical parameters (determination of glutathione level and
+            myeloperoxidase and alkaline phosphatase activities) were evaluated. The
+            antioxidant properties of these coumarins were examined by lipid
+            peroxidation and DPPH assays.
+            Results: Treatment with esculin, scoparone and daphnetin produced the
+            best protective effects. All coumarin derivatives showed antioxidant
+            activity in the DPPH assay, while daphnetin and fraxetin also showed
+            antioxidant activity by inhibiting lipid peroxidation. Coumarins, except
+            4-methyl-umbeliferone, also showed antioxidant activity through the
+            counteraction of glutathione levels or through the inhibition of
+            myeloperoxidase activity.
+            Discussion: The intestinal anti-inflammatory activity of coumarin
+            derivatives were related to their antioxidant properties, suggesting
+            that consumption of coumarins and/or foods rich in coumarin derivatives,
+            particularly daphnetin, esculin and scoparone, could prevent intestinal
+            inflammatory disease. (C) 2013 Elsevier GmbH. All rights reserved.
+        </field>
+        <field name="address">GERMANY</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.phymed.2013.09.001</field>
+        <field name="ISSN">0944-7113</field>
+        <field name="keyword">Coumarin derivatives</field>
+        <field name="keyword">Antioxidant</field>
+        <field name="keyword">Inflammatory bowel disease</field>
+        <field name="keyword-plus">INFLAMMATORY-BOWEL-DISEASE</field>
+        <field name="keyword-plus">TRINITROBENZENESULFONIC ACID MODEL</field>
+        <field name="keyword-plus">OXIDATIVE STRESS</field>
+        <field name="keyword-plus">RAT COLITIS</field>
+        <field name="keyword-plus">4-METHYLESCULETIN</field>
+        <field name="keyword-plus">SULFASALAZINE</field>
+        <field name="keyword-plus">GLUTATHIONE</field>
+        <field name="keyword-plus">METABOLISM</field>
+        <field name="keyword-plus">INDUCTION</field>
+        <field name="keyword-plus">ESCULETIN</field>
+        <field name="research-areas">Plant Sciences; Pharmacology \&amp; Pharmacy; Integrative \&amp; Complementary
+            Medicine
+        </field>
+        <field name="web-of-science-categories">Plant Sciences; Chemistry, Medicinal; Integrative \&amp; Complementary
+            Medicine; Pharmacology \&amp; Pharmacy
+        </field>
+        <field name="number-of-cited-references">38</field>
+        <field name="times-cited">79</field>
+        <field name="journal-iso">Phytomedicine</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000334012400019</field>
+        <field name="title">Nitensidine A, a guanidine alkaloid from Pterogyne nitens, is a novel
+            substrate for human ABC transporter ABCB1
+        </field>
+        <field name="Author">Yasuhiro Tajima</field>
+        <field name="Author">Hiroshi Nakagawa</field>
+        <field name="Author">Ai Tamura</field>
+        <field name="Author">Onat Kadioglu</field>
+        <field name="Author">Kazuhiro Satake</field>
+        <field name="Author">Yuji Mitani</field>
+        <field name="Author">Hayato Murase</field>
+        <field name="Author">Luis Octavio Regasini</field>
+        <field name="Author">Vanderlan da Silva Bolzani</field>
+        <field name="Author">Toshihisa Ishikawa</field>
+        <field name="Author">Gert Fricker</field>
+        <field name="Author">Thomas Efferth</field>
+        <field name="publisher_journal_volume">ELSEVIER GMBH, URBAN \&amp; FISCHER VERLAG | PHYTOMEDICINE | 21</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">The Pterogyne nitens (Fabaceae) tree, native to South America, has been
+            found to produce guanidine alkaloids as well as bioactive flavonols such
+            as kaempferol, quercetin, and rutin. In the present study, we examined
+            the possibility of interaction between human ATP-binding cassette (ABC)
+            transporter ABCB1 and four guanidine alkaloids isolated from P. nitens
+            (i.e., galegine, nitensidine A, pterogynidine, and pterogynine) using
+            human T cell lymphoblast-like leukemia cell line CCRF-CEM and its
+            multi-drug resistant (MDR) counterpart CEM/ADR5000. In XTT assays,
+            CEM/ADR5000 cells were resistant to the four guanidine alkaloids
+            compared to CCRF-CEM cells, although the four guanidine alkaloids
+            exhibited some level of cytotoxicity against both CCRF-CEM and
+            CEM/ADR5000 cells. In ATPase assays, three of the four guanidine
+            alkaloids were found to stimulate the ATPase activity of ABCB1. Notably,
+            nitensidine A was clearly found to stimulate the ATPase activity of
+            ABCB1 as strongly as the control drug, verapamil. Furthermore, the
+            cytotoxic effect of nitensidine A on CEM/ADR5000 cells was
+            synergistically enhanced by verapamil. Nitensidine A inhibited the
+            extrusion of calcein by ABCB1. In the present study, the possibility of
+            interaction between ABCB1 and two synthetic nitensidine A analogs
+            (nitensidine AT and AU) were examined to gain insight into the mechanism
+            by which nitensidine A stimulates the ATPase activity of ABCB1. The
+            ABCB1-dependent ATPase activity stimulated by nitensidine A was greatly
+            reduced by substituting sulfur (S) or oxygen (0) for the imino nitrogen
+            atom (N) in nitensidine A. Molecular docking studies on human ABCB1
+            showed that, guanidine alkaloids from P. nitens dock to the same binding
+            pocket as verapamil. Nitensidine A and its analogs exhibit similar
+            binding energies to verapamil. Taken together, this research clearly
+            indicates that nitensidine A is a novel substrate for ABCB1. The present
+            results also suggest that the number, binding site, and polymerization
+            degree of the isoprenyl moiety in the guanidine alkaloids and the imino
+            nitrogen atom cooperatively contribute to their stimulation of ABCB1's
+            ATPase activity. (C) 2013 Elsevier GmbH. All rights reserved.
+        </field>
+        <field name="address">GERMANY</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.phymed.2013.08.024</field>
+        <field name="ISSN">0944-7113</field>
+        <field name="EISSN">1618-095X</field>
+        <field name="keyword">ATP-binding cassette (ABC) transporter</field>
+        <field name="keyword">ABCB1</field>
+        <field name="keyword">P-glycoprotein</field>
+        <field name="keyword">Pterogyne</field>
+        <field name="keyword">nitens</field>
+        <field name="keyword">Guanidine alkaloid</field>
+        <field name="keyword-plus">MODULATE MULTIDRUG RESISTANCE</field>
+        <field name="keyword-plus">P-GLYCOPROTEIN GENE</field>
+        <field name="keyword-plus">PHARMACOPHORE MODEL</field>
+        <field name="keyword-plus">CELLS</field>
+        <field name="keyword-plus">INHIBITION</field>
+        <field name="keyword-plus">HOMOLOGY</field>
+        <field name="keyword-plus">REVERSAL</field>
+        <field name="keyword-plus">ANALOGS</field>
+        <field name="keyword-plus">SERIES</field>
+        <field name="keyword-plus">DRUGS</field>
+        <field name="research-areas">Plant Sciences; Pharmacology \&amp; Pharmacy; Integrative \&amp; Complementary
+            Medicine
+        </field>
+        <field name="web-of-science-categories">Plant Sciences; Chemistry, Medicinal; Integrative \&amp; Complementary
+            Medicine; Pharmacology \&amp; Pharmacy
+        </field>
+        <field name="number-of-cited-references">36</field>
+        <field name="times-cited">14</field>
+        <field name="journal-iso">Phytomedicine</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000334012400023</field>
+        <field name="title">The oral administration of trans-caryophyllene attenuates acute and
+            chronic pain in mice
+        </field>
+        <field name="Author">L. I. G. Paula-Freire</field>
+        <field name="Author">M. L. Andersen</field>
+        <field name="Author">V. S. Gama</field>
+        <field name="Author">G. R. Molska</field>
+        <field name="Author">E. L. A. Carlini</field>
+        <field name="publisher_journal_volume">ELSEVIER GMBH, URBAN \&amp; FISCHER VERLAG | PHYTOMEDICINE | 21</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Trans-caryophyllene is a sesquiterpene present in many medicinal plants'
+            essential oils, such as Ocimum gratissimum and Cannabis sativa. In this
+            study, we evaluated the antinociceptive activity of transcaryophyllene
+            in murine models of acute and chronic pain and the involvement of
+            trans-caryophyllene in the opioid and endocannabinoid systems. Acute
+            pain was determined using the hot plate test (thermal nociception) and
+            the formalin test (inflammatory pain). The chronic constriction injury
+            (CCI) of the sciatic nerve induced hypernociception was measured by the
+            hot plate and von Frey tests. To elucidate the mechanism of action, mice
+            were pre-treated with naloxone or AM630 30 min before the
+            trans-caryophyllene treatment. Afterwards, thermal nociception was
+            evaluated. The levels of IL-1 beta were measured in CCI-mice by ELISA.
+            Trans-caryophyllene administration significantly minimized the pain in
+            both the acute and chronic pain models. The antinociceptive effect
+            observed during the hot plate test was reversed by naloxone and AM630,
+            indicating the participation of both the opioid and endocannabinoid
+            system. Trans-caryophyllene treatment also decreased the IL-1 beta
+            levels. These results demonstrate that transcaryophyllene reduced both
+            acute and chronic pain in mice, which may be mediated through the opioid
+            and endocannabinoid systems. (C) 2013 Elsevier GmbH. All rights
+            reserved.
+        </field>
+        <field name="address">GERMANY</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.phymed.2013.08.006</field>
+        <field name="ISSN">0944-7113</field>
+        <field name="keyword">Medicinal plants</field>
+        <field name="keyword">Trans-caryophyllene</field>
+        <field name="keyword">Opioid system</field>
+        <field name="keyword">Endocannabinoid</field>
+        <field name="keyword">system</field>
+        <field name="keyword">Interleukin 1 beta</field>
+        <field name="keyword">Pain</field>
+        <field name="keyword-plus">CANNABINOID CB2 RECEPTORS</field>
+        <field name="keyword-plus">NEUROPATHIC PAIN</field>
+        <field name="keyword-plus">ESSENTIAL OIL</field>
+        <field name="keyword-plus">BETA-CARYOPHYLLENE</field>
+        <field name="keyword-plus">CORDIA-VERBENACEA</field>
+        <field name="keyword-plus">CHEMICAL-COMPOSITION</field>
+        <field name="keyword-plus">RAT</field>
+        <field name="keyword-plus">ANTINOCICEPTION</field>
+        <field name="keyword-plus">MODEL</field>
+        <field name="keyword-plus">INTERLEUKIN-1-BETA</field>
+        <field name="research-areas">Plant Sciences; Pharmacology \&amp; Pharmacy; Integrative \&amp; Complementary
+            Medicine
+        </field>
+        <field name="web-of-science-categories">Plant Sciences; Chemistry, Medicinal; Integrative \&amp; Complementary
+            Medicine; Pharmacology \&amp; Pharmacy
+        </field>
+        <field name="number-of-cited-references">46</field>
+        <field name="times-cited">27</field>
+        <field name="journal-iso">Phytomedicine</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000332811800003</field>
+        <field name="title">Valorization of sugarcane bagasse ash: Producing glass-ceramic materials</field>
+        <field name="Author">S. R. Teixeira</field>
+        <field name="Author">R. S. Magalhaes</field>
+        <field name="Author">A. Arenales</field>
+        <field name="Author">A. E. Souza</field>
+        <field name="Author">M. Romero</field>
+        <field name="Author">J. M. Rincon</field>
+        <field name="publisher_journal_volume">ACADEMIC PRESS LTD- ELSEVIER SCIENCE LTD | JOURNAL OF ENVIRONMENTAL
+            MANAGEMENT | 134
+        </field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Some aluminosilicates, for example mullite and wollastonite, are very
+            important in the ceramic and construction industries. The most
+            significant glass-ceramic for building applications has wollastonite as
+            the main crystal phase. In this work we report on the use of sugarcane
+            bagasse ash (SCBA) to produce glass-ceramics with silicates as the major
+            crystalline phases. The glasses (frits) were prepared by mixing ash,
+            limestone (calcium and magnesium carbonates) and potassium carbonate as
+            the fluxing agent. X-ray fluorescence was used to determine the chemical
+            composition of the glasses and their crystallization was assessed by
+            using thermal analysis (DTA/DSC/TGA) and X-ray diffraction. The results
+            showed that glass-ceramic material can be produced with wollastonite as
+            the major phase, at a temperature lower than 900 degrees C. (C) 2014
+            Elsevier Ltd. All rights reserved.
+        </field>
+        <field name="address">ENGLAND</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.jenvman.2013.12.029</field>
+        <field name="ISSN">0301-4797</field>
+        <field name="EISSN">1095-8630</field>
+        <field name="keyword">Wollastonite</field>
+        <field name="keyword">Sugarcane</field>
+        <field name="keyword">Ash</field>
+        <field name="keyword">Limestone</field>
+        <field name="keyword">Glass-ceramic</field>
+        <field name="keyword-plus">FLY-ASH</field>
+        <field name="keyword-plus">CRYSTALLIZATION</field>
+        <field name="keyword-plus">REPLACEMENT</field>
+        <field name="keyword-plus">RESIDUE</field>
+        <field name="research-areas">Environmental Sciences \&amp; Ecology</field>
+        <field name="web-of-science-categories">Environmental Sciences</field>
+        <field name="number-of-cited-references">23</field>
+        <field name="times-cited">15</field>
+        <field name="journal-iso">J. Environ. Manage.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000333139200007</field>
+        <field name="title">Kefir administration reduced progression of renal injury in STZ-diabetic
+            rats by lowering oxidative stress
+        </field>
+        <field name="Author">Giovana R. Punaro</field>
+        <field name="Author">Fabiane R. Maciel</field>
+        <field name="Author">Adelson M. Rodrigues</field>
+        <field name="Author">Marcelo M. Rogero</field>
+        <field name="Author">Cristina S. B. Bogsan</field>
+        <field name="Author">Marice N. Oliveira</field>
+        <field name="Author">Silvia S. M. Ihara</field>
+        <field name="Author">Sergio R. R. Araujo</field>
+        <field name="Author">C. Talita R. Sanches</field>
+        <field name="Author">Lucia C. Andrade</field>
+        <field name="Author">Elisa M. S. Higa</field>
+        <field name="publisher_journal_volume">ACADEMIC PRESS INC ELSEVIER SCIENCE | NITRIC OXIDE-BIOLOGY AND CHEMISTRY
+            | 37
+        </field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">This study aimed at assessing the effects of Kefir, a probiotic
+            fermented milk, on oxidative stress in diabetic animals. The induction
+            of diabetes was achieved in adult male Wistar rats using streptozotocin
+            (STZ). The animals were distributed into four groups as follows: control
+            (CTL); control Kefir (CTLK); diabetic (DM) and diabetic Kefir (DMK).
+            Starting on the 5th day of diabetes, Kefir was administered by daily
+            gavage at a dose of 1.8 mL/day for 8 weeks. Before and after Kefir
+            treatment, the rats were placed in individual metabolic cages to obtain
+            blood and urine samples to evaluate urea, creatinine, proteinuria,
+            nitric oxide (NO), thiobarbituric acid reactive substances (TBARS) and
+            C-reactive protein (CRP). After sacrificing the animals, the renal
+            cortex was removed for histology, oxidative stress and NOS evaluation.
+            When compared to CTL rats, DM rats showed increased levels of glycemia,
+            plasmatic urea, proteinuria, renal NO, superoxide anion, TBARS, and
+            plasmatic CRP; also demonstrated a reduction in urinary urea,
+            creatinine, and NO. However, DMK rats showed a significant improvement
+            in most of these parameters. Despite the lack of differences observed in
+            the expression of endothelial NO synthase (eNOS), the expression of
+            inducible NO synthase (iNOS) was significantly lower in the DMK group
+            when compared to DM rats, as assessed by Western blot analysis.
+            Moreover, the DMK group presented a significant reduction of glycogen
+            accumulation within the renal tubules when compared to the DM group.
+            These results indicate that Kefir treatment may contribute to better
+            control of glycemia and oxidative stress, which is associated with the
+            amelioration of renal function, suggesting its use as a
+            non-pharmacological adjuvant to delay the progression of diabetic
+            complications. (C) 2014 Elsevier Inc. All rights reserved.
+        </field>
+        <field name="address">USA</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.niox.2013.12.012</field>
+        <field name="ISSN">1089-8603</field>
+        <field name="EISSN">1089-8611</field>
+        <field name="keyword">Kefir</field>
+        <field name="keyword">Oxidative stress</field>
+        <field name="keyword">Nitric oxide</field>
+        <field name="keyword">Diabetes and renal function</field>
+        <field name="keyword-plus">C-REACTIVE PROTEIN</field>
+        <field name="keyword-plus">NITRIC-OXIDE</field>
+        <field name="keyword-plus">MELLITUS</field>
+        <field name="keyword-plus">KIDNEY</field>
+        <field name="keyword-plus">DIET</field>
+        <field name="keyword-plus">PERMEABILITY</field>
+        <field name="keyword-plus">NEPHROPATHY</field>
+        <field name="keyword-plus">DYSFUNCTION</field>
+        <field name="keyword-plus">DISEASE</field>
+        <field name="keyword-plus">MODELS</field>
+        <field name="research-areas">Biochemistry \&amp; Molecular Biology; Cell Biology</field>
+        <field name="web-of-science-categories">Biochemistry \&amp; Molecular Biology; Cell Biology</field>
+        <field name="number-of-cited-references">41</field>
+        <field name="times-cited">13</field>
+        <field name="journal-iso">Nitric Oxide-Biol. Chem.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331779600107</field>
+        <field name="title">Impregnation of cinnamaldehyde into cassava starch biocomposite films
+            using supercritical fluid technology for the development of food active
+            packaging
+        </field>
+        <field name="Author">Ana Cristina de Souza</field>
+        <field name="Author">Ana M. A. Dias</field>
+        <field name="Author">Herminio C. Sousa</field>
+        <field name="Author">Carmen C. Tadini</field>
+        <field name="publisher_journal_volume">ELSEVIER SCI LTD | CARBOHYDRATE POLYMERS | 102</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">In this work, supercritical solvent impregnation (SSI) has been tested
+            for the incorporation of natural compounds into biocomposite materials
+            for food packaging. Cinnamaldehyde, with proved antimicrobial activity
+            against fungi commonly found in bread products, was successfully
+            impregnated on biocomposite cassava starch based materials using
+            supercritical carbon dioxide as solvent. Different process experimental
+            conditions were tested (pressure, impregnation time and depressurization
+            rate) at a fixed temperature (35 C) in order to study their influence on
+            the amount of impregnated cinnamaldehyde as well as on the morphology of
+            the films. Results showed that all conditions permitted to impregnate
+            antimicrobial active amounts superior to those previously obtained using
+            conventional incorporation methods. Moreover, a significant decrease of
+            the equilibrium water vapor sorption capacity and water vapor
+            permeability of the films was observed after SSI processing which is a
+            clear advantage of the process, considering the envisaged applications.
+            (C) 2013 Elsevier Ltd. All rights reserved.
+        </field>
+        <field name="address">ENGLAND</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.carbpol.2013.10.082</field>
+        <field name="ISSN">0144-8617</field>
+        <field name="EISSN">1879-1344</field>
+        <field name="keyword">Cassava starch</field>
+        <field name="keyword">Antimicrobial agent</field>
+        <field name="keyword">Supercritical solvent impregnation</field>
+        <field name="keyword">Food packaging</field>
+        <field name="keyword-plus">ESCHERICHIA-COLI O157-H7</field>
+        <field name="keyword-plus">PLANT ESSENTIAL OILS</field>
+        <field name="keyword-plus">SOLVENT IMPREGNATION</field>
+        <field name="keyword-plus">EDIBLE FILMS</field>
+        <field name="keyword-plus">BARRIER PROPERTIES</field>
+        <field name="keyword-plus">WATER SORPTION</field>
+        <field name="keyword-plus">GLYCEROL</field>
+        <field name="keyword-plus">CLAY</field>
+        <field name="keyword-plus">GROWTH</field>
+        <field name="keyword-plus">SOLUBILITY</field>
+        <field name="research-areas">Chemistry; Polymer Science</field>
+        <field name="web-of-science-categories">Chemistry, Applied; Chemistry, Organic; Polymer Science</field>
+        <field name="number-of-cited-references">39</field>
+        <field name="times-cited">20</field>
+        <field name="journal-iso">Carbohydr. Polym.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331989900003</field>
+        <field name="title">Copper-tin electrodeposition from an acid solution containing EDTA added</field>
+        <field name="Author">E. P. Barbano</field>
+        <field name="Author">G. M. de Oliveira</field>
+        <field name="Author">M. F. de Carvalho</field>
+        <field name="Author">I. A. Carlos</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE SA | SURFACE \&amp; COATINGS TECHNOLOGY | 240</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">An acid Cu-Sn deposition bath was developed, containing EDTA (disodium
+            ethylenediaminetetraacetate) to sequester the copper(II) and tin(II)
+            ions, forming stable complexes in solution at pH 3.4. Voltammetric
+            studies showed that the onset of Cu-Sn codeposition started with
+            reduction of { [ } CuEDTA](2-) and { [ } Sn(H2O)(6)](2+) at potential more
+            negative than -0.90 V (first region of deposition). The reduction of
+            { [ } SnEDTA](2-) complexes occurs at potential more negative than -1.20 V
+            (second region of deposition), leading to Cu-Sn alloys with a higher tin
+            content. The hydrogen evolution reaction (HER) occurs in all range of
+            potential parallel to the Cu-Sn deposition. No nucleation loop was
+            observed in the voltammetric curves for Cu-Sn deposition due to HER.
+            Cu-Sn voltammetric deposition at various sweep rates indicated that the
+            deposition process may be controlled by mass transport and charge
+            transfer in both regions. The Sn content in the potentiostatic Cu-Sn
+            (Ed) change, from similar to 27.0 wt.\% to similar to 60.0 wt.\%, for a
+            constant composition of deposition bath. Cu-Sn deposit containing 43.6
+            wt.\% Sn was obtained from the acid EDTA bath investigated herein. The
+            color of the deposits was reddish (similar to 27.0 wt.\% Sn) and grayish
+            (similar to 32.0 wt.\% -similar to 60.0 wt.\% Sn).
+            Scanning electron microscopy images showed that the deposits produced at
+            -1.03 V and -1.30 V, for both deposition charge densities (q(d)), 2.55 C
+            cm(-2) and 8.47 C cm(-2), were composed of cauliflower-like particles,
+            which increased with qd, and that the deposits obtained at -1.30 V were
+            more compact than those formed at -1.03 V, for both qd, being this, the
+            main difference between these two types of deposits.
+            X-ray patterns of the deposits formed at E-d = -1.03 V, with either
+            q(d), using non-grazing incidence, indicated the presence of hcp-CuSn
+            and Cu3Sn phases. However, for E-d = -1.30 V were identified the Cu6Sn5
+            and Cu10Sn3 phases for q(d) = 2.55 C cm(-2) and only Cu6Sn5 phase for
+            q(d) = 8.47 C cm(-2). (C) 2013 Elsevier B.V. All rights reserved.
+        </field>
+        <field name="address">SWITZERLAND</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.surfcoat.2013.12.005</field>
+        <field name="ISSN">0257-8972</field>
+        <field name="keyword">Copper-tin</field>
+        <field name="keyword">Electrodeposition</field>
+        <field name="keyword">EDTA acid bath</field>
+        <field name="keyword">Voltammetry</field>
+        <field name="keyword-plus">CU-SN ALLOYS</field>
+        <field name="keyword-plus">ALKALINE BATH</field>
+        <field name="keyword-plus">MORPHOLOGICAL CHARACTERIZATION</field>
+        <field name="keyword-plus">PLATING</field>
+        <field name="keyword-plus">BATH</field>
+        <field name="keyword-plus">ZINC ELECTRODEPOSITION</field>
+        <field name="keyword-plus">SULFATE-SOLUTIONS</field>
+        <field name="keyword-plus">DEPOSITION</field>
+        <field name="keyword-plus">COATINGS</field>
+        <field name="keyword-plus">SORBITOL</field>
+        <field name="keyword-plus">FILMS</field>
+        <field name="research-areas">Materials Science; Physics</field>
+        <field name="web-of-science-categories">Materials Science, Coatings \&amp; Films; Physics, Applied</field>
+        <field name="number-of-cited-references">49</field>
+        <field name="times-cited">8</field>
+        <field name="journal-iso">Surf. Coat. Technol.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331851100007</field>
+        <field name="title">Forest biomass recovery after conventional and reduced-impact logging in
+            Amazonian Brazil
+        </field>
+        <field name="Author">Thales A. P. West</field>
+        <field name="Author">Edson Vidal</field>
+        <field name="Author">Francis E. Putz</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE BV | FOREST ECOLOGY AND MANAGEMENT | 314</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Growing concerns about unnecessarily destructive selective logging of
+            tropical forests and its impacts on greenhouse gas (GHG) emissions
+            motivated this study on post-logging biomass dynamics over a 16-year
+            period in a control plot and in plots subjected to conventional logging
+            (CL) or reduced-impact logging (RIL) in Paragominas, Para State, Brazil.
+            All trees &gt;25 cm were monitored in 25.4 ha plots of each treatment, each
+            with a subplot of 5.25 ha for trees &gt;10 cm dbh. The commercial timber
+            volumes in felled trees were 38.9 and 37.4 m(3) ha(-1) in the RIL and CL
+            plots, respectively, but the extracted volumes were 38.6 and 29.7 m(3)
+            ha(-1), respectively. Immediately after logging, plots subjected to RIL
+            and CL lost 17\% and 26\% of their above-ground biomass, respectively.
+            Over the 16 years after logging, the average annual increments in
+            above-ground biomass (recruitment plus residual tree growth minus
+            mortality) were 2.8 Mg ha(-1) year(-1) in the RIL plot but only 0.5 Mg
+            ha(-1) year in the CL plot. By 16 years post-logging, the RIL plot
+            recovered 100\% of its original above-ground biomass while the CL plot
+            recovered only 77\%; over the same period, biomass in the control plot
+            maintained 96\% of its initial stock. These findings reinforce the claim
+            that conversion from CL to RIL would represent an efficient forest-based
+            strategy to mitigate climate change under the REDD+ and would be an
+            important step towards sustainable forest management. (C) 2013 Elsevier
+            B.V. All rights reserved.
+        </field>
+        <field name="address">NETHERLANDS</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.foreco.2013.11.022</field>
+        <field name="ISSN">0378-1127</field>
+        <field name="EISSN">1872-7042</field>
+        <field name="keyword">Forest management</field>
+        <field name="keyword">Biomass</field>
+        <field name="keyword">Forest structure</field>
+        <field name="keyword">Climate change mitigation</field>
+        <field name="keyword">REDD</field>
+        <field name="keyword-plus">ABOVEGROUND LIVE BIOMASS</field>
+        <field name="keyword-plus">TROPICAL FORESTS</field>
+        <field name="keyword-plus">TIMBER PRODUCTION</field>
+        <field name="keyword-plus">EASTERN</field>
+        <field name="keyword-plus">AMAZONIA</field>
+        <field name="keyword-plus">CARBON STORAGE</field>
+        <field name="keyword-plus">MANAGEMENT</field>
+        <field name="keyword-plus">GROWTH</field>
+        <field name="research-areas">Forestry</field>
+        <field name="web-of-science-categories">Forestry</field>
+        <field name="number-of-cited-references">32</field>
+        <field name="times-cited">27</field>
+        <field name="journal-iso">For. Ecol. Manage.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331686300005</field>
+        <field name="title">Cellular bioenergetics changes in magnocellular neurons may affect
+            copeptin expression in the late phase of sepsis
+        </field>
+        <field name="Author">Gabriela R. Oliveira-Pelegrin</field>
+        <field name="Author">Paulo J. Basso</field>
+        <field name="Author">A. Maria Jose Rocha</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE BV | JOURNAL OF NEUROIMMUNOLOGY | 267</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">We investigated whether inflammatory mediators during cecal ligation and
+            puncture (CLP)-induced sepsis may diminish copeptin expression in
+            magnocellular neurons, thus affecting arginine-vasopressin (AVP)
+            synthesis. The transcript abundance of IL-1 beta, iNOS and HIF-1 alpha
+            was continuously elevated. IL-1 beta, iNOS and cytochrome c protein
+            levels progressively increased until 24 h. Immunostaining for these
+            proteins was higher at 6 and 24 h, as also seen in the annexin-V assay,
+            while copeptin was continuously decreased. This suggests that increased
+            IL-1 beta and NO levels may cause significant bioenergetics changes in
+            magnocellular neurons, affecting copeptin expression and compromising
+            AVP synthesis and secretion in the late phase of sepsis. (C) 2013
+            Elsevier B.V. All rights reserved.
+        </field>
+        <field name="address">NETHERLANDS</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.jneuroim.2013.12.006</field>
+        <field name="ISSN">0165-5728</field>
+        <field name="EISSN">1872-8421</field>
+        <field name="keyword">Supraoptic nucleus</field>
+        <field name="keyword">Oxidative stress</field>
+        <field name="keyword">Nitric oxide synthase</field>
+        <field name="keyword">Interleukin-1 beta</field>
+        <field name="keyword">Hypoxia-induced factor-1 alpha</field>
+        <field name="keyword">Apoptosis</field>
+        <field name="keyword-plus">NITRIC-OXIDE SYNTHASE</field>
+        <field name="keyword-plus">REAL-TIME PCR</field>
+        <field name="keyword-plus">SEPTIC SHOCK</field>
+        <field name="keyword-plus">VASOPRESSIN</field>
+        <field name="keyword-plus">PRECURSOR</field>
+        <field name="keyword-plus">POLYMICROBIAL SEPSIS</field>
+        <field name="keyword-plus">GENE-EXPRESSION</field>
+        <field name="keyword-plus">PARAVENTRICULAR</field>
+        <field name="keyword-plus">NUCLEUS</field>
+        <field name="keyword-plus">SYSTEMIC INFLAMMATION</field>
+        <field name="keyword-plus">STABLE PEPTIDE</field>
+        <field name="keyword-plus">BRAIN</field>
+        <field name="research-areas">Immunology; Neurosciences \&amp; Neurology</field>
+        <field name="web-of-science-categories">Immunology; Neurosciences</field>
+        <field name="number-of-cited-references">44</field>
+        <field name="times-cited">7</field>
+        <field name="journal-iso">J. Neuroimmunol.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331339700002</field>
+        <field name="title">When is a P-space weakly discretely generated</field>
+        <field name="Author">Ofelia T. Alas</field>
+        <field name="Author">Lucia R. Junqueira</field>
+        <field name="Author">Richard G. Wilson</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE BV | TOPOLOGY AND ITS APPLICATIONS | 163</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">A space X is discretely generated at a point x is an element of X if for
+            any A subset of X with x is an element of cl(A), there exists a discrete
+            set D subset of A such that x is an element of cl(D). The space X is
+            discretely generated if it is discretely generated at every point x is
+            an element of X. We say that X is weakly discretely generated if for any
+            non-closed set A subset of X, there exists a discrete set D subset of A
+            such that cl(D)\textbackslash { } A not equal empty set. We obtain new
+            results concerning these properties in the class of P-spaces. (C) 2013
+            Elsevier B.V. All rights reserved.
+        </field>
+        <field name="address">NETHERLANDS</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.topol.2013.10.001</field>
+        <field name="ISSN">0166-8641</field>
+        <field name="EISSN">1879-3207</field>
+        <field name="keyword">Discretely generated space</field>
+        <field name="keyword">Weakly discretely generated space</field>
+        <field name="keyword">P-space</field>
+        <field name="keyword">Lindelof space</field>
+        <field name="keyword">Countable extent</field>
+        <field name="keyword">Frechet net character</field>
+        <field name="keyword-plus">PRODUCTS</field>
+        <field name="keyword-plus">SETS</field>
+        <field name="research-areas">Mathematics</field>
+        <field name="web-of-science-categories">Mathematics, Applied; Mathematics</field>
+        <field name="number-of-cited-references">15</field>
+        <field name="times-cited">0</field>
+        <field name="journal-iso">Topology Appl.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000331654200001</field>
+        <field name="title">Dimensional reduction of the massless limit of the linearized `New
+            Massive Gravity'
+        </field>
+        <field name="Author">H. A. Biazotti</field>
+        <field name="Author">D. Dalmazi</field>
+        <field name="Author">G. B. de Gracia</field>
+        <field name="publisher_journal_volume">SPRINGER | EUROPEAN PHYSICAL JOURNAL C | 74</field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">The so-called `New Massive Gravity' in consists of the Einstein-Hilbert
+            action (with minus sign) plus a quadratic term in the curvature (-term).
+            Here we perform the Kaluza-Klein dimensional reduction of the linearized
+            -term to . We end up with fourth-order massive electrodynamics in ,
+            described by a rank-2 tensor. Remarkably, there appears a local symmetry
+            in , which persists even after gauging away the Stueckelberg fields of
+            the dimensional reduction. It plays the role of a gauge symmetry.
+            Although of higher order in the derivatives, the new 2D massive
+            electrodynamics is ghost free, as we show here. It is shown, via a
+            master action, to be dual to the Maxwell-Proca theory with a scalar
+            Stueckelberg field.
+        </field>
+        <field name="address">USA</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1140/epjc/s10052-014-2747-0</field>
+        <field name="ISSN">1434-6044</field>
+        <field name="EISSN">1434-6052</field>
+        <field name="keyword-plus">SPIN</field>
+        <field name="research-areas">Physics</field>
+        <field name="web-of-science-categories">Physics, Particles \&amp; Fields</field>
+        <field name="number-of-cited-references">15</field>
+        <field name="times-cited">0</field>
+        <field name="journal-iso">Eur. Phys. J. C</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000330913000011</field>
+        <field name="title">Enhanced photoabsorption properties of composites of Ti/TiO2 nanotubes
+            decorated by Sb2S3 and improvement of degradation of hair dye
+        </field>
+        <field name="Author">Guilherme Garcia Bessegato</field>
+        <field name="Author">Juliano Carvalho Cardoso</field>
+        <field name="Author">Bianca Ferreira da Silva</field>
+        <field name="Author">Maria Valnice Boldrin Zanoni</field>
+        <field name="publisher_journal_volume">ELSEVIER SCIENCE SA | JOURNAL OF PHOTOCHEMISTRY AND PHOTOBIOLOGY
+            A-CHEMISTRY | 276
+        </field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">The present work illustrates the great potentiality of Ti/TiO2/Sb2S3
+            composite electrode prepared by electrochemical anodization of Ti foil
+            in aqueous electrolyte (1 mol L-1 NaH2PO4 + 0.3 wt.\% HF followed by
+            chemical bath deposition of Sb2S3) in environmental electrochemistry.
+            The electrodes are characterized by deposits of particles of 500 nm of
+            diameter formed on the top of TiO2 nanotubes of 900 nm of length, 110 nm
+            of diameter and 13 nm of wall thickness. The band gap obtained for
+            Ti/TiO2/Sb2S3 composite electrode was 1.68 eV, contributing to strong
+            photoabsorption properties of the material in the visible light region
+            (lambda &lt;740 nm). The photocurrent on this material is remarkably
+            improved in relation to that obtained on comparable nanotubes TiO2
+            films. The electrodes promote complete degradation of the investigated
+            hair dyeing commercialized as ArianorTyrian Purple (R) after 120 min of
+            photoelectrocatalytic oxidation under potential of 1.2V and commercial
+            light irradiating under UV/Visible light. Finally, the degradation
+            products generated by photoelectrocatalysis were analyzed by HPLC-MS/MS.
+            (C) 2013 Elsevier B.V. All rights reserved.
+        </field>
+        <field name="address">SWITZERLAND</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.jphotochem.2013.12.001</field>
+        <field name="ISSN">1010-6030</field>
+        <field name="keyword">Bandgap engineering</field>
+        <field name="keyword">TiO2 nanotube arrays</field>
+        <field name="keyword">TiO2 modification</field>
+        <field name="keyword">Photoelectrochemical degradation</field>
+        <field name="keyword">Photoelectrochemistry</field>
+        <field name="keyword-plus">SEMICONDUCTOR THIN-FILMS</field>
+        <field name="keyword-plus">TIO2 NANOTUBE</field>
+        <field name="keyword-plus">PHOTOELECTROCATALYTIC</field>
+        <field name="keyword-plus">DEGRADATION</field>
+        <field name="keyword-plus">PHOTOCATALYTIC ACTIVITY</field>
+        <field name="keyword-plus">OPTICAL-PROPERTIES</field>
+        <field name="keyword-plus">ORGANIC</field>
+        <field name="keyword-plus">POLLUTANT</field>
+        <field name="keyword-plus">SOLAR-CELLS</field>
+        <field name="keyword-plus">ARRAYS</field>
+        <field name="keyword-plus">ELECTRODES</field>
+        <field name="keyword-plus">DEPOSITION</field>
+        <field name="research-areas">Chemistry</field>
+        <field name="web-of-science-categories">Chemistry, Physical</field>
+        <field name="number-of-cited-references">47</field>
+        <field name="times-cited">14</field>
+        <field name="journal-iso">J. Photochem. Photobiol. A-Chem.</field>
+    </doc>
+    <doc>
+        <field name="unique-id">ISI:000330153100016</field>
+        <field name="title">Lower bounds on the modified K-energy and complex deformations</field>
+        <field name="Author">Andrew Clarke</field>
+        <field name="Author">Carl Tipler</field>
+        <field name="publisher_journal_volume">ACADEMIC PRESS INC ELSEVIER SCIENCE | ADVANCES IN MATHEMATICS | 252
+        </field>
+        <field name="Year-Month">2010-2019|2014|FEB</field>
+        <field name="abstract">Let (X, L) be a polarized Kahler manifold that admits an extremal metric
+            in c(1) (L). We show that on a nearby polarized deformation (X', L')
+            that preserves the symmetry induced by the extremal vector field of (X,
+            L), the modified K-energy is bounded from below. This generalizes a
+            result of Chen, Szekelyhidi and Tosatti { [ } 8,35,38] to external metrics.
+            Our proof also extends a convexity inequality on the space of Kahler
+            potentials due to X.X. Chen { [ } 7] to the extremal metric setup. As an
+            application, we compute explicit polarized 4-points blow-ups of CP1 x
+            CP1 that carry no extremal metric but with modified K-energy bounded
+            from below. (C) 2013 Elsevier Inc. All rights reserved.
+        </field>
+        <field name="address">USA</field>
+        <field name="type">Article</field>
+        <field name="language">English</field>
+        <field name="DOI">10.1016/j.aim.2013.11.003</field>
+        <field name="ISSN">0001-8708</field>
+        <field name="EISSN">1090-2082</field>
+        <field name="keyword">Modified K-energy</field>
+        <field name="keyword">Extremal metrics</field>
+        <field name="keyword">Test configuration</field>
+        <field name="keyword">Complex</field>
+        <field name="keyword">deformation</field>
+        <field name="keyword-plus">EXTREMAL KAHLER-METRICS</field>
+        <field name="keyword-plus">SCALAR CURVATURE</field>
+        <field name="keyword-plus">PROJECTIVE EMBEDDINGS</field>
+        <field name="keyword-plus">STABILITY</field>
+        <field name="keyword-plus">MANIFOLDS</field>
+        <field name="keyword-plus">GEOMETRY</field>
+        <field name="keyword-plus">BUNDLES</field>
+        <field name="keyword-plus">THEOREM</field>
+        <field name="keyword-plus">SPACE</field>
+        <field name="research-areas">Mathematics</field>
+        <field name="web-of-science-categories">Mathematics</field>
+        <field name="number-of-cited-references">40</field>
+        <field name="times-cited">0</field>
+        <field name="journal-iso">Adv. Math.</field>
+    </doc>
+</add>

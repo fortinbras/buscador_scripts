@@ -1,0 +1,9 @@
+<add>
+    <doc>
+        <field name="NUMERO-IDENTIFICADOR">1807399214239200</field>
+        <field name="NOME-COMPLETO">Jose Silva</field>
+        <field name="TEXTO-RESUMO-CV-RH">resumo</field>
+        <field name="numero_artigos">X</field>
+        <field name="numero_idiomas">Y</field>
+    </doc>
+</add>
