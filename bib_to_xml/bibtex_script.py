@@ -4,6 +4,8 @@
 import os
 import re
 import bibtexparser as bp
+from bibtexparser.bparser import BibTexParser
+from bibtexparser.customization import homogenize_latex_encoding
 from lxml import etree
 
 
@@ -18,7 +20,7 @@ gerador.parse_bib()
 
     """
 
-    limit_docs_in_file = 5000
+    limit_docs_in_file = 40
     file_finish = 0
     path_save_xml = 'xml_out/'
     tree = []
@@ -70,11 +72,16 @@ gerador.parse_bib()
 
     def parse_bib(self):
         docs = []
+        parser = BibTexParser()
+        parser.customization = homogenize_latex_encoding
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith('.bib'):
                     with open(self.directory + file) as bibtex_file:
-                        bd = bp.load(bibtex_file)
+
+                        bd_str = bibtex_file.read()
+                        bd_str = bd_str.replace('\\{',' ')
+                        bd = bp.loads(bd_str)
                         bd = bd.entries_dict.items()
 
                     for key, item in bd:
@@ -97,25 +104,35 @@ gerador.parse_bib()
                         except KeyError:
                             pass
 
-                        title = ('title', item['title'][1:-1])
-                        doc.append(title)
-                        # print(title)
+                        try:
+                            title = ('title', item['title'][1:-1])
+                            doc.append(title)
+                            # print(title)
+                        except:
+                            pass
 
                         padrao = ',|\n|\*|;'
-                        authors = item['author']
-                        for author in re.split('\sand\s', authors):
-                            name_list = re.split(padrao, author)
-                            name_list.reverse()
-                            name = ('Author', (' '.join(name_list)).strip())
-                            doc.append(name)
+                        try:
+                            authors = item['author']
+                            for author in re.split('\sand\s', authors):
+                                name_list = re.split(padrao, author)
+                                name_list.reverse()
+                                name = ('Author', (' '.join(name_list)).strip())
+                                doc.append(name)
 
-                        docs.append(doc)
+                            docs.append(doc)
+                        except:
+                            pass
 
                         publisher = item['publisher'][1:-1]
                         journal = item['journal'][1:-1]
-                        volume = item['volume'][1:-1]
-                        pub_journal = ('publisher_journal_volume', "{}|{}|{}".format(publisher, journal, volume))
-                        doc.append(pub_journal)
+                        try:
+                            volume = item['volume'][1:-1]
+                            pub_journal = ('publisher_journal_volume', "{}|{}|{}".format(publisher, journal, volume))
+                            doc.append(pub_journal)
+                        except:
+                            pub_journal = ('publisher_journal_volume', "{}|{}| ".format(publisher, journal))
+                            doc.append(pub_journal)
 
                         # print(pub_journal)
 
@@ -126,34 +143,61 @@ gerador.parse_bib()
                             group = '2000-2009'
                         elif 2010 <= int(year) <= 2019:
                             group = '2010-2019'
-                        month = item['month'][1:5]
-                        year_month = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
-                        doc.append(year_month)
+                        else:
+                            group = ''
+
+                        try:
+
+                            month = item['month'][1:4]
+                            year_month = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
+                            doc.append(year_month)
+                        except:
+                            year_month = ('Year-Month', '{}|{}|'.format(group.strip(), year.strip()))
+                            doc.append(year_month)
                         # print(year_month)
 
-                        abstract = ('abstract', item['abstract'][1:-1])
-                        doc.append(abstract)
-                        # print(abstract)
+                        try:
+                            abstract = ('abstract', item['abstract'][1:-1])
+                            doc.append(abstract)
+                            # print(abstract)
+                        except:
+                            pass
 
-                        address = ('address', item['address'].split()[-2])
-                        doc.append(address)
-                        # print(address)
+                        try:
 
-                        type = ('type', item['type'][1:-1])
-                        doc.append(type)
-                        # print(type)
+                            address = ('address', (item['address'].split())[-1][0:-1])
+                            doc.append(address)
+                            print((item['address'].split())[-1][0:-1])
+                        except:
+                            pass
+                        try:
 
-                        language = ('language', item['language'][1:-1])
-                        doc.append(language)
-                        # print(language)
+                            type = ('type', item['type'][1:-1])
+                            doc.append(type)
+                            # print(type)
+                        except:
+                            pass
 
-                        DOI = ('DOI', item['doi'][1:-1])
-                        doc.append(DOI)
+                        try:
+                            language = ('language', item['language'][1:-1])
+                            doc.append(language)
+                            # print(language)
+                        except:
+                            pass
+
+                        try:
+
+                            DOI = ('DOI', item['doi'][1:-1])
+                            doc.append(DOI)
+                        except:
+                            pass
 
                         # print(DOI)
-
-                        ISSN = ('ISSN', item['issn'][1:-1])
-                        doc.append(ISSN)
+                        try:
+                            ISSN = ('ISSN', item['issn'][1:-1])
+                            doc.append(ISSN)
+                        except:
+                            pass
 
                         # print(ISSN)
 
@@ -192,7 +236,7 @@ gerador.parse_bib()
 
                         try:
                             web_of_science_categories = (
-                            'web-of-science-categories', item['web-of-science-categories'][1:-1])
+                                'web-of-science-categories', item['web-of-science-categories'][1:-1])
                             doc.append(web_of_science_categories)
 
                             # print(web_of_science_categories)

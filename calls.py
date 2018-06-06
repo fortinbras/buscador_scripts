@@ -9,9 +9,9 @@ bib = {
     'localhost': '192.168.0.212:8983',
     'content-type': 'text/xml'}
 
-bibxml = BibtoXML(bib['bib_folder'])
+bibxml = BibtoXML('/var/tmp/bibtex/')
 bibxml.parse_bib()  # gera XML
-
+print('ok')
 #######################################
 
 slorload = Solr_load_xml(bib['xml_folder'], bib['output'], bib['localhost'], bib['server_folder'],
