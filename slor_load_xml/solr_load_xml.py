@@ -31,18 +31,20 @@ class Solr_load_xml():
             for file in files:
                 if file.endswith(self.filetype):
                     self.asps.append(file)
+        print(len(self.asps))
         return self.asps
 
     def files_load(self):
 
         filelist = self.list_files()
         for file in filelist:
-            with open(file, 'rb') as data_file:
+            with open(self.directory+file, 'rb') as data_file:
                 my_data = data_file.read()
             req = urllib2.Request(
                 url='http://' + self.localhost + '/solr/' + self.server_folder + '/update?commit=true',
                 data=my_data)
             req.add_header('Content-type', self.content_type)
+            print 'conectando ...'
             f = urllib2.urlopen(req)
             print f.read()
 

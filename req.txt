@@ -1,0 +1,4 @@
+bibtexparser==1.0.1
+future==0.16.0
+lxml==4.2.1
+pyparsing==2.2.0
