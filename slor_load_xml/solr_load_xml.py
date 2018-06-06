@@ -1,10 +1,23 @@
+# -*- coding: utf-8 -*-
+
 import urllib2
 import os
 
 
-class solr_load_xml():
+class Solr_load_xml():
 
-    def __init__(self, directory, filetype, localhost,server_folder,content_type):
+    """
+    Classe realiza um POST pra uma determinada url no solr com uma lista de arquivos da maquina local
+    os parametros :
+    directory - Path para a pasta local ex.'c:/root/folder'
+    filetype - extensão do arquivo em formato de string ex. '.xml'
+    localhost - dominio do servidor ex. 'localhost:8983'
+    server_folder - pasta no servidor que os arquivos serão enviados ex.'lattes'
+    Content_type - adiciona o tipo do conteudo no cabecalho ex 'text/xml'
+
+    """
+
+    def __init__(self, directory, filetype, localhost, server_folder, content_type):
 
         self.directory = directory
         self.filetype = filetype
@@ -20,17 +33,17 @@ class solr_load_xml():
                     self.asps.append(file)
         return self.asps
 
-    def Files_load(self):
+    def files_load(self):
 
         filelist = self.list_files()
         for file in filelist:
             with open(file, 'rb') as data_file:
                 my_data = data_file.read()
-            req = urllib2.Request(url='http://'+self.localhost+'/solr/'+self.server_folder+'/update?commit=true',
-                                  data=my_data)
+            req = urllib2.Request(
+                url='http://' + self.localhost + '/solr/' + self.server_folder + '/update?commit=true',
+                data=my_data)
             req.add_header('Content-type', self.content_type)
             f = urllib2.urlopen(req)
             print f.read()
-
 
 # 'http://localhost:8983/solr/lattes/update?commit=true'

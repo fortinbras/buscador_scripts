@@ -1,1 +1,2 @@
-from solr_load_xml import solr_load_xml
+from solr_load_xml import Solr_load_xml
+
