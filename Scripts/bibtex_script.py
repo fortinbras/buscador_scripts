@@ -1,10 +1,4 @@
-# 'unique-id', 'doc-delivery-number', \
-# 'journal-iso', 'times-cited', 'number-of-cited-references', \
-# 'funding-text', 'funding-acknowledgement', 'orcid-numbers', \
-# 'researcherid-numbers', 'author-email', 'web-of-science-categories', 'research-areas', \
-# 'keywords-plus', 'eissn', 'issn', 'article-number', 'doi', 'affiliation', 'language', \
-# 'type', 'address', 'publisher', 'abstract',
-# 'month', 'number', 'volume', 'year', 'journal', 'title', 'author', 'ENTRYTYPE', 'ID']
+# -*- coding: utf-8 -*-
 
 # !/usr/bin/python
 import sys
@@ -23,12 +17,21 @@ def bibTOxml(bibfile, outfile):
         article = key
 
         try:
+            unique_id = ('id', item['unique-id'][6:-1])
+            doc.append(unique_id)
+
+            # print(unique_id)
+        except KeyError:
+            pass
+
+        try:
             unique_id = ('unique-id', item['unique-id'][1:-1])
             doc.append(unique_id)
 
             # print(unique_id)
         except KeyError:
             pass
+
         title = ('title', item['title'][1:-1])
         doc.append(title)
         # print(title)
@@ -197,7 +200,7 @@ def bibTOxml(bibfile, outfile):
         xml_filename = 'output'
 
         def __init__(self, **kwargs):
-            for key, value in kwargs.items():
+            for key, value in kwargs.iteritems():
                 # cria variveis de todos os atributos passados com chave valor
                 setattr(self, key, value)
 

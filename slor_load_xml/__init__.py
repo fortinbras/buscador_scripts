@@ -1,0 +1,1 @@
+from solr_load_xml import solr_load_xml
