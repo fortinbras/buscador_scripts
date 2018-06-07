@@ -3,10 +3,9 @@
 # !/usr/bin/python
 import os
 import re
-import bibtexparser as bp
-from bibtexparser.bparser import BibTexParser
-from bibtexparser.customization import homogenize_latex_encoding
 from lxml import etree
+from bibtexparser.bparser import BibTexParser
+from bibtexparser.bibdatabase import as_text
 
 
 class BibtoXML(object):
@@ -20,7 +19,7 @@ gerador.parse_bib()
 
     """
 
-    limit_docs_in_file = 40
+    limit_docs_in_file = 5000
     file_finish = 0
     path_save_xml = 'xml_out/'
     tree = []
@@ -72,16 +71,13 @@ gerador.parse_bib()
 
     def parse_bib(self):
         docs = []
-        parser = BibTexParser()
-        parser.customization = homogenize_latex_encoding
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith('.bib'):
+                    print(file)
                     with open(self.directory + file) as bibtex_file:
-
-                        bd_str = bibtex_file.read()
-                        bd_str = bd_str.replace('\\{',' ')
-                        bd = bp.loads(bd_str)
+                        bp = BibTexParser()
+                        bd = bp.parse_file(bibtex_file, partial=True)
                         bd = bd.entries_dict.items()
 
                     for key, item in bd:
@@ -89,7 +85,7 @@ gerador.parse_bib()
                         article = key
 
                         try:
-                            unique_id = ('id', item['unique-id'][6:-1])
+                            unique_id = ('id', (item['unique-id'][6:-1]).strip())
                             doc.append(unique_id)
 
                             # print(unique_id)
@@ -97,7 +93,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            unique_id = ('unique-id', item['unique-id'][1:-1])
+                            unique_id = ('unique-id', (item['unique-id'][1:-1]).strip())
                             doc.append(unique_id)
 
                             # print(unique_id)
@@ -105,7 +101,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            title = ('title', item['title'][1:-1])
+                            title = ('title', (item['title'][1:-1]).strip())
                             doc.append(title)
                             # print(title)
                         except:
@@ -120,89 +116,111 @@ gerador.parse_bib()
                                 name = ('Author', (' '.join(name_list)).strip())
                                 doc.append(name)
 
-                            docs.append(doc)
-                        except:
+                            # docs.append(doc)
+                        except KeyError:
                             pass
 
-                        publisher = item['publisher'][1:-1]
-                        journal = item['journal'][1:-1]
                         try:
-                            volume = item['volume'][1:-1]
-                            pub_journal = ('publisher_journal_volume', "{}|{}|{}".format(publisher, journal, volume))
-                            doc.append(pub_journal)
-                        except:
-                            pub_journal = ('publisher_journal_volume', "{}|{}| ".format(publisher, journal))
-                            doc.append(pub_journal)
+                            publisher = (item['publisher'][1:-1]).strip()
+                            journal = (item['journal'][1:-1]).strip()
+
+                            try:
+                                volume = item['volume'][1:-1]
+                                pub_journal = ('publisher_journal_volume',
+                                               "{}|{}|{}".format(publisher.strip(), journal.strip(), volume.strip()))
+                                doc.append(pub_journal)
+                            except:
+                                pub_journal = (
+                                    'publisher_journal_volume', "{}|{}| ".format(publisher.strip(), journal.strip()))
+                                doc.append(pub_journal)
+                        except KeyError:
+                            pass
 
                         # print(pub_journal)
+                        try:
 
-                        year = item['year'][1:-1]
-                        if 1990 <= int(year) <= 1999:
-                            group = '1990-1999'
-                        elif 2000 <= int(year) <= 2009:
-                            group = '2000-2009'
-                        elif 2010 <= int(year) <= 2019:
-                            group = '2010-2019'
-                        else:
-                            group = ''
+                            year = item['year'][1:-1]
+                            if 1990 <= int(year) <= 1999:
+                                group = '1990-1999'
+                            elif 2000 <= int(year) <= 2009:
+                                group = '2000-2009'
+                            elif 2010 <= int(year) <= 2019:
+                                group = '2010-2019'
+                            else:
+                                group = ''
+                        except:
+                            continue
 
                         try:
 
                             month = item['month'][1:4]
                             year_month = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
                             doc.append(year_month)
-                        except:
+                        except KeyError:
                             year_month = ('Year-Month', '{}|{}|'.format(group.strip(), year.strip()))
                             doc.append(year_month)
                         # print(year_month)
 
                         try:
-                            abstract = ('abstract', item['abstract'][1:-1])
+                            abstract = ('abstract', (item['abstract'][1:-1]).strip())
                             doc.append(abstract)
                             # print(abstract)
-                        except:
+                        except KeyError:
                             pass
 
                         try:
 
-                            address = ('address', (item['address'].split())[-1][0:-1])
+                            address = ('address', ((item['address'].split())[-2]).strip())
                             doc.append(address)
-                            print((item['address'].split())[-1][0:-1])
+                            # print((item['address'].split())[-1][0:-1])
                         except:
                             pass
+
                         try:
 
-                            type = ('type', item['type'][1:-1])
-                            doc.append(type)
+                            tipe = ('type', (item['type'][1:-1]).strip())
+                            doc.append(tipe)
                             # print(type)
-                        except:
+                        except KeyError:
                             pass
 
+
                         try:
-                            language = ('language', item['language'][1:-1])
+
+                            affiliations = (item['affiliation']).split('\n')
+                            for aff in affiliations:
+                                affiliation = ('affiliation',aff)
+                                doc.append(affiliation)
+                                # print(type)
+                        except KeyError:
+                            pass
+
+
+                        try:
+                            language = ('language', (item['language'][1:-1]).strip())
                             doc.append(language)
                             # print(language)
-                        except:
+                        except KeyError:
                             pass
 
                         try:
 
-                            DOI = ('DOI', item['doi'][1:-1])
+                            DOI = ('DOI', (item['doi'][1:-1]).strip())
                             doc.append(DOI)
-                        except:
+                        except KeyError:
                             pass
 
                         # print(DOI)
                         try:
-                            ISSN = ('ISSN', item['issn'][1:-1])
+                            ISSN = ('ISSN', (item['issn'][1:-1]).strip())
                             doc.append(ISSN)
-                        except:
+                        except KeyError:
                             pass
 
                         # print(ISSN)
 
                         try:
-                            EISSN = ('EISSN', item['eissn'][1:-1])
+                            EISSN = ('EISSN', (item['eissn'][1:-1]).strip())
                             doc.append(EISSN)
 
                             # print(EISSN)
@@ -213,7 +231,7 @@ gerador.parse_bib()
                             keywords = re.split(padrao, item['keywords'][1:-1])
                             for k in keywords:
                                 if k:
-                                    doc.append(('keyword', k))
+                                    doc.append(('keyword', k.strip()))
 
                         except KeyError:
                             pass
@@ -222,12 +240,12 @@ gerador.parse_bib()
                             keywords_plus = re.split(padrao, (item['keywords-plus'][1:-1]).strip())
                             for k in keywords_plus:
                                 if k:
-                                    doc.append(('keyword-plus', k))
+                                    doc.append(('keyword-plus', k.strip()))
                         except KeyError:
                             pass
 
                         try:
-                            research_area = ('research-areas', item['research-areas'][1:-1])
+                            research_area = ('research-areas', (item['research-areas'][1:-1]).strip())
                             doc.append(research_area)
 
                             # print(research_area)
@@ -236,7 +254,7 @@ gerador.parse_bib()
 
                         try:
                             web_of_science_categories = (
-                                'web-of-science-categories', item['web-of-science-categories'][1:-1])
+                                'web-of-science-categories', (item['web-of-science-categories'][1:-1]).strip())
                             doc.append(web_of_science_categories)
 
                             # print(web_of_science_categories)
@@ -244,13 +262,15 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            funding_acknowledgement = ('funding-acknowledgement', item['funding-acknowledgement'][1:-1])
+                            funding_acknowledgement = (
+                                'funding-acknowledgement', (item['funding-acknowledgement'][1:-1]).strip())
                             # print(funding_acknowledgement)
                         except KeyError:
                             pass
 
                         try:
-                            nro_cited_ref = ('number-of-cited-references', item['number-of-cited-references'][1:-1])
+                            nro_cited_ref = (
+                                'number-of-cited-references', (item['number-of-cited-references'][1:-1]).strip())
                             doc.append(nro_cited_ref)
 
                             # print(nro_cited_ref)
@@ -258,21 +278,26 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            times_cited = ('times-cited', item['times-cited'][1:-1])
+                            times_cited = ('times-cited', (item['times-cited'][1:-1]).strip())
                             doc.append(times_cited)
 
                             # print(times_cited)
                         except KeyError:
                             pass
 
+
                         try:
-                            journal_iso = ('journal-iso', item['journal-iso'][1:-1])
+                            journal_iso = ('journal-iso', (item['journal-iso'][1:-1]).strip())
                             doc.append(journal_iso)
 
                             # print(journal_iso)
                         except KeyError:
                             pass
 
+                        docs.append(doc)
+
+
                         print("#######################")
+                print(file)
         for doc in docs:
             self.generateDoc(doc)
