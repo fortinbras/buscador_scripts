@@ -1,6 +1,9 @@
 # coding=utf-8
 
 import pandas as pd
+import os
+
+from Transform.utils import gYear
 
 
 def catg_adm_inst(cod):
@@ -107,10 +110,54 @@ def cod_moda(cod):
     return value
 
 
-df = pd.read_csv('../data/MICRODADOS_ENADE_2016.txt', sep=';')
-df1 = df.iloc[:, 0:21]
+def generate_csv(input,output,lista_municipios):
+    colunas = [
+        'NU_ANO',
+        'CO_IES',
+        'CO_CATEGAD',
+        'CO_ORGACAD',
+        'CO_GRUPO',
+        'CO_CURSO',
+        'CO_MODALIDADE',
+        'CO_MUNIC_CURSO',
+        'CO_UF_CURSO',
+        # 'CO_REGIAO_CURSO',
+        'NU_IDADE',
+        'TP_SEXO',
+        'ANO_FIM_2G',
+        'ANO_IN_GRAD',
+        # 'TP_SEMESTRE',
+        # 'IN_MATUT',
+        # 'IN_VESPER',
+        # 'IN_NOTURNO',
+        # 'ID_STATUS',
+        # 'AMOSTRA',
+        # 'IN_GRAD'
+    ]
 
-df1.collums = ['']
-df1.CO_CATEGAD = df1.loc[:, 'CO_CATEGAD'].apply(catg_adm_inst)
-df1.CO_ORGACAD = df1.loc[:, 'CO_ORGACAD'].apply(catg_acad_inst)
-df1.CO_GRUPO = df1.loc[:, 'CO_GRUPO'].apply(area_enquad)
+    df = pd.read_csv(input, sep=';')
+    df1 = df.loc[:, colunas]
+
+    df1.CO_CATEGAD = df1.loc[:, 'CO_CATEGAD'].apply(catg_adm_inst)
+    df1.CO_ORGACAD = df1.loc[:, 'CO_ORGACAD'].apply(catg_acad_inst)
+    df1.CO_GRUPO = df1.loc[:, 'CO_GRUPO'].apply(area_enquad)
+    df1.CO_MODALIDADE = df1.loc[:, 'CO_MODALIDADE'].apply(cod_moda)
+
+    municipios = pd.read_csv(lista_municipios, sep=';')
+    municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
+    df1[['CO_MUNIC_CURSO', 'CO_UF_CURSO']] = pd.merge(df1, municipios, on=['CO_MUNIC_CURSO']).loc[:,
+                                             ['NOME DO MUNICÍPIO', 'UF']]
+
+    df1['CO_MUNIC_CURSO'] = df1['CO_MUNIC_CURSO'].astype(str) + ';' + df1['CO_UF_CURSO'].astype(str)
+    df1.rename(columns={'CO_MUNIC_CURSO': 'Cidade;Estado'})
+    del (df1['CO_UF_CURSO'])
+    df1['GRUPO_ANO'] = gYear(2016)
+
+    outdir = './enade2016_out'
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+
+    fullname = os.path.join(outdir, output)
+
+
+    df1.to_csv(fullname, sep='|', index=False)

@@ -5,7 +5,8 @@ import os
 import re
 from lxml import etree
 from bibtexparser.bparser import BibTexParser
-from bibtexparser.bibdatabase import as_text
+from Transform.utils import gYear
+
 
 
 class BibtoXML(object):
@@ -74,12 +75,11 @@ gerador.parse_bib()
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith('.bib'):
-                    print(file)
                     with open(self.directory + file) as bibtex_file:
                         bp = BibTexParser()
                         bd = bp.parse_file(bibtex_file, partial=True)
                         bd = bd.entries_dict.items()
-
+                    content = 0
                     for key, item in bd:
                         doc = []
                         article = key
@@ -140,14 +140,8 @@ gerador.parse_bib()
                         try:
 
                             year = item['year'][1:-1]
-                            if 1990 <= int(year) <= 1999:
-                                group = '1990-1999'
-                            elif 2000 <= int(year) <= 2009:
-                                group = '2000-2009'
-                            elif 2010 <= int(year) <= 2019:
-                                group = '2010-2019'
-                            else:
-                                group = ''
+                            group = gYear(int(year))
+
                         except:
                             continue
 
@@ -184,17 +178,15 @@ gerador.parse_bib()
                         except KeyError:
                             pass
 
-
                         try:
 
                             affiliations = (item['affiliation']).split('\n')
                             for aff in affiliations:
-                                affiliation = ('affiliation',aff)
+                                affiliation = ('affiliation', aff)
                                 doc.append(affiliation)
                                 # print(type)
                         except KeyError:
                             pass
-
 
                         try:
                             language = ('language', (item['language'][1:-1]).strip())
@@ -245,16 +237,18 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            research_area = ('research-areas', (item['research-areas'][1:-1]).strip())
-                            doc.append(research_area)
 
+                            research_area = (
+                                'research-areas', ((item['research-areas'][1:-1]).replace('; ', '|')).strip())
+                            doc.append(research_area)
                             # print(research_area)
                         except KeyError:
                             pass
 
                         try:
                             web_of_science_categories = (
-                                'web-of-science-categories', (item['web-of-science-categories'][1:-1]).strip())
+                                'web-of-science-categories',
+                                ((item['web-of-science-categories'][1:-1]).replace('; ', '|')).strip())
                             doc.append(web_of_science_categories)
 
                             # print(web_of_science_categories)
@@ -285,7 +279,6 @@ gerador.parse_bib()
                         except KeyError:
                             pass
 
-
                         try:
                             journal_iso = ('journal-iso', (item['journal-iso'][1:-1]).strip())
                             doc.append(journal_iso)
@@ -295,9 +288,10 @@ gerador.parse_bib()
                             pass
 
                         docs.append(doc)
-
-
-                        print("#######################")
-                print(file)
+                        content += 1
+                        print(content)
+                    print(file)
         for doc in docs:
             self.generateDoc(doc)
+
+        self.save_xml()
