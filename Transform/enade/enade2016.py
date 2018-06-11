@@ -110,7 +110,7 @@ def cod_moda(cod):
     return value
 
 
-def generate_csv(input,output,lista_municipios):
+def generate_csv(input,output,lista_municipios='Transform/enade/lista_municipios.csv'):
     colunas = [
         'NU_ANO',
         'CO_IES',
@@ -153,7 +153,7 @@ def generate_csv(input,output,lista_municipios):
     del (df1['CO_UF_CURSO'])
     df1['GRUPO_ANO'] = gYear(2016)
 
-    outdir = './enade2016_out'
+    outdir = './enade2016_out/'
     if not os.path.exists(outdir):
         os.mkdir(outdir)
 
