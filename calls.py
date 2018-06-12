@@ -25,7 +25,7 @@ def executa(coll):
         slorload = Solr_load_xml(param[2], param[1], param[3], param[4], param[5])
         slorload.files_load()  # carrega no server
     elif coll == 'enade2016':
-        generate_csv('/home/giuseppe/Dados/ENADE_2016.txt','ENADE_2016.CSV')
+        generate_csv('/home/giuseppe/dados/ENADE_2016.txt','ENADE_2016.CSV')
     else:
         print('digite collection como parametro')
 

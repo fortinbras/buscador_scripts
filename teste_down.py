@@ -12,14 +12,13 @@ r = requests.get(url)
 html_doc = r.text
 
 # create a BeautifulSoup object from the HTML: soup
-soup = BeautifulSoup(html_doc)
+soup = BeautifulSoup(html_doc, 'lxml')
+soup.prettify()
 
-# Print the title of Guido's webpage
-print(soup.title)
+all_hrefs = soup.find_all('a')
+all_links = [link.get('href') for link in all_hrefs]
 
-# Find all 'a' tags (which define hyperlinks): a_tags
-a_tags = soup.find_all('a')
+for link in all_links:
+    if link and ('.zip' and 'superior') in link:
+        print(link)
 
-# Print the URLs to the shell
-for link in a_tags:
-    print(link.get('href'))

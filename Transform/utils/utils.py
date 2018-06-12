@@ -16,3 +16,4 @@ def gYear(year):
              return i
 
 
+print gYear(2000)
