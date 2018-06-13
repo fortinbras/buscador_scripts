@@ -110,7 +110,7 @@ def cod_moda(cod):
     return value
 
 
-def generate_csv(input,output,lista_municipios='Transform/enade/lista_municipios.csv'):
+def generate_csv(input,output,lista_municipios='Transform/utils/lista_municipios.csv'):
     colunas = [
         'NU_ANO',
         'CO_IES',

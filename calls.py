@@ -30,6 +30,9 @@ def executa(coll):
         print('digite collection como parametro')
 
 
+
+
+
 if __name__ == "__main__":
     try:
         executa(sys.argv[1])
