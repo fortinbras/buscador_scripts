@@ -3,7 +3,7 @@
 import pandas as pd
 import os
 
-from Transform.utils import gYear
+from transform.utils import gYear
 
 
 def catg_adm_inst(cod):
@@ -110,7 +110,7 @@ def cod_moda(cod):
     return value
 
 
-def generate_csv(input,output,lista_municipios='Transform/utils/lista_municipios.csv'):
+def generate_csv(input,output,lista_municipios='transform/utils/lista_municipios.csv'):
     colunas = [
         'NU_ANO',
         'CO_IES',

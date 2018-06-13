@@ -5,7 +5,7 @@ import os
 import re
 from lxml import etree
 from bibtexparser.bparser import BibTexParser
-from Transform.utils import gYear
+from transform.utils import gYear
 
 
 
@@ -288,8 +288,8 @@ gerador.parse_bib()
                             pass
 
                         docs.append(doc)
-                        content += 1
-                        print(content)
+                        #content += 1
+                        #print(content)
                     print(file)
         for doc in docs:
             self.generateDoc(doc)

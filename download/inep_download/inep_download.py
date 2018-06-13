@@ -38,7 +38,7 @@ all_links = {
 
 
 def download_censo_superior(ano):
-    dir_destino = '/var/tmp/inep/' + ano + '/'
+    dir_destino = '/var/tmp/inep/' + str(ano) + '/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'

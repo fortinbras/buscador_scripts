@@ -2,6 +2,7 @@
 import pandas as pd
 import os
 import numpy as np
+import codecs
 
 def gYear(year):
     ini = 1940
@@ -36,7 +37,7 @@ def pega_arquivo_por_ano(ano):
     for root, dirs, files in os.walk(var):
         for file in files:
             if file.endswith(".CSV"):
-                arquivo = open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
 
                 # !!! O script procura o arquivo CSV ordenado.
                 # ( head -n1 DM_DOCENTE.CSV; tail -n+2 DM_DOCENTE.CSV | sort -n --field-separator='|' --key=9 ) > DM_DOCENTE_SORTED.CSV
@@ -128,6 +129,8 @@ def resolve_dicionarios(ano):
         df[d] = df[d].astype(str).replace(SIM_NAO)
 
     municipios = pd.read_csv('lista_municipios.csv', sep=';')
+    municipios['CÓDIGO DO MUNICÍPIO'] = municipios['CÓDIGO DO MUNICÍPIO'].astype(str)
+    municipios['CÓDIGO DO MUNICÍPIO'] = map(lambda x: x.encode('cp1252', 'strict'), municipios['CÓDIGO DO MUNICÍPIO'])
     municipios['Regiao'] = municipios['CÓDIGO DO MUNICÍPIO'].apply(find_regiao)
     municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNICIPIO_NASCIMENTO'}, inplace=True)
 
@@ -148,7 +151,7 @@ def resolve_dicionarios(ano):
 
 def gera_csv(ano):
     df = resolve_dicionarios(ano)
-    df.to_csv('docentes_vinculo_ies.csv', sep=';', index=False, encoding='utf8')
+    df.to_csv('docentes_vinculo_ies_'+str(ano)+'.csv', sep=';', index=False, encoding='utf8')
 
 
 if __name__ == "__main__":
@@ -159,3 +162,4 @@ if __name__ == "__main__":
     for ano in anos:
         print(ano)
         gera_csv(ano)
+        print 'fim'+ano
