@@ -23,7 +23,7 @@ class inepVincDocentes(object):
 
                     # !!! O script procura o arquivo CSV ordenado.
                     # ( head -n1 DM_DOCENTE.CSV; tail -n+2 DM_DOCENTE.CSV | sort -n --field-separator='|' --key=9 ) > DM_DOCENTE_SORTED.CSV
-                    if file == 'DM_DOCENTE.CSV':
+                    if file == 'DM_ALUNO.CSV':
                         df_docentes = pd.read_csv(arquivo, sep='|', encoding='cp1252')
                     elif file == 'DM_IES.CSV':
                         df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252')

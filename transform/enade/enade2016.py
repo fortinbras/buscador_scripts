@@ -1,163 +1,173 @@
 # coding=utf-8
 
 import pandas as pd
-import os
-
-from transform.utils import gYear
-
-
-def catg_adm_inst(cod):
-    if cod == 93:
-        value = 'Pessoa Jurídica de Direito Público - Federal'
-    elif cod == 115:
-        value = 'Pessoa Jurídica de Direito Público - Estadual'
-    elif cod == 116:
-        value = 'Pessoa Jurídica de Direito Público - Municipal'
-    elif cod == 118:
-        value = 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Civil'
-    elif cod == 121:
-        value = 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Fundação'
-    elif cod == 10001:
-        value = 'Pessoa Jurídica de Direito Público - Estadual'
-    elif cod == 10002:
-        value = 'Pessoa Jurídica de Direito Público - Federal'
-    elif cod == 10003:
-        value = 'Pessoa Jurídica de Direito Público - Municipal'
-    elif cod == 10004:
-        value = 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Associação de Utilidade Pública'
-    elif cod == 10005:
-        value = 'Privada com fins lucrativos'
-    elif cod == 10006:
-        value = 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Mercantil ou Comercial'
-    elif cod == 10007:
-        value = 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Associação de Utilidade Pública'
-    elif cod == 10008:
-        value = 'Privada sem fins lucrativos'
-    elif cod == 10009:
-        value = 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Sociedade'
-    elif cod == 17634:
-        value = 'Fundação Pública de Direito Privado Municípal'
-    else:
-        value = cod
-    return value
+import os, errno
+import codecs
+from utils.utils import gYear,find_regiao
 
 
-def catg_acad_inst(cod):
-    if cod == 10019:
-        value = 'Centro Federal de Educação Tecnológica'
-    elif cod == 10020:
-        value = 'Centro Universitário'
-    elif cod == 10022:
-        value = 'Faculdade'
-    elif cod == 10026:
-        value = 'Instituto Federal de Educação, Ciência e Tecnologia'
-    elif cod == 10028:
-        value = 'Universidade'
-    else:
-        value = cod
-    return value
+class Enade(object):
+
+    def __init__(self, ano):
+        self.ano = ano
+
+    def pega_arquivo_ano(self, ano):
+        colunas = [
+            'NU_ANO',
+            'CO_IES',
+            'CO_CATEGAD',
+            'CO_ORGACAD',
+            'CO_GRUPO',
+            'CO_CURSO',
+            'CO_MODALIDADE',
+            'CO_MUNIC_CURSO',
+            'CO_UF_CURSO',
+            'CO_REGIAO_CURSO',
+            'NU_IDADE',
+            'TP_SEXO',
+            'ANO_FIM_2G',
+            'ANO_IN_GRAD',
+            'TP_SEMESTRE',
+            'IN_MATUT',
+            'IN_VESPER',
+            'IN_NOTURNO',
+            'ID_STATUS',
+            'AMOSTRA',
+            'IN_GRAD', 'QE_I01',
+            'QE_I02',
+            'QE_I03',
+            'QE_I04',
+            'QE_I05',
+            'QE_I06',
+            'QE_I07',
+            'QE_I08',
+            'QE_I09',
+            'QE_I10',
+            'QE_I11',
+            'QE_I12',
+            'QE_I13',
+            'QE_I14',
+            'QE_I15',
+            'QE_I16',
+            'QE_I17',
+            'QE_I18',
+            'QE_I19',
+            'QE_I20',
+            'QE_I21',
+            'QE_I22',
+            'QE_I23',
+            'QE_I24',
+            'QE_I25',
+            'QE_I26',
+        ]
+        """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
+        var = '/var/tmp/enade/' + str(ano) + '/download/'
+
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                if file.endswith(".txt"):
+                    arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                    df_enade = pd.read_csv(arquivo, sep=';')
+                    df_enade = df_enade.loc[:, colunas]
+
+        try:
+            return df_enade
+        except:
+            pass
+
+    def resolver_dicionario_2016(self, ano):
+        df_enade = self.pega_arquivo_ano(ano)
+        CO_CATEGAD = {
+            '93': 'Pessoa Jurídica de Direito Público - Federal',
+            '115': 'Pessoa Jurídica de Direito Público - Estadual',
+            '116': 'Pessoa Jurídica de Direito Público - Municipal',
+            '118': 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Civil',
+            '121': 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Fundação',
+            '10001': 'Pessoa Jurídica de Direito Público - Estadual',
+            '10002': 'Pessoa Jurídica de Direito Público - Federal',
+            '10003': 'Pessoa Jurídica de Direito Público - Municipal',
+            '10004': 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Associação de Utilidade Pública',
+            '10005': 'Privada com fins lucrativos',
+            '10006': 'Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Mercantil ou Comercial',
+            '10007': 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Associação de Utilidade Pública',
+            '10008': 'Privada sem fins lucrativos',
+            '10009': 'Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Sociedade',
+            '17634': 'Fundação Pública de Direito Privado Municípal', }
+        CO_ORGACAD = {
+            '10019': 'Centro Federal de Educação Tecnológica',
+            '10020': 'Centro Universitário',
+            '10022': 'Faculdade',
+            '10026': 'Instituto Federal de Educação, Ciência e Tecnologia',
+            '10028': 'Universidade', }
+        CO_GRUPO = {'5': 'MEDICINA VETERINÁRIA',
+                    '6': 'ODONTOLOGIA',
+                    '12': 'MEDICINA',
+                    '17': 'AGRONOMIA',
+                    '19': 'FARMÁCIA',
+                    '23': 'ENFERMAGEM',
+                    '27': 'FONOAUDIOLOGIA',
+                    '28': 'NUTRIÇÃO',
+                    '36': 'FISIOTERAPIA',
+                    '38': 'SERVIÇO SOCIAL',
+                    '51': 'ZOOTECNIA',
+                    '55': 'BIOMEDICINA',
+                    '69': 'TECNOLOGIA EM RADIOLOGIA',
+                    '90': 'TECNOLOGIA EM AGRONEGÓCIOS',
+                    '91': 'TECNOLOGIA EM GESTÃO HOSPITALAR',
+                    '92': 'TECNOLOGIA EM GESTÃO AMBIENTAL',
+                    '95': 'TECNOLOGIA EM ESTÉTICA E COSMÉTICA',
+                    '3501': 'EDUCAÇÃO FÍSICA (BACHARELADO)', }
+        CO_MODALIDADE = {
+            '0': 'EAD',
+            '1': 'Presencial'}
+        municipios = pd.read_csv('../../lista_municipios.csv', sep=';')
+        municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
+        municipios['Regiao'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
+        df_enade['CO_CATEGAD'] = df_enade['CO_CATEGAD'].astype(str).replace(CO_CATEGAD)
+        df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(CO_ORGACAD)
+        df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(CO_GRUPO)
+        df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(CO_MODALIDADE)
+        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
+        df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios,
+                                                                         how='left', on=[
+                'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'Regiao']]
+        df_enade['Ano_facet'] = gYear(2016)
+        df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
+            str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
+        del (df_enade['CO_MUNIC_CURSO'])
+        del (df_enade['CO_UF_CURSO'])
+        del (df_enade['CO_REGIAO_CURSO'])
+        del (df_enade['AMOSTRA'])
+
+        return df_enade
+
+    def gera_csv(self):
+        if self.ano == '2016':
+            df_enade = self.resolver_dicionario_2016(self.ano)
+        else:
+            pass
+        destino_transform = '/var/tmp/enade/' + str(ano) + '/transform'
+        csv_file = '/enade_' + str(ano) + '.csv'
+        try:
+            os.makedirs(destino_transform)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+
+        df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8')
 
 
-def area_enquad(cod):
-    if cod == 5:
-        value = 'MEDICINA VETERINÁRIA'
-    elif cod == 6:
-        value = 'ODONTOLOGIA'
-    elif cod == 12:
-        value = 'MEDICINA'
-    elif cod == 17:
-        value = 'AGRONOMIA'
-    elif cod == 19:
-        value = 'FARMÁCIA'
-    elif cod == 23:
-        value = 'ENFERMAGEM'
-    elif cod == 27:
-        value = 'FONOAUDIOLOGIA'
-    elif cod == 28:
-        value = 'NUTRIÇÃO'
-    elif cod == 36:
-        value = 'FISIOTERAPIA'
-    elif cod == 38:
-        value = "SERVIÇO SOCIAL"
-    elif cod == 51:
-        value = 'ZOOTECNIA'
-    elif cod == 55:
-        value = 'BIOMEDICINA'
-    elif cod == 69:
-        value = 'TECNOLOGIA EM RADIOLOGIA'
-    elif cod == 90:
-        value = 'TECNOLOGIA EM AGRONEGÓCIOS'
-    elif cod == 91:
-        value = 'TECNOLOGIA EM GESTÃO HOSPITALAR'
-    elif cod == 92:
-        value = 'TECNOLOGIA EM GESTÃO AMBIENTAL'
-    elif cod == 95:
-        value = 'TECNOLOGIA EM ESTÉTICA E COSMÉTICA'
-    elif cod == 3501:
-        value = 'EDUCAÇÃO FÍSICA (BACHARELADO)'
-    else:
-        value = cod
-    return value
+if __name__ == "__main__":
 
-
-def cod_moda(cod):
-    if cod == 0:
-        value = 'EAD'
-    elif cod == 1:
-        value = 'Presencial'
-    else:
-        value = cod
-    return value
-
-
-def generate_csv(input,output,lista_municipios='transform/utils/lista_municipios.csv'):
-    colunas = [
-        'NU_ANO',
-        'CO_IES',
-        'CO_CATEGAD',
-        'CO_ORGACAD',
-        'CO_GRUPO',
-        'CO_CURSO',
-        'CO_MODALIDADE',
-        'CO_MUNIC_CURSO',
-        'CO_UF_CURSO',
-        # 'CO_REGIAO_CURSO',
-        'NU_IDADE',
-        'TP_SEXO',
-        'ANO_FIM_2G',
-        'ANO_IN_GRAD',
-        # 'TP_SEMESTRE',
-        # 'IN_MATUT',
-        # 'IN_VESPER',
-        # 'IN_NOTURNO',
-        # 'ID_STATUS',
-        # 'AMOSTRA',
-        # 'IN_GRAD'
-    ]
-
-    df = pd.read_csv(input, sep=';')
-    df1 = df.loc[:, colunas]
-
-    df1.CO_CATEGAD = df1.loc[:, 'CO_CATEGAD'].apply(catg_adm_inst)
-    df1.CO_ORGACAD = df1.loc[:, 'CO_ORGACAD'].apply(catg_acad_inst)
-    df1.CO_GRUPO = df1.loc[:, 'CO_GRUPO'].apply(area_enquad)
-    df1.CO_MODALIDADE = df1.loc[:, 'CO_MODALIDADE'].apply(cod_moda)
-
-    municipios = pd.read_csv(lista_municipios, sep=';')
-    municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
-    df1[['CO_MUNIC_CURSO', 'CO_UF_CURSO']] = pd.merge(df1, municipios, on=['CO_MUNIC_CURSO']).loc[:,
-                                             ['NOME DO MUNICÍPIO', 'UF']]
-
-    df1['CO_MUNIC_CURSO'] = df1['CO_MUNIC_CURSO'].astype(str) + ';' + df1['CO_UF_CURSO'].astype(str)
-    df1.rename(columns={'CO_MUNIC_CURSO': 'Cidade;Estado'})
-    del (df1['CO_UF_CURSO'])
-    df1['GRUPO_ANO'] = gYear(2016)
-
-    outdir = './enade2016_out/'
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
-
-    fullname = os.path.join(outdir, output)
-
-
-    df1.to_csv(fullname, sep='|', index=False)
+    PATH_ORIGEM = '/var/tmp/enade/'
+    anos = os.listdir(PATH_ORIGEM)
+    anos.sort()
+    for ano in anos:
+        print(ano)
+        try:
+            inep_doc = Enade(ano)
+            inep_doc.gera_csv()
+            print('Arquivo do ano, {} finalizado'.format(ano))
+        except:
+            print('Arquivo do ano, {} não encontrado'.format(ano))
+            pass

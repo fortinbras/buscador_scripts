@@ -1,13 +1,36 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from transform.wos import BibtoXML
-from solr_load import Solr_load_xml
-from transform.enade import generate_csv
+from solr_load import solrLoad
 
 collection = {
-    'wos': ['/var/tmp/bibtex/', '.xml', '/xml_out/', '192.168.0.212:8983', 'wos', 'text/xml'],
-    'lattes':['/var/tmp/lattes/','.xml','/var/tmp/lattes/','192.168.0.212:8983','lattes', 'text/xml']
+    'wos': {
+        'filetype': '.xml',
+        'directory_transform': '/var/tmp/wos/transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'wos',
+        'content_type': 'text/xml'},
+
+    'lattes': {
+        'filetype': '.xml',
+        'directory_transform': '/var/tmp/lattes/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'lattes',
+        'content_type': 'text/xml'},
+
+    'enade': {
+        'filetype': '.csv',
+        'directory_transform': '/var/tmp/enade/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'enade',
+        'content_type': 'text/csv'},
+
+    'inep': {
+        'filetype': '.csv',
+        'directory_transform': '/var/tmp/inep/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'inep',
+        'content_type': 'text/csv'},
 
 }
 
@@ -19,24 +42,48 @@ def executa(coll):
     """
 
     if coll == 'wos':
-        param = collection['wos']
-        bibxml = BibtoXML(param[0])
-        bibxml.parse_bib()  # gera XML
-        # #######################################
-        solrload = Solr_load_xml(param[2], param[1], param[3], param[4], param[5])
-        solrload.files_load()  # carrega no server
-    elif coll == 'enade2016':
-        generate_csv('/home/giuseppe/dados/ENADE_2016.txt','ENADE_2016.CSV')
-    elif coll=='lattes':
-        param = collection['lattes']
 
-        solrload = Solr_load_xml(param[2], param[1], param[3], param[4], param[5])
-        solrload.files_load()
+        param = collection['wos']
+        solr_request = solrLoad(
+            param['directory_transform'], param['filetype'], param['localhost'],
+            param['collection'], param['content_type']
+        )
+        solr_request.delete_collection()  # deleta collection do solr
+        solr_request.files_load()  # carrega no server
+
+
+    elif coll == 'enade':
+
+        param = collection['enade']
+
+        solr_request = solrLoad(
+            param['directory_transform'], param['filetype'], param['localhost'],
+            param['collection'], param['content_type']
+        )
+        solr_request.delete_collection()  # deleta collection do solr
+        solr_request.files_load()  # carrega no server
+
+    elif coll == 'lattes':
+
+        param = collection['lattes']
+        solr_request = solrLoad(
+            param['directory_transform'], param['filetype'], param['localhost'],
+            param['collection'], param['content_type']
+        )
+        solr_request.delete_collection()  # deleta collection do solr
+        solr_request.files_load()  # carrega no server
+
+    elif coll == 'inep':
+
+        param = collection['inep']
+        solr_request = solrLoad(
+            param['directory_transform'], param['filetype'], param['localhost'],
+            param['collection'], param['content_type']
+        )
+        solr_request.delete_collection()  # deleta collection do solr
+        solr_request.list_files()  # carrega no server
     else:
         print('digite collection como parametro')
-
-
-
 
 
 if __name__ == "__main__":
@@ -48,21 +95,17 @@ if __name__ == "__main__":
 # /var/tmp/bibtex/
 
 # Dicionarios
-#antes de enviar, deletar contuedo do solr  (função de deletar) email robson
+# antes de enviar, deletar contuedo do solr  (função de deletar) email robson - ok
 
 
-
-#manipular os .rar que os arquivos inep geram
+# manipular os .rar que os arquivos inep geram
 
 # um modulo de donw e outro de trans
 
 # tratamento de erros no download
 
-#gerar classes para transformação por ano
+# gerar classes para transformação por ano
 
-#download var/tmp/collection/download
+# download var/tmp/collection/download
 
 # saida  var/tmp/collection/transform
-
-
-

@@ -5,7 +5,7 @@ import os
 import re
 from lxml import etree
 from bibtexparser.bparser import BibTexParser
-from transform.utils import gYear
+from utils import gYear
 
 
 
@@ -22,7 +22,7 @@ gerador.parse_bib()
 
     limit_docs_in_file = 5000
     file_finish = 0
-    path_save_xml = 'xml_out/'
+    path_save_xml = '/var/tmp/wos/transform/'
     tree = []
     xml_filename = 'output'
 
@@ -295,3 +295,9 @@ gerador.parse_bib()
             self.generateDoc(doc)
 
         self.save_xml()
+
+
+if __name__ == '__main__':
+    diretorio = '/var/tmp/bibtex/'
+    bib_xml = BibtoXML('/var/tmp/bibtex/')
+    bib_xml.parse_bib()

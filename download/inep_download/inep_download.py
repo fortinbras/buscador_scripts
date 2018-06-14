@@ -3,6 +3,7 @@
 import os, errno
 import requests
 import zipfile
+import patoolib
 import sys
 
 """
@@ -38,7 +39,7 @@ all_links = {
 
 
 def download_censo_superior(ano):
-    dir_destino = '/var/tmp/inep/' + str(ano) + '/'
+    dir_destino = '/var/tmp/inep/' + str(ano) + '/download/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'
@@ -60,8 +61,8 @@ def download_censo_superior(ano):
     print 'Downloading %s (%sMb)' % (fullpath, fsize / mbyte)
     # Gravando o arquivo zip
     with open(fullpath, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=1024):  # chuck size can be larger
-            if chunk:  # ignore keep-alive requests
+        for chunk in resp.iter_content(chunk_size=1024):
+            if chunk:
                 f.write(chunk)
         f.close()
 
@@ -71,9 +72,18 @@ def download_censo_superior(ano):
 
     os.remove(fullpath)
 
+    try:
+        for root, dirs, files in os.walk(dir_destino):
+            for file in files:
+                if file.endswith('.rar'):
+                    patoolib.extract_archive(os.path.join(root, file), outdir=root)
+                    os.remove(os.path.join(root, file))
+    except:
+        pass
+
 
 if __name__ == "__main__":
-    anos = [2014]
+    anos = [2014,2015,2016]
     for ano in anos:
         try:
             download_censo_superior(ano)

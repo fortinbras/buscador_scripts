@@ -1,1 +1,0 @@
-from enade2016 import generate_csv

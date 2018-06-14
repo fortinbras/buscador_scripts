@@ -4,8 +4,7 @@ import urllib2
 import os
 
 
-class Solr_load_xml():
-
+class solrLoad():
     """
     Classe realiza um POST pra uma determinada url no solr com uma lista de arquivos da maquina local
     os parametros :
@@ -30,6 +29,7 @@ class Solr_load_xml():
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith(self.filetype):
+                    print(file)
                     self.asps.append(file)
         print(len(self.asps))
         return self.asps
@@ -38,7 +38,7 @@ class Solr_load_xml():
 
         filelist = self.list_files()
         for file in filelist:
-            with open(self.directory+file, 'rb') as data_file:
+            with open(self.directory + file, 'rb') as data_file:
                 my_data = data_file.read()
             req = urllib2.Request(
                 url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true',
@@ -48,4 +48,13 @@ class Solr_load_xml():
             f = urllib2.urlopen(req)
             print f.read()
 
+    def delete_collection(self):
+        req = urllib2.Request(
+            url='http://192.168.0.212/solr/' + self.collection + '/update?commit=true&stream.body=<delete><query>*:*</query></delete>')
+        f = urllib2.urlopen(req)
+        print(f)
+
+
 # 'http://localhost:8983/solr/lattes/update?commit=true'
+
+# http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>

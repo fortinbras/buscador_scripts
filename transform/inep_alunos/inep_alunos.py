@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import codecs
-
 import csv
 
 import os
-from transform.utils import gYear
+from utils import gYear
 
 """Atenção! : Arquivos abertos com 'open' não estão sendo fechados"""
 
@@ -202,80 +200,3 @@ def adiciona_instituicao(ano, lista_alunos, dict_ies, cabecalho):
 
     return csv_lista_final
 
-
-LIMITE = 100
-
-if __name__ == "__main__":
-
-    anos = os.listdir(PATH)
-
-    anos.sort()
-
-    for ano in anos:
-
-        print ano
-
-        id_inicial = 1
-
-        # Verifica incremento de bilhos no id do ALUNO
-
-        teste_bilhao = False
-
-        # Cria arquivo csv
-
-        cabecalho = pega_cabecalho(ano)
-
-        cria_csv(ano, cabecalho)  # ok
-
-        # Pega o arquivo IES para agregar aos alunos
-
-        dict_ies = trata_ies(ano)
-
-        arquivo = pega_arquivo_por_ano(ano)
-
-        # Atualmente o id CO_ALUNO_IES nao passa de 500 bilhoes.
-
-        # Tem uma margem de aproximadamente 100 milhoes de registros para crescer,
-
-        # caso os ids sejam incrementados sem grandes pulos.
-
-        while (id_inicial < 15000000):
-
-            # print id_inicial
-
-            if arquivo['alunos']:
-                # Recupera uma quantidade de registros menor ou igual ao LIMITE.
-
-                # lista_alunos = pega_linhas(ano, arquivo['alunos'], id_inicial)
-
-                # salvar cabecalho primeiro ? ja nao foi incluido na criação?
-
-                csv_lista_final = adiciona_instituicao(ano, arquivo['alunos'], dict_ies[ano], cabecalho)
-
-                # import pdb; pdb.set_trace()
-
-                # import pdb; pdb.set_trace()
-
-                # atualiza_csv(ano, csv_lista_final, cabecalho)
-
-            # incrementa o id inicial de acordo com o LIMITE estabelecido.
-
-            id_inicial += 1  # LIMITE
-
-            # O CO_ALUNO eh incrementado em 118 bilhoes nos CSV originais.
-
-            # Para nao ficar iterando a toa no pega_linhas(), incrementa o contador.
-
-        print('fim')
-
-        """
-
-        if not teste_bilhao and id_inicial > 400000:
-
-            #id_inicial = 118980000000
-
-            id_inicial = 115000000000
-
-            teste_bilhao = True
-
-        """
