@@ -3,7 +3,7 @@
 import pandas as pd
 import os, errno
 import codecs
-from utils.utils import gYear,find_regiao
+from utils.utils import gYear, find_regiao
 
 
 class Enade(object):
@@ -75,8 +75,8 @@ class Enade(object):
         except:
             pass
 
-    def resolver_dicionario_2016(self, ano):
-        df_enade = self.pega_arquivo_ano(ano)
+    def resolver_dicionario_2016(self):
+        df_enade = self.pega_arquivo_ano(self.ano)
         CO_CATEGAD = {
             '93': 'Pessoa Jurídica de Direito Público - Federal',
             '115': 'Pessoa Jurídica de Direito Público - Estadual',
@@ -120,6 +120,32 @@ class Enade(object):
         CO_MODALIDADE = {
             '0': 'EAD',
             '1': 'Presencial'}
+        QE_I01 = {
+            'A': 'Solteiro(a)',
+            'B': 'Casado(a)',
+            'C': 'Separado(a) judicialmente/divorciado(a)',
+            'D': 'Viúvo(a)',
+            'E': 'Outro'
+        }
+        QE_I02 = {
+            'A': 'Branca',
+            'B': 'Preta',
+            'C': 'Amarela',
+            'D': 'Parda',
+            'E': 'Indígena',
+            'F': 'Não quero declarar',
+        }
+
+        QE_I08 = {
+            'A': 'até R$ 1.320,00',
+            'B': 'R$ 1.320,01 a R$ 2.640,00',
+            'C': 'R$ 2.640,01 a R$ 3.960,00',
+            'D': 'R$ 3.960,01 a R$ 5.280,00',
+            'E': 'R$ 5.280,01 a R$ 8.800,00',
+            'F': 'R$ 8.800,01 a R$ 26.400,00',
+            'G': 'mais que R$ 26.400,00'
+        }
+
         municipios = pd.read_csv('../../lista_municipios.csv', sep=';')
         municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
         municipios['Regiao'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
@@ -131,23 +157,32 @@ class Enade(object):
         df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios,
                                                                          how='left', on=[
                 'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'Regiao']]
-        df_enade['Ano_facet'] = gYear(2016)
+        df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
+        df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
+        df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
         df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
             str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
+        df_enade['Estado_Civil'] = df_enade['QE_I01'].replace(QE_I01)
+        df_enade['Cor_Raca'] = df_enade['QE_I02'].replace(QE_I02)
+        df_enade['Renda_familiar'] = df_enade['QE_I08'].replace(QE_I08)
+
         del (df_enade['CO_MUNIC_CURSO'])
         del (df_enade['CO_UF_CURSO'])
         del (df_enade['CO_REGIAO_CURSO'])
         del (df_enade['AMOSTRA'])
+        del (df_enade['QE_I01'])
+        del (df_enade['QE_I02'])
+        del (df_enade['QE_I08'])
 
         return df_enade
 
     def gera_csv(self):
         if self.ano == '2016':
-            df_enade = self.resolver_dicionario_2016(self.ano)
+            df_enade = self.resolver_dicionario_2016()
         else:
             pass
-        destino_transform = '/var/tmp/enade/' + str(ano) + '/transform'
-        csv_file = '/enade_' + str(ano) + '.csv'
+        destino_transform = '/var/tmp/enade/' + str(self.ano) + '/transform'
+        csv_file = '/enade_' + str(self.ano) + '.csv'
         try:
             os.makedirs(destino_transform)
         except OSError as e:

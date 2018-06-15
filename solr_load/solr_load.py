@@ -30,7 +30,7 @@ class solrLoad():
             for file in files:
                 if file.endswith(self.filetype):
                     print(file)
-                    self.asps.append(os.path.join(root,file))
+                    self.asps.append(os.path.join(root, file))
         print(len(self.asps))
         return self.asps
 
@@ -40,9 +40,14 @@ class solrLoad():
         for file in filelist:
             with open(file, 'rb') as data_file:
                 my_data = data_file.read()
-            req = urllib2.Request(
-                url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true',
-                data=my_data)
+            if self.filetype == '.csv':
+                req = urllib2.Request(
+                    url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true&separator=;',
+                    data=my_data)
+            else:
+                req = urllib2.Request(
+                    url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true',
+                    data=my_data)
             req.add_header('Content-type', self.content_type)
             print 'conectando ...'
             f = urllib2.urlopen(req)
@@ -53,7 +58,6 @@ class solrLoad():
             url='http://192.168.0.212/solr/' + self.collection + '/update?commit=true&stream.body=<delete><query>*:*</query></delete>')
         f = urllib2.urlopen(req)
         print(f)
-
 
 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
