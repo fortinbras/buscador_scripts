@@ -30,7 +30,7 @@ class solrLoad():
             for file in files:
                 if file.endswith(self.filetype):
                     print(file)
-                    self.asps.append(file)
+                    self.asps.append(os.path.join(root,file))
         print(len(self.asps))
         return self.asps
 
@@ -38,7 +38,7 @@ class solrLoad():
 
         filelist = self.list_files()
         for file in filelist:
-            with open(self.directory + file, 'rb') as data_file:
+            with open(file, 'rb') as data_file:
                 my_data = data_file.read()
             req = urllib2.Request(
                 url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true',

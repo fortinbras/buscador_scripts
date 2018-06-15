@@ -154,7 +154,7 @@ class Enade(object):
             if e.errno != errno.EEXIST:
                 raise
 
-        df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8')
+        df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', line_terminator='\n')
 
 
 if __name__ == "__main__":

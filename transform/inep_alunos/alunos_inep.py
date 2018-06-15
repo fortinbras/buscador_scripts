@@ -1,120 +1,163 @@
 # coding=utf-8
 
-from utils.utils import gYear,find_regiao
+from utils.utils import gYear, find_regiao
 import pandas as pd
-import os, errno
-import numpy as np
+import os
+import errno
 import codecs
 
 
-class inepVincDocentes(object):
+class InepVincAlunos(object):
 
     def __init__(self, ano):
         self.ano = ano
 
-    def pega_arquivo_por_ano(self ,ano):
+    def pega_arquivo_aluno_por_ano(self):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
-        var = '/var/tmp/inep/' + str(ano) + '/download/'
+        var = '/var/tmp/inep/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file.endswith(".CSV"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
 
-                    # !!! O script procura o arquivo CSV ordenado.
-                    # ( head -n1 DM_DOCENTE.CSV; tail -n+2 DM_DOCENTE.CSV | sort -n --field-separator='|' --key=9 ) > DM_DOCENTE_SORTED.CSV
                     if file == 'DM_ALUNO.CSV':
-                        df_docentes = pd.read_csv(arquivo, sep='|', encoding='cp1252')
-                    elif file == 'DM_IES.CSV':
-                        df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252')
+                        df_alunos = pd.read_csv(arquivo, sep='|', encoding='cp1252',
+                                                chunksize=100000)  # , nrows=100000)
         try:
-            return {'docentes': df_docentes, 'ies': df_ies}
+            return df_alunos
         except:
             pass
 
-    def merge_docente_ies(self,ano):
-        dic = self.pega_arquivo_por_ano(ano)
-        df_docentes = dic['docentes']
-        df_ies = dic['ies']
-        df = df_docentes.merge(df_ies)
-        return df
+    def pega_arquivo_ies_por_ano(self):
+        """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
+        var = '/var/tmp/inep/' + str(self.ano) + '/download/'
 
-    def manipula_df(self,ano):
-        df = self.merge_docente_ies(ano)
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                if file.endswith(".CSV"):
+                    arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+
+                    if file == 'DM_IES.CSV':
+                        df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252')
+
+        try:
+            return df_ies
+        except:
+            pass
+
+    def merge_alunos_ies(self, df_a, df_i):
+        df_merged = df_a.merge(df_i)
+        del (df_a)
+        del (df_i)
+        return df_merged
+
+    def manipula_df(self, df):
 
         df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
 
         df['MANT_IES_facet'] = df['NO_MANTENEDORA'] + '|' + df['NO_IES']
 
-        df['ID'] = np.where(df['CO_DOCENTE_IES'], (str(ano) + '_' + df['CO_DOCENTE_IES'].astype(str)),
-                            ('2014_' + df['CO_DOCENTE'].astype(str)))
+        df['ID'] = str(self.ano) + '_' + df['CO_ALUNO'].astype(str)
 
-        df['Data_Nasc_Docente_facet'] = df['NU_ANO_DOCENTE_NASC'].astype(str) + '|' + df['NU_MES_DOCENTE_NASC'].astype(
-            str) + '|' + df['NU_DIA_DOCENTE_NASC'].astype(str)
-        ano_str = str(ano)
-        df['ANO_FACET'] = gYear(ano_str)
+        df['Data_Nasc_ALUNO_facet'] = df['NU_ANO_ALUNO_NASC'].astype(str) + '|' + df['NU_MES_ALUNO_NASC'].astype(
+            str) + '|' + df['NU_DIA_ALUNO_NASC'].astype(str)
+
+        df['ANO_FACET'] = gYear(self.ano)
 
         return df
 
-    def resolve_dicionarios(self,ano):
-        df = self.manipula_df(ano)
+    def resolve_dicionarios(self, df):
 
-        CHAVES_SIM_NAO = ['IN_CAPITAL_IES', 'IN_ATU_EAD', 'IN_ATU_POS_EAD', 'IN_ATU_EXTENSAO', 'IN_ATU_GESTAO',
-                          'IN_ATU_GRAD_PRESENCIAL',
-                          'IN_ATU_GRAD_PRESENCIAL', 'IN_ATU_POS_PRESENCIAL', 'IN_ATU_SEQUENCIAL', 'IN_ATU_PESQUISA',
-                          'IN_BOLSA_PESQUISA', 'IN_SUBSTITUTO', 'IN_EXERCICIO_DT_REF', 'IN_VISITANTE']
+        repetidas = ['CO_CATEGORIA_ADMINISTRATIVA', 'CO_ORGANIZACAO_ACADEMICA', 'CO_CURSO', 'CO_TURNO_ALUNO',
+                     'CO_GRAU_ACADEMICO',
+                     'CO_MODALIDADE_ENSINO', 'CO_NIVEL_ACADEMICO', 'CO_OCDE', 'CO_OCDE_AREA_GERAL',
+                     'CO_OCDE_AREA_ESPECIFICA',
+                     'CO_OCDE_AREA_DETALHADA', 'CO_COR_RACA_ALUNO', 'IN_SEXO_ALUNO', 'CO_NACIONALIDADE_ALUNO',
+                     'CO_ALUNO_SITUACAO',
+                     'CO_MUNICIPIO_IES', 'CO_UF_IES']
 
-        DEFICIENCIA = ['IN_DOCENTE_DEFICIENCIA', 'IN_DEF_CEGUEIRA', 'IN_DEF_BAIXA_VISAO', 'IN_DEF_SURDEZ',
-                       'IN_DEF_AUDITIVA',
-                       'IN_DEF_FISICA', 'IN_DEF_SURDOCEGUEIRA', 'IN_DEF_MULTIPLA', 'IN_DEF_INTELECTUAL', ]
+        CHAVES_SIM_NAO = ['IN_ING_VESTIBULAR',
+                          'IN_ING_ENEM',
+                          'IN_ING_AVALIACAO_SERIADA',
+                          'IN_ING_SELECAO_SIMPLIFICADA',
+                          'IN_ING_SELECAO_VAGA_REMANESC',
+                          'IN_ING_SELECAO_VAGA_PROG_ESPEC',
+                          'IN_ING_TRANSF_EXOFFICIO',
+                          'IN_ING_DECISAO_JUDICIAL',
+                          'IN_ING_CONVENIO_PECG',
+                          'IN_RESERVA_VAGAS',
+                          'IN_RESERVA_ETNICO',
+                          'IN_RESERVA_DEFICIENCIA',
+                          'IN_RESERVA_ENSINO_PUBLICO',
+                          'IN_RESERVA_RENDA_FAMILIAR',
+                          'IN_RESERVA_OUTRA',
+                          'IN_FINANC_ESTUDANTIL',
+                          'IN_FIN_REEMB_FIES',
+                          'IN_FIN_REEMB_ESTADUAL',
+                          'IN_FIN_REEMB_MUNICIPAL',
+                          'IN_FIN_REEMB_PROG_IES',
+                          'IN_FIN_REEMB_ENT_EXTERNA',
+                          'IN_FIN_REEMB_OUTRA',
+                          'IN_FIN_NAOREEMB_PROUNI_INTEGR',
+                          'IN_FIN_NAOREEMB_PROUNI_PARCIAL',
+                          'IN_FIN_NAOREEMB_ESTADUAL',
+                          'IN_FIN_NAOREEMB_MUNICIPAL',
+                          'IN_FIN_NAOREEMB_PROG_IES',
+                          'IN_FIN_NAOREEMB_ENT_EXTERNA',
+                          'IN_FIN_NAOREEMB_OUTRA',
+                          'IN_APOIO_SOCIAL',
+                          'IN_APOIO_ALIMENTACAO',
+                          'IN_APOIO_BOLSA_PERMANENCIA',
+                          'IN_APOIO_BOLSA_TRABALHO',
+                          'IN_APOIO_MATERIAL_DIDATICO',
+                          'IN_APOIO_MORADIA',
+                          'IN_APOIO_TRANSPORTE',
+                          'IN_ATIVIDADE_EXTRACURRICULAR',
+                          'IN_COMPL_ESTAGIO',
+                          'IN_COMPL_EXTENSAO',
+                          'IN_COMPL_MONITORIA',
+                          'IN_COMPL_PESQUISA',
+                          'IN_BOLSA_ESTAGIO',
+                          'IN_BOLSA_EXTENSAO',
+                          'IN_BOLSA_MONITORIA',
+                          'IN_BOLSA_PESQUISA',
+                          'IN_ALUNO_PARFOR',
+                          'IN_MOBILIDADE_ACADEMICA']
 
-        SIM_NAO = {'0.0': 'Não', '1.0': 'Sim', 'nan': 'Não Informado'}
-        ESCOLARIDADE = {'1': 'Sem graduação', '2': 'Graduação', '3': 'Especialização', '4': 'Mestrado',
-                        '5': 'Doutorado'}
-        DEFICIENCIA_FISICA = {'0': 'Não', '1': 'Sim', '2': 'Não dispõe de informação', 'nan': 'Não'}
-        IN_VISITANTE_IFES_VINCULO = {'1.0': 'Em folha', '2.0': 'Bolsista', '0.0': 'Não informado'}
+        SIM_NAO = {'0': 'Não', '0.0': 'Não', '1': 'Sim', '1.0': 'Sim', 'nan': 'Não Informado'}
+        DEFICIENCIA = ['IN_ALUNO_DEF_TGD_SUPER', 'IN_DEF_AUDITIVA', 'IN_DEF_FISICA', 'IN_DEF_INTELECTUAL',
+                       'IN_DEF_MULTIPLA', 'IN_DEF_SURDEZ',
+                       'IN_DEF_SURDOCEGUEIRA', 'IN_DEF_BAIXA_VISAO', 'IN_DEF_CEGUEIRA',
+                       'IN_DEF_SUPERDOTACAO', 'IN_TGD_AUTISMO_INFANTIL',
+                       'IN_TGD_SINDROME_ASPERGER',
+                       'IN_TGD_SINDROME_RETT', 'IN_TGD_TRANSTOR_DESINTEGRATIVO']
+        DEFICIENCIA_FISICA = {'0': 'Não', '1': 'Sim', '2': 'Não dispõe de informação',
+                              'nan': 'Não dispõe de informação'}
 
-        CO_CATEGORIA_ADMINISTRATIVA = {'1': 'Publica Federal', '2': 'Publica Estadual', '3': 'Publica Municipal',
-                                       '4': 'Privada com fins lucrativos', '5': 'Privada sem fins lucrativos',
-                                       '7': 'Especial'}
+        CO_TIPO_ESCOLA_ENS_MEDIO = {'0': 'Privada', '1': 'Pública', '2': 'Não dispõe da informação'}
 
-        CO_SITUACAO_DOCENTE = {'1': 'Em exercício', '2': 'Afastado para qualificação',
-                               '3': 'Afastado para exercício em outros órgãos/entidades',
-                               '4': 'Afastado por outros motivos', '5': 'Afastado para tratamento de saúde'}
+        CO_MOBILIDADE_ACADEMICA = {'0': 'Nacional', '1': 'Internacional', 'nan': 'Não dispõe da informação'}
 
-        df['CO_ESCOLARIDADE_DOCENTE'] = df['CO_ESCOLARIDADE_DOCENTE'].astype(str).replace(
-            ESCOLARIDADE)
-        df['CO_CATEGORIA_ADMINISTRATIVA'] = df['CO_CATEGORIA_ADMINISTRATIVA'].astype(str).replace(
-            CO_CATEGORIA_ADMINISTRATIVA)
-        df['CO_SITUACAO_DOCENTE'] = df['CO_SITUACAO_DOCENTE'].astype(str).replace(
-            CO_SITUACAO_DOCENTE)
-        df['CO_UF_NASCIMENTO'].fillna(0, inplace=True)
-        df['CO_MUNICIPIO_NASCIMENTO'].fillna(0, inplace=True)
-        df['IN_VISITANTE_IFES_VINCULO'].fillna(0, inplace=True)
-        df['IN_VISITANTE_IFES_VINCULO'] = df['IN_VISITANTE_IFES_VINCULO'].astype(str).replace(
-            IN_VISITANTE_IFES_VINCULO)
-        df['IN_CAPITAL_IES'] = np.where(df['IN_CAPITAL_IES'] == 1, 'Sim', 'Não')
-        del (df['CO_ORGANIZACAO_ACADEMICA'])
-        del (df['IN_SEXO_DOCENTE'])
-        del (df['CO_REGIME_TRABALHO'])
-        del (df['DS_CATEGORIA_ADMINISTRATIVA'])
-        del (df['DS_SITUACAO_DOCENTE'])
-        del (df['DS_ESCOLARIDADE_DOCENTE'])
-        del (df['CO_NACIONALIDADE_DOCENTE'])
+        CO_SEMESTRE_CONCLUSAO = {'1': '1°', '2': '2°', 'nan': 'Não dispõe da informação'}
+
+        for rep in repetidas:
+            del (df[rep])
 
         for d in DEFICIENCIA:
             df[d] = df[d].astype(str).replace(DEFICIENCIA_FISICA)
 
-        for d in CHAVES_SIM_NAO:
-            df[d] = df[d].astype(str).replace(SIM_NAO)
+        for sn in CHAVES_SIM_NAO:
+            df[sn] = df[sn].astype(str).replace(SIM_NAO)
 
-        municipios = pd.read_csv('lista_municipios.csv', sep=';')
+        df['CO_TIPO_ESCOLA_ENS_MEDIO'] = df['CO_TIPO_ESCOLA_ENS_MEDIO'].astype(str).replace(CO_TIPO_ESCOLA_ENS_MEDIO)
+        df['CO_MOBILIDADE_ACADEMICA'] = df['CO_MOBILIDADE_ACADEMICA'].astype(str).replace(CO_MOBILIDADE_ACADEMICA)
+        df['CO_SEMESTRE_CONCLUSAO'] = df['CO_SEMESTRE_CONCLUSAO'].astype(str).replace(CO_SEMESTRE_CONCLUSAO)
+
+        municipios = pd.read_csv('../../lista_municipios.csv', sep=';')
         municipios['CÓDIGO DO MUNICÍPIO'] = municipios['CÓDIGO DO MUNICÍPIO'].astype(str)
-        municipios['CÓDIGO DO MUNICÍPIO'] = map(lambda x: x.encode('cp1252', 'strict'),
-                                                municipios['CÓDIGO DO MUNICÍPIO'])
         municipios['Regiao'] = municipios['CÓDIGO DO MUNICÍPIO'].apply(find_regiao)
         municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNICIPIO_NASCIMENTO'}, inplace=True)
-
         municipios['CO_MUNICIPIO_NASCIMENTO'] = municipios['CO_MUNICIPIO_NASCIMENTO'].astype(float)
 
         df[['MUNICIPIO_NASCIMENTO', 'UF_NASCIMENTO', 'REG_NASCIMENTO']] = pd.merge(df, municipios,
@@ -123,35 +166,42 @@ class inepVincDocentes(object):
         df['UF_NASCIMENTO'].fillna('Não Informado', inplace=True)
         df['MUNICIPIO_NASCIMENTO'].fillna('Não Informado', inplace=True)
         df['REG_NASCIMENTO'].fillna('Não Informado', inplace=True)
-
-        df['GEOGRAFICO_DOC_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
+        df['GEOGRAFICO_ALUNO_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
             'UF_NASCIMENTO'] + '|' + df['MUNICIPIO_NASCIMENTO']
 
         return df
 
-    def gera_csv(self):
-        df = self.resolve_dicionarios(self.ano)
-        destino_transform = '/var/tmp/inep/' + str(ano) + '/transform'
-        csv_file = '/docentes_vinculo_ies_' + str(ano) + '.csv'
+    def gera_csv(self, df):
+
+        destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform'
+        csv_file = '/alunos_vinculo_ies_' + str(self.ano) + '.csv'
         try:
             os.makedirs(destino_transform)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 
-        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8')
+        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a')
+
 
 
 if __name__ == "__main__":
-
     PATH_ORIGEM = '/var/tmp/inep/'
     anos = os.listdir(PATH_ORIGEM)
     anos.sort()
     for ano in anos:
         print(ano)
         try:
-            inep_doc = inepVincDocentes(ano)
-            inep_doc.gera_csv()
+            inep_al = InepVincAlunos(ano)
+            df_ies = inep_al.pega_arquivo_ies_por_ano()
+            chunks_a = inep_al.pega_arquivo_aluno_por_ano()
+            for chunk in chunks_a:
+                df_merged = inep_al.merge_alunos_ies(chunk, df_ies)
+                df_merged = inep_al.manipula_df(df_merged)
+                df_merged = inep_al.resolve_dicionarios(df_merged)
+                inep_al.gera_csv(df_merged)
+            columns = df_merged.columns
+
             print('Arquivo do ano, {} finalizado'.format(ano))
         except:
             print('Arquivo do ano, {} não encontrado'.format(ano))

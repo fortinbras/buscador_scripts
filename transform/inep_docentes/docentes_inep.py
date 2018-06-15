@@ -47,7 +47,7 @@ class inepVincDocentes(object):
         df['MANT_IES_facet'] = df['NO_MANTENEDORA'] + '|' + df['NO_IES']
 
         df['ID'] = np.where(df['CO_DOCENTE_IES'], (str(ano) + '_' + df['CO_DOCENTE_IES'].astype(str)),
-                            ('2014_' + df['CO_DOCENTE'].astype(str)))
+                            (str(ano)+'_' + df['CO_DOCENTE'].astype(str)))
 
         df['Data_Nasc_Docente_facet'] = df['NU_ANO_DOCENTE_NASC'].astype(str) + '|' + df['NU_MES_DOCENTE_NASC'].astype(
             str) + '|' + df['NU_DIA_DOCENTE_NASC'].astype(str)
