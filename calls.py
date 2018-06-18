@@ -51,7 +51,6 @@ def executa(coll):
         solr_request.delete_collection()  # deleta collection do solr
         solr_request.files_load()  # carrega no server
 
-
     elif coll == 'enade':
 
         param = collection['enade']

@@ -30,6 +30,8 @@ class solrLoad():
             for file in files:
                 if file.endswith(self.filetype):
                     print(file)
+                    print(root)
+                    print(dirs)
                     self.asps.append(os.path.join(root, file))
         print(len(self.asps))
         return self.asps
