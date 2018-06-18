@@ -126,13 +126,13 @@ gerador.parse_bib()
 
                             try:
                                 volume = item['volume'][1:-1]
-                                pub_journal = ('publisher_journal_volume',
+                                pub_journal_facet = ('publisher_journal_volume',
                                                "{}|{}|{}".format(publisher.strip(), journal.strip(), volume.strip()))
-                                doc.append(pub_journal)
+                                doc.append(pub_journal_facet)
                             except:
-                                pub_journal = (
+                                pub_journal_facet = (
                                     'publisher_journal_volume', "{}|{}| ".format(publisher.strip(), journal.strip()))
-                                doc.append(pub_journal)
+                                doc.append(pub_journal_facet)
                         except KeyError:
                             pass
 
@@ -148,11 +148,11 @@ gerador.parse_bib()
                         try:
 
                             month = item['month'][1:4]
-                            year_month = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
-                            doc.append(year_month)
+                            year_month_facet = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
+                            doc.append(year_month_facet)
                         except KeyError:
                             year_month = ('Year-Month', '{}|{}|'.format(group.strip(), year.strip()))
-                            doc.append(year_month)
+                            doc.append(year_month_facet)
                         # print(year_month)
 
                         try:

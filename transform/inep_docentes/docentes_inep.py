@@ -52,7 +52,7 @@ class inepVincDocentes(object):
         df['Data_Nasc_Docente_facet'] = df['NU_ANO_DOCENTE_NASC'].astype(str) + '|' + df['NU_MES_DOCENTE_NASC'].astype(
             str) + '|' + df['NU_DIA_DOCENTE_NASC'].astype(str)
         ano_str = str(ano)
-        df['ANO_FACET'] = gYear(ano_str)
+        df['ANO_facet'] = gYear(ano_str)
 
         return df
 

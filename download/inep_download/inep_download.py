@@ -79,11 +79,12 @@ def download_censo_superior(ano):
                     patoolib.extract_archive(os.path.join(root, file), outdir=root)
                     os.remove(os.path.join(root, file))
     except:
-        pass
+
+        raise
 
 
 if __name__ == "__main__":
-    anos = [2014,2015,2016]
+    anos = [2016]
     for ano in anos:
         try:
             download_censo_superior(ano)
