@@ -58,8 +58,10 @@ class solrLoad():
         req = urllib2.Request(
             url='http://192.168.0.212/solr/' + self.collection + '/update?commit=true&stream.body=<delete><query>*:*</query></delete>')
         f = urllib2.urlopen(req)
-        print(f)
+        print('Apagando colection {}'.format(self.collection))
 
 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>
+
+#HTTPERROR

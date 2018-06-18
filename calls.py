@@ -91,20 +91,5 @@ if __name__ == "__main__":
     except IndexError:
         print('digite collection como parametro')
 
-# /var/tmp/bibtex/
 
-# Dicionarios
-# antes de enviar, deletar contuedo do solr  (função de deletar) email robson - ok
-
-
-# manipular os .rar que os arquivos inep geram
-
-# um modulo de donw e outro de trans
-
-# tratamento de erros no download
-
-# gerar classes para transformação por ano
-
-# download var/tmp/collection/download
-
-# saida  var/tmp/collection/transform
+# import relativo

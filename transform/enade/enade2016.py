@@ -250,7 +250,8 @@ class Enade(object):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
-                    df_enade.fillna('Não informado', inplace=True)
+                    df_enade['CO_IES'] = df_enade['CO_IES'].astype(str)
+                    df_enade.fillna('', inplace=True)
 
         return df_enade
 
