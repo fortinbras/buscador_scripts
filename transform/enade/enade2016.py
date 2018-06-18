@@ -250,7 +250,6 @@ class Enade(object):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
-                    df_enade['CO_IES'] = df_enade['CO_IES'].astype(str)
                     df_enade.fillna('', inplace=True)
 
         return df_enade
@@ -526,7 +525,7 @@ class Enade(object):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-
+        df_enade = df_enade.astype(str)
         df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', line_terminator='\n')
 
 
