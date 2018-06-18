@@ -5,6 +5,7 @@ import pandas as pd
 import os
 import errno
 import codecs
+import shutil
 
 
 class InepVincAlunos(object):
@@ -171,18 +172,25 @@ class InepVincAlunos(object):
 
         return df
 
-    def gera_csv(self, df):
+    def gera_csv(self, df, control):
 
         destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform'
         csv_file = '/alunos_vinculo_ies_' + str(self.ano) + '.csv'
+
+        if os.path.join(destino_transform,csv_file) and control==0:
+            shutil.rmtree(os.path.join(destino_transform), ignore_errors=False, onerror=None)
+
         try:
             os.makedirs(destino_transform)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 
-        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a')
+        if control == 1:
 
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a')
+        else:
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', mode='a')
 
 
 if __name__ == "__main__":
@@ -195,14 +203,19 @@ if __name__ == "__main__":
             inep_al = InepVincAlunos(ano)
             df_ies = inep_al.pega_arquivo_ies_por_ano()
             chunks_a = inep_al.pega_arquivo_aluno_por_ano()
+            df_next = next(chunks_a)
+            df_merged = inep_al.merge_alunos_ies(df_next, df_ies)
+            df_merged = inep_al.manipula_df(df_merged)
+            df_merged = inep_al.resolve_dicionarios(df_merged)
+            inep_al.gera_csv(df_merged,0)
             for chunk in chunks_a:
                 df_merged = inep_al.merge_alunos_ies(chunk, df_ies)
                 df_merged = inep_al.manipula_df(df_merged)
                 df_merged = inep_al.resolve_dicionarios(df_merged)
-                inep_al.gera_csv(df_merged)
-            columns = df_merged.columns
+                inep_al.gera_csv(df_merged,1)
+
 
             print('Arquivo do ano, {} finalizado'.format(ano))
         except:
             print('Arquivo do ano, {} não encontrado'.format(ano))
-            pass
+            raise

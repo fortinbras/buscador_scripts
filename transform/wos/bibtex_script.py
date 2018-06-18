@@ -126,13 +126,13 @@ gerador.parse_bib()
 
                             try:
                                 volume = item['volume'][1:-1]
-                                pub_journal_facet = ('publisher_journal_volume',
+                                pub_journal = ('publisher_journal_volume_facet',
                                                "{}|{}|{}".format(publisher.strip(), journal.strip(), volume.strip()))
-                                doc.append(pub_journal_facet)
+                                doc.append(pub_journal)
                             except:
-                                pub_journal_facet = (
-                                    'publisher_journal_volume', "{}|{}| ".format(publisher.strip(), journal.strip()))
-                                doc.append(pub_journal_facet)
+                                pub_journal = (
+                                    'publisher_journal_volume_facet', "{}|{}| ".format(publisher.strip(), journal.strip()))
+                                doc.append(pub_journal)
                         except KeyError:
                             pass
 
@@ -148,11 +148,11 @@ gerador.parse_bib()
                         try:
 
                             month = item['month'][1:4]
-                            year_month_facet = ('Year-Month', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
-                            doc.append(year_month_facet)
+                            year_month = ('Year-Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
+                            doc.append(year_month)
                         except KeyError:
-                            year_month = ('Year-Month', '{}|{}|'.format(group.strip(), year.strip()))
-                            doc.append(year_month_facet)
+                            year_month = ('Year-Month_facet', '{}|{}|'.format(group.strip(), year.strip()))
+                            doc.append(year_month)
                         # print(year_month)
 
                         try:
@@ -259,6 +259,7 @@ gerador.parse_bib()
                             funding_acknowledgement = (
                                 'funding-acknowledgement', (item['funding-acknowledgement'][1:-1]).strip())
                             # print(funding_acknowledgement)
+                            doc.append(funding_acknowledgement)
                         except KeyError:
                             pass
 

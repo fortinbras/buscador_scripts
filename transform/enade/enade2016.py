@@ -157,7 +157,7 @@ class Enade(object):
         df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios,
                                                                          how='left', on=[
                 'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'Regiao']]
-        df_enade['NU_ANO_facet'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
+        df_enade['Ano_facet'] = df_enade['NU_ANO_facet'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
         df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
         df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
         df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
