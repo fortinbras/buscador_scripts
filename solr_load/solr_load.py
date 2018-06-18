@@ -28,10 +28,9 @@ class solrLoad():
         self.asps = []
         for root, dirs, files in os.walk(self.directory):
             for file in files:
-                if file.endswith(self.filetype):
+                if file.endswith(self.filetype) and 'transform' in root:
                     print(file)
                     print(root)
-                    print(dirs)
                     self.asps.append(os.path.join(root, file))
         print(len(self.asps))
         return self.asps
