@@ -53,6 +53,7 @@ class solrLoad():
             req.add_header('Content-type', self.content_type)
             try:
                 f = urllib2.urlopen(req)
+                print(f.getcode())
             except urllib2.HTTPError as e:
                 print('Erro de conexão, resposta devolvida {}'.format(e.code))
 
@@ -61,7 +62,19 @@ class solrLoad():
             url='http://192.168.0.212/solr/' + self.collection + '/update?commit=true&stream.body=<delete><query>*:*</query></delete>')
         try:
             f = urllib2.urlopen(req)
+            print(f.getcode())
             print('Apagando colection {}'.format(self.collection))
+        except urllib2.HTTPError as e:
+            print('Erro de conexão resposta devolvida {}'.format(e.code))
+
+    def reload_collection(self):
+        req = urllib2.Request(
+            url='http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name='+self.collection+'&wt=json')
+        try:
+            print('Recarregando colection {}...'.format(self.collection))
+            f = urllib2.urlopen(req)
+            print(f.getcode())
+
         except urllib2.HTTPError as e:
             print('Erro de conexão resposta devolvida {}'.format(e.code))
 
@@ -72,3 +85,8 @@ class solrLoad():
 # HTTPERROR
 
 # checar responses
+
+# /opt/solr-6.6.2/bin/solr zk -upconfig -n enade  -z localhost:9983 -d <dir onde se encontra o managed-schema>
+
+# http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name=enade&wt=json
+
