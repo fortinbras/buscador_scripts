@@ -23,9 +23,10 @@ class solrLoad():
         self.localhost = localhost
         self.collection = collection
         self.content_type = content_type
+        self.asps = []
 
     def list_files(self):
-        self.asps = []
+
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith(self.filetype) and 'transform' in root:
@@ -50,20 +51,24 @@ class solrLoad():
                     url='http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true',
                     data=my_data)
             req.add_header('Content-type', self.content_type)
-            print 'conectando ...'
-            f = urllib2.urlopen(req)
-            print f.read()
+            try:
+                f = urllib2.urlopen(req)
+            except urllib2.HTTPError as e:
+                print('Erro de conexão, resposta devolvida {}'.format(e.code))
 
     def delete_collection(self):
         req = urllib2.Request(
             url='http://192.168.0.212/solr/' + self.collection + '/update?commit=true&stream.body=<delete><query>*:*</query></delete>')
-        f = urllib2.urlopen(req)
-        print('Apagando colection {}'.format(self.collection))
+        try:
+            f = urllib2.urlopen(req)
+            print('Apagando colection {}'.format(self.collection))
+        except urllib2.HTTPError as e:
+            print('Erro de conexão resposta devolvida {}'.format(e.code))
 
 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>
 
-#HTTPERROR
+# HTTPERROR
 
-#checar responses
+# checar responses

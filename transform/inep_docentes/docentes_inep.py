@@ -1,4 +1,7 @@
 # coding=utf-8
+import sys
+
+sys.path.insert(0, '../../../buscador_scripts/')
 
 from utils.utils import gYear,find_regiao
 import pandas as pd
@@ -145,8 +148,12 @@ class inepVincDocentes(object):
 if __name__ == "__main__":
 
     PATH_ORIGEM = '/var/tmp/inep/'
-    anos = os.listdir(PATH_ORIGEM)
-    anos.sort()
+    try:
+        anos = os.listdir(PATH_ORIGEM)
+        anos.sort()
+    except OSError:
+        print('Nenhuma pasta encontrada')
+        raise
     for ano in anos:
         print(ano)
         try:

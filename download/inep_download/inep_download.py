@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
+
+sys.path.insert(0, '../../../buscador_scripts/')
 
 import os, errno
 import requests
 import zipfile
 import patoolib
-import sys
+
 
 """
 Este script faz o downloa dos arquivos do INEP e descompacta-os na pasta dos respectivos anos.

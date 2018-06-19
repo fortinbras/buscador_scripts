@@ -1,6 +1,9 @@
 # coding=utf-8
+import sys
 
-from utils.utils import gYear, find_regiao
+sys.path.insert(0, '../../../buscador_scripts/')
+
+from utils import gYear,find_regiao
 import pandas as pd
 import os
 import errno
@@ -65,7 +68,7 @@ class InepVincAlunos(object):
         df['Data_Nasc_ALUNO_facet'] = df['NU_ANO_ALUNO_NASC'].astype(str) + '|' + df['NU_MES_ALUNO_NASC'].astype(
             str) + '|' + df['NU_DIA_ALUNO_NASC'].astype(str)
 
-        df['ANO_FACET'] = gYear(self.ano)
+        df['ANO_facet'] = gYear(self.ano)
 
         return df
 
@@ -196,8 +199,12 @@ class InepVincAlunos(object):
 
 if __name__ == "__main__":
     PATH_ORIGEM = '/var/tmp/inep/'
-    anos = os.listdir(PATH_ORIGEM)
-    anos.sort()
+    try:
+        anos = os.listdir(PATH_ORIGEM)
+        anos.sort()
+    except OSError:
+        print('Nenhuma pasta encontrada')
+        raise
     for ano in anos:
         print(ano)
         try:

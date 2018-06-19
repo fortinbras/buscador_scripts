@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import sys
+
+sys.path.insert(0, '../../../buscador_scripts/')
 
 import os, errno
 import requests
 import zipfile
-import sys
 
 """
 Este script faz o downloa dos arquivos do INEP e descompacta-os na pasta dos respectivos anos.
@@ -69,7 +71,7 @@ def download_enade(ano):
 
 
 if __name__ == "__main__":
-    anos = [2016,2014,2015]
+    anos = [2016]
     for ano in anos:
         try:
             download_enade(ano)

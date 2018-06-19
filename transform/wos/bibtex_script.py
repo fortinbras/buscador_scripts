@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # !/usr/bin/python
+import sys
+
+sys.path.insert(0, '../../../buscador_scripts/')
+
 import os
 import re
 from lxml import etree

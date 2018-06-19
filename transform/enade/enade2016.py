@@ -1,9 +1,13 @@
 # coding=utf-8
+import sys
+
+sys.path.insert(0, '../../../buscador_scripts/')
+
 
 import pandas as pd
 import os, errno
 import codecs
-from utils.utils import gYear, find_regiao
+from utils import gYear, find_regiao
 import csv
 
 
@@ -533,9 +537,14 @@ class Enade(object):
 
 if __name__ == "__main__":
 
+
     PATH_ORIGEM = '/var/tmp/enade/'
-    anos = os.listdir(PATH_ORIGEM)
-    anos.sort()
+    try:
+        anos = os.listdir(PATH_ORIGEM)
+        anos.sort()
+    except OSError:
+        print('Nenhuma pasta encontrada')
+        raise
     for ano in anos:
         print(ano)
         try:
