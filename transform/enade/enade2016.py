@@ -4,6 +4,7 @@ import pandas as pd
 import os, errno
 import codecs
 from utils.utils import gYear, find_regiao
+import csv
 
 
 class Enade(object):
@@ -526,7 +527,8 @@ class Enade(object):
             if e.errno != errno.EEXIST:
                 raise
         df_enade = df_enade.astype(str)
-        df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', line_terminator='\n')
+        df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
+                        line_terminator='\n', quoting=csv.QUOTE_NONNUMERIC)
 
 
 if __name__ == "__main__":

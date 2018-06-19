@@ -6,6 +6,7 @@ import os
 import errno
 import codecs
 import shutil
+import csv
 
 
 class InepVincAlunos(object):
@@ -188,9 +189,9 @@ class InepVincAlunos(object):
 
         if control == 1:
 
-            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a')
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a',quoting=csv.QUOTE_NONNUMERIC)
         else:
-            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', mode='a')
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', mode='a',quoting=csv.QUOTE_NONNUMERIC)
 
 
 if __name__ == "__main__":

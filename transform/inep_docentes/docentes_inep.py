@@ -5,7 +5,7 @@ import pandas as pd
 import os, errno
 import numpy as np
 import codecs
-
+import csv
 
 class inepVincDocentes(object):
 
@@ -139,7 +139,7 @@ class inepVincDocentes(object):
             if e.errno != errno.EEXIST:
                 raise
 
-        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8')
+        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',quoting=csv.QUOTE_NONNUMERIC)
 
 
 if __name__ == "__main__":
