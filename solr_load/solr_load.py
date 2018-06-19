@@ -65,3 +65,5 @@ class solrLoad():
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>
 
 #HTTPERROR
+
+#checar responses
