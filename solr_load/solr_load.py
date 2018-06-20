@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
 
+sys.path.insert(0, '../../../buscador_scripts/')
 import urllib2
 import os
 
@@ -16,13 +18,14 @@ class solrLoad():
 
     """
 
-    def __init__(self, directory, filetype, localhost, collection, content_type):
+    def __init__(self, directory, filetype, localhost, collection, content_type): #, schema):
 
         self.directory = directory
         self.filetype = filetype
         self.localhost = localhost
         self.collection = collection
         self.content_type = content_type
+        # self.schema = schema
         self.asps = []
 
     def list_files(self):
@@ -52,10 +55,13 @@ class solrLoad():
                     data=my_data)
             req.add_header('Content-type', self.content_type)
             try:
+                print('conectando...')
                 f = urllib2.urlopen(req)
                 print(f.getcode())
             except urllib2.HTTPError as e:
                 print('Erro de conexão, resposta devolvida {}'.format(e.code))
+            except urllib2.URLError as e:
+                print('Erro de conexão, resposta devolvida {}'.format(e.args))
 
     def delete_collection(self):
         req = urllib2.Request(
@@ -66,6 +72,9 @@ class solrLoad():
             print('Apagando colection {}'.format(self.collection))
         except urllib2.HTTPError as e:
             print('Erro de conexão resposta devolvida {}'.format(e.code))
+        except urllib2.URLError as e:
+            print('Erro de conexão, resposta devolvida {}'.format(e.args))
+
 
     def reload_collection(self):
         req = urllib2.Request(
@@ -77,6 +86,12 @@ class solrLoad():
 
         except urllib2.HTTPError as e:
             print('Erro de conexão resposta devolvida {}'.format(e.code))
+        except urllib2.URLError as e:
+            print('Erro de conexão, resposta devolvida {}'.format(e.args))
+
+    def schema_upload(self):
+        command = 'opt/solr-6.6.2/bin/solr zk -upconfig -n'+ self.collection+ '-z localhost:9983 -d'+self.schema
+        os.system(command)
 
 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
