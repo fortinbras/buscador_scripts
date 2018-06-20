@@ -3,18 +3,23 @@ import sys
 
 sys.path.insert(0, '../../../buscador_scripts/')
 
-
 import pandas as pd
 import os, errno
 import codecs
 from utils import gYear, find_regiao
 import csv
+import commands
+import datetime
 
 
 class Enade(object):
 
-    def __init__(self, ano):
-        self.ano = ano
+    def __init__(self, year):
+        self.date = datetime.datetime.now()
+        self.ano = year
+        self.input_lenght = 0
+        self.output_length = 0
+        self.CO_GRUPO = 0
         self.colunas = [
             'NU_ANO',
             'CO_IES',
@@ -245,22 +250,78 @@ class Enade(object):
             'F': 'Parte no Brasil e parte no exterior',
         }
 
-    def pega_arquivo_ano(self, ano):
+    def pega_arquivo_ano(self):
 
-        var = '/var/tmp/enade/' + str(ano) + '/download/'
+        var = '/var/tmp/enade/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file.endswith(".txt"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
+                    print 'Arquivo de entrada possui {} linhas'.format(self.input_lenght)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
                     df_enade.fillna('', inplace=True)
 
         return df_enade
 
-    def resolver_dicionario_2014(self):
-        df_enade = self.pega_arquivo_ano(self.ano)
+    def resolver_dicionario(self):
+        df_enade = self.pega_arquivo_ano()
+
+        municipios = pd.read_csv('../../lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
+        municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
+        municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
+        df_enade = df_enade.astype('str')
+        df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios, how='left', on=[
+            'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'REGIAO']]
+        df_enade['CO_CATEGAD'] = df_enade['CO_CATEGAD'].astype(str).replace(self.CO_CATEGAD)
+        df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(self.CO_ORGACAD)
+        df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(self.CO_GRUPO)
+        df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
+        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
+
+        df_enade['ANO_FACET'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
+        df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
+        df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
+        df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
+            str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
+
+        # PESSOAIS
+        df_enade['ESTADO_CIVIL'] = df_enade['QE_I01'].replace(self.QE_I01)
+        df_enade['ESC_PAI'] = df_enade['QE_I04'].replace(self.QE_I04)
+        df_enade['ESC_MAE'] = df_enade['QE_I05'].replace(self.QE_I05)
+        df_enade['MORADIA'] = df_enade['QE_I06'].replace(self.QE_I06)
+        df_enade['INCENTIVO_GRAD'] = df_enade['QE_I19'].replace(self.QE_I19)
+        df_enade['MODALIDADE_2G'] = df_enade['QE_I18'].replace(self.QE_I18)
+
+        # SOCIOECONOMICAS
+        df_enade['COR_RAÇA'] = df_enade['QE_I02'].replace(self.QE_I02)
+        df_enade['RENDA_FAMILIAR'] = df_enade['QE_I08'].replace(self.QE_I08)
+        df_enade['SIT_FINAN'] = df_enade['QE_I09'].replace(self.QE_I09)
+        df_enade['SIT_TRAB'] = df_enade['QE_I10'].replace(self.QE_I10)
+
+        # BOLSAS
+        df_enade['TIPO_BOLSA'] = df_enade['QE_I11'].replace(self.QE_I11)
+        df_enade['TRAJ_ACAD'] = df_enade['QE_I13'].replace(self.QE_I13)
+        df_enade['EC_EXT'] = df_enade['QE_I14'].replace(self.QE_I14)
+        df_enade['ING_GRAD'] = df_enade['QE_I15'].replace(self.QE_I15)
+
+        # GEOGRAFICO
+        df_enade['UF_2G'] = df_enade['QE_I16'].astype(str).replace(self.QE_I16)
+        df_enade['ESCOLA_2G'] = df_enade['QE_I17'].replace(self.QE_I17)
+
+        del (df_enade['CO_MUNIC_CURSO'])
+        del (df_enade['CO_UF_CURSO'])
+        del (df_enade['CO_REGIAO_CURSO'])
+        del (df_enade['AMOSTRA'])
+        del (df_enade['QE_I01'])
+        del (df_enade['QE_I02'])
+        del (df_enade['QE_I08'])
+
+        return df_enade
+
+    def dicionario_2014(self):
         self.CO_GRUPO = {
             '21': 'ARQUITETURA E URBANISMO',
             '72': 'TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS',
@@ -307,60 +368,10 @@ class Enade(object):
             '6405': 'ENGENHARIA FLORESTAL',
 
         }
-
-        municipios = pd.read_csv('../../lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
-        municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
-        municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
-        df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios, how='left', on=[
-            'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'REGIAO']]
-        df_enade['CO_CATEGAD'] = df_enade['CO_CATEGAD'].astype(str).replace(self.CO_CATEGAD)
-        df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(self.CO_ORGACAD)
-        df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(self.CO_GRUPO)
-        df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
-        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
-
-        df_enade['ANO_FACET'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
-        df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
-        df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
-        df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
-            str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
-
-        # PESSOAIS
-        df_enade['ESTADO_CIVIL'] = df_enade['QE_I01'].replace(self.QE_I01)
-        df_enade['ESC_PAI'] = df_enade['QE_I04'].replace(self.QE_I04)
-        df_enade['ESC_MAE'] = df_enade['QE_I05'].replace(self.QE_I05)
-        df_enade['MORADIA'] = df_enade['QE_I06'].replace(self.QE_I06)
-        df_enade['INCENTIVO_GRAD'] = df_enade['QE_I19'].replace(self.QE_I19)
-        df_enade['MODALIDADE_2G'] = df_enade['QE_I18'].replace(self.QE_I18)
-
-        # SOCIOECONOMICAS
-        df_enade['COR_RAÇA'] = df_enade['QE_I02'].replace(self.QE_I02)
-        df_enade['RENDA_FAMILIAR'] = df_enade['QE_I08'].replace(self.QE_I08)
-        df_enade['SIT_FINAN'] = df_enade['QE_I09'].replace(self.QE_I09)
-        df_enade['SIT_TRAB'] = df_enade['QE_I10'].replace(self.QE_I10)
-
-        # BOLSAS
-        df_enade['TIPO_BOLSA'] = df_enade['QE_I11'].replace(self.QE_I11)
-        df_enade['TRAJ_ACAD'] = df_enade['QE_I13'].replace(self.QE_I13)
-        df_enade['EC_EXT'] = df_enade['QE_I14'].replace(self.QE_I14)
-        df_enade['ING_GRAD'] = df_enade['QE_I15'].replace(self.QE_I15)
-
-        # GEOGRAFICO
-        df_enade['UF_2G'] = df_enade['QE_I16'].astype(str).replace(self.QE_I16)
-        df_enade['ESCOLA_2G'] = df_enade['QE_I17'].replace(self.QE_I17)
-
-        del (df_enade['CO_MUNIC_CURSO'])
-        del (df_enade['CO_UF_CURSO'])
-        del (df_enade['CO_REGIAO_CURSO'])
-        del (df_enade['AMOSTRA'])
-        del (df_enade['QE_I01'])
-        del (df_enade['QE_I02'])
-        del (df_enade['QE_I08'])
-
+        df_enade = self.resolver_dicionario()
         return df_enade
 
-    def resolver_dicionario_2015(self):
-        df_enade = self.pega_arquivo_ano(self.ano)
+    def dicionario_2015(self):
 
         self.CO_GRUPO = {'1': 'ADMINISTRAÇÃO',
                          '2': 'DIREITO',
@@ -389,61 +400,10 @@ class Enade(object):
                          '803': 'JORNALISMO',
                          '804': 'PUBLICIDADE E PROPAGANDA',
                          }
-
-        municipios = pd.read_csv('../../lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
-        municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
-        municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
-        df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios, how='left', on=[
-            'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'REGIAO']]
-        df_enade.fillna('Não informado')
-        df_enade['CO_CATEGAD'] = df_enade['CO_CATEGAD'].astype(str).replace(self.CO_CATEGAD)
-        df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(self.CO_ORGACAD)
-        df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(self.CO_GRUPO)
-        df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
-        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
-
-        df_enade['ANO_FACET'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
-        df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
-        df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
-        df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
-            str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
-
-        # PESSOAIS
-        df_enade['ESTADO_CIVIL'] = df_enade['QE_I01'].replace(self.QE_I01)
-        df_enade['ESC_PAI'] = df_enade['QE_I04'].replace(self.QE_I04)
-        df_enade['ESC_MAE'] = df_enade['QE_I05'].replace(self.QE_I05)
-        df_enade['MORADIA'] = df_enade['QE_I06'].replace(self.QE_I06)
-        df_enade['INCENTIVO_GRAD'] = df_enade['QE_I19'].replace(self.QE_I19)
-        df_enade['MODALIDADE_2G'] = df_enade['QE_I18'].replace(self.QE_I18)
-
-        # SOCIOECONOMICAS
-        df_enade['COR_RAÇA'] = df_enade['QE_I02'].replace(self.QE_I02)
-        df_enade['RENDA_FAMILIAR'] = df_enade['QE_I08'].replace(self.QE_I08)
-        df_enade['SIT_FINAN'] = df_enade['QE_I09'].replace(self.QE_I09)
-        df_enade['SIT_TRAB'] = df_enade['QE_I10'].replace(self.QE_I10)
-
-        # BOLSAS
-        df_enade['TIPO_BOLSA'] = df_enade['QE_I11'].replace(self.QE_I11)
-        df_enade['TRAJ_ACAD'] = df_enade['QE_I13'].replace(self.QE_I13)
-        df_enade['EC_EXT'] = df_enade['QE_I14'].replace(self.QE_I14)
-        df_enade['ING_GRAD'] = df_enade['QE_I15'].replace(self.QE_I15)
-
-        # GEOGRAFICO
-        df_enade['UF_2G'] = df_enade['QE_I16'].astype(str).replace(self.QE_I16)
-        df_enade['ESCOLA_2G'] = df_enade['QE_I17'].replace(self.QE_I17)
-
-        del (df_enade['CO_MUNIC_CURSO'])
-        del (df_enade['CO_UF_CURSO'])
-        del (df_enade['CO_REGIAO_CURSO'])
-        del (df_enade['AMOSTRA'])
-        del (df_enade['QE_I01'])
-        del (df_enade['QE_I02'])
-        del (df_enade['QE_I08'])
-
+        df_enade = self.resolver_dicionario()
         return df_enade
 
-    def resolver_dicionario_2016(self):
-        df_enade = self.pega_arquivo_ano(self.ano)
+    def dicionario_2016(self):
         self.CO_GRUPO = {'5': 'MEDICINA VETERINÁRIA',
                          '6': 'ODONTOLOGIA',
                          '12': 'MEDICINA',
@@ -462,81 +422,44 @@ class Enade(object):
                          '92': 'TECNOLOGIA EM GESTÃO AMBIENTAL',
                          '95': 'TECNOLOGIA EM ESTÉTICA E COSMÉTICA',
                          '3501': 'EDUCAÇÃO FÍSICA (BACHARELADO)', }
-        municipios = pd.read_csv('../../lista_municipios.csv', sep=';')
-        municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
-        municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
-        df_enade[['MUNIC_CURSO', 'UF_CURSO', 'REGIAO_CURSO']] = pd.merge(df_enade, municipios, how='left', on=[
-            'CO_MUNIC_CURSO']).loc[:, ['NOME DO MUNICÍPIO', 'UF', 'REGIAO']]
-
-        df_enade['CO_CATEGAD'] = df_enade['CO_CATEGAD'].astype(str).replace(self.CO_CATEGAD)
-        df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(self.CO_ORGACAD)
-        df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(self.CO_GRUPO)
-        df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
-        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
-
-        df_enade['ANO_FACET'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
-        df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
-        df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
-        df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
-            str) + '|' + df_enade['MUNIC_CURSO'].astype(str)
-
-        # PESSOAIS
-        df_enade['ESTADO_CIVIL'] = df_enade['QE_I01'].replace(self.QE_I01)
-        df_enade['ESC_PAI'] = df_enade['QE_I04'].replace(self.QE_I04)
-        df_enade['ESC_MAE'] = df_enade['QE_I05'].replace(self.QE_I05)
-        df_enade['MORADIA'] = df_enade['QE_I06'].replace(self.QE_I06)
-        df_enade['INCENTIVO_GRAD'] = df_enade['QE_I19'].replace(self.QE_I19)
-        df_enade['MODALIDADE_2G'] = df_enade['QE_I18'].replace(self.QE_I18)
-
-        # SOCIOECONOMICAS
-        df_enade['COR_RAÇA'] = df_enade['QE_I02'].replace(self.QE_I02)
-        df_enade['RENDA_FAMILIAR'] = df_enade['QE_I08'].replace(self.QE_I08)
-        df_enade['SIT_FINAN'] = df_enade['QE_I09'].replace(self.QE_I09)
-        df_enade['SIT_TRAB'] = df_enade['QE_I10'].replace(self.QE_I10)
-
-        # BOLSAS
-        df_enade['TIPO_BOLSA'] = df_enade['QE_I11'].replace(self.QE_I11)
-        df_enade['TRAJ_ACAD'] = df_enade['QE_I13'].replace(self.QE_I13)
-        df_enade['EC_EXT'] = df_enade['QE_I14'].replace(self.QE_I14)
-        df_enade['ING_GRAD'] = df_enade['QE_I15'].replace(self.QE_I15)
-
-        # GEOGRAFICO
-        df_enade['UF_2G'] = df_enade['QE_I16'].astype(str).replace(self.QE_I16)
-        df_enade['ESCOLA_2G'] = df_enade['QE_I17'].replace(self.QE_I17)
-
-        del (df_enade['CO_MUNIC_CURSO'])
-        del (df_enade['CO_UF_CURSO'])
-        del (df_enade['CO_REGIAO_CURSO'])
-        del (df_enade['AMOSTRA'])
-        del (df_enade['QE_I01'])
-        del (df_enade['QE_I02'])
-        del (df_enade['QE_I08'])
-
+        df_enade = self.resolver_dicionario()
         return df_enade
 
     def gera_csv(self):
         if str(self.ano) == '2016':
-            df_enade = self.resolver_dicionario_2016()
+            df_enade = self.dicionario_2016()
         elif str(self.ano) == '2015':
-            df_enade = self.resolver_dicionario_2015()
+            df_enade = self.dicionario_2015()
         elif str(self.ano) == '2014':
-            df_enade = self.resolver_dicionario_2014()
+            df_enade = self.dicionario_2014()
         else:
             pass
         destino_transform = '/var/tmp/enade/' + str(self.ano) + '/transform'
         csv_file = '/enade_' + str(self.ano) + '.csv'
+        log_file = '/enade_' + str(self.ano) + '_log.txt'
         try:
             os.makedirs(destino_transform)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
         df_enade = df_enade.astype(str)
+
         df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
                         line_terminator='\n', quoting=csv.QUOTE_NONNUMERIC)
+        self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
+        print 'Arquivo de saida possui {} linhas'.format(self.output_length)
+
+        with open(destino_transform + log_file, 'w') as log:
+            log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
+            log.write("\n")
+            log.write('Arquivo de entrada possui {} linhas'.format(self.input_lenght))
+            log.write("\n")
+            log.write('Arquivo de saida possui {} linhas'.format(self.output_length))
+        print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(self.ano,
+                                                                                      destino_transform + log_file))
 
 
 if __name__ == "__main__":
-
 
     PATH_ORIGEM = '/var/tmp/enade/'
     try:
@@ -550,7 +473,7 @@ if __name__ == "__main__":
         try:
             inep_doc = Enade(ano)
             inep_doc.gera_csv()
-            print('Arquivo do ano, {} finalizado'.format(ano))
+            # print('Arquivo do ano, {} finalizado'.format(ano))
         except:
-            print('Arquivo do ano, {} não encontrado'.format(ano))
-            raise
+            raise ('Arquivo do ano, {} não encontrado'.format(ano))
+

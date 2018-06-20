@@ -10,12 +10,14 @@ import errno
 import codecs
 import shutil
 import csv
+import commands
 
 
 class InepVincAlunos(object):
 
     def __init__(self, ano):
         self.ano = ano
+        self.input_length = 0
 
     def pega_arquivo_aluno_por_ano(self):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
@@ -27,8 +29,10 @@ class InepVincAlunos(object):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
 
                     if file == 'DM_ALUNO.CSV':
+                        self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
+                        print 'Arquivo de entrada possui {} linhas'.format(self.input_lenght)
                         df_alunos = pd.read_csv(arquivo, sep='|', encoding='cp1252',
-                                                chunksize=100000)  # , nrows=100000)
+                                                chunksize=100000, low_memory=False)  # , nrows=100000)
         try:
             return df_alunos
         except:
@@ -178,11 +182,11 @@ class InepVincAlunos(object):
 
     def gera_csv(self, df, control):
 
-        destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform'
+        destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform/alunos'
         csv_file = '/alunos_vinculo_ies_' + str(self.ano) + '.csv'
 
         if os.path.join(destino_transform,csv_file) and control==0:
-            shutil.rmtree(os.path.join(destino_transform), ignore_errors=False, onerror=None)
+            shutil.rmtree(os.path.join(destino_transform), ignore_errors=True, onerror=None)
 
         try:
             os.makedirs(destino_transform)

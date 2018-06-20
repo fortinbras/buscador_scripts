@@ -17,6 +17,7 @@
 
     <copyField source="*" dest="_text_"/>
 
+    <dynamicField name="cross_collection_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
     <dynamicField name="*_is" type="ints" indexed="true" stored="true"/>
     <dynamicField name="*_s" type="string" indexed="true" stored="true"/>

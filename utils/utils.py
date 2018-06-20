@@ -1,4 +1,7 @@
 # coding=utf-8
+import os
+import commands
+
 
 def gYear(year):
     ini = 1940
@@ -42,3 +45,22 @@ def find_zip():
     for l in zip_files:
         print(l)
 
+
+def list_output_files(collectiondir, transform):
+    PATH_ORIGEM = '/var/tmp/inep'
+    try:
+        anos = os.listdir(collectiondir)
+        anos.sort()
+    except OSError:
+        print('Nenhuma pasta encontrada')
+        raise
+    for ano in anos:
+        # print(ano)
+        var = collectiondir +'/' + ano +'/' +transform
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                if file.endswith(".csv"):
+                    print os.path.join(root,file)
+
+
+list_output_files('/var/tmp/inep', 'transform/docentes')

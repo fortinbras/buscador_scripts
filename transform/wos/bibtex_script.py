@@ -12,7 +12,6 @@ from bibtexparser.bparser import BibTexParser
 from utils import gYear
 
 
-
 class BibtoXML(object):
     """ classe gera arquivo xml no formato aceito pelo Solr a partir de um arquivo .bib
 
@@ -135,7 +134,8 @@ gerador.parse_bib()
                                 doc.append(pub_journal)
                             except:
                                 pub_journal = (
-                                    'publisher_journal_volume_facet', "{}|{}| ".format(publisher.strip(), journal.strip()))
+                                    'publisher_journal_volume_facet',
+                                    "{}|{}| ".format(publisher.strip(), journal.strip()))
                                 doc.append(pub_journal)
                         except KeyError:
                             pass
@@ -152,7 +152,8 @@ gerador.parse_bib()
                         try:
 
                             month = item['month'][1:4]
-                            year_month = ('Year-Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
+                            year_month = (
+                            'Year-Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
                             doc.append(year_month)
                         except KeyError:
                             year_month = ('Year-Month_facet', '{}|{}|'.format(group.strip(), year.strip()))
@@ -293,8 +294,8 @@ gerador.parse_bib()
                             pass
 
                         docs.append(doc)
-                        #content += 1
-                        #print(content)
+                        # content += 1
+                        # print(content)
                     print(file)
         for doc in docs:
             self.generateDoc(doc)

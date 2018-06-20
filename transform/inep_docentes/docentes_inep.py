@@ -9,11 +9,13 @@ import os, errno
 import numpy as np
 import codecs
 import csv
+import commands
 
 class inepVincDocentes(object):
 
     def __init__(self, ano):
         self.ano = ano
+        self.input_lenght = 0
 
     def pega_arquivo_por_ano(self ,ano):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
@@ -24,10 +26,10 @@ class inepVincDocentes(object):
                 if file.endswith(".CSV"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
 
-                    # !!! O script procura o arquivo CSV ordenado.
-                    # ( head -n1 DM_DOCENTE.CSV; tail -n+2 DM_DOCENTE.CSV | sort -n --field-separator='|' --key=9 ) > DM_DOCENTE_SORTED.CSV
                     if file == 'DM_DOCENTE.CSV':
                         df_docentes = pd.read_csv(arquivo, sep='|', encoding='cp1252')
+                        self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
+                        print 'Arquivo de entrada possui {} linhas'.format(self.input_lenght)
                     elif file == 'DM_IES.CSV':
                         df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252')
         try:
@@ -134,7 +136,7 @@ class inepVincDocentes(object):
 
     def gera_csv(self):
         df = self.resolve_dicionarios(self.ano)
-        destino_transform = '/var/tmp/inep/' + str(ano) + '/transform'
+        destino_transform = '/var/tmp/inep/' + str(ano) + '/transform/docentes'
         csv_file = '/docentes_vinculo_ies_' + str(ano) + '.csv'
         try:
             os.makedirs(destino_transform)

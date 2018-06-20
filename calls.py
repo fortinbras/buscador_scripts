@@ -6,31 +6,47 @@ from solr_load import solrLoad
 collection = {
     'wos': {
         'filetype': '.xml',
-        'directory_transform': '/var/tmp/wos/transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'wos',
-        'content_type': 'text/xml'},
+        'content_type': 'text/xml',
+        'collectiondir': '/var/tmp/wos',
+        'transformdir': 'transform/wos'
+    },
 
     'lattes': {
         'filetype': '.xml',
-        'directory_transform': '/var/tmp/lattes/',
         'localhost': '192.168.0.212:8983',
         'collection': 'lattes',
-        'content_type': 'text/xml'},
+        'content_type': 'text/xml',
+        'collectiondir': '/var/tmp/lattes',
+        'transformdir': 'transform/'},
 
     'enade': {
         'filetype': '.csv',
-        'directory_transform': '/var/tmp/enade/',
+        'collectiondir': '/var/tmp/enade',
+        'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'enade',
-        'content_type': 'text/csv'},
+        'content_type': 'text/csv',
+        'schema': 'transform/enade/'},
 
-    'inep': {
+    'inep_alunos': {
         'filetype': '.csv',
-        'directory_transform': '/var/tmp/inep/',
+        'collectiondir': '/var/tmp/inep',
+        'transformdir': 'transform/alunos',
         'localhost': '192.168.0.212:8983',
-        'collection': 'inep',
-        'content_type': 'text/csv'},
+        'collection': 'inep_alunos',
+        'content_type': 'text/csv',
+        'schema': 'transform/inep_alunos/'},
+
+    'inep_docentes': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/inep',
+        'transformdir': 'transform/docentes',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'inep_docentes',
+        'content_type': 'text/csv',
+        'schema': 'transform/inep_docentes/'},
 
 }
 
@@ -41,48 +57,31 @@ def executa(coll):
 
     """
 
-    if coll == 'wos':
+    if coll == 'inep_alunos':
+        param = collection['inep_alunos']
+        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['content_type'],
+                        param['schema'])
+        load.full_sequence()
 
-        param = collection['wos']
-        solr_request = solrLoad(
-            param['directory_transform'], param['filetype'], param['localhost'],
-            param['collection'], param['content_type']
-        )
-        solr_request.delete_collection()  # deleta collection do solr
-        solr_request.files_load()  # carrega no server
+    elif coll == 'inep_docentes':
+        param = collection['inep_docentes']
+        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        load.full_sequence()
 
     elif coll == 'enade':
-
         param = collection['enade']
+        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        load.full_sequence()
 
-        solr_request = solrLoad(
-            param['directory_transform'], param['filetype'], param['localhost'],
-            param['collection'], param['content_type']
-        )
-        solr_request.delete_collection()  # deleta collection do solr
-        solr_request.files_load()  # carrega no server
 
-    elif coll == 'lattes':
-
-        param = collection['lattes']
-        solr_request = solrLoad(
-            param['directory_transform'], param['filetype'], param['localhost'],
-            param['collection'], param['content_type']
-        )
-        solr_request.delete_collection()  # deleta collection do solr
-        solr_request.files_load()  # carrega no server
-
-    elif coll == 'inep':
-
-        param = collection['inep']
-        solr_request = solrLoad(
-            param['directory_transform'], param['filetype'], param['localhost'],
-            param['collection'], param['content_type']
-        )
-        solr_request.delete_collection()  # deleta collection do solr
-        solr_request.list_files()  # carrega no server
-    else:
-        print('digite collection como parametro')
+    elif coll == 'wos':
+        param = collection['wos']
+        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        # load.list_output_files()
+        load.full_sequence()
 
 
 if __name__ == "__main__":
@@ -90,6 +89,5 @@ if __name__ == "__main__":
         executa(sys.argv[1])
     except IndexError:
         print('digite collection como parametro')
-
 
 # import relativo

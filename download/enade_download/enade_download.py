@@ -8,7 +8,7 @@ import requests
 import zipfile
 
 """
-Este script faz o downloa dos arquivos do INEP e descompacta-os na pasta dos respectivos anos.
+Este script faz o downloa dos arquivos do ENADE e descompacta-os na pasta dos respectivos anos.
 Deve-se escolher o ano de inicio e o ano final dos arquivos a serem baixados.
 Antes de 2009, a nomenclatura e formato dos arquivos nao batem.
 """
@@ -23,13 +23,11 @@ all_links = {
     # '2010': '',
     # '2011': '',
     # '2012': '',
-    # '2013': '',
+    '2013': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2013.zip',
     '2014': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2014.zip',
     '2015': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2015.zip',
     '2016': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2016_versao_28052018.zip'
 }
-
-
 
 
 def download_enade(ano):
@@ -60,9 +58,6 @@ def download_enade(ano):
                 f.write(chunk)
         f.close()
 
-
-
-
     archive = zipfile.ZipFile(fullpath, 'r')
     archive.extractall(dir_destino)
     archive.close()
@@ -71,7 +66,7 @@ def download_enade(ano):
 
 
 if __name__ == "__main__":
-    anos = [2016]
+    anos = all_links.keys()
     for ano in anos:
         try:
             download_enade(ano)
