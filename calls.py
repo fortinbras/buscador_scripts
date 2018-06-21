@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from solr_load import solrLoad
+from solr_load import SolrLoad
 
 collection = {
     'wos': {
@@ -28,7 +28,7 @@ collection = {
         'localhost': '192.168.0.212:8983',
         'collection': 'enade',
         'content_type': 'text/csv',
-        'schema': 'transform/enade/'},
+        'schema': 'transform/enade/conf'},
 
     'inep_alunos': {
         'filetype': '.csv',
@@ -37,7 +37,7 @@ collection = {
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_alunos',
         'content_type': 'text/csv',
-        'schema': 'transform/inep_alunos/'},
+        'schema': 'transform/inep_alunos/conf'},
 
     'inep_docentes': {
         'filetype': '.csv',
@@ -46,7 +46,7 @@ collection = {
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_docentes',
         'content_type': 'text/csv',
-        'schema': 'transform/inep_docentes/'},
+        'schema': 'transform/inep_docentes/conf'},
 
 }
 
@@ -59,28 +59,26 @@ def executa(coll):
 
     if coll == 'inep_alunos':
         param = collection['inep_alunos']
-        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['content_type'],
-                        param['schema'])
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
 
     elif coll == 'inep_docentes':
         param = collection['inep_docentes']
-        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
                         param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
 
     elif coll == 'enade':
         param = collection['enade']
-        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
                         param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
 
-
     elif coll == 'wos':
         param = collection['wos']
-        load = solrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
                         param['collection'], param['content_type'], param['schema'])
-        # load.list_output_files()
         load.full_sequence()
 
 

@@ -1,12 +1,14 @@
 # coding=utf-8
+import errno
+import os
 import sys
 
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from utils import *
 import pandas as pd
-import os, errno
 import codecs
-from utils import gYear, find_regiao
 import csv
 import commands
 import datetime
@@ -269,7 +271,7 @@ class Enade(object):
     def resolver_dicionario(self):
         df_enade = self.pega_arquivo_ano()
 
-        municipios = pd.read_csv('../../lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
+        municipios = pd.read_csv('lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
         municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
         municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
         df_enade = df_enade.astype('str')
@@ -319,6 +321,28 @@ class Enade(object):
         del (df_enade['QE_I02'])
         del (df_enade['QE_I08'])
 
+        return df_enade
+
+    def dicionario_2013(self):
+        self.CO_GRUPO = {'5': 'MEDICINA VETERINÁRIA',
+                         '6': 'ODONTOLOGIA',
+                         '12': 'MEDICINA',
+                         '17': 'AGRONOMIA',
+                         '19': 'FARMÁCIA',
+                         '23': 'ENFERMAGEM',
+                         '27': 'FONOAUDIOLOGIA',
+                         '28': 'NUTRIÇÃO',
+                         '36': 'FISIOTERAPIA',
+                         '38': 'SERVIÇO SOCIAL',
+                         '51': 'ZOOTECNIA',
+                         '55': 'BIOMEDICINA',
+                         '69': 'TECNOLOGIA EM RADIOLOGIA',
+                         '90': 'TECNOLOGIA EM AGRONEGÓCIOS',
+                         '91': 'TECNOLOGIA EM GESTÃO HOSPITALAR',
+                         '92': 'TECNOLOGIA EM GESTÃO AMBIENTAL',
+                         '95': 'TECNOLOGIA EM ESTÉTICA E COSMÉTICA',
+                         '3501': 'EDUCAÇÃO FÍSICA (BACHARELADO)', }
+        df_enade = self.resolver_dicionario()
         return df_enade
 
     def dicionario_2014(self):
@@ -432,6 +456,8 @@ class Enade(object):
             df_enade = self.dicionario_2015()
         elif str(self.ano) == '2014':
             df_enade = self.dicionario_2014()
+        elif str(self.ano) == '2013':
+            df_enade = self.dicionario_2013()
         else:
             pass
         destino_transform = '/var/tmp/enade/' + str(self.ano) + '/transform'
@@ -459,8 +485,7 @@ class Enade(object):
                                                                                       destino_transform + log_file))
 
 
-if __name__ == "__main__":
-
+if __name__ == '__main__':
     PATH_ORIGEM = '/var/tmp/enade/'
     try:
         anos = os.listdir(PATH_ORIGEM)
@@ -475,5 +500,6 @@ if __name__ == "__main__":
             inep_doc.gera_csv()
             # print('Arquivo do ano, {} finalizado'.format(ano))
         except:
-            raise ('Arquivo do ano, {} não encontrado'.format(ano))
+            print 'Arquivo do ano, {} não encontrado'.format(ano)
+            pass
 

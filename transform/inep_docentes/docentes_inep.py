@@ -1,15 +1,18 @@
 # coding=utf-8
+import errno
+import os
 import sys
 
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
-from utils.utils import gYear,find_regiao
+from utils import *
 import pandas as pd
-import os, errno
 import numpy as np
 import codecs
 import csv
 import commands
+
 
 class inepVincDocentes(object):
 
@@ -17,7 +20,7 @@ class inepVincDocentes(object):
         self.ano = ano
         self.input_lenght = 0
 
-    def pega_arquivo_por_ano(self ,ano):
+    def pega_arquivo_por_ano(self, ano):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
         var = '/var/tmp/inep/' + str(ano) + '/download/'
 
@@ -37,14 +40,14 @@ class inepVincDocentes(object):
         except:
             pass
 
-    def merge_docente_ies(self,ano):
+    def merge_docente_ies(self, ano):
         dic = self.pega_arquivo_por_ano(ano)
         df_docentes = dic['docentes']
         df_ies = dic['ies']
         df = df_docentes.merge(df_ies)
         return df
 
-    def manipula_df(self,ano):
+    def manipula_df(self, ano):
         df = self.merge_docente_ies(ano)
 
         df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
@@ -52,7 +55,7 @@ class inepVincDocentes(object):
         df['MANT_IES_facet'] = df['NO_MANTENEDORA'] + '|' + df['NO_IES']
 
         df['ID'] = np.where(df['CO_DOCENTE_IES'], (str(ano) + '_' + df['CO_DOCENTE_IES'].astype(str)),
-                            (str(ano)+'_' + df['CO_DOCENTE'].astype(str)))
+                            (str(ano) + '_' + df['CO_DOCENTE'].astype(str)))
 
         df['Data_Nasc_Docente_facet'] = df['NU_ANO_DOCENTE_NASC'].astype(str) + '|' + df['NU_MES_DOCENTE_NASC'].astype(
             str) + '|' + df['NU_DIA_DOCENTE_NASC'].astype(str)
@@ -61,7 +64,7 @@ class inepVincDocentes(object):
 
         return df
 
-    def resolve_dicionarios(self,ano):
+    def resolve_dicionarios(self, ano):
         df = self.manipula_df(ano)
 
         CHAVES_SIM_NAO = ['IN_CAPITAL_IES', 'IN_ATU_EAD', 'IN_ATU_POS_EAD', 'IN_ATU_EXTENSAO', 'IN_ATU_GESTAO',
@@ -144,7 +147,7 @@ class inepVincDocentes(object):
             if e.errno != errno.EEXIST:
                 raise
 
-        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',quoting=csv.QUOTE_NONNUMERIC)
+        df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', quoting=csv.QUOTE_NONNUMERIC)
 
 
 if __name__ == "__main__":

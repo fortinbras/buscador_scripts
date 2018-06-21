@@ -1,6 +1,7 @@
 # coding=utf-8
+
+
 import os
-import commands
 
 
 def gYear(year):
@@ -14,8 +15,12 @@ def gYear(year):
     for i in lista:
         a = int(i[0:4])
         b = int(i[5:])
-        if year in range(a, (b + 1), 1):
-            return i
+        try:
+            if int(year) in range(a, (b + 1), 1):
+                return i
+        except:
+            if year in range(a, (b + 1), 1):
+                return i
 
 
 def find_regiao(cod):
@@ -56,11 +61,9 @@ def list_output_files(collectiondir, transform):
         raise
     for ano in anos:
         # print(ano)
-        var = collectiondir +'/' + ano +'/' +transform
+        var = collectiondir + '/' + ano + '/' + transform
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file.endswith(".csv"):
-                    print os.path.join(root,file)
+                    print os.path.join(root, file)
 
-
-list_output_files('/var/tmp/inep', 'transform/docentes')

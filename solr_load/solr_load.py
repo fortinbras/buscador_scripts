@@ -4,9 +4,9 @@ import sys
 sys.path.insert(0, '../../../buscador_scripts/')
 import requests
 import os
-import commands
 
-class solrLoad():
+
+class SolrLoad(object):
     """
     Classe realiza um POST pra uma determinada url no solr com uma lista de arquivos da maquina local
     os parametros :
@@ -68,7 +68,7 @@ class solrLoad():
                     data=my_data, headers={"Content-Type": self.content_type}
                 )
                 print req.status_code
-                print req.headers['status']
+                # print req.headers['status']
 
             except requests.ConnectionError as errc:
                 print ("Error Connecting:", errc)
@@ -88,8 +88,7 @@ class solrLoad():
         try:
             req = requests.post(url)
             print req.status_code
-            print req.headers['status']
-
+            # print req.headers['status']
 
         except requests.ConnectionError as errc:
             print ("Error Connecting:", errc)
@@ -107,7 +106,7 @@ class solrLoad():
         try:
             req = requests.post(url)
             print req.status_code
-            print req.headers['status']
+            # print req.headers['status']
 
         except requests.ConnectionError as errc:
             print ("Error Connecting:", errc)
@@ -119,13 +118,21 @@ class solrLoad():
             print ("OOps: Something Else", err)
 
     def upload_schema(self):
-        command = 'opt/solr-6.6.2/bin/solr zk -upconfig -n' + self.collection + '-z localhost:9983 -d' + self.schema
+        command = 'opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z localhost:9983 -d ' +\
+                  self.schemadir
         os.system(command)
 
     def full_sequence(self):
+        print('Deleting collection')
         self.delete_collection()
+
+        print('Upload do schema')
         self.upload_schema()
+
+        print('Collection refresh')
         self.reload_collection()
+
+        print('Collection upload')
         self.files_load()
 
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>

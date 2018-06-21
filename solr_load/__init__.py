@@ -1,2 +1,2 @@
-from solr_load import solrLoad
+from solr_load import SolrLoad
 

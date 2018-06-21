@@ -1,11 +1,12 @@
 # coding=utf-8
 import sys
+import os
 
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
-from utils import gYear,find_regiao
+from utils import *
 import pandas as pd
-import os
 import errno
 import codecs
 import shutil
@@ -72,7 +73,7 @@ class InepVincAlunos(object):
         df['Data_Nasc_ALUNO_facet'] = df['NU_ANO_ALUNO_NASC'].astype(str) + '|' + df['NU_MES_ALUNO_NASC'].astype(
             str) + '|' + df['NU_DIA_ALUNO_NASC'].astype(str)
 
-        df['ANO_facet'] = gYear(self.ano)
+        df['ANO_facet'] = utils.gYear(self.ano)
 
         return df
 
@@ -163,9 +164,9 @@ class InepVincAlunos(object):
         df['CO_MOBILIDADE_ACADEMICA'] = df['CO_MOBILIDADE_ACADEMICA'].astype(str).replace(CO_MOBILIDADE_ACADEMICA)
         df['CO_SEMESTRE_CONCLUSAO'] = df['CO_SEMESTRE_CONCLUSAO'].astype(str).replace(CO_SEMESTRE_CONCLUSAO)
 
-        municipios = pd.read_csv('../../lista_municipios.csv', sep=';')
+        municipios = pd.read_csv('lista_municipios.csv', sep=';')
         municipios['CÓDIGO DO MUNICÍPIO'] = municipios['CÓDIGO DO MUNICÍPIO'].astype(str)
-        municipios['Regiao'] = municipios['CÓDIGO DO MUNICÍPIO'].apply(find_regiao)
+        municipios['Regiao'] = municipios['CÓDIGO DO MUNICÍPIO'].apply(utils.find_regiao)
         municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNICIPIO_NASCIMENTO'}, inplace=True)
         municipios['CO_MUNICIPIO_NASCIMENTO'] = municipios['CO_MUNICIPIO_NASCIMENTO'].astype(float)
 
