@@ -283,7 +283,7 @@ class Enade(object):
         df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
         df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
 
-        df_enade['ANO_FACET'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
+        df_enade['ANO_facet'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
         df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear) + '|' + df_enade['ANO_FIM_2G'].astype(str)
         df_enade['ANO_IN_GRAD_facet'] = df_enade['ANO_IN_GRAD'].apply(gYear) + '|' + df_enade['ANO_IN_GRAD'].astype(str)
         df_enade['GEOGRAFICO_facet'] = df_enade['REGIAO_CURSO'].astype(str) + '|' + df_enade['UF_CURSO'].astype(
@@ -498,7 +498,7 @@ if __name__ == '__main__':
         try:
             inep_doc = Enade(ano)
             inep_doc.gera_csv()
-            # print('Arquivo do ano, {} finalizado'.format(ano))
+            print('Arquivo do ano, {} finalizado'.format(ano))
         except:
             print 'Arquivo do ano, {} não encontrado'.format(ano)
             pass
