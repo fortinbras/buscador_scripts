@@ -186,7 +186,7 @@ class InepVincAlunos(object):
         destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform/alunos'
         csv_file = '/alunos_vinculo_ies_' + str(self.ano) + '.csv'
 
-        if os.path.join(destino_transform,csv_file) and control==0:
+        if os.path.join(destino_transform, csv_file) and control == 0:
             shutil.rmtree(os.path.join(destino_transform), ignore_errors=True, onerror=None)
 
         try:
@@ -197,9 +197,11 @@ class InepVincAlunos(object):
 
         if control == 1:
 
-            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a',quoting=csv.QUOTE_NONNUMERIC)
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a',
+                      quoting=csv.QUOTE_NONNUMERIC)
         else:
-            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', mode='a',quoting=csv.QUOTE_NONNUMERIC)
+            df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', mode='a',
+                      quoting=csv.QUOTE_NONNUMERIC)
 
 
 if __name__ == "__main__":
@@ -220,13 +222,12 @@ if __name__ == "__main__":
             df_merged = inep_al.merge_alunos_ies(df_next, df_ies)
             df_merged = inep_al.manipula_df(df_merged)
             df_merged = inep_al.resolve_dicionarios(df_merged)
-            inep_al.gera_csv(df_merged,0)
+            inep_al.gera_csv(df_merged, 0)
             for chunk in chunks_a:
                 df_merged = inep_al.merge_alunos_ies(chunk, df_ies)
                 df_merged = inep_al.manipula_df(df_merged)
                 df_merged = inep_al.resolve_dicionarios(df_merged)
-                inep_al.gera_csv(df_merged,1)
-
+                inep_al.gera_csv(df_merged, 1)
 
             print('Arquivo do ano, {} finalizado'.format(ano))
         except:

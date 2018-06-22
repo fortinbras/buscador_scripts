@@ -4,6 +4,7 @@ import sys
 sys.path.insert(0, '../../../buscador_scripts/')
 import requests
 import os
+from time import sleep
 
 
 class SolrLoad(object):
@@ -118,7 +119,7 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def upload_schema(self):
-        command = 'opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z localhost:9983 -d ' +\
+        command = '/opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z localhost:9983 -d ' + \
                   self.schemadir
         os.system(command)
 
@@ -126,14 +127,22 @@ class SolrLoad(object):
         print('Deleting collection')
         self.delete_collection()
 
+        sleep(5)
+
         print('Upload do schema')
         self.upload_schema()
+
+        sleep(5)
 
         print('Collection refresh')
         self.reload_collection()
 
+        sleep(5)
+
         print('Collection upload')
         self.files_load()
+
+        print('Carga finalizada')
 
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>
 

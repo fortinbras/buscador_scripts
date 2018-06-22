@@ -298,7 +298,7 @@ class Enade(object):
         df_enade['MODALIDADE_2G'] = df_enade['QE_I18'].replace(self.QE_I18)
 
         # SOCIOECONOMICAS
-        df_enade['COR_RAÇA'] = df_enade['QE_I02'].replace(self.QE_I02)
+        df_enade['COR_RACA'] = df_enade['QE_I02'].replace(self.QE_I02)
         df_enade['RENDA_FAMILIAR'] = df_enade['QE_I08'].replace(self.QE_I08)
         df_enade['SIT_FINAN'] = df_enade['QE_I09'].replace(self.QE_I09)
         df_enade['SIT_TRAB'] = df_enade['QE_I10'].replace(self.QE_I10)
