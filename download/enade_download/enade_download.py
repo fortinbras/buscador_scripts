@@ -63,6 +63,7 @@ def download_enade(ano):
     archive.close()
 
     os.remove(fullpath)
+    print "Download do ano {} finalizado".format(ano)
 
 
 if __name__ == "__main__":
@@ -74,3 +75,4 @@ if __name__ == "__main__":
             print('digite ano que deseja como parametro entre (2009~2016)')
         except KeyError:
             print('Ano invalido digite ano entre (2009~2016)')
+

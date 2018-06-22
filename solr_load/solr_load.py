@@ -143,4 +143,4 @@ class SolrLoad(object):
 
 # /opt/solr-6.6.2/bin/solr zk -upconfig -n enade  -z localhost:9983 -d <dir onde se encontra o managed-schema>
 
-# http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name=enade&wt=json
+# http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name=enade&wt=jso
