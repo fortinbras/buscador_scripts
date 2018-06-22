@@ -86,7 +86,7 @@ class SolrLoad(object):
               self.collection + \
               '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
         try:
-            req = requests.post(url)
+            req = requests.get(url)
             print req.status_code
             # print req.headers['status']
 
