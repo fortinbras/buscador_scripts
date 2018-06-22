@@ -462,7 +462,7 @@ class Enade(object):
             pass
         destino_transform = '/var/tmp/enade/' + str(self.ano) + '/transform'
         csv_file = '/enade_' + str(self.ano) + '.csv'
-        log_file = '/enade_' + str(self.ano) + '_log.txt'
+        log_file = '/enade_' + str(self.ano) + '.log'
         try:
             os.makedirs(destino_transform)
         except OSError as e:
