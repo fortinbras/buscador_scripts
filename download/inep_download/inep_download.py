@@ -87,7 +87,7 @@ def download_censo_superior(ano):
 
 
 if __name__ == "__main__":
-    anos = [2016]
+    anos = all_links.keys()
     for ano in anos:
         try:
             download_censo_superior(ano)
