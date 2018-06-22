@@ -261,7 +261,7 @@ class Enade(object):
                 if file.endswith(".txt"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
-                    print 'Arquivo de entrada possui {} linhas'.format(self.input_lenght)
+                    print 'Arquivo de entrada possui {} linhas de informacao'.format(self.input_lenght-1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
                     df_enade.fillna('', inplace=True)
@@ -473,14 +473,14 @@ class Enade(object):
         df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
                         line_terminator='\n', quoting=csv.QUOTE_NONNUMERIC)
         self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
-        print 'Arquivo de saida possui {} linhas'.format(self.output_length)
+        print 'Arquivo de saida possui {} linhas de informacao'.format(self.output_length-1)
 
         with open(destino_transform + log_file, 'w') as log:
             log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
             log.write("\n")
-            log.write('Arquivo de entrada possui {} linhas'.format(self.input_lenght))
+            log.write('Arquivo de entrada possui {} linhas de informacao'.format(self.input_lenght-1))
             log.write("\n")
-            log.write('Arquivo de saida possui {} linhas'.format(self.output_length))
+            log.write('Arquivo de saida possui {} linhas de informacao'.format(self.output_length-1))
         print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(self.ano,
                                                                                       destino_transform + log_file))
 
