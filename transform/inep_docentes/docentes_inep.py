@@ -12,13 +12,16 @@ import numpy as np
 import codecs
 import csv
 import commands
+import datetime
 
 
 class inepVincDocentes(object):
 
     def __init__(self, ano):
+        self.date = datetime.datetime.now()
         self.ano = ano
         self.input_lenght = 0
+        self.output_length = 0
 
     def pega_arquivo_por_ano(self, ano):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
@@ -32,9 +35,11 @@ class inepVincDocentes(object):
                     if file == 'DM_DOCENTE.CSV':
                         df_docentes = pd.read_csv(arquivo, sep='|', encoding='cp1252')
                         self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
-                        print 'Arquivo de entrada possui {} linhas'.format(self.input_lenght)
+                        df_docentes.fillna('', inplace=True)
+                        print 'Arquivo de entrada possui {} linhas'.format(int(self.input_lenght) - 1)
                     elif file == 'DM_IES.CSV':
                         df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252')
+                        df_ies.fillna('', inplace=True)
         try:
             return {'docentes': df_docentes, 'ies': df_ies}
         except:
@@ -45,6 +50,7 @@ class inepVincDocentes(object):
         df_docentes = dic['docentes']
         df_ies = dic['ies']
         df = df_docentes.merge(df_ies)
+        df = df.astype(unicode)
         return df
 
     def manipula_df(self, ano):
@@ -54,8 +60,8 @@ class inepVincDocentes(object):
 
         df['MANT_IES_facet'] = df['NO_MANTENEDORA'] + '|' + df['NO_IES']
 
-        df['ID'] = np.where(df['CO_DOCENTE_IES'], (str(ano) + '_' + df['CO_DOCENTE_IES'].astype(str)),
-                            (str(ano) + '_' + df['CO_DOCENTE'].astype(str)))
+        df['ID'] = np.where(df['CO_DOCENTE_IES'], (str(ano) + '_' + df['CO_DOCENTE_IES']),
+                            (str(ano) + '_' + df['CO_DOCENTE']))
 
         df['Data_Nasc_Docente_facet'] = df['NU_ANO_DOCENTE_NASC'].astype(str) + '|' + df['NU_MES_DOCENTE_NASC'].astype(
             str) + '|' + df['NU_DIA_DOCENTE_NASC'].astype(str)
@@ -90,16 +96,16 @@ class inepVincDocentes(object):
                                '3': 'Afastado para exercício em outros órgãos/entidades',
                                '4': 'Afastado por outros motivos', '5': 'Afastado para tratamento de saúde'}
 
-        df['CO_ESCOLARIDADE_DOCENTE'] = df['CO_ESCOLARIDADE_DOCENTE'].astype(str).replace(
+        df['CO_ESCOLARIDADE_DOCENTE'] = df['CO_ESCOLARIDADE_DOCENTE'].replace(
             ESCOLARIDADE)
-        df['CO_CATEGORIA_ADMINISTRATIVA'] = df['CO_CATEGORIA_ADMINISTRATIVA'].astype(str).replace(
+        df['CO_CATEGORIA_ADMINISTRATIVA'] = df['CO_CATEGORIA_ADMINISTRATIVA'].replace(
             CO_CATEGORIA_ADMINISTRATIVA)
-        df['CO_SITUACAO_DOCENTE'] = df['CO_SITUACAO_DOCENTE'].astype(str).replace(
+        df['CO_SITUACAO_DOCENTE'] = df['CO_SITUACAO_DOCENTE'].replace(
             CO_SITUACAO_DOCENTE)
         df['CO_UF_NASCIMENTO'].fillna(0, inplace=True)
         df['CO_MUNICIPIO_NASCIMENTO'].fillna(0, inplace=True)
         df['IN_VISITANTE_IFES_VINCULO'].fillna(0, inplace=True)
-        df['IN_VISITANTE_IFES_VINCULO'] = df['IN_VISITANTE_IFES_VINCULO'].astype(str).replace(
+        df['IN_VISITANTE_IFES_VINCULO'] = df['IN_VISITANTE_IFES_VINCULO'].replace(
             IN_VISITANTE_IFES_VINCULO)
         df['IN_CAPITAL_IES'] = np.where(df['IN_CAPITAL_IES'] == 1, 'Sim', 'Não')
         del (df['CO_ORGANIZACAO_ACADEMICA'])
@@ -111,10 +117,10 @@ class inepVincDocentes(object):
         del (df['CO_NACIONALIDADE_DOCENTE'])
 
         for d in DEFICIENCIA:
-            df[d] = df[d].astype(str).replace(DEFICIENCIA_FISICA)
+            df[d] = df[d].replace(DEFICIENCIA_FISICA)
 
         for d in CHAVES_SIM_NAO:
-            df[d] = df[d].astype(str).replace(SIM_NAO)
+            df[d] = df[d].replace(SIM_NAO)
 
         municipios = pd.read_csv('lista_municipios.csv', sep=';')
         municipios['CÓDIGO DO MUNICÍPIO'] = municipios['CÓDIGO DO MUNICÍPIO'].astype(str)
@@ -122,8 +128,6 @@ class inepVincDocentes(object):
                                                 municipios['CÓDIGO DO MUNICÍPIO'])
         municipios['Regiao'] = municipios['CÓDIGO DO MUNICÍPIO'].apply(find_regiao)
         municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNICIPIO_NASCIMENTO'}, inplace=True)
-
-        municipios['CO_MUNICIPIO_NASCIMENTO'] = municipios['CO_MUNICIPIO_NASCIMENTO'].astype(float)
 
         df[['MUNICIPIO_NASCIMENTO', 'UF_NASCIMENTO', 'REG_NASCIMENTO']] = pd.merge(df, municipios,
                                                                                    how='left', on=[
@@ -141,6 +145,7 @@ class inepVincDocentes(object):
         df = self.resolve_dicionarios(self.ano)
         destino_transform = '/var/tmp/inep/' + str(ano) + '/transform/docentes'
         csv_file = '/docentes_vinculo_ies_' + str(ano) + '.csv'
+        log_file = '/enade_' + str(self.ano) + '.log'
         try:
             os.makedirs(destino_transform)
         except OSError as e:
@@ -148,6 +153,17 @@ class inepVincDocentes(object):
                 raise
 
         df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8', quoting=csv.QUOTE_NONNUMERIC)
+        self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
+        print 'Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1)
+
+        with open(destino_transform + log_file, 'w') as log:
+            log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
+            log.write("\n")
+            log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
+            log.write("\n")
+            log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1))
+        print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(self.ano,
+                                                                                      destino_transform + log_file))
 
 
 if __name__ == "__main__":
@@ -167,4 +183,4 @@ if __name__ == "__main__":
             print('Arquivo do ano, {} finalizado'.format(ano))
         except:
             print('Arquivo do ano, {} não encontrado'.format(ano))
-            pass
+            raise
