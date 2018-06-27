@@ -1,0 +1,109 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+
+{
+  "COLLECTION":{
+        "label": "Enade",
+        "omite_secoes": ["refine", "busca", "documentos", "related_collections"],
+        "campo_dinamico_busca": "cross_collection_enade"
+  },
+
+  "FACETS":[
+      {"groupBy": {"id": "sobre", "label": "Sobre a pesquisa", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "ANO_facet", "label": "Ano de pesquisa do ENADE"}]}
+             ]},
+
+            {"groupBy": {"id": "ies", "label": "IES", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_CATEGAD", "label": "Categoria administrativa da IES"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_ORGACAD", "label": "Organização acadêmica da IES"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_GRUPO", "label": "Área de enquadramento do curso no Enade"}]},
+                 {"label": "", "render": "halfPieChart",
+                  "facets": [{"chave": "CO_MODALIDADE", "label": "Modalidade de Ensino"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "GEOGRAFICO_facet", "label": "Localização"}]}
+
+             ]},
+
+            {"groupBy": {"id": "estudante", "label": "Dados do estudante", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "NU_IDADE", "label": "Idade"}]},
+                 {"label": "", "render": "halfPieChart", "facets": [{"chave": "TP_SEXO", "label": "Sexo"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "ANO_FIM_2G", "label": "Ano de termino do Ensino Médio"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "ANO_IN_GRAD", "label": "Ano início da graduação"}]}
+
+             ]}
+    ],
+
+    "OUTCOMES": [
+        {"label": "Total de estudantes", "facet": {"ID": ["*"]}, "docs": {}, "type": ["main"], "order": 1}
+
+    ],
+
+
+  "SANKEY_CHART":{
+      "default_level_1": {"value": "CO_CATEGAD", "label": "IES - Categoria Administrativa"},
+        "default_level_2": {"value": "CO_ORGACAD", "label": "IES - Organização Acadêmica"},
+        "default_level_3": {"value": "GEOGRAFICO_facet", "label": "ENADE - Região"},
+        "options": [{"value": "CO_ORGACAD", "label": "IES - Organização Acadêmica"},
+                    {"value": "UF_CURSO", "label": "Curso - UF"},
+                    {"value": "CO_CATEGAD", "label": "IES - Categoria Administrativa"},
+                    {"value": "GEOGRAFICO_facet", "label": "ENADE - Região"},
+                    {"value": "ANO_facet", "label": "Ano Pesquisa - ENADE"},
+                    {"value": "TP_SEXO", "label": "Sexo"},
+                    {"value": "COR_RACA", "label": "Cor/Raça"},
+                    {"value": "ESTADO_CIVIL", "label": "Estado Civil"},
+                    {"value": "RENDA_FAMILIAR", "label": "Renda familiar"}
+                    ]
+  },
+
+  "BUBBLE_CHART": {
+        "default_level_1": {"value": "CO_CATEGAD", "label": "IES - Categoria Administrativa"},
+        "default_level_2": {"value": "CO_ORGACAD", "label": "IES - Organização Acadêmica"},
+        "default_level_3": {"value": "GEOGRAFICO_facet", "label": "ENADE - Região"},
+        "options": [{"value": "CO_ORGACAD", "label": "IES - Organização Acadêmica"},
+                    {"value": "UF_CURSO", "label": "Curso - UF"},
+                    {"value": "CO_CATEGAD", "label": "IES - Categoria Administrativa"},
+                    {"value": "GEOGRAFICO_facet", "label": "ENADE - Região"},
+                    {"value": "ANO_facet", "label": "Ano Pesquisa - ENADE"},
+                    {"value": "TP_SEXO", "label": "Sexo"},
+                    {"value": "COR_RACA", "label": "Cor/Raça"},
+                    {"value": "ESTADO_CIVIL", "label": "Estado Civil"},
+                    {"value": "RENDA_FAMILIAR", "label": "Renda familiar"}
+                    ]
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1": "CO_CATEGAD",
+        "default_level_2": "NU_ANO",
+        "y_axis": [
+            {"value": "CO_CATEGAD", "label": "Categoria Administrativa IES"},
+            {"value": "NU_ANO", "label": "Ano da pesquisa"},
+            {"value": "GEOGRAFICO_facet", "label": "Região da pesquisa"},
+            {"value": "ANO_FIM_2G_facet", "label": "Ano fim do 2° grau"},
+            {"value": "ANO_IN_GRAD_facet", "label": "Ano fim da graduação"},
+            {"value": "RENDA_FAMILIAR", "label": "Renda Familiar"}
+
+        ],
+        "y_stratification": [
+            {"value": "CO_ORGACAD", "label": "Categoria da organização acadêmica"},
+            {"value": "CO_GRUPO", "label": "Área de enquadramento do curso no Enade"},
+            {"value": "TP_SEXO", "label": "Sexo"},
+            {"value": "ESTADO_CIVIL", "label": "Estado Civil"},
+            {"value": "COR_RACA", "label": "Cor/Raça"},
+            {"value": "RENDA_FAMILIAR", "label": "Renda Familiar"}
+
+        ]
+    }
+}
