@@ -2,9 +2,37 @@
 * This wont pass on a standard JSON Lint.
 * The JSON parser of this system will ignore everything between javascript comments,
 * in order to make things easier to write and test a configuration file.
+
+[u'CO_IES', u'NO_IES', u'CO_CATEGORIA_ADMINISTRATIVA',
+       u'DS_CATEGORIA_ADMINISTRATIVA', u'DS_ORGANIZACAO_ACADEMICA',
+       u'CO_DOCENTE_IES', u'CO_DOCENTE', u'CO_SITUACAO_DOCENTE',
+       u'DS_ESCOLARIDADE_DOCENTE', u'DS_REGIME_TRABALHO', u'DS_SEXO_DOCENTE',
+       u'NU_ANO_DOCENTE_NASC', u'NU_MES_DOCENTE_NASC', u'NU_DIA_DOCENTE_NASC',
+       u'DS_COR_RACA_DOCENTE', u'CO_NACIONALIDADE_DOCENTE',
+       u'CO_UF_NASCIMENTO', u'CO_MUNICIPIO_NASCIMENTO',
+       u'IN_DOCENTE_DEFICIENCIA', u'IN_ATU_EAD', u'IN_ATU_EXTENSAO',
+       u'IN_ATU_GESTAO', u'IN_ATU_GRAD_PRESENCIAL', u'IN_ATU_POS_EAD',
+       u'IN_ATU_POS_PRESENCIAL', u'IN_ATU_SEQUENCIAL', u'IN_ATU_PESQUISA',
+       u'IN_BOLSA_PESQUISA', u'IN_SUBSTITUTO', u'IN_EXERCICIO_DT_REF',
+       u'IN_VISITANTE', u'IN_VISITANTE_IFES_VINCULO', u'CO_MANTENEDORA',
+       u'NO_MANTENEDORA', u'CO_MUNICIPIO_IES', u'NO_MUNICIPIO_IES',
+       u'CO_UF_IES', u'SGL_UF_IES', u'NO_REGIAO_IES', u'IN_CAPITAL_IES',
+       u'QT_TEC_TOTAL', u'QT_TEC_FUND_INCOMP_FEM', u'QT_TEC_FUND_INCOMP_MASC',
+       u'QT_TEC_FUND_COMP_FEM', u'QT_TEC_FUND_COMP_MASC', u'QT_TEC_MEDIO_FEM',
+       u'QT_TEC_MEDIO_MASC', u'QT_TEC_SUPERIOR_FEM', u'QT_TEC_SUPERIOR_MASC',
+       u'QT_TEC_ESPECIALIZACAO_FEM', u'QT_TEC_ESPECIALIZACAO_MASC',
+       u'QT_TEC_MESTRADO_FEM', u'QT_TEC_MESTRADO_MASC',
+       u'QT_TEC_DOUTORADO_FEM', u'QT_TEC_DOUTORADO_MASC',
+       u'IN_ACESSO_PORTAL_CAPES', u'IN_ACESSO_OUTRAS_BASES', u'IN_REFERENTE',
+       u'VL_RECEITA_PROPRIA', u'VL_TRANSFERENCIA', u'VL_OUTRA_RECEITA',
+       u'VL_DES_PESSOAL_REM_DOCENTE', u'VL_DES_PESSOAL_REM_TECNICO',
+       u'VL_DES_PESSOAL_ENCARGO', u'VL_DES_CUSTEIO', u'VL_DES_INVESTIMENTO',
+       u'VL_DES_PESQUISA', u'VL_DES_OUTRAS', u'GEOGRAFICO_IES_facet',
+       u'MANT_IES_facet', u'ID', u'Data_Nasc_Docente_facet', u'ANO_facet',
+       u'MUNICIPIO_NASCIMENTO', u'UF_NASCIMENTO', u'REG_NASCIMENTO',
+       u'GEOGRAFICO_DOC_NASC_facet']
+
 */
-
-
 {
   "COLLECTION":{
         "label": "INEP - Docentes",
@@ -16,12 +44,12 @@
             {"groupBy": {"id": "sobre", "label": "Sobre a pesquisa", "order": 3},
              "facetGroup": [
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "ano_vigencia_inep", "label": "Ano de vigência do INEP"}]}
+                  "facets": [{"chave": "ANO_facet", "label": "Ano de vigência do INEP"}]}
              ]},
             {"groupBy": {"id": "docente", "label": "Docente", "order": 1},
              "facetGroup": [
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "DS_NACIONALIDADE_DOCENTE", "label": "Nacionalidade"}]},
+                  "facets": [{"chave": "CO_NACIONALIDADE_DOCENTE", "label": "Nacionalidade"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "CO_UF_NASCIMENTO", "label": "Estado natal"}]},
                  {"label": "", "render": "barChart_1",
@@ -32,14 +60,14 @@
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "DS_COR_RACA_DOCENTE", "label": "Cor/Raça"}]},
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "CO_ESCOLARIDADE_DOCENTE", "label": "Escolaridade"}]},
+                  "facets": [{"chave": "DS_ESCOLARIDADE_DOCENTE", "label": "Escolaridade"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "IN_DOCENTE_DEFICIENCIA", "label": "Deficiência física"}]}
              ]},
             {"groupBy": {"id": "ies", "label": "Instituição de ensino superior", "order": 2},
              "facetGroup": [
                  {"label": "", "render": "barChart_1", "facets": [{"chave": "MANT_IES", "label": "Mantenedora/IES"}]},
-                 {"label": "", "render": "barChart_1", "facets": [{"chave": "GEOGRAFICO", "label": "Localização"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "GEOGRAFICO_IES_facet", "label": "Localização"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "DS_CATEGORIA_ADMINISTRATIVA", "label": "Categoria Administrativa"}]},
                  {"label": "", "render": "barChart_1",
@@ -50,7 +78,7 @@
             {"groupBy": {"id": "regime_trabalho", "label": "Condições de trabalho", "order": 3},
              "facetGroup": [
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "DS_SITUACAO_DOCENTE", "label": "Situação do docente"}]},
+                  "facets": [{"chave": "CO_SITUACAO_DOCENTE", "label": "Situação do docente"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "DS_REGIME_TRABALHO", "label": "Regime de trabalho"}]}
              ]},
@@ -169,10 +197,10 @@
 
     "MULTILEVEL_BARCHART_1": {
       "default_level_1": "DS_ORGANIZACAO_ACADEMICA",
-      "default_level_2": "ano_vigencia_inep",
+      "default_level_2": "ANO_facet",
       "y_axis": [
         {
-          "value": "ano_vigencia_inep",
+          "value": "ANO_facet",
           "label": "Ano da pesquisa"
         },
         {
@@ -198,7 +226,7 @@
           "label": "Organização acadêmica"
         },
         {
-          "value": "DS_NACIONALIDADE_DOCENTE",
+          "value": "CO_NACIONALIDADE_DOCENTE",
           "label": "Nacionalidade"
         },
         {
@@ -214,11 +242,11 @@
           "label": "Cor/Raça"
         },
         {
-          "value": "DS_NACIONALIDADE_DOCENTE",
+          "value": "CO_NACIONALIDADE_DOCENTE",
           "label": "Nacionalidade"
         },
         {
-          "value": "CO_ESCOLARIDADE_DOCENTE",
+          "value": "DS_ESCOLARIDADE_DOCENTE",
           "label": "Escolaridade"
         },
         {
