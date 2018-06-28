@@ -13,14 +13,6 @@ collection = {
         'transformdir': 'transform/wos'
     },
 
-    'lattes': {
-        'filetype': '.xml',
-        'localhost': '192.168.0.212:8983',
-        'collection': 'lattes',
-        'content_type': 'text/xml',
-        'collectiondir': '/var/tmp/lattes',
-        'transformdir': 'transform/'},
-
     'enade': {
         'filetype': '.csv',
         'collectiondir': '/var/tmp/enade',
@@ -47,6 +39,15 @@ collection = {
         'collection': 'inep_docentes',
         'content_type': 'text/csv',
         'schema': 'transform/inep_docentes/conf'},
+
+    'lattes': {
+        'filetype': '.xml',
+        'collectiondir': '/var/tmp/lattes',
+        'transformdir': 'transform/',  #deve estar em /var/tm/lattes/transform/
+        'localhost': '192.168.0.212:8983',
+        'collection': 'lattes',
+        'content_type': 'text/xml',
+        'schema': 'transform/lattes/conf'},
 
 }
 
@@ -81,6 +82,13 @@ def executa(coll):
                         param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
 
+    elif coll == 'lattes':
+        param = collection['lattes']
+        print('Os arquivos lattes devem estar em /var/tm/lattes/transform/ ')
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        load.full_sequence()
+
 
 if __name__ == "__main__":
     try:
@@ -88,4 +96,3 @@ if __name__ == "__main__":
     except IndexError:
         print('digite collection como parametro')
 
-# import relativo

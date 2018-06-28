@@ -8,18 +8,10 @@ from time import sleep
 
 
 class SolrLoad(object):
-    """
-    Classe realiza um POST pra uma determinada url no solr com uma lista de arquivos da maquina local
-    os parametros :
-    directory - Path para a pasta local ex.'c:/root/folder'
-    filetype - extensão do arquivo em formato de string ex. '.xml'
-    localhost - dominio do servidor ex. 'localhost:8983'
-    collection - pasta no servidor que os arquivos serão enviados ex.'lattes'
-    Content_type - adiciona o tipo do conteudo no cabecalho ex 'text/xml'
-
-    """
 
     def __init__(self, filetype, collectiondir, transformdir, localhost, collection, content_type, schemadir):
+        # type: (object, object, object, object, object, object, object) -> object
+
         self.fileslist = []
         self.filetype = filetype
         self.collectiondir = collectiondir
@@ -30,7 +22,7 @@ class SolrLoad(object):
         self.schemadir = schemadir
 
     def list_output_files(self):
-        if self.collection == 'wos':
+        if self.collection == 'wos' or self.collection == 'lattes':
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
                     if (f.endswith(self.filetype)) and ('transform' in root):

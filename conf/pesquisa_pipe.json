@@ -19,6 +19,7 @@
                  {"label": "", "render": "", "facets": [{"chave": "pess_preenchido", "label": "Dados pessoais"}]},
                  {"label": "", "render": "", "facets": [{"chave": "cust_preenchido", "label": "Custos do projeto"}]},
                  {"label": "", "render": "", "facets": [{"chave": "inov_preenchido", "label": "Inovação"}]},
+                 {"label": "", "render": "", "facets": [{"chave": "resu_preenchido", "label": "Resultados"}]},
                  {"label": "", "render": "",
                   "facets": [{"chave": "prop_preenchido", "label": "Propriedade Intelecutal"}]},
                  {"label": "", "render": "", "facets": [{"chave": "parc_preenchido", "label": "Parceirias"}]},
@@ -33,15 +34,23 @@
 
             {"groupBy": {"id": "iden", "label": "Identificação", "order": 1},
              "facetGroup": [
+
                  {"label": "", "render": "", "facets": [{"chave": "iden_participacao_capital_estrangeiro",
                                                          "label": "Participação de capital estrangeiro"}]},
                  {"label": "", "render": "", "facets": [{"chave": "iden_estado", "label": "Estado"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "iden_municipio_ibge", "label": "Município"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "iden_sede_propria", "label": "Sede própria"}]},
-                 {"label": "", "render": "",
+                 {"label": "Municipio", "render": "barChart_1", "facets": [{"chave": "iden_municipio_ibge", "label": "Município"}]},
+                 {"label": "Sede própria", "render": "barChart_1", "facets": [{"chave": "iden_sede_propria",
+                   "label": "Sede própria"}]},
+                 {"label": "Mudança Acionária", "render": "barChart_1",
                   "facets": [{"chave": "iden_mundanca_acionaria", "label": "Mudança Acionária"}]},
                  {"label": "", "render": "", "facets": [{"chave": "iden_respondente_responsavel",
-                                                         "label": "Respondente é o pesquisador responsável do projeto?"}]}
+                                                         "label": "Respondente é o pesquisador responsável do projeto?"}]},
+                 {"label": "Area construida", "render": "barChart_1", "facets": [{"chave": "iden_area_construida", "label": "Area construida"}]},
+                 {"label": "Spin-Off", "render": "halfPieChart", "facets": [{"chave": "iden_Emp_spin_off", "label": "É Spin-Off de outra organização?"}]},
+                 {"label": "Tipo Spin-Off", "render": "barChart_1", "facets": [{"chave": "iden_Emp_spin_off_qual", "label": "Tipo de organizão do Spin-Off"}]},
+                 {"label": "Inicio Operações", "render": "barChart_1", "facets": [{"chave": "iden_Emp_ano_inicio_ops", "label": "Ano inicio de operação da empresa"}]}
+
+
              ]},
 
             {"groupBy": {"id": "CNAE", "label": "CNAE", "order": 2},
@@ -152,7 +161,7 @@
                  {"label": "", "render": "",
                   "facets": [{"chave": "aval_condi_fin", "label": "Condições do financiamento"}]},
                  {"label": "", "render": "",
-                  "facets": [{"chave": "aval_neg_pi", "label": "Negociação de Popriedade Intelectual"}]},
+                  "facets": [{"chave": "aval_neg_pi", "label": "Negociação de Propriedade Intelectual"}]},
                  {"label": "", "render": "",
                   "facets": [{"chave": "aval_valor_apoio", "label": "Valor do apoio dado pela FAPESP"}]}
              ]}
@@ -193,30 +202,49 @@
   },
 
   "BUBBLE_CHART": {
-
+      "default_level_1": {"value": "aval_doc_base", "label": "Avaliação - Documentos base"},
+        "default_level_2": {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"},
+        "options": [
+            {"value": "aval_doc_base", "label": "Avaliação - Documentos base"},
+            {"value": "gove_modelos_gestao", "label": "Governança - Modelos de gestão"},
+            {"value": "gove_pdi_explicito", "label": "Governança - PDI Explícito"},
+            {"value": "pess_escolaridade", "label": "Pessoal - Escolaridade"},
+            {"value": "pess_cargo", "label": "Pessoal - Cargo"},
+            {"value": "parc_parcerias_institutos_universidades", "label": "Parcerias - Institutos/Universidades"},
+            {"value": "parc_parcerias_outros_atores", "label": "Parcerias - Outros atores"},
+            {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"}
+          ]
     },
 
     "MULTILEVEL_BARCHART_1":{
-        "default_level_1": "DS_ORGANIZACAO_ACADEMICA",
-        "default_level_2": "ano_vigencia_inep",
+        "default_level_1": "socio_f_aport_ANTES1_ApFinEmp_valor",
+        "default_level_2": "pess_escolaridade",
         "y_axis": [
-            {"value": "ano_vigencia_inep", "label": "Ano da pesquisa"},
-            {"value": "NO_MANTENEDORA", "label": "Mantenedora"},
-            {"value": "SGL_UF_IES", "label": "Estado da sede administrativa"},
-            {"value": "NO_REGIAO_IES", "label": "Região da sede administrativa"},
-            {"value": "DS_CATEGORIA_ADMINISTRATIVA", "label": "Categoria administrativa"}
-
+            {"value": "pess_escolaridade", "label": "Escolaridade"},
+            {"value": "pess_formacao", "label": "Formacao Gestao"},
+            {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"},
+            {"value": "esfo_ANTES1_valor_decorrencia_pipe", "label": "esfo_ANTES1_valor_decorrencia_pipe - Antes 1"},
+            {"value": "esfo_ANTES2_valor_decorrencia_pipe", "label": "esfo_ANTES2_valor_decorrencia_pipe - Antes 2"},
+            {"value": "esfo_DURANTE1_valor_decorrencia_pipe",
+             "label": "esfo_DURANTE1_valor_decorrencia_pipe - Durante 1"},
+            {"value": "esfo_DURANTE2_valor_decorrencia_pipe",
+             "label": "esfo_DURANTE2_valor_decorrencia_pipe - Durante 2"},
+            {"value": "esfo_DEPOIS1_valor_decorrencia_pipe",
+             "label": "esfo_DEPOIS1_valor_decorrencia_pipeo - Depois 1"},
+            {"value": "esfo_DEPOIS2_valor_decorrencia_pipe", "label": "esfo_DEPOIS2_valor_decorrencia_pipe - Depois 2"}
         ],
         "y_stratification": [
-            {"value": "DS_ORGANIZACAO_ACADEMICA", "label": "Organização acadêmica"},
-            {"value": "DS_NACIONALIDADE_DOCENTE", "label": "Nacionalidade"},
-            {"value": "CO_UF_NASCIMENTO", "label": "Estado natal"},
-            {"value": "DS_SEXO_DOCENTE", "label": "Sexo"},
-            {"value": "DS_COR_RACA_DOCENTE", "label": "Cor/Raça"},
-            {"value": "DS_NACIONALIDADE_DOCENTE", "label": "Nacionalidade"},
-            {"value": "CO_ESCOLARIDADE_DOCENTE", "label": "Escolaridade"},
-            {"value": "IN_DOCENTE_DEFICIENCIA", "label": "Deficiência física"},
-            {"value": "DS_REGIME_TRABALHO", "label": "Regime de trabalho"}
+            {"value": "pess_escolaridade", "label": "Escolaridade"},
+            {"value": "pess_formacao", "label": "Formacao Gestao"},
+            {"value": "socio_f_aport_ANTES1_ApFinEmp_valor", "label": "Aporte financeiro - Antes 1"},
+            {"value": "socio_f_aport_ANTES1_ApFinEmp_valor", "label": "Aporte financeiro - Antes 2"},
+            {"value": "socio_f_aport_DURANTE1_ApFinEmp_valor", "label": "Aporte financeiro - Durante 1"},
+            {"value": "socio_f_aport_DURANTE2_ApFinEmp_valor", "label": "Aporte financeiro - Durante 2"},
+            {"value": "socio_f_aport_DEPOIS1_ApFinEmp_valor", "label": "Aporte financeiro - Depois 1"},
+            {"value": "socio_f_aport_DEPOIS2_ApFinEmp_valor", "label": "Aporte financeiro - Depois 2"},
+
+            {"value": "iden_participacao_capital_estrangeiro", "label": "Participação de capital estrangeiro"},
+            {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"}
         ]
     }
 }
