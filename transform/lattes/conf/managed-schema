@@ -9,11 +9,12 @@
     Exemplo de campo de facet
     <field name="Ano_facet" type="descendent_path"/>
     -->
-    <field name="GEOGRAFICO_IES_facet" type="descendent_path"/>
-    <field name="MANT_IES_facet" type="descendent_path"/>
-    <field name="Data_Nasc_Docente_facet" type="descendent_path"/>
-    <field name="ANO_facet" type="descendent_path"/>
-    <field name="GEOGRAFICO_DOC_NASC_facet" type="descendent_path"/>
+    <field name="POS-DOUTORADO_AREAS-DO-CONHECIMENTO_FACET" type="descendent_path"/>
+    <field name="DOUTORADO_AREAS-DO-CONHECIMENTO_FACET" type="descendent_path"/>
+    <field name="MESTRADO_AREAS-DO-CONHECIMENTO_FACET" type="descendent_path"/>
+    <field name="AREAS-DO-CONHECIMENTO-DE-ATUACAO_FACET" type="descendent_path"/>
+    <field name="PREMIOS-TITULOS_FACET" type="descendent_path"/>
+    <field name="TRABALHO-EM-EVENTOS_AREAS-DO-CONHECIMENTO-DE-ATUACAO_FACET" type="descendent_path"/>
 
     <copyField source="*" dest="_text_"/>
 
