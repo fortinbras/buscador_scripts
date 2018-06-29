@@ -124,7 +124,7 @@ class SolrLoad(object):
         print('Upload do schema')
         self.upload_schema()
 
-        sleep(5)
+        sleep(20)
 
         print('Collection refresh')
         self.reload_collection()

@@ -264,7 +264,7 @@ class Enade(object):
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght)-1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
-                    df_enade.fillna('', inplace=True)
+                    #df_enade.fillna('', inplace=True)
 
         return df_enade
 
@@ -468,12 +468,12 @@ class Enade(object):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-        df_enade = df_enade.astype(str)
+        #df_enade = df_enade.astype(str)
 
         df_enade.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
-                        line_terminator='\n', quoting=csv.QUOTE_NONNUMERIC)
+                        line_terminator='\n', quoting=csv.QUOTE_ALL)
         self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
-        print 'Arquivo de saida possui {} linhas de informacao'.format(self.output_length-1)
+        print 'Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length)-1)
 
         with open(destino_transform + log_file, 'w') as log:
             log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
@@ -481,7 +481,7 @@ class Enade(object):
             log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght)-1))
             log.write("\n")
             log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length)-1))
-        print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(self.ano,
+        print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(str(self.ano),
                                                                                       destino_transform + log_file))
 
 
@@ -499,7 +499,9 @@ if __name__ == '__main__':
             inep_doc = Enade(ano)
             inep_doc.gera_csv()
             print('Arquivo do ano, {} finalizado'.format(ano))
+            print('\n')
         except:
             print 'Arquivo do ano, {} não encontrado'.format(ano)
             pass
+        print('Fim!!')
 
