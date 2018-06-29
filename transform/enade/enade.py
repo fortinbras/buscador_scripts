@@ -1,4 +1,5 @@
 # coding=utf-8
+#TODO ano inicio , termino facet
 import errno
 import os
 import sys
