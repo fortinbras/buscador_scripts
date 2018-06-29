@@ -1,4 +1,5 @@
 # coding=utf-8
+#TODO ano inicio , termino facet
 import errno
 import os
 import sys
@@ -499,9 +500,10 @@ if __name__ == '__main__':
             inep_doc = Enade(ano)
             inep_doc.gera_csv()
             print('Arquivo do ano, {} finalizado'.format(ano))
-            print('\n')
+
         except:
             print 'Arquivo do ano, {} não encontrado'.format(ano)
             pass
         print('Fim!!')
+        print('\n')
 
