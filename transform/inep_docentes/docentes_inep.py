@@ -149,8 +149,8 @@ class inepVincDocentes(object):
 
     def gera_csv(self):
         df = self.resolve_dicionarios(self.ano)
-        destino_transform = '/var/tmp/inep/' + str(ano) + '/transform/docentes'
-        csv_file = '/docentes_vinculo_ies_' + str(ano) + '.csv'
+        destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform/docentes'
+        csv_file = '/docentes_vinculo_ies_' + str(self.ano) + '.csv'
         log_file = '/docentes_vinculo_ies_' + str(self.ano) + '.log'
         try:
             os.makedirs(destino_transform)
@@ -192,4 +192,5 @@ if __name__ == "__main__":
         except:
             print('Arquivo do ano, {} não encontrado'.format(ano))
             pass
-        print('Fim!!')
+    print('Fim!!')
+    print('\n')
