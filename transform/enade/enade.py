@@ -478,9 +478,9 @@ class Enade(object):
         with open(destino_transform + log_file, 'w') as log:
             log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
             log.write("\n")
-            log.write('Arquivo de entrada possui {} linhas de informacao'.format(self.input_lenght-1))
+            log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght)-1))
             log.write("\n")
-            log.write('Arquivo de saida possui {} linhas de informacao'.format(self.output_length-1))
+            log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length)-1))
         print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(self.ano,
                                                                                       destino_transform + log_file))
 
