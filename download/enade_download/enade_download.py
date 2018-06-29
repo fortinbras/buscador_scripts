@@ -53,7 +53,7 @@ def download_enade(ano):
     print 'Downloading %s (%sMb)' % (fullpath, fsize / mbyte)
     # Gravando o arquivo zip
     with open(fullpath, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=1024):  # chuck size can be larger
+        for chunk in resp.iter_content(chunk_size=1024*100):  # chuck size can be larger
             if chunk:  # ignore keep-alive requests
                 f.write(chunk)
         f.close()

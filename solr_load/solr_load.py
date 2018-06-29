@@ -120,20 +120,23 @@ class SolrLoad(object):
         self.delete_collection()
 
         sleep(5)
-
+        print('\n')
         print('Upload do schema')
         self.upload_schema()
 
         sleep(20)
 
+        print('\n')
         print('Collection refresh')
         self.reload_collection()
 
         sleep(5)
 
+        print('\n')
         print('Collection upload')
         self.files_load()
 
+        print('\n')
         print('Carga finalizada')
 
 # http://192.168.0.212/solr/< COLLECTION >/update?commit=true&stream.body=<delete><query>*:*</query></delete>
