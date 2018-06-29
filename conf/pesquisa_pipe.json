@@ -48,6 +48,8 @@
                  {"label": "Area construida", "render": "barChart_1", "facets": [{"chave": "iden_area_construida", "label": "Area construida"}]},
                  {"label": "Spin-Off", "render": "halfPieChart", "facets": [{"chave": "iden_Emp_spin_off", "label": "É Spin-Off de outra organização?"}]},
                  {"label": "Tipo Spin-Off", "render": "barChart_1", "facets": [{"chave": "iden_Emp_spin_off_qual", "label": "Tipo de organizão do Spin-Off"}]},
+                 {"label": "Empresa Incubada", "render": "halfPieChart", "facets": [{"chave": "iden_Emp_incubada", "label": "Empresa Incubada"}]},
+                 {"label": "Empresa criada na submissao ao PIPE", "render": "halfPieChart", "facets": [{"chave": "iden_Emp_criado_pipe", "label": "Empresa criada na submissao ao PIPE"}]},
                  {"label": "Inicio Operações", "render": "barChart_1", "facets": [{"chave": "iden_Emp_ano_inicio_ops", "label": "Ano inicio de operação da empresa"}]}
 
 
@@ -55,8 +57,8 @@
 
             {"groupBy": {"id": "CNAE", "label": "CNAE", "order": 2},
              "facetGroup": [
-                 {"label": "", "render": "", "facets": [{"chave": "iden_Emp_cnae_facet", "label": "CNAE da empresa"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "iden_cnae_facet", "label": "CNAE do projeto"}]}
+                 {"label": "CNAE da empresa", "render": "barChart_1", "facets": [{"chave": "iden_Emp_cnae_facet", "label": "CNAE da empresa"}]},
+                 {"label": "CNAE do projeto", "render": "barChart_1", "facets": [{"chave": "iden_cnae_facet", "label": "CNAE do projeto"}]}
              ]},
 
             {"groupBy": {"id": "esfor_gastos",
@@ -93,51 +95,70 @@
 
             {"groupBy": {"id": "pess", "label": "Dados do respondente", "order": 4},
              "facetGroup": [
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Escolaridade", "render": "barChart_1",
                   "facets": [{"chave": "pess_escolaridade", "label": "Escolaridade"}]},
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Experiência no tema (anos)", "render": "barChart_1",
                   "facets": [{"chave": "pess_experiencia", "label": "Experiência no tema (anos)"}]},
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Formação em gestão (na submissão)", "render": "halfPieChart",
                   "facets": [{"chave": "pess_formacao", "label": "Formação em gestão (na submissão)"}]},
-                 {"label": "", "render": "",
+                 {"label": "Formação em gestão (posteriormente)", "render": "halfPieChart",
                   "facets": [{"chave": "pess_formacao_posterior", "label": "Formação em gestão (posteriormente)"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "pess_cargo", "label": "Cargo (na submissão)"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "pess_cargo_atual", "label": "Cargo (atual)"}]}
+                 {"label": "Cargo (na submissão)", "render": "barChart_1", "facets": [{"chave": "pess_cargo", "label": "Cargo (na submissão)"}]},
+                 {"label": "Cargo (atual)", "render": "barChart_1", "facets": [{"chave": "pess_cargo_atual", "label": "Cargo (atual)"}]}
              ]},
 
-            {"groupBy": {"id": "resu", "label": "Resultados", "order": 5},
+                {"groupBy": {"id": "cust", "label": "Custos do projeto", "order": 5},
              "facetGroup": [
-                 {"label": "", "render": "",
+                 {"label": "Custo total", "render": "",
+                  "facets": [{"chave": "cust_total_projeto", "label": "Custo Total"}]},
+
+                 {"label": "Valor concedido", "render": "barChart_1",
+                  "facets": [{"chave": "cust_valor_concedido", "label": "Valor concedido"}]},
+
+                 {"label": "Valor outras fontes", "render": "",
+                  "facets": [{"chave": "cust_valor_outras_fontes", "label": "Valor outras fontes"}]},
+
+                 {"label": "Valor de contrapartida", "render": "",
+                  "facets": [{"chave": "cust_valor_contrapartida", "label": "Valor de contrapartida"}]}
+             ]},
+
+
+            {"groupBy": {"id": "resu", "label": "Resultados", "order": 6},
+             "facetGroup": [
+                 {"label": "Resultados", "render": "halfPieChart",
                   "facets": [{"chave": "resu_chegou_a_resultados", "label": "Resultados alcançados"}]}
              ]},
 
-            {"groupBy": {"id": "pi", "label": "Geração de patentes e PI", "order": 6},
+            {"groupBy": {"id": "pi", "label": "Geração de patentes e PI", "order": 7},
              "facetGroup": [
                  {"label": "Influência PIPE - Geração de Patentes", "render": "barChart_1",
                   "facets": [{"chave": "prop_registro_brasil_mu", "label": "Patentes"}]},
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Marcas", "render": "barChart_1",
                   "facets": [{"chave": "prop_registro_brasil_marcas", "label": "Marcas"}]},
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Software", "render": "barChart_1",
                   "facets": [{"chave": "prop_registro_brasil_sw", "label": "Software"}]},
-                 {"label": "", "render": "barChart_1",
+                 {"label": "Circuitos Integrados", "render": "barChart_1",
                   "facets": [{"chave": "prop_registro_brasil_ci", "label": "Circuitos Integrados"}]},
-                 {"label": "", "render": "",
+                 {"label": "Cultivares de plantas", "render": "barChart_1",
                   "facets": [{"chave": "prop_registro_brasil_plantas", "label": "Cultivares de plantas"}]}
              ]},
 
-            {"groupBy": {"id": "parc", "label": "Parcerias", "order": 7},
+            {"groupBy": {"id": "parc", "label": "Parcerias", "order": 8},
              "facetGroup": [
-                 {"label": "", "render": "", "facets": [{"chave": "parc_parcerias_institutos_universidades",
+                 {"label": "Parceria com institutos/universidades", "render": "halfPieChart", "facets": [{"chave": "parc_parcerias_institutos_universidades",
                                                          "label": "Parceria com institutos/universidades"}]},
-                 {"label": "", "render": "",
+
+                 {"label": "Parceria com outros atores", "render": "halfPieChart",
                   "facets": [{"chave": "parc_parcerias_outros_atores", "label": "Parceria com outros atores"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "parc_influencia_pipe_inst_univ",
+
+                 {"label": "Influência PIPE se parceria com inst/univ", "render": "barChart_1", "facets": [{"chave": "parc_influencia_pipe_inst_univ",
                                                          "label": "Influência PIPE se parceria com inst/univ"}]},
-                 {"label": "", "render": "", "facets": [{"chave": "parc_influencia_pipe_outros_atores",
+
+                 {"label": "Influência PIPE se parceria com outros atores", "render": "barChart_1", "facets": [{"chave": "parc_influencia_pipe_outros_atores",
                                                          "label": "Influência PIPE se parceria com outros atores"}]}
              ]},
 
-            {"groupBy": {"id": "govr", "label": "Governança", "order": 8},
+            {"groupBy": {"id": "govr", "label": "Governança", "order": 9},
              "facetGroup": [
                  {"label": "", "render": "", "facets": [{"chave": "gove_pdi_explicito", "label": "PDI Explicito"}]},
                  {"label": "", "render": "", "facets": [
@@ -151,7 +172,7 @@
                      {"chave": "gove_influencia_pipe_organizacao_pdi", "label": "Influência PIPE Organização PDI"}]}
              ]},
 
-            {"groupBy": {"id": "aval", "label": "Avaliação do programa PIPE", "order": 9},
+            {"groupBy": {"id": "aval", "label": "Avaliação do programa PIPE", "order": 10},
              "facetGroup": [
                  {"label": "", "render": "", "facets": [{"chave": "aval_doc_base", "label": "Documentação base"}]},
                  {"label": "", "render": "",
@@ -170,11 +191,12 @@
     "OUTCOMES": [
         {"label": "Média de gastos com P&D - Antes 1", "data_type": "currency",
              "avg": "esfo_ANTES1_valor_decorrencia_pipe", "order": 1, "docs": {}, "type": ["main"]},
-            //{"label":"Média de gastos com P&D - Antes 2" , "avg":"esfo_ANTES2_valor_decorrencia_pipe", "order":2, "docs":{}, "type":["main"]},
-            //{"label":"Média de gastos com P&D - Durante 1" , "avg":"esfo_DURANTE1_valor_decorrencia_pipe", "order":3, "docs":{}, "type":["main"]},
-            //{"label":"Média de gastos com P&D - Durante 2" , "avg":"esfo_DURANTE2_valor_decorrencia_pipe", "order":4, "docs":{}, "type":["main"]},
-            //{"label":"Média de gastos com P&D - Depois 1" , "avg":"esfo_DEPOIS1_valor_decorrencia_pipe", "order":5, "docs":{}, "type":["main"]},
-            //{"label":"Média de gastos com P&D - Depois 2" , "avg":"esfo_DEPOIS2_valor_decorrencia_pipe", "order":6, "docs":{}, "type":["main"]},
+            {"label":"Média de gastos com P&D - Antes 2" , "avg":"esfo_ANTES2_valor_decorrencia_pipe", "order":2, "docs":{}, "type":["main"]},
+            {"label":"Média de gastos com P&D - Durante 1" , "avg":"esfo_DURANTE1_valor_decorrencia_pipe", "order":3, "docs":{}, "type":["main"]},
+            {"label":"Média de gastos com P&D - Durante 2" , "avg":"esfo_DURANTE2_valor_decorrencia_pipe", "order":4, "docs":{}, "type":["main"]},
+            {"label":"Média de gastos com P&D - Depois 1" , "avg":"esfo_DEPOIS1_valor_decorrencia_pipe", "order":5, "docs":{}, "type":["main"]},
+            {"label":"Média de gastos com P&D - Depois 2" , "avg":"esfo_DEPOIS2_valor_decorrencia_pipe", "order":6, "docs":{}, "type":["main"]},
+            {"label":"Media de custo dos projetos" , "avg":"cust_total_projeto", "order":7, "docs":{}, "type":["main"]},
 
             {"label": "Patentes independentes do PIPE", "sum": "prop_registro_brasil_mu", "order": 4, "docs": {},
              "type": ["main"]},
