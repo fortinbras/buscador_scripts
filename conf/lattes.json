@@ -126,7 +126,7 @@
                   "facets": [{"chave": "ATUACAO-PROFISISONAL_ENQUADRAMENTOS", "label": "Enquadramentos"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "ATUACAO-PROFISISONAL_TIPOS-DE-VINCULOS", "label": "Tipos de vínculo"}]}
-
+                 //{"label":"" , "render":"barChart_1", "facets":[{"chave":"ATUACAO-PROFISISONAL_INSTITUICOES", "label": "Instituições"}]}
              ]},
             {"groupBy": {"id": "p_e_c_c", "label": "Projetos, eventos, conselho, consultoria", "order": 9},
              "facetGroup": [
