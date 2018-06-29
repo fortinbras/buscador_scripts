@@ -261,7 +261,7 @@ class Enade(object):
                 if file.endswith(".txt"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
-                    print 'Arquivo de entrada possui {} linhas de informacao'.format(self.input_lenght-1)
+                    print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght)-1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
                     df_enade.fillna('', inplace=True)

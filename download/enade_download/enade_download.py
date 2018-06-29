@@ -14,18 +14,18 @@ Antes de 2009, a nomenclatura e formato dos arquivos nao batem.
 """
 
 all_links = {
-    '2004': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2004.zip',
-    '2005': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2005.zip',
-    '2006': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2006.zip',
-    '2007': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2007.zip',
-    '2008': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2008.zip',
-    '2009': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2009.zip',
+    #'2004': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2004.zip',
+    #'2005': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2005.zip',
+    #'2006': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2006.zip',
+    #'2007': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2007.zip',
+    #'2008': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2008.zip',
+    #'2009': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2009.zip',
     # '2010': '',
     # '2011': '',
     # '2012': '',
-    '2013': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2013.zip',
-    '2014': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2014.zip',
-    '2015': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2015.zip',
+    #'2013': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2013.zip',
+    #'2014': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2014.zip',
+    #'2015': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2015.zip',
     '2016': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2016_versao_28052018.zip'
 }
 
