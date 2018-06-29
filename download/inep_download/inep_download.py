@@ -30,7 +30,7 @@ all_links = {
     # '2006': 'http://download.inep.gov.br/microdados/microdados_educacao_superior_2006.zip',
     # '2007': 'http://download.inep.gov.br/microdados/microdados_educacao_superior_2007.zip',
     # '2008': 'http://download.inep.gov.br/microdados/micro_censo_edu_superior2008.zip',
-    '2009': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2009.zip',
+    #'2009': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2009.zip',
     '2010': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2010.zip',
     '2011': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2011.zip',
     '2012': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2012.zip',
@@ -64,7 +64,7 @@ def download_censo_superior(ano):
     print 'Downloading %s (%sMb)' % (fullpath, fsize / mbyte)
     # Gravando o arquivo zip
     with open(fullpath, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=1024):
+        for chunk in resp.iter_content(chunk_size=1024*100):
             if chunk:
                 f.write(chunk)
         f.close()
