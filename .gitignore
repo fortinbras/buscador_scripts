@@ -116,6 +116,6 @@ venv.bak/
 .ipynb
 conf/conf.py
 conf/doc_schema.json
-transform/inep_alunos/inep_alunos_notebook.ipynb
-transform/inep_docentes/inep_docentes_notebook.ipynb
+_transform/inep_alunos/inep_alunos_notebook.ipynb
+_transform/inep_docentes/inep_docentes_notebook.ipynb
 /conf/doc_schema.json
