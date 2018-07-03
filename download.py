@@ -16,7 +16,7 @@ def executa(coll):
     elif coll == 'enade':
         executa_download_enade()
 
-    elif coll == 'pnade':
+    elif coll == 'pnad':
         executa_pnad()
 
     else:

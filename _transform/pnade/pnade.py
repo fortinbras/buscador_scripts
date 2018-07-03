@@ -1,8 +1,16 @@
 # coding=utf-8
-import os, errno
-import commands, csv
-import datetime
+import errno
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, '../../../buscador_scripts/')
+
+from utils import *
 import pandas as pd
+import csv
+import commands
+import datetime
 
 
 # pd.set_option('display.max_rows', 500)
@@ -32,6 +40,24 @@ class Pnade(object):
                         del (df[item])
 
                     return df
+
+    def regiao(self,num):
+
+        uf = str(num)[0]
+        if int(uf) == 1:
+            return 'Norte'
+        elif int(uf) == 2:
+            return 'Nordeste'
+        elif int(uf) == 3:
+            return 'Sudeste'
+        elif int(uf) == 4:
+            return 'Sul'
+        elif int(uf) == 5:
+            return 'Centro-Oeste'
+        elif int(uf) == 8:
+            return 'Brasil'
+        elif int(uf) == 9:
+            return 'Pais estrangeiro'
 
     def resolve_dicionario(self):
 
@@ -81,11 +107,18 @@ class Pnade(object):
                       11: 'Mestrado ou doutorado'},
             'V0606': {2: 'Sim', 4: 'Nao'},
         }
+
+        df['REGIAO_PESQ_facet'] = df['UF'].apply(self.regiao)
+        df['V5030'].fillna(df['UF'], inplace=True)
+        df['REGIAO_NASC_facet'] = df['V5030'].apply(self.regiao)
         for k, v in variaveis.items():
             df[k].replace(v, inplace=True)
 
-        df['V5030'].fillna(df['UF'], inplace=True)
-
+        ano_pesq = gYear(self.ano)
+        df['ANO_PESQ_facet'] = ano_pesq + '|' + df['V0101'].astype(str)
+        df['ANO_NASC_facet'] = df['V3033'].apply(gYear) + '|' + df['V3033'].astype(str)
+        df['REGIAO_PESQ_facet'] = df['REGIAO_PESQ_facet'] + '|' + df['UF']
+        df['REGIAO_NASC_facet'] = df['REGIAO_NASC_facet'] + '|' + df['V5030']
         return df
 
     def gera_csv(self):
@@ -115,7 +148,6 @@ class Pnade(object):
 
 
 def pnade_tranform():
-
     PATH_ORIGEM = '/var/tmp/pnade/'
     try:
         anos = os.listdir(PATH_ORIGEM)
@@ -135,5 +167,3 @@ def pnade_tranform():
             raise
         print('Fim!!')
         print('\n')
-
-
