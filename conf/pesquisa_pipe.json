@@ -222,6 +222,20 @@
             {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"}
           ]
   },
+  "PIVOT_TABLE":{
+      "default_level_1": {"value": "aval_doc_base", "label": "Avaliação - Documentos base"},
+        "default_level_2": {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"},
+        "options": [
+            {"value": "aval_doc_base", "label": "Avaliação - Documentos base"},
+            {"value": "gove_modelos_gestao", "label": "Governança - Modelos de gestão"},
+            {"value": "gove_pdi_explicito", "label": "Governança - PDI Explícito"},
+            {"value": "pess_escolaridade", "label": "Pessoal - Escolaridade"},
+            {"value": "pess_cargo", "label": "Pessoal - Cargo"},
+            {"value": "parc_parcerias_institutos_universidades", "label": "Parcerias - Institutos/Universidades"},
+            {"value": "parc_parcerias_outros_atores", "label": "Parcerias - Outros atores"},
+            {"value": "resu_chegou_a_resultados", "label": "Resultados alcançados"}
+          ]
+  },
 
   "BUBBLE_CHART": {
       "default_level_1": {"value": "aval_doc_base", "label": "Avaliação - Documentos base"},
