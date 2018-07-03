@@ -39,14 +39,14 @@ def find_zip():
     import requests
     from bs4 import BeautifulSoup
 
-    url = 'http://inep.gov.br/microdados'
+    url = 'http://web.fflch.usp.br/centrodametropole/1148'
 
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
 
     all_hrefs = soup.find_all('a')
     all_links = [link.get('href') for link in all_hrefs]
-    zip_files = [dl for dl in all_links if dl and '.zip' in dl]
+    zip_files = [dl for dl in all_links if dl and '.7z' in dl]
     for l in zip_files:
         print(l)
 
@@ -67,3 +67,31 @@ def list_output_files(collectiondir, transform):
                 if file.endswith(".csv"):
                     print os.path.join(root, file)
 
+
+def find_zips_pnad():
+
+    from ftplib import FTP
+
+    anos = ['2011','2012','2013','2014','2015']
+    ftp = FTP("ftp.ibge.gov.br")
+    ftp.login()
+    ftp.cwd('Trabalho_e_Rendimento')
+    ftp.cwd('Pesquisa_Nacional_por_Amostra_de_Domicilios_anual')
+    ftp.cwd('microdados')
+    for ano in anos:
+        filename = "pnad_"+ano+".zip"
+        print ano
+        ftp.cwd(ano)
+        file_list = ftp.nlst()
+
+        for f in file_list:
+            # apply your filters
+            if "dados" in f.lower() and any(f.endswith(ext) for ext in '.zip'):
+                # download file sending "RETR <name of file>" command
+                # open(f, "w").write is executed after RETR suceeds and returns file binary data
+                with open(filename, 'wb') as zipfile:
+                    print ftp.retrbinary('RETR ' + f, zipfile.write)
+        ftp.cwd('../')
+    ftp.quit()
+
+find_zip()
