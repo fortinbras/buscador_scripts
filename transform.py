@@ -8,6 +8,7 @@ from _transform.enade import enade_tranform
 from _transform.inep_docentes import inep_docentes_tranform
 from _transform.inep_alunos import inep_alunos_transform
 from _transform.wos import wos_tranform
+from _transform.pnade import pnade_tranform
 
 
 def executa(coll):
@@ -27,6 +28,9 @@ def executa(coll):
 
     elif coll == 'wos':
         wos_tranform()
+
+    elif coll == 'pnad':
+        pnade_tranform()
 
     elif coll == 'lattes':
         pass

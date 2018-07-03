@@ -132,4 +132,5 @@ def main(vars_file, data_file, output):
     vars_fp.close()
 
 
-find_zips_pnad()
+def executa_pnad():
+    find_zips_pnad()

@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 from _download.enade_download import executa_download_enade
 from _download.inep_download import executa_inep_download
+from _download.pnade_download import executa_pnad
 
 def executa(coll):
 
@@ -14,6 +15,9 @@ def executa(coll):
 
     elif coll == 'enade':
         executa_download_enade()
+
+    elif coll == 'pnade':
+        executa_pnad()
 
     else:
         print('digite enade ou inep como parametro')

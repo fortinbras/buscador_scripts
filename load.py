@@ -10,13 +10,13 @@ collection = {
         'collection': 'wos',
         'content_type': 'text/xml',
         'collectiondir': '/var/tmp/wos',
-        'transformdir': '_transform/wos'
+        'transformdir': 'transform/wos'
     },
 
     'enade': {
         'filetype': '.csv',
         'collectiondir': '/var/tmp/enade',
-        'transformdir': '_transform/',
+        'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'enade',
         'content_type': 'text/csv',
@@ -25,7 +25,7 @@ collection = {
     'inep_alunos': {
         'filetype': '.csv',
         'collectiondir': '/var/tmp/inep',
-        'transformdir': '_transform/alunos',
+        'transformdir': 'transform/alunos',
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_alunos',
         'content_type': 'text/csv',
@@ -34,16 +34,25 @@ collection = {
     'inep_docentes': {
         'filetype': '.csv',
         'collectiondir': '/var/tmp/inep',
-        'transformdir': '_transform/docentes',
+        'transformdir': 'transform/docentes',
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_docentes',
         'content_type': 'text/csv',
         'schema': '_transform/inep_docentes/conf'},
 
+    'pnad': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/pnade',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'pnad',
+        'content_type': 'text/csv',
+        'schema': '_transform/pnade/conf'},
+
     'lattes': {
         'filetype': '.xml',
         'collectiondir': '/var/tmp/lattes',
-        'transformdir': '_transform/',  #deve estar em /var/tm/lattes/_transform/
+        'transformdir': 'transform/',  # deve estar em /var/tm/lattes/_transform/
         'localhost': '192.168.0.212:8983',
         'collection': 'lattes',
         'content_type': 'text/xml',
@@ -76,6 +85,12 @@ def executa(coll):
                         param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
 
+    elif coll == 'pnad':
+        param = collection['pnad']
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        load.full_sequence()
+
     elif coll == 'wos':
         param = collection['wos']
         load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
@@ -95,4 +110,3 @@ if __name__ == "__main__":
         executa(sys.argv[1])
     except IndexError:
         print('digite collection como parametro')
-
