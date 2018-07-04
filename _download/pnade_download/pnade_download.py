@@ -17,7 +17,7 @@ Antes de 2010, a nomenclatura e formato dos arquivos nao batem.
 def find_zips_pnad():
     from ftplib import FTP
 
-    anos = ['2011','2012','2013','2014','2015']
+    anos = ['2011','2012','2013','2014']
     ftp = FTP("ftp.ibge.gov.br")
     ftp.login()
     ftp.cwd('Trabalho_e_Rendimento')

@@ -281,7 +281,7 @@ class Enade(object):
         df_enade['CO_ORGACAD'] = df_enade['CO_ORGACAD'].astype(str).replace(self.CO_ORGACAD)
         df_enade['CO_GRUPO'] = df_enade['CO_GRUPO'].astype(str).replace(self.CO_GRUPO)
         df_enade['CO_MODALIDADE'] = df_enade['CO_MODALIDADE'].astype(str).replace(self.CO_MODALIDADE)
-        df_enade['ID'] = ['2014' + '_' + str(i + 1) for i in range(df_enade.index.size)]
+        df_enade['ID'] = [str(self.ano) + '_' + str(i + 1) for i in range(df_enade.index.size)]
 
         df_enade['ANO_facet'] = df_enade['NU_ANO'].apply(gYear) + '|' + df_enade['NU_ANO'].astype(str)
         df_enade['ANO_FIM_2G_facet'] = df_enade['ANO_FIM_2G'].apply(gYear)

@@ -119,6 +119,8 @@ class Pnade(object):
         df['ANO_NASC_facet'] = df['V3033'].apply(gYear) + '|' + df['V3033'].astype(str)
         df['REGIAO_PESQ_facet'] = df['REGIAO_PESQ_facet'] + '|' + df['UF']
         df['REGIAO_NASC_facet'] = df['REGIAO_NASC_facet'].astype(str) + '|' + df['V5030'].astype(str)
+        df['ID'] = [str(self.ano) + '_' + str(i + 1) for i in range(df.index.size)]
+
         return df
 
     def gera_csv(self):
