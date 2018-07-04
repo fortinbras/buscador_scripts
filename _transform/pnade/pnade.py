@@ -118,7 +118,7 @@ class Pnade(object):
         df['ANO_PESQ_facet'] = ano_pesq + '|' + df['V0101'].astype(str)
         df['ANO_NASC_facet'] = df['V3033'].apply(gYear) + '|' + df['V3033'].astype(str)
         df['REGIAO_PESQ_facet'] = df['REGIAO_PESQ_facet'] + '|' + df['UF']
-        df['REGIAO_NASC_facet'] = df['REGIAO_NASC_facet'] + '|' + df['V5030']
+        df['REGIAO_NASC_facet'] = df['REGIAO_NASC_facet'].astype(str) + '|' + df['V5030'].astype(str)
         return df
 
     def gera_csv(self):
