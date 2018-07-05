@@ -49,7 +49,7 @@ def download_enem(ano):
     print 'Downloading %s (%sMb)' % (fullpath, fsize / mbyte)
     # Gravando o arquivo zip
     with open(fullpath, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=1024 * 100):  # chuck size can be larger
+        for chunk in resp.iter_content(chunk_size=1024):  # chuck size can be larger
             if chunk:  # ignore keep-alive requests
                 f.write(chunk)
         f.close()
@@ -62,7 +62,9 @@ def download_enem(ano):
 
     if ano == '2013':
         try:
-            for root, dirs, files in os.walk(dir_destino):
+            exclude_prefixes = ('__', '.')
+            for root, dirs, files in os.walk(dir_destino, topdown=True):
+                dirs[:] = [dirname for dirname in dirs if not dirname.startswith(exclude_prefixes)]
                 for f in files:
                     if f.endswith('.rar'):
                         patoolib.extract_archive(os.path.join(root, f), outdir=root)

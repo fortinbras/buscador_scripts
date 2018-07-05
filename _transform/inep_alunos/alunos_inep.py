@@ -204,7 +204,7 @@ class InepVincAlunos(object):
         df['GEOGRAFICO_ALUNO_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
             'UF_NASCIMENTO'] + '|' + df['MUNICIPIO_NASCIMENTO']
         df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
-        df['ANO_facet'] = gYear(2014)
+        df['ANO_facet'] = gYear(self.ano)
         df['IN_CAPITAL_IES'] = np.where(df['IN_CAPITAL_IES'].astype(str) == '1', 'Sim', 'Não')
         df['Data_Nasc_Aluno_facet'] = df['NU_ANO_ALUNO_NASC'].astype(str) + '|' + df['NU_MES_ALUNO_NASC'].astype(
             str) + '|' + df['NU_DIA_ALUNO_NASC'].astype(str)
@@ -264,7 +264,7 @@ def inep_alunos_transform():
                 log.write("\n")
                 log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(inep_al.input_lenght) - 1))
                 log.write("\n")
-                log.write('Arquivo de saida possui {} linhas de informacao'.format(int(inep_al.output_length) - 1))
+                log.write('Arquivo de saida possui {} linhas de informacao'.format(int(output_length) - 1))
             print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(inep_al.ano,
                                                                                           inep_al.destino_transform + inep_al.log_file))
             print('Arquivo do ano, {} finalizado'.format(ano))
@@ -272,7 +272,7 @@ def inep_alunos_transform():
             print('Arquivo do ano, {} não encontrado'.format(ano))
             raise
 
-
+9565484
 # if __name__ == "__main__":
 #     PATH_ORIGEM = '/var/tmp/inep/'
 #     try:
