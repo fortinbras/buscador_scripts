@@ -6,6 +6,7 @@ sys.path.insert(0, '../../../buscador_scripts/')
 import os, errno
 import requests
 import zipfile
+import patoolib
 
 """
 Este script faz o downloa dos arquivos do ENEM e descompacta-os na pasta dos respectivos anos.
@@ -15,9 +16,9 @@ Antes de 2009, a nomenclatura e formato dos arquivos nao batem.
 
 all_links = {
 
-    '2011': 'http://download.inep.gov.br/microdados/microdados_enem2011.zip',
-    '2012': 'http://download.inep.gov.br/microdados/microdados_enem2012.zip',
-    '2013': 'http://download.inep.gov.br/microdados/microdados_enem2013.zip',
+    # '2011': 'http://download.inep.gov.br/microdados/microdados_enem2011.zip', #Não esta em csv
+    # '2012': 'http://download.inep.gov.br/microdados/microdados_enem2012.zip',
+    # '2013': 'http://download.inep.gov.br/microdados/microdados_enem2013.zip',
     '2014': 'http://download.inep.gov.br/microdados/microdados_enem2014.zip',
     '2015': 'http://download.inep.gov.br/microdados/microdados_enem2015.zip',
     '2016': 'http://download.inep.gov.br/microdados/microdados_enem2016.zip',
@@ -58,6 +59,16 @@ def download_enem(ano):
     archive.close()
 
     os.remove(fullpath)
+
+    if ano == '2013':
+        try:
+            for root, dirs, files in os.walk(dir_destino):
+                for f in files:
+                    if f.endswith('.rar'):
+                        patoolib.extract_archive(os.path.join(root, f), outdir=root)
+                        os.remove(os.path.join(root, f))
+        except:
+            raise
     print "Download do ano {} finalizado".format(ano)
 
 
