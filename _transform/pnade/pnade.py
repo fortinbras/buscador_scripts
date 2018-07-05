@@ -41,23 +41,25 @@ class Pnade(object):
 
                     return df
 
-    def regiao(self,num):
-
-        uf = str(num)[0]
-        if int(uf) == 1:
-            return 'Norte'
-        elif int(uf) == 2:
-            return 'Nordeste'
-        elif int(uf) == 3:
-            return 'Sudeste'
-        elif int(uf) == 4:
-            return 'Sul'
-        elif int(uf) == 5:
-            return 'Centro-Oeste'
-        elif int(uf) == 8:
-            return 'Brasil'
-        elif int(uf) == 9:
-            return 'Pais estrangeiro'
+    def regiao(self, num):
+        try:
+            uf = str(num)[0]
+            if int(uf) == 1:
+                return 'Norte'
+            elif int(uf) == 2:
+                return 'Nordeste'
+            elif int(uf) == 3:
+                return 'Sudeste'
+            elif int(uf) == 4:
+                return 'Sul'
+            elif int(uf) == 5:
+                return 'Centro-Oeste'
+            elif int(uf) == 8:
+                return 'Brasil'
+            elif int(uf) == 9:
+                return 'Pais estrangeiro'
+        except ValueError:
+            return ''
 
     def resolve_dicionario(self):
 

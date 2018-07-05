@@ -200,7 +200,8 @@ class InepVincAlunos(object):
         df['CO_MODALIDADE_ENSINO'] = df['CO_MODALIDADE_ENSINO'].replace(CO_MODALIDADE_ENSINO)
         df['CO_NIVEL_ACADEMICO'] = df['CO_NIVEL_ACADEMICO'].replace(CO_NIVEL_ACADEMICO)
         df['IN_REFERENTE'] = df['IN_REFERENTE'].replace(IN_REFERENTE)
-
+        #mantenedora_ies
+        df['MANT_IES_facet'] = df['NO_MANTENEDORA'].astype(str)+'|'+ df['NO_IES'].astype(str)
         df['GEOGRAFICO_ALUNO_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
             'UF_NASCIMENTO'] + '|' + df['MUNICIPIO_NASCIMENTO']
         df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
@@ -225,10 +226,10 @@ class InepVincAlunos(object):
         if control == 1:
 
             df.to_csv(self.destino_transform + self.csv_file, sep=';', index=False, encoding='utf8', header=0, mode='a',
-                      quoting=csv.QUOTE_ALL, chunksize=500000)
+                      quoting=csv.QUOTE_ALL, line_terminator='\n')
         else:
             df.to_csv(self.destino_transform + self.csv_file, sep=';', index=False, encoding='utf8', mode='a',
-                      quoting=csv.QUOTE_ALL, chunksize=500000)
+                      quoting=csv.QUOTE_ALL, line_terminator='\n')
 
 def inep_alunos_transform():
     PATH_ORIGEM = '/var/tmp/inep/'
