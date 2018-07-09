@@ -9,23 +9,25 @@ sys.path.insert(0, '../../../buscador_scripts/')
 from utils import *
 import pandas as pd
 import numpy as np
-import codecs
 import csv
 import commands
 import datetime
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 500)
+
+
+# pd.set_option('display.max_rows', 500)
+# pd.set_option('display.max_columns', 500)
 
 
 class Enem(object):
-    def __init__(self,ano):
+    def __init__(self, ano):
         self.date = datetime.datetime.now()
         self.ano = ano
         self.input_lenght = 0
         self.output_length = 0
         self.gano = gYear(ano)
 
-    def regiao(self, num):
+    @staticmethod
+    def regiao(num):
         try:
             uf = str(num)[0]
             if int(uf) == 1:
@@ -55,9 +57,9 @@ class Enem(object):
             for f in files:
                 if f in file_list:
                     arquivo = open(os.path.join(root, f), 'r')  # , encoding='latin-1')
-                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
-                    print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght)-1)
-                    if ano in [2014, 2015]:
+                    # self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
+                    # print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
+                    if ano in ['2014', '2015']:
                         df = pd.read_csv(arquivo, sep=',', low_memory=False, engine='c', encoding='cp1252',
                                          chunksize=500000)  # , )
                     else:
@@ -118,6 +120,7 @@ class Enem(object):
         i = 0
         max_files = 50
         for df in iter_df:
+
             df = df[cols]
 
             df['ID'] = str(self.ano) + '_' + df['NU_INSCRICAO'].astype(str)
@@ -138,22 +141,62 @@ class Enem(object):
             df['REGIAO_PROVA_facet'] = df['REGIAO_PROVA'] + '|' + df['SG_UF_PROVA'] + '|' + df['NO_MUNICIPIO_PROVA']
 
             if control == 0:
-                #print 'gerando novo csv'
-                gera_csv(df, ano, i, 'w')
+                # print 'gerando novo csv'
+                self.gera_csv(df, i, 'w')
                 control += 1
-            elif 0 < control < max_files:
-                #print 'append csv'
-                gera_csv(df, ano, i, 'a')
+            elif 0 < control <= max_files:
+                # print 'append csv'
+                self.gera_csv(df, i, 'a')
                 control += 1
-            elif control >= max_files:
-                control = 0
+            elif control > max_files:
+                control = 1
                 i += 1
+                self.gera_csv(df, i, 'w')
             # print control
+        return 'FIM'
+
+    def gera_csv(self, df, control, mode, ):
+        destino_transform = '/var/tmp/enem/' + str(self.ano) + '/transform/'
+
+        try:
+            os.makedirs(destino_transform)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+        if mode == 'a':
+            header = 0
+        else:
+            header = True
+
+        # log_file = '/enem_' + str(ano) + '.log'
+        csv_file = '/enem_' + str(self.ano) + '_' + str(control) + '.csv'
+        df.to_csv(destino_transform + csv_file, sep=';', line_terminator='\n', index=False, header=header,
+                  encoding='utf8', quoting=csv.QUOTE_ALL, mode=mode)
+
+    def gera_log(self):
+        pass
 
 
+def enem_transform():
+    PATH_ORIGEM = '/var/tmp/enem/'
+    try:
+        anos = [f for f in os.listdir(PATH_ORIGEM) if not f.startswith('.')]
+        anos.sort()
+    except OSError:
+        print('Nenhuma pasta encontrada')
+        raise
+    for ano in anos:
+        print(ano)
+        try:
+            inep_doc = Enem(ano)
+            inep_doc.resolve_dicionario_567()
+            print('Arquivo do ano, {} finalizado'.format(ano))
+
+        except:
+            print 'Arquivo do ano, {} não encontrado'.format(ano)
+            raise
+        print('Fim!!')
+        print('\n')
 
 
-
-
-
-
+enem_transform()
