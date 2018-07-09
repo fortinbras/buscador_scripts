@@ -31,13 +31,13 @@ all_links = {
     # '2007': 'http://download.inep.gov.br/microdados/microdados_educacao_superior_2007.zip',
     # '2008': 'http://download.inep.gov.br/microdados/micro_censo_edu_superior2008.zip',
     #'2009': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2009.zip',
-    '2010': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2010.zip',
-    '2011': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2011.zip',
-    '2012': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2012.zip',
-    '2013': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2013.zip',
-    '2014': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2014.zip',
-    '2015': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2015.zip',
-    '2016': 'http://_download.inep.gov.br/microdados/microdados_censo_superior_2016.zip'
+    '2010': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2010.zip',
+    '2011': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2011.zip',
+    '2012': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2012.zip',
+    '2013': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2013.zip',
+    '2014': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2014.zip',
+    '2015': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2015.zip',
+    '2016': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2016.zip'
 }
 
 
