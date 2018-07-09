@@ -197,6 +197,3 @@ def enem_transform():
             raise
         print('Fim!!')
         print('\n')
-
-
-enem_transform()
