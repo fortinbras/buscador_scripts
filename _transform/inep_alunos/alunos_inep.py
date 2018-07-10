@@ -273,7 +273,6 @@ def inep_alunos_transform():
             print('Arquivo do ano, {} não encontrado'.format(ano))
             raise
 
-9565484
 # if __name__ == "__main__":
 #     PATH_ORIGEM = '/var/tmp/inep/'
 #     try:

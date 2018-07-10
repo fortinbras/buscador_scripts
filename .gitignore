@@ -122,6 +122,7 @@ _transform/inep_docentes/inep_docentes_notebook.ipynb
 ### macOS template
 # General
 .DS_Store
+.DS_Store?
 .AppleDouble
 .LSOverride
 
@@ -146,4 +147,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
