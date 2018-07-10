@@ -94,7 +94,7 @@
   "BUBBLE_CHART": {
               "default_level_1": {"value": "REGIAO_PESQ_facet", "label": "Região da Pesquisa"},
         "default_level_2": {"value": "V6003", "label": "Curso que frequenta"},
-        "default_level_3": {"value": "REGIAO_NASC_facet", "label": "ENADE - Região"},
+        "default_level_3": {"value": "REGIAO_NASC_facet", "label": "Pnade - Região"},
         "options": [{"value": "V6003", "label": "Curso que frequenta"},
                     {"value": "REGIAO_NASC_facet", "label": "Curso - UF"},
                     {"value": "REGIAO_PESQ_facet", "label": "Região de Nascimento"},

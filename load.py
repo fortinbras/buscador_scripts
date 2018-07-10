@@ -52,7 +52,7 @@ collection = {
     'lattes': {
         'filetype': '.xml',
         'collectiondir': '/var/tmp/lattes',
-        'transformdir': 'transform/',  # deve estar em /var/tm/lattes/_transform/
+        'transformdir': 'transform/',  # deve estar em /var/tm/lattes/transform/
         'localhost': '192.168.0.212:8983',
         'collection': 'lattes',
         'content_type': 'text/xml',
