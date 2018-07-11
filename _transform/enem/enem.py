@@ -118,7 +118,7 @@ class Enem(object):
         iter_df = self.pega_arquivo_ano(self.ano)
         control = 0
         i = 0
-        max_files = 50
+        max_files = 8
         for df in iter_df:
 
             df = df[cols]

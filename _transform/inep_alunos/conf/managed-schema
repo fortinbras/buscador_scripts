@@ -1,149 +1,226 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
 <schema name="sematext-cdrc-example-schema" version="1.6">
-    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
-    <field name="_version_" type="long" indexed="true" stored="false"/>
-    <field name="_root_" type="string" indexed="true" stored="false" docValues="false"/>
-    <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
-
-    <!--
-    Exemplo de campo de facet
-    <field name="Ano_facet" type="descendent_path"/>
-    -->
-    <field name="GEOGRAFICO_IES_facet" type="descendent_path"/>
-    <field name="MANT_IES_facet" type="descendent_path"/>
-    <field name="Data_Nasc_ALUNO_facet" type="descendent_path"/>
-    <field name="ANO_facet" type="descendent_path"/>
-    <field name="GEOGRAFICO_ALUNO_NASC_facet" type="descendent_path"/>
-
-    <copyField source="*" dest="_text_"/>
-
-    <dynamicField name="cross_collection_*" type="string" indexed="true" stored="true" multiValued="true"/>
-    <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
-    <dynamicField name="*_is" type="ints" indexed="true" stored="true"/>
-    <dynamicField name="*_s" type="string" indexed="true" stored="true"/>
-    <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
-    <dynamicField name="*_l" type="long" indexed="true" stored="true"/>
-    <dynamicField name="*_ls" type="longs" indexed="true" stored="true"/>
-    <dynamicField name="*_t" type="text_general" indexed="true" stored="true"/>
-    <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
-    <dynamicField name="*_b" type="boolean" indexed="true" stored="true"/>
-    <dynamicField name="*_bs" type="booleans" indexed="true" stored="true"/>
-    <dynamicField name="*_f" type="float" indexed="true" stored="true"/>
-    <dynamicField name="*_fs" type="floats" indexed="true" stored="true"/>
-    <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
-    <dynamicField name="*_ds" type="doubles" indexed="true" stored="true"/>
-    <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" useDocValuesAsStored="false"/>
-    <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
-    <dynamicField name="*_dts" type="date" indexed="true" stored="true" multiValued="true"/>
-    <dynamicField name="*_ti" type="tint" indexed="true" stored="true"/>
-    <dynamicField name="*_tis" type="tints" indexed="true" stored="true"/>
-    <dynamicField name="*_tl" type="tlong" indexed="true" stored="true"/>
-    <dynamicField name="*_tls" type="tlongs" indexed="true" stored="true"/>
-    <dynamicField name="*_tf" type="tfloat" indexed="true" stored="true"/>
-    <dynamicField name="*_tfs" type="tfloats" indexed="true" stored="true"/>
-    <dynamicField name="*_td" type="tdouble" indexed="true" stored="true"/>
-    <dynamicField name="*_tds" type="tdoubles" indexed="true" stored="true"/>
-    <dynamicField name="*_tdt" type="tdate" indexed="true" stored="true"/>
-    <dynamicField name="*_tdts" type="tdates" indexed="true" stored="true"/>
-    <dynamicField name="attr_*" type="text_general" indexed="true" stored="true" multiValued="true"/>
-    <dynamicField name="random_*" type="random"/>
-
-    <uniqueKey>id</uniqueKey>
-
-
-    <fieldType name="text" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
-        <analyzer type="index">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
-            <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1"
-                    catenateWords="1" catenateNumbers="1" catenateAll="0"/>
-            <filter class="solr.ASCIIFoldingFilterFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="18"/>
-            <filter class="solr.PortugueseLightStemFilterFactory"/>
-            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        </analyzer>
-        <analyzer type="query">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
-            <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1"
-                    catenateWords="0" catenateNumbers="0" catenateAll="0"/>
-            <filter class="solr.ASCIIFoldingFilterFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.PortugueseLightStemFilterFactory"/>
-            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        </analyzer>
-    </fieldType>
-
-
-    <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
-    <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true"/>
-    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
-    <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
-    <fieldType name="int" class="solr.TrieIntField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="float" class="solr.TrieFloatField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="long" class="solr.TrieLongField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="double" class="solr.TrieDoubleField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="ints" class="solr.TrieIntField" docValues="true" precisionStep="0" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="floats" class="solr.TrieFloatField" docValues="true" precisionStep="0" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="longs" class="solr.TrieLongField" docValues="true" precisionStep="0" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="doubles" class="solr.TrieDoubleField" docValues="true" precisionStep="0" positionIncrementGap="0"
-               multiValued="true"/>
-
-    <fieldType name="tint" class="solr.TrieIntField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
-    <fieldType name="tfloat" class="solr.TrieFloatField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
-    <fieldType name="tlong" class="solr.TrieLongField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
-    <fieldType name="tdouble" class="solr.TrieDoubleField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
-
-    <fieldType name="tints" class="solr.TrieIntField" docValues="true" precisionStep="8" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="tfloats" class="solr.TrieFloatField" docValues="true" precisionStep="8" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="tlongs" class="solr.TrieLongField" docValues="true" precisionStep="8" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="tdoubles" class="solr.TrieDoubleField" docValues="true" precisionStep="8" positionIncrementGap="0"
-               multiValued="true"/>
-
-    <fieldType name="date" class="solr.TrieDateField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="dates" class="solr.TrieDateField" docValues="true" precisionStep="0" positionIncrementGap="0"
-               multiValued="true"/>
-    <fieldType name="tdate" class="solr.TrieDateField" docValues="true" precisionStep="6" positionIncrementGap="0"/>
-    <fieldType name="tdates" class="solr.TrieDateField" docValues="true" precisionStep="6" positionIncrementGap="0"
-               multiValued="true"/>
-
-    <fieldType name="binary" class="solr.BinaryField"/>
-    <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
-
-    <fieldType name="descendent_path" class="solr.TextField">
-        <analyzer type="index">
-            <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="|"/>
-        </analyzer>
-        <analyzer type="query">
-            <tokenizer class="solr.KeywordTokenizerFactory"/>
-        </analyzer>
-    </fieldType>
-
-
-    <dynamicField name="*_ws" type="text_ws" indexed="true" stored="true"/>
-    <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
-        <analyzer>
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        </analyzer>
-    </fieldType>
-
-    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-        <analyzer type="index">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
-        <analyzer type="query">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
-    </fieldType>
+  <uniqueKey>id</uniqueKey>
+  <fieldType name="binary" class="solr.BinaryField"/>
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+  <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="date" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="dates" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="descendent_path" class="solr.TextField">
+    <analyzer type="index">
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="|"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="double" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="doubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="float" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="floats" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="int" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="ints" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+  <fieldType name="strings" class="solr.StrField" sortMissingLast="true" docValues="true" multiValued="true"/>
+  <fieldType name="tdate" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" precisionStep="6"/>
+  <fieldType name="tdates" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="6"/>
+  <fieldType name="tdouble" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tdoubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="text" class="solr.TextField" positionIncrementGap="100" sortMissingLast="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_pt.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="1" generateNumberParts="1" generateWordParts="1" catenateAll="0" catenateWords="1"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EdgeNGramFilterFactory" maxGramSize="18" minGramSize="1"/>
+      <filter class="solr.PortugueseLightStemFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_pt.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="0" generateNumberParts="1" generateWordParts="1" catenateAll="0" catenateWords="0"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.PortugueseLightStemFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="tfloat" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tfloats" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="tint" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tints" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="tlong" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tlongs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <field name="ANO_INGRESSO" type="long"/>
+  <field name="ANO_facet" type="descendent_path"/>
+  <field name="CO_ALUNO" type="long"/>
+  <field name="CO_ALUNO_CURSO" type="long"/>
+  <field name="CO_ALUNO_SITUACAO" type="long"/>
+  <field name="CO_CURSO_POLO" type="double"/>
+  <field name="CO_GRAU_ACADEMICO" type="strings"/>
+  <field name="CO_IES" type="long"/>
+  <field name="CO_MODALIDADE_ENSINO" type="strings"/>
+  <field name="CO_MUNICIPIO_IES" type="long"/>
+  <field name="CO_MUNICIPIO_NASCIMENTO" type="double"/>
+  <field name="CO_NACIONALIDADE_ALUNO" type="strings"/>
+  <field name="CO_NIVEL_ACADEMICO" type="strings"/>
+  <field name="CO_TURNO_ALUNO" type="strings"/>
+  <field name="CO_UF_IES" type="long"/>
+  <field name="CO_UF_NASCIMENTO" type="double"/>
+  <field name="DS_CATEGORIA_ADMINISTRATIVA" type="strings"/>
+  <field name="DS_COR_RACA_ALUNO" type="strings"/>
+  <field name="DS_ORGANIZACAO_ACADEMICA" type="strings"/>
+  <field name="DS_SEXO_ALUNO" type="strings"/>
+  <field name="DT_INGRESSO_CURSO" type="strings"/>
+  <field name="Data_Nasc_ALUNO_facet" type="descendent_path"/>
+  <field name="Data_Nasc_Aluno_facet" type="strings"/>
+  <field name="GEOGRAFICO_ALUNO_NASC_facet" type="descendent_path"/>
+  <field name="GEOGRAFICO_IES_facet" type="descendent_path"/>
+  <field name="IN_ACESSO_OUTRAS_BASES" type="strings"/>
+  <field name="IN_ACESSO_PORTAL_CAPES" type="strings"/>
+  <field name="IN_APOIO_ALIMENTACAO" type="strings"/>
+  <field name="IN_APOIO_BOLSA_PERMANENCIA" type="strings"/>
+  <field name="IN_APOIO_BOLSA_TRABALHO" type="strings"/>
+  <field name="IN_APOIO_MATERIAL_DIDATICO" type="strings"/>
+  <field name="IN_APOIO_MORADIA" type="strings"/>
+  <field name="IN_APOIO_SOCIAL" type="strings"/>
+  <field name="IN_APOIO_TRANSPORTE" type="strings"/>
+  <field name="IN_BOLSA_ESTAGIO" type="strings"/>
+  <field name="IN_BOLSA_EXTENSAO" type="strings"/>
+  <field name="IN_BOLSA_MONITORIA" type="strings"/>
+  <field name="IN_BOLSA_PESQUISA" type="strings"/>
+  <field name="IN_CAPITAL_IES" type="strings"/>
+  <field name="IN_COMPL_ESTAGIO" type="strings"/>
+  <field name="IN_COMPL_EXTENSAO" type="strings"/>
+  <field name="IN_COMPL_MONITORIA" type="strings"/>
+  <field name="IN_COMPL_PESQUISA" type="strings"/>
+  <field name="IN_CONCLUINTE" type="long"/>
+  <field name="IN_DEF_AUDITIVA" type="strings"/>
+  <field name="IN_DEF_BAIXA_VISAO" type="strings"/>
+  <field name="IN_DEF_CEGUEIRA" type="strings"/>
+  <field name="IN_DEF_FISICA" type="strings"/>
+  <field name="IN_DEF_INTELECTUAL" type="strings"/>
+  <field name="IN_DEF_MULTIPLA" type="strings"/>
+  <field name="IN_DEF_SURDEZ" type="strings"/>
+  <field name="IN_DEF_SURDOCEGUEIRA" type="strings"/>
+  <field name="IN_FINANC_ESTUDANTIL" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_ENT_EXTERNA" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_ESTADUAL" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_MUNICIPAL" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_PROG_IES" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_PROUNI_INTEGR" type="strings"/>
+  <field name="IN_FIN_NAOREEMB_PROUNI_PARCIAL" type="strings"/>
+  <field name="IN_FIN_REEMB_ENT_EXTERNA" type="strings"/>
+  <field name="IN_FIN_REEMB_ESTADUAL" type="strings"/>
+  <field name="IN_FIN_REEMB_FIES" type="strings"/>
+  <field name="IN_FIN_REEMB_MUNICIPAL" type="strings"/>
+  <field name="IN_FIN_REEMB_PROG_IES" type="strings"/>
+  <field name="IN_ING_CONVENIO_PECG" type="strings"/>
+  <field name="IN_ING_ENEM" type="strings"/>
+  <field name="IN_ING_VESTIBULAR" type="strings"/>
+  <field name="IN_MATRICULA" type="long"/>
+  <field name="IN_REFERENTE" type="strings"/>
+  <field name="IN_RESERVA_DEFICIENCIA" type="strings"/>
+  <field name="IN_RESERVA_ENSINO_PUBLICO" type="strings"/>
+  <field name="IN_RESERVA_ETNICO" type="strings"/>
+  <field name="IN_RESERVA_RENDA_FAMILIAR" type="strings"/>
+  <field name="IN_RESERVA_VAGAS" type="strings"/>
+  <field name="MANT_IES_facet" type="descendent_path"/>
+  <field name="MUNICIPIO_NASCIMENTO" type="strings"/>
+  <field name="NO_CURSO" type="strings"/>
+  <field name="NO_IES" type="strings"/>
+  <field name="NO_MANTENEDORA" type="strings"/>
+  <field name="NO_MUNICIPIO_IES" type="strings"/>
+  <field name="NO_REGIAO_IES" type="strings"/>
+  <field name="NU_ANO_ALUNO_NASC" type="long"/>
+  <field name="NU_DIA_ALUNO_NASC" type="long"/>
+  <field name="NU_IDADE_ALUNO" type="long"/>
+  <field name="NU_MES_ALUNO_NASC" type="long"/>
+  <field name="QT_TEC_DOUTORADO_FEM" type="long"/>
+  <field name="QT_TEC_DOUTORADO_MASC" type="long"/>
+  <field name="QT_TEC_ESPECIALIZACAO_FEM" type="long"/>
+  <field name="QT_TEC_ESPECIALIZACAO_MASC" type="long"/>
+  <field name="QT_TEC_FUND_COMP_FEM" type="long"/>
+  <field name="QT_TEC_FUND_COMP_MASC" type="long"/>
+  <field name="QT_TEC_FUND_INCOMP_FEM" type="long"/>
+  <field name="QT_TEC_FUND_INCOMP_MASC" type="long"/>
+  <field name="QT_TEC_MEDIO_FEM" type="long"/>
+  <field name="QT_TEC_MEDIO_MASC" type="long"/>
+  <field name="QT_TEC_MESTRADO_FEM" type="long"/>
+  <field name="QT_TEC_MESTRADO_MASC" type="long"/>
+  <field name="QT_TEC_SUPERIOR_FEM" type="long"/>
+  <field name="QT_TEC_SUPERIOR_MASC" type="long"/>
+  <field name="QT_TEC_TOTAL" type="long"/>
+  <field name="REG_NASCIMENTO" type="strings"/>
+  <field name="SGL_UF_IES" type="strings"/>
+  <field name="UF_NASCIMENTO" type="strings"/>
+  <field name="VL_DES_CUSTEIO" type="double"/>
+  <field name="VL_DES_INVESTIMENTO" type="double"/>
+  <field name="VL_DES_OUTRAS" type="double"/>
+  <field name="VL_DES_PESQUISA" type="double"/>
+  <field name="VL_DES_PESSOAL_ENCARGO" type="double"/>
+  <field name="VL_DES_PESSOAL_REM_DOCENTE" type="double"/>
+  <field name="VL_DES_PESSOAL_REM_TECNICO" type="double"/>
+  <field name="VL_OUTRA_RECEITA" type="double"/>
+  <field name="VL_RECEITA_PROPRIA" type="double"/>
+  <field name="VL_TRANSFERENCIA" type="double"/>
+  <field name="_root_" type="string" docValues="false" indexed="true" stored="false"/>
+  <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
+  <field name="_version_" type="long" indexed="true" stored="false"/>
+  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <dynamicField name="cross_collection_*" type="string" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" useDocValuesAsStored="false"/>
+  <dynamicField name="random_*" type="random"/>
+  <dynamicField name="*_tdts" type="tdates" indexed="true" stored="true"/>
+  <dynamicField name="attr_*" type="text_general" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
+  <dynamicField name="*_dts" type="date" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_tis" type="tints" indexed="true" stored="true"/>
+  <dynamicField name="*_tls" type="tlongs" indexed="true" stored="true"/>
+  <dynamicField name="*_tfs" type="tfloats" indexed="true" stored="true"/>
+  <dynamicField name="*_tds" type="tdoubles" indexed="true" stored="true"/>
+  <dynamicField name="*_tdt" type="tdate" indexed="true" stored="true"/>
+  <dynamicField name="*_is" type="ints" indexed="true" stored="true"/>
+  <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
+  <dynamicField name="*_ls" type="longs" indexed="true" stored="true"/>
+  <dynamicField name="*_bs" type="booleans" indexed="true" stored="true"/>
+  <dynamicField name="*_fs" type="floats" indexed="true" stored="true"/>
+  <dynamicField name="*_ds" type="doubles" indexed="true" stored="true"/>
+  <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
+  <dynamicField name="*_ti" type="tint" indexed="true" stored="true"/>
+  <dynamicField name="*_tl" type="tlong" indexed="true" stored="true"/>
+  <dynamicField name="*_tf" type="tfloat" indexed="true" stored="true"/>
+  <dynamicField name="*_td" type="tdouble" indexed="true" stored="true"/>
+  <dynamicField name="*_ws" type="text_ws" indexed="true" stored="true"/>
+  <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
+  <dynamicField name="*_s" type="string" indexed="true" stored="true"/>
+  <dynamicField name="*_l" type="long" indexed="true" stored="true"/>
+  <dynamicField name="*_t" type="text_general" indexed="true" stored="true"/>
+  <dynamicField name="*_b" type="boolean" indexed="true" stored="true"/>
+  <dynamicField name="*_f" type="float" indexed="true" stored="true"/>
+  <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
+  <copyField source="*" dest="_text_"/>
 </schema>

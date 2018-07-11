@@ -45,9 +45,20 @@ collection = {
         'collectiondir': '/var/tmp/pnade',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
-        'collection': 'pnad',
+        'collection': 'pnade',
         'content_type': 'text/csv',
         'schema': '_transform/pnade/conf'},
+
+    'enem': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/enem',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'enem',
+        'content_type': 'text/csv',
+        'schema': '_transform/enem/conf'},
+
+
 
     'lattes': {
         'filetype': '.xml',
@@ -90,6 +101,14 @@ def executa(coll):
         load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
                         param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
+
+    elif coll == 'enem':
+        param = collection['enem']
+        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
+                        param['collection'], param['content_type'], param['schema'])
+        load.full_sequence()
+
+
 
     elif coll == 'wos':
         param = collection['wos']
