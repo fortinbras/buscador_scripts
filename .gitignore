@@ -112,12 +112,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
 .ipynb
 conf/conf.py
 conf/doc_schema.json
-_transform/inep_alunos/inep_alunos_notebook.ipynb
-_transform/inep_docentes/inep_docentes_notebook.ipynb
 /conf/doc_schema.json
 ### macOS template
 # General

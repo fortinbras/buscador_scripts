@@ -2,25 +2,31 @@
 
 
 import os
-
+import bs4
 
 def gYear(year):
-    ini = 1940
-    end = 2050
-    lista = []
-    for a in range(ini, end, 10):
-        group = '{}-{}'.format((a - 10), (a - 1))
-        lista.append(group)
+    ano = int(year)
+    digit = str(ano)[-1]
+    inicial = ano - int(digit)
+    fim = inicial + 9
+    return "{}-{}".format(inicial,fim)
 
-    for i in lista:
-        a = int(i[0:4])
-        b = int(i[5:])
-        try:
-            if int(year) in range(a, (b + 1), 1):
-                return i
-        except:
-            if year in range(a, (b + 1), 1):
-                return i
+    # ini = 1940
+    # end = 2050
+    # lista = []
+    # for a in range(ini, end, 10):
+    #     group = '{}-{}'.format((a - 10), (a - 1))
+    #     lista.append(group)
+    #
+    # for i in lista:
+    #     a = int(i[0:4])
+    #     b = int(i[5:])
+    #     try:
+    #         if int(year) in range(a, (b + 1), 1):
+    #             return i
+    #     except:
+    #         if year in range(a, (b + 1), 1):
+    #             return i
 
 
 def find_regiao(cod):
@@ -95,3 +101,9 @@ def find_zips_pnad():
     ftp.quit()
 
 
+def year_gp(year):
+    ano = int(year)
+    digit = str(ano)[-1]
+    inicial = ano - int(digit)
+    fim = inicial + 9
+    return "{}-{}".format(inicial,fim)
