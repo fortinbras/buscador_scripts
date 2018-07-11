@@ -1,9 +1,3 @@
-/*
-* This wont pass on a standard JSON Lint.
-* The JSON parser of this system will ignore everything between javascript comments,
-* in order to make things easier to write and test a configuration file.
-*/
-
 
 {
   "COLLECTION":{
@@ -23,7 +17,7 @@
              "facetGroup": [
                  {"label": "", "render": "barChart_1", "facets": [{"chave": "NU_IDADE_ALUNO", "label": "Idade"}]},
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "Data_Nasc_Aluno_facet", "label": "Ano de nascimento"}]},
+                  "facets": [{"chave": "ANO_NASC_facet", "label": "Ano de nascimento"}]},
                  {"label": "", "render": "barChart_1", "facets": [{"chave": "DS_COR_RACA_ALUNO", "label": "Cor/Raça"}]},
                  {"label": "", "render": "halfPieChart", "facets": [{"chave": "DS_SEXO_ALUNO", "label": "Sexo"}]},
                  {"label": "", "render": "barChart_1",
@@ -50,7 +44,7 @@
 
             {"groupBy": {"id": "ies_aluno", "label": "Instituição de ensino superior", "order": 2},
              "facetGroup": [
-                 {"label": "", "render": "barChart_1", "facets": [{"chave": "NO_IES", "label": "Mantenedora/IES"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "MANT_IES_facet", "label": "Mantenedora/IES"}]},
                  {"label": "", "render": "barChart_1", "facets": [{"chave": "GEOGRAFICO_IES_facet", "label": "Localização"}]},
                  {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "DS_CATEGORIA_ADMINISTRATIVA", "label": "Categoria Administrativa"}]},
@@ -70,12 +64,11 @@
         "options": [
             {"value": "ANO_INGRESSO", "label": "Ano de ingresso"},
             {"value": "CO_TURNO_ALUNO", "label": "Turno do aluno"},
-            //{"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"},
-
+            {"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"},
             {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
             {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
             {"value": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"},
-
+            {"value": "NO_CURSO", "label": "Curso"},
             {"value": "SGL_UF_IES", "label": "IES - UF"},
             {"value": "NO_REGIAO_IES", "label": "IES - Região"},
             {"value": "DS_ORGANIZACAO_ACADEMICA", "label": "IES - Organização Acadêmica"},
@@ -92,7 +85,7 @@
         "options": [
             {"value": "ANO_INGRESSO", "label": "Ano de ingresso"},
             {"value": "CO_TURNO_ALUNO", "label": "Turno do aluno"},
-            //{"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"},
+            {"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"},
             {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
             {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
             {"value": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"},
@@ -110,6 +103,7 @@
         "y_axis": [
             {"value": "ANO_facet", "label": "Ano da pesquisa"},
             {"value": "NO_MANTENEDORA", "label": "Mantenedora"},
+            {"value": "NO_CURSO", "label": "Curso"},
             {"value": "SGL_UF_IES", "label": "Estado da sede administrativa"},
             {"value": "NO_REGIAO_IES", "label": "Região da sede administrativa"}
 
@@ -120,8 +114,8 @@
             {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
             {"value": "IN_ACESSO_PORTAL_CAPES", "label": "Acesso ao portal Capes"},
             {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
-            {"value": "CO_TURNO_ALUNO", "label": "Turno"}
-            //{"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"}
+            {"value": "CO_TURNO_ALUNO", "label": "Turno"},
+            {"value": "DS_ALUNO_SITUACAO", "label": "Situação do aluno"}
 
         ]
     }

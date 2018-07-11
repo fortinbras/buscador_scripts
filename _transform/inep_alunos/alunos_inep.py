@@ -294,6 +294,7 @@ class InepVincAlunos(object):
             df['GEOGRAFICO_ALUNO_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
                 'UF_NASCIMENTO'] + '|' + df['MUNICIPIO_NASCIMENTO']
             df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
+            df['ANO_facet'] = gYear(self.ano)
             csv_file = '/inep_alunos_' + str(self.ano) + '_' + str(i) + '.csv'
             try:
                 os.makedirs(self.destino_transform)

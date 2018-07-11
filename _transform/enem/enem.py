@@ -109,7 +109,7 @@ class Enem(object):
                    'IN_APOIO_PERNA', 'IN_GUIA_INTERPRETE', 'IN_ESTUDA_CLASSE_HOSPITALAR']
 
         variaveis = {
-            'TP_COR_RACA': {0: 'ND', 1: 'Branca', 2: 'Preta', 3: 'Parda', 4: 'Amarela', 5: 'Indigena'},
+            'TP_COR_RACA': {0: 'ND', 1: 'Branca', 2: 'Preta', 3: 'Parda', 4: 'Amarela', 5: 'Indigena', 6:'ND'},
             'TP_ESTADO_CIVIL': {0: 'Solteiro', 1: 'Casado/Uniao Estavel', 2: 'Divorciado', 3: 'Viuvo'},
             'TP_LINGUA': {0: 'Ingles', 1: 'Espanhol'},
             'TP_ESCOLA': {1: 'Não Respondeu', 2: 'Publica', 3: 'Privada', 4: 'Exterior'}

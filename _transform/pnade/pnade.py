@@ -110,9 +110,9 @@ class Pnade(object):
             'V0606': {2: 'Sim', 4: 'Nao'},
         }
 
-        df['REGIAO_PESQ_facet'] = df['UF'].apply(self.regiao)
+        df['REGIAO_PESQ'] = df['UF'].apply(self.regiao)
         df['V5030'].fillna(df['UF'], inplace=True)
-        df['REGIAO_NASC_facet'] = df['V5030'].apply(self.regiao)
+        df['REGIAO_NASC'] = df['V5030'].apply(self.regiao)
         for k, v in variaveis.items():
             df[k].replace(v, inplace=True)
 

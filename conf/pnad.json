@@ -1,9 +1,3 @@
-/*
-* This wont pass on a standard JSON Lint.
-* The JSON parser of this system will ignore everything between javascript comments,
-* in order to make things easier to write and test a configuration file.
-*/
-
 
 {
   "COLLECTION":{
@@ -22,7 +16,7 @@
             {"groupBy": {"id": "ident_pesq", "label": "Identificação e controle", "order": 2},
              "facetGroup": [
                  {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "REGIAO_PESQ_facet", "label": "Região da Pesquisa"}]}
+                  "facets": [{"chave": "ANO_PESQ_facet", "label": "Região da Pesquisa"}]}
              ]},
             {"groupBy": {"id": "ident_mor", "label": "Identificação dos Moradores", "order": 3},
              "facetGroup": [
@@ -31,7 +25,7 @@
                {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "ANO_NASC_facet", "label": "Ano de Nascimento"}]},
                {"label": "", "render": "barChart_1",
-                  "facets": [{"chave": "REGIAO_NASC_facet", "label": "Região de Nascimento"}]},
+                  "facets": [{"chave": "ANO_NASC_facet", "label": "Região de Nascimento"}]},
                {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "V0402", "label": "Condição na família"}]},
                {"label": "", "render": "barChart_1",
@@ -47,7 +41,7 @@
                {"label": "", "render": "barChart_1",
                   "facets": [{"chave": "V4011", "label": "Estado Civil"}]},
                {"label": "", "render": "halfPieChart",
-                  "facets": [{"chave": "V0501", "label": "Nasceu no monicipio de residencia"}]},
+                  "facets": [{"chave": "V0501", "label": "Nasceu no municipio de residencia"}]},
                {"label": "", "render": "halfPieChart",
                   "facets": [{"chave": "V0504", "label": "Morou em outra UF ou pais estrangeiro"}]}
              ]},
@@ -78,12 +72,12 @@
 
 
   "SANKEY_CHART":{
-      "default_level_1": {"value": "REGIAO_PESQ_facet", "label": "Região da Pesquisa"},
+      "default_level_1": {"value": "UF", "label": "Região da Pesquisa"},
         "default_level_2": {"value": "V6003", "label": "Curso que frequenta"},
-        "default_level_3": {"value": "REGIAO_NASC_facet", "label": "ENADE - Região"},
+        "default_level_3": {"value": "V5030", "label": "Estado de nascimento"},
         "options": [{"value": "V6003", "label": "Curso que frequenta"},
-                    {"value": "REGIAO_NASC_facet", "label": "Curso - UF"},
-                    {"value": "REGIAO_PESQ_facet", "label": "Região de Nascimento"},
+                    {"value": "V5030", "label": "Estado de nascimento"},
+                    {"value": "UF", "label": "Estado da Pesquisa"},
                     {"value": "V4011", "label": "Estado civil"},
                     {"value": "V0606", "label": "Frequentou escola ou creche anteriormente"},
                     {"value": "V0408", "label": "Registro de Nascimento"}
@@ -92,12 +86,12 @@
   },
 
   "BUBBLE_CHART": {
-              "default_level_1": {"value": "REGIAO_PESQ_facet", "label": "Região da Pesquisa"},
+              "default_level_1": {"value": "UF", "label": "Região da Pesquisa"},
         "default_level_2": {"value": "V6003", "label": "Curso que frequenta"},
-        "default_level_3": {"value": "REGIAO_NASC_facet", "label": "Pnade - Região"},
+        "default_level_3": {"value": "V5030", "label": "Pnade - Região"},
         "options": [{"value": "V6003", "label": "Curso que frequenta"},
-                    {"value": "REGIAO_NASC_facet", "label": "Curso - UF"},
-                    {"value": "REGIAO_PESQ_facet", "label": "Região de Nascimento"},
+                    {"value": "V5030", "label": "Estado de nascimento"},
+                    {"value": "UF", "label": "Estado da Pesquisa"},
                     {"value": "V4011", "label": "Estado civil"},
                     {"value": "V0606", "label": "Frequentou escola ou creche anteriormente"},
                     {"value": "V0408", "label": "Registro de Nascimento"}
@@ -107,11 +101,11 @@
 
     "MULTILEVEL_BARCHART_1":{
         "default_level_1": "V0302",
-        "default_level_2": "REGIAO_PESQ_facet",
+        "default_level_2": "UF",
         "y_axis": [
           {"value": "V0302", "label": "Sexo"},
-          {"value": "REGIAO_PESQ_facet", "label": "Região da pesquisa"},
-          {"value": "REGIAO_NASC_facet", "label": "Curso - UF"},
+          {"value": "UF", "label": "Estado da pesquisa"},
+          {"value": "V5030", "label": "Estado de nascimento"},
           {"value": "V0404", "label": "Cor/Raça"},
           {"value": "V0402", "label": "Condição na família"}
 
