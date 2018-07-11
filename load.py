@@ -77,51 +77,15 @@ def executa(coll):
     :param coll: argumento para selecionar collection que será executada ex. "python load.py wos" para webOfScience
 
     """
-
-    if coll == 'inep_alunos':
-        param = collection['inep_alunos']
+    try:
+        param = collection.get(coll)
         load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
+        param['collection'], param['content_type'], param['schema'])
         load.full_sequence()
-
-    elif coll == 'inep_docentes':
-        param = collection['inep_docentes']
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
-
-    elif coll == 'enade':
-        param = collection['enade']
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
-
-    elif coll == 'pnad':
-        param = collection['pnad']
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
-
-    elif coll == 'enem':
-        param = collection['enem']
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
-
-
-
-    elif coll == 'wos':
-        param = collection['wos']
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
-
-    elif coll == 'lattes':
-        param = collection['lattes']
-        print('Os arquivos lattes devem estar em /var/tm/lattes/_transform/ ')
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-                        param['collection'], param['content_type'], param['schema'])
-        load.full_sequence()
+    except TypeError:
+        print 'collection invalida'
+    except KeyboardInterrupt:
+        print '\nAtividade interrompida pelo usuario!'
 
 
 if __name__ == "__main__":
