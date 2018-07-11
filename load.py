@@ -63,7 +63,7 @@ collection = {
     'lattes': {
         'filetype': '.xml',
         'collectiondir': '/var/tmp/lattes',
-        'transformdir': 'transform/',  # deve estar em /var/tm/lattes/transform/
+        'transformdir': 'transform/',  # deve estar em /var/tm/lattes/transform
         'localhost': '192.168.0.212:8983',
         'collection': 'lattes',
         'content_type': 'text/xml',
@@ -74,13 +74,17 @@ collection = {
 
 def executa(coll):
     """
-    :param coll: argumento para selecionar collection que será executada ex. "python load.py wos" para webOfScience
+    :param coll: argumento para selecionar collection que será executada ex.
+     "python load.py wos" para webOfScience
 
     """
     try:
         param = collection.get(coll)
-        load = SolrLoad(param['filetype'], param['collectiondir'], param['transformdir'], param['localhost'],
-        param['collection'], param['content_type'], param['schema'])
+        load = SolrLoad(
+            param['filetype'], param['collectiondir'], param['transformdir'],
+            param['localhost'], param['collection'],
+            param['content_type'], param['schema']
+        )
         load.full_sequence()
     except TypeError:
         print 'collection invalida'
