@@ -44,13 +44,13 @@
     var chart1;
     d3.csv('data.csv', function (error, data) {
         data.forEach(function (d) {
-            d.value = +d.value;
+            d.teste = +d.teste;
         });
 
         chart1 = makeDistroChart({
             data: data,
             xName: 'date',
-            yName: 'value',
+            yName: 'teste',
             axisLabels: {xAxis: null, yAxis: 'Qualquer unidade (R$)'},
             selector: "#chart-distro1",
             chartSize: {height: 460, width: 960},
