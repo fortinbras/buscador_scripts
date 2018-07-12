@@ -2,7 +2,7 @@
 
 
 import os
-import bs4
+#import bs4
 
 def gYear(year):
     ano = int(year)
