@@ -348,7 +348,7 @@ function makeDistroChart(settings) {
             .selectAll("text")
             .attr("y", 5)
             .attr("x", -5)
-            .attr("transform", "rotate(-45)")
+            .attr("transform", "rotate(0,0,0)")
             .style("text-anchor", "end");
         chart.objs.g.select('.y.axis').call(chart.objs.yAxis.innerTickSize(-chart.width));
 
@@ -390,6 +390,7 @@ function makeDistroChart(settings) {
         // Create the svg
         chart.objs.svg = chart.objs.chartDiv.append("svg")
             .attr("class", "chart-area")
+            .style('padding-left','25')
             .attr("width", chart.width + (chart.margin.left + chart.margin.right))
             .attr("height", chart.height + (chart.margin.top + chart.margin.bottom));
         chart.objs.g = chart.objs.svg.append("g")
@@ -407,7 +408,7 @@ function makeDistroChart(settings) {
             .append("text")
             .attr("class", "label")
             .attr("transform", "rotate(-90)")
-            .attr("y", -42)
+            .attr("y", -70)
             .attr("x", -chart.height / 2)
             .attr("dy", ".71em")
             .style("text-ancohor", "middle")

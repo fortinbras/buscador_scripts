@@ -132,6 +132,7 @@
 
 /* Non-Chart Styles for demo*/
 .chart-options {
+    padding-left: 25px;
     min-width: 200px;
     font-size: 13px;
     font-family: sans-serif;
