@@ -42,11 +42,13 @@
     <dynamicField name="*_tdts" type="tdates"  indexed="true"  stored="true"/>
     <dynamicField name="attr_*" type="text_general" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="random_*" type="random" />
+    <dynamicField name="*_busca" type="text_busca" multiValued="true" indexed="true" stored="true"/>
+
 
     <uniqueKey>id</uniqueKey>
 
 
-    <fieldType name="text" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
+    <fieldType name="text_busca" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
