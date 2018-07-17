@@ -2,14 +2,17 @@
 
 # !/usr/bin/python
 import sys
+import os
 
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
-import os
 import re
 from lxml import etree
-from bibtexparser.bparser import BibTexParser
 from utils import gYear
+import bibtexparser
+from bibtexparser.bparser import BibTexParser
+from bibtexparser.customization import convert_to_unicode, homogenize_latex_encoding
 
 
 class BibtoXML(object):
@@ -25,7 +28,7 @@ gerador.parse_bib()
 
     limit_docs_in_file = 5000
     file_finish = 0
-    path_save_xml = '/var/tmp/wos/_transform/'
+    path_save_xml = '/var/tmp/wos/transform/'
     tree = []
     xml_filename = 'output'
 
@@ -73,17 +76,38 @@ gerador.parse_bib()
         else:
             raise ValueError("self.tree is Empty")
 
+    @staticmethod
+    def remove_chaves(texto):
+        """
+
+        :type texto: str
+        """
+        if texto == '':
+            return ''
+        str = texto.replace('{', '').replace('}', '')
+        return str
+
     def parse_bib(self):
         docs = []
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith('.bib'):
                     with open(self.directory + file) as bibtex_file:
-                        bp = BibTexParser()
-                        bd = bp.parse_file(bibtex_file, partial=True)
-                        bd = bd.entries_dict.items()
+                        parser = BibTexParser()
+                        bibtex_str = bibtex_file.read()
+                        st = bibtex_str.replace("Web of Science-Category", "Web-of-Science-Category").replace("\{",
+                                                                                                              "[").replace(
+                            "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
+                        st = st.replace('Early Access Date', 'month').replace('Early Access Year',
+                                                                              'year').replace('\n', ' ')
+                        parser.ignore_nonstandard_types = False
+                        parser.customization = convert_to_unicode
+                        parser.homogenize_fields = True
+                        bib_database = bibtexparser.loads(st, parser=parser)
+
                     content = 0
-                    for key, item in bd:
+                    print 'O arquivo ' + file + ' tem: ' + str(len(bib_database.entries))
+                    for key, item in bib_database.entries_dict.items():
                         doc = []
                         article = key
 
@@ -96,7 +120,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            unique_id = ('unique-id', (item['unique-id'][1:-1]).strip())
+                            unique_id = ('unique-id', (self.remove_chaves(item['unique-id'])).strip())
                             doc.append(unique_id)
 
                             # print(unique_id)
@@ -104,7 +128,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            title = ('title', (item['title'][1:-1]).strip())
+                            title = ('title', (self.remove_chaves(item['title'])).strip())
                             doc.append(title)
                             # print(title)
                         except:
@@ -124,11 +148,11 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            publisher = (item['publisher'][1:-1]).strip()
-                            journal = (item['journal'][1:-1]).strip()
+                            publisher = (item['publisher']).strip()
+                            journal = (item['journal']).strip()
 
                             try:
-                                volume = item['volume'][1:-1]
+                                volume = item['volume']
                                 pub_journal = ('publisher_journal_volume_facet',
                                                "{}|{}|{}".format(publisher.strip(), journal.strip(), volume.strip()))
                                 doc.append(pub_journal)
@@ -143,15 +167,15 @@ gerador.parse_bib()
                         # print(pub_journal)
                         try:
 
-                            year = item['year'][1:-1]
+                            year = item['year']
                             group = gYear(int(year))
 
                         except:
-                            continue
+                            pass
 
                         try:
 
-                            month = item['month'][1:4]
+                            month = item['month'][0:4]
                             year_month = (
                                 'Year-Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
                             doc.append(year_month)
@@ -161,15 +185,18 @@ gerador.parse_bib()
                         # print(year_month)
 
                         try:
-                            abstract = ('abstract', (item['abstract'][1:-1]).strip())
+                            abstract = ('abstract', self.remove_chaves(item['abstract']))
                             doc.append(abstract)
                             # print(abstract)
                         except KeyError:
                             pass
 
                         try:
-
-                            address = ('address', ((item['address'].split())[-2]).strip())
+                            if (item['address'].split(',')[-1]).split(' ') < 2:
+                                address = ('address', (item['address'].split(',')[-1]).strip())
+                            else:
+                                address = (
+                                'address', (item['address'].split(',')[-1].split(' ')[-1]).strip())
                             doc.append(address)
                             # print((item['address'].split())[-1][0:-1])
                         except:
@@ -177,24 +204,24 @@ gerador.parse_bib()
 
                         try:
 
-                            tipe = ('type', (item['type'][1:-1]).strip())
+                            tipe = ('type', (item['type']).strip())
                             doc.append(tipe)
                             # print(type)
                         except KeyError:
                             pass
 
-                        try:
+                        # try:
+                        #
+                        #     affiliations = (self.remove_chaves(item['affiliation'])).split(r'\n')
+                        #     for aff in affiliations:
+                        #         affiliation = ('affiliation', aff)
+                        #         doc.append(affiliation)
+                        #         # print(type)
+                        # except KeyError:
+                        #     pass
 
-                            affiliations = (item['affiliation']).split('\n')
-                            for aff in affiliations:
-                                affiliation = ('affiliation', aff)
-                                doc.append(affiliation)
-                                # print(type)
-                        except KeyError:
-                            pass
-
                         try:
-                            language = ('language', (item['language'][1:-1]).strip())
+                            language = ('language', (self.remove_chaves(item['language'])).strip())
                             doc.append(language)
                             # print(language)
                         except KeyError:
@@ -202,14 +229,14 @@ gerador.parse_bib()
 
                         try:
 
-                            DOI = ('DOI', (item['doi'][1:-1]).strip())
+                            DOI = ('DOI', (self.remove_chaves(item['doi'])).strip())
                             doc.append(DOI)
                         except KeyError:
                             pass
 
                         # print(DOI)
                         try:
-                            ISSN = ('ISSN', (item['issn'][1:-1]).strip())
+                            ISSN = ('ISSN', (item['issn']).strip())
                             doc.append(ISSN)
                         except KeyError:
                             pass
@@ -217,7 +244,7 @@ gerador.parse_bib()
                         # print(ISSN)
 
                         try:
-                            EISSN = ('EISSN', (item['eissn'][1:-1]).strip())
+                            EISSN = ('EISSN', (item['eissn']).strip())
                             doc.append(EISSN)
 
                             # print(EISSN)
@@ -225,7 +252,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            keywords = re.split(padrao, item['keywords'][1:-1])
+                            keywords = re.split(padrao, self.remove_chaves(item['keywords']))
                             for k in keywords:
                                 if k:
                                     doc.append(('keyword', k.strip()))
@@ -234,7 +261,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            keywords_plus = re.split(padrao, (item['keywords-plus'][1:-1]).strip())
+                            keywords_plus = re.split(padrao, (item['keywords-plus']).strip())
                             for k in keywords_plus:
                                 if k:
                                     doc.append(('keyword-plus', k.strip()))
@@ -244,7 +271,7 @@ gerador.parse_bib()
                         try:
 
                             research_area = (
-                                'research-areas', ((item['research-areas'][1:-1]).replace('; ', '|')).strip())
+                                'research-areas', ((item['research-areas']).replace('; ', '|')).strip())
                             doc.append(research_area)
                             # print(research_area)
                         except KeyError:
@@ -253,7 +280,7 @@ gerador.parse_bib()
                         try:
                             web_of_science_categories = (
                                 'web-of-science-categories',
-                                ((item['web-of-science-categories'][1:-1]).replace('; ', '|')).strip())
+                                ((item['web-of-science-categories']).replace('; ', '|')).strip())
                             doc.append(web_of_science_categories)
 
                             # print(web_of_science_categories)
@@ -262,7 +289,7 @@ gerador.parse_bib()
 
                         try:
                             funding_acknowledgement = (
-                                'funding-acknowledgement', (item['funding-acknowledgement'][1:-1]).strip())
+                                'funding-acknowledgement', (item['funding-acknowledgement']).strip())
                             # print(funding_acknowledgement)
                             doc.append(funding_acknowledgement)
                         except KeyError:
@@ -270,7 +297,7 @@ gerador.parse_bib()
 
                         try:
                             nro_cited_ref = (
-                                'number-of-cited-references', (item['number-of-cited-references'][1:-1]).strip())
+                                'number-of-cited-references', (item['number-of-cited-references']).strip())
                             doc.append(nro_cited_ref)
 
                             # print(nro_cited_ref)
@@ -278,7 +305,7 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            times_cited = ('times-cited', (item['times-cited'][1:-1]).strip())
+                            times_cited = ('times-cited', (item['times-cited']).strip())
                             doc.append(times_cited)
 
                             # print(times_cited)
@@ -286,19 +313,20 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            journal_iso = ('journal-iso', (item['journal-iso'][1:-1]).strip())
+                            journal_iso = ('journal-iso', (item['journal-iso']).strip())
                             doc.append(journal_iso)
 
                             # print(journal_iso)
                         except KeyError:
                             pass
 
-                        docs.append(doc)
-                        # content += 1
-                        # print(content)
-                    print(file)
-        for doc in docs:
-            self.generateDoc(doc)
+                        # docs.append(doc)
+                        self.generateDoc(doc)
+                        content += 1
+                    print("{} arquivos salvos".format(content))
+                print(file)
+        # for doc in docs:
+        #     self.generateDoc(doc)
 
         self.save_xml()
 
@@ -307,7 +335,8 @@ def wos_tranform():
     bib_xml = BibtoXML('/var/tmp/bibtex/')
     bib_xml.parse_bib()
 
-# if __name__ == '__main__':
-#     diretorio = '/var/tmp/bibtex/'
-#     bib_xml = BibtoXML('/var/tmp/bibtex/')
-#     bib_xml.parse_bib()
+
+if __name__ == '__main__':
+    diretorio = '/var/tmp/bibtex/'
+    bib_xml = BibtoXML('/var/tmp/bibtex/')
+    bib_xml.parse_bib()
