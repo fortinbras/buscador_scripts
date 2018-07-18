@@ -1,0 +1,72 @@
+
+{
+  "COLLECTION":{
+        "label": " WOS - Web of Science ",
+        "omite_secoes": [
+          "outros_indicadores", "busca", "refine", "sankey", "bubblechart"
+        ],
+
+        "campo_dinamico_busca": "cross_collection_wos",
+        "id_index_from": "",
+        "id_index_to": ""
+  },
+
+  "FACETS":[
+      {
+        "groupBy": {
+          "id": "categoria", "label": "Categoria", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "research-areas", "label": "Áreas de pesquisa"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "web-of-science-categories", "label": "Categorias WoS"}]}
+             ]},
+
+            {"groupBy": {"id": "editora_revista", "label": "Editora / Revista", "order": 0},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "journal-iso", "label": "Publicação ISO"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "type", "label": "Tipo"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "publisher_journal_volume_facet", "label": "Editora"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Year-Month_facet", "label": "Ano"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "language", "label": "Língua"}]}
+             ]},
+
+            {"groupBy": {"id": "citacoes", "label": "Citações", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "number-of-cited-references", "label": "Referências citadas"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "times-cited", "label": "Número de citações"}]}
+             ]}
+    ],
+
+    "OUTCOMES": [
+            
+
+    ],
+
+
+  "SANKEY_CHART":{
+        
+  },
+
+  "BUBBLE_CHART": {
+        
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+      "default_level_2": "times-cited",
+        "default_level_1": "language",
+        "y_axis": [
+            {"value": "times-cited", "label": "Número de citações"},
+            {"value": "number-of-cited-references", "label": "Número de referências citadas"},
+            {"value": "publisher_journal_volume_facet", "label": "publisher_journal_volume"},
+            {"value": "research-areas", "label": "research-areas"}
+
+        ],
+        "y_stratification": [
+            {"value": "language", "label": "Língua"}
+        ]
+    }
+}
