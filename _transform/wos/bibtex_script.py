@@ -12,8 +12,9 @@ from lxml import etree
 from utils import gYear
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
-from bibtexparser.customization import convert_to_unicode, homogenize_latex_encoding
-
+from bibtexparser.customization import convert_to_unicode
+import datetime
+import time
 
 class BibtoXML(object):
     """ classe gera arquivo xml no formato aceito pelo Solr a partir de um arquivo .bib
@@ -33,7 +34,12 @@ gerador.parse_bib()
     xml_filename = 'output'
 
     def __init__(self, directory, **kwargs):
+        self.date = datetime.datetime.now()
+        self.log_file = 'wos_transform.log'
+        self.total_entries = 0
+        self.total_saved = 0
         self.directory = directory
+        self.error = []
         for key, value in kwargs.iteritems():
             # cria variveis de todos os atributos passados com chave valor
             setattr(self, key, value)
@@ -68,7 +74,7 @@ gerador.parse_bib()
             xml_filename = self.xml_filename + '_part_' + str((self.file_finish + 1)) + '.xml'
 
             xml = etree.ElementTree(root)
-            print('Save one more file')
+            print('Salvando XML {}'.format(xml_filename))
             directory = os.path.dirname(self.path_save_xml)
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -79,8 +85,8 @@ gerador.parse_bib()
     @staticmethod
     def remove_chaves(texto):
         """
-
         :type texto: str
+
         """
         if texto == '':
             return ''
@@ -88,28 +94,34 @@ gerador.parse_bib()
         return str
 
     def parse_bib(self):
-        docs = []
+        # docs = []
+        content_saved = 0
         for root, dirs, files in os.walk(self.directory):
             for file in files:
                 if file.endswith('.bib'):
                     with open(self.directory + file) as bibtex_file:
-                        parser = BibTexParser()
-                        bibtex_str = bibtex_file.read()
-                        st = bibtex_str.replace("Web of Science-Category", "Web-of-Science-Category").replace("\{",
-                                                                                                              "[").replace(
-                            "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
-                        st = st.replace('Early Access Date', 'month').replace('Early Access Year',
-                                                                              'year').replace('\n', ' ')
-                        parser.ignore_nonstandard_types = False
-                        parser.customization = convert_to_unicode
-                        parser.homogenize_fields = True
-                        bib_database = bibtexparser.loads(st, parser=parser)
+                        try:
+                            parser = BibTexParser()
+                            bibtex_str = bibtex_file.read()
+                            st = bibtex_str.replace("Web of Science-Category", "Web-of-Science-Category").replace("\{",
+                                                                                                                  "[").replace(
+                                "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
+                            st = st.replace('Early Access Date', 'month').replace('Early Access Year',
+                                                                                  'year')#.replace('\n', ' ')
+                            parser.ignore_nonstandard_types = False
+                            parser.customization = convert_to_unicode
+                            parser.homogenize_fields = True
+                            bib_database = bibtexparser.loads(st,parser=parser)
+                        except:
+                            self.error.append(file)
+                            continue
 
-                    content = 0
-                    print 'O arquivo ' + file + ' tem: ' + str(len(bib_database.entries))
+                    content_entries = len(bib_database.entries)
+                    self.total_entries += content_entries
+                    print 'O arquivo ' + file + ' tem: ' + str(content_entries) + ' registros'
                     for key, item in bib_database.entries_dict.items():
                         doc = []
-                        article = key
+                        # article = key
 
                         try:
                             unique_id = ('id', (item['unique-id'][6:-1]).strip())
@@ -131,7 +143,7 @@ gerador.parse_bib()
                             title = ('title', (self.remove_chaves(item['title'])).strip())
                             doc.append(title)
                             # print(title)
-                        except:
+                        except KeyError:
                             pass
 
                         padrao = ',|\n|\*|;'
@@ -171,7 +183,8 @@ gerador.parse_bib()
                             group = gYear(int(year))
 
                         except:
-                            pass
+                            year = ''
+                            group = ''
 
                         try:
 
@@ -196,7 +209,7 @@ gerador.parse_bib()
                                 address = ('address', (item['address'].split(',')[-1]).strip())
                             else:
                                 address = (
-                                'address', (item['address'].split(',')[-1].split(' ')[-1]).strip())
+                                    'address', (item['address'].split(',')[-1].split(' ')[-1]).strip())
                             doc.append(address)
                             # print((item['address'].split())[-1][0:-1])
                         except:
@@ -322,18 +335,42 @@ gerador.parse_bib()
 
                         # docs.append(doc)
                         self.generateDoc(doc)
-                        content += 1
-                    print("{} arquivos salvos".format(content))
-                print(file)
+                        content_saved += 1
+                    # print("{} arquivos salvos".format(content))
+                    #print(file)
         # for doc in docs:
         #     self.generateDoc(doc)
 
         self.save_xml()
+        self.total_saved = content_saved
+        self.logger()
+
+    def logger(self):
+        directory = '/var/tmp/wos/transform/'
+        log_file = self.log_file
+        logging = directory+log_file
+        with open(logging, 'a') as log:
+            log.write("\n")
+            log.write('############ TASK WOS ###############')
+            log.write("\n")
+            log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
+            log.write("\n")
+            log.write('Arquivo de entrada possui {} registros'.format(self.total_entries))
+            print('Arquivo de entrada possui {} registros'.format(self.total_entries))
+            log.write("\n")
+            log.write('Foram salvos {} registros'.format(self.total_saved))
+            print('Foram salvos {} registros'.format(self.total_saved))
+            if len(self.error) > 0:
+                log.write("\n")
+                log.write('Os arquivos {} estao com erro'.format(self.error))
+                print('Os arquivos {} estao com erro'.format(self.error))
+            log.write("\n")
+            log.write('############ END TASK WOS ###############')
 
 
 def wos_tranform():
-    bib_xml = BibtoXML('/var/tmp/bibtex/')
-    bib_xml.parse_bib()
+    wos_xml = BibtoXML('/var/tmp/bibtex/')
+    wos_xml.parse_bib()
 
 
 if __name__ == '__main__':
