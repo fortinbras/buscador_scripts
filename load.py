@@ -4,14 +4,16 @@ import sys
 from solr_load import SolrLoad
 
 collection = {
+
+
     'wos': {
         'filetype': '.xml',
+        'collectiondir': '/var/tmp/wos',
+        'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'wos',
         'content_type': 'text/xml',
-        'collectiondir': '/var/tmp/wos',
-        'transformdir': 'transform/wos'
-    },
+        'schema': '_transform/wos/conf'},
 
     'enade': {
         'filetype': '.csv',
