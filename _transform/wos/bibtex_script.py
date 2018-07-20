@@ -123,13 +123,9 @@ gerador.parse_bib()
                         doc = []
                         # article = key
 
-                        try:
-                            unique_id = ('id', (item['unique-id'][6:-1]).strip())
-                            doc.append(unique_id)
 
-                            # print(unique_id)
-                        except KeyError:
-                            pass
+                        unique_id = ('id', content_saved)
+                        doc.append(unique_id)
 
                         try:
                             unique_id = ('unique-id', (self.remove_chaves(item['unique-id'])).strip())
