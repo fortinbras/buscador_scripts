@@ -25,7 +25,7 @@ class SolrLoad(object):
         if self.collection == 'wos' or self.collection == 'lattes':
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
-                    if (f.endswith(self.filetype)) and ('_transform' in root):
+                    if (f.endswith(self.filetype)) and ('transform' in root):
                         self.fileslist.append(os.path.join(root, f))
             print '%s arquivos encontrado' % len(self.fileslist)
             return self.fileslist
