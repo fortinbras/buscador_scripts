@@ -1,21 +1,18 @@
-from seleniumrequests import Chrome
-from seleniumrequests import PhantomJS
-from selenium import webdriver
+import requests
+from bs4 import BeautifulSoup
 import urllib
 import os
-base_url = 'https://apps.webofknowledge.com/'
-options = webdriver.ChromeOptions()
-driver = Chrome(chrome_options=options)#, service_log_path='teste.log')
-
-driver.implicitly_wait(30)
-# sess = requests.Session()
 
 headers = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
            'Accept-Language': 'en-US;q=0.5,en;q=0.3',
            'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0',
            'Connection': 'keep-alive'
            }
-# sess.headers.update(headers)
+
+sess = requests.Session()
+sess.headers.update(headers)
+base_url = 'https://apps.webofknowledge.com/'
+
 FAPESP_ALTERNATIVES = [
     '"fundacao de amparo a pesquisa do estado de sao paulo"',
     'fapesp',
@@ -92,11 +89,8 @@ QUERY = 'FO=(%s)' % ' OR '.join(FAPESP_ALTERNATIVES)
 
 
 def ua_advanced_search_input():
-    """
-    Requests try to get this page and wos redirects to the right search page.
-    """
-    # https://apps.webofknowledge.com/WOS_AdvancedSearch_input.do?product=WOS&search_mode=AdvancedSearch
-    driver.get(base_url + 'UA_AdvancedSearch_input.do?product=UA&search_mode=AdvancedSearch')
+    r = sess.get(base_url + 'UA_AdvancedSearch_input.do?product=UA&search_mode=AdvancedSearch')
+    print r.status_code
 
 
 def ua_advanced_search():
@@ -104,12 +98,12 @@ def ua_advanced_search():
     This page contains the main advanced search form.
     """
     url = base_url + 'UA_AdvancedSearch.do'
-    sid = driver.get_cookie('SID')
+    sid = sess.cookies.get_dict()['SID']
 
     payload = {
         'product': 'UA',
         'search_mode': 'AdvancedSearch',
-        'SID': sid['value'][1:-1],
+        'SID': sid[1:-1],
         'action': 'search',
         'replaceSetId': '',
         'goToPageLoc': 'SearchHistoryTableBanner',
@@ -119,8 +113,8 @@ def ua_advanced_search():
         'value(input2)': '',
         'value(select3)': 'DT',
         'value(input3)': '',
-        'x': '60',
-        'y': '19',
+        # 'x': '60',
+        # 'y': '19',
         'value(limitCount)': '14',
         'limitStatus': 'collapsed',
         'ss_lemmatization': 'On',
@@ -136,17 +130,19 @@ def ua_advanced_search():
         'rs_sort_by': 'PY.D;LD.D;SO.A;VL.D;PG.A;AU.A',
     }
 
-    r = driver.request('post', url, data=payload)
-    driver.get(r.url)
-    count = driver.find_element_by_xpath('//*[@id="set_1_div"]/a').text
-    return int(count.replace(',', ''))
+    r = sess.post(url, data=payload)
+    c = r.content
+    soup = BeautifulSoup(c, 'html.parser')
+    samples = soup.find('div', {'id': 'set_1_div'})
+    link_count = samples.find('a').text
+    return int(link_count.replace(',', ''))
 
 
 def summary():
     """
     Page of partial results
     """
-    sid = driver.get_cookie('SID')['value'][1:-1]
+    sid = sess.cookies.get_dict()['SID']
 
     params = {'product': 'UA',
               'doc': '1',
@@ -159,17 +155,14 @@ def summary():
 
     url = base_url + 'summary.do?' + params
 
-    r = driver.get(url)
-
-
-#     print r.text
+    r = sess.get(url)
 
 
 def mark_records(**kwargs_f_t):
     """
     Mark Records to create
     """
-    sid = driver.get_cookie('SID')['value'][1:-1]
+    sid = sess.cookies.get_dict()['SID']
 
     # kwargs_f_t['mark_from']
     params = {'product': 'UA',
@@ -195,11 +188,11 @@ def mark_records(**kwargs_f_t):
     params = urllib.urlencode(params)
 
     url = base_url + 'MarkRecords.do?' + params
-    r = driver.get(url)
+    r = sess.get(url)
 
 
 def view_marked_list():
-    sid = driver.get_cookie('SID')['value'][1:-1]
+    sid = sess.cookies.get_dict()['SID']
 
     """
     Navigate to get some paramenters
@@ -215,13 +208,14 @@ def view_marked_list():
     params = urllib.urlencode(params)
 
     url = base_url + 'ViewMarkedList.do?' + params
-    r = driver.get(url)
+    r = sess.get(url)
     # print r.text.encode('utf8', 'replace')
 
     # This is the input field to get the qid value
     # '<input type="hidden" name="qid" value="2" />'
-    return driver.find_element_by_xpath('//input[@type="hidden" and @name="qid"]').get_attribute('value')
-
+    c = r.content
+    soup = BeautifulSoup(c, 'html.parser')
+    return soup.find('input', {'name': 'qid'})['value']
 
 
 def outbound_service(qid, **kwargs_f_t):
@@ -229,8 +223,7 @@ def outbound_service(qid, **kwargs_f_t):
     Entry page via POST, to get BibTex
     """
     url = base_url + 'OutboundService.do?action=go&&&totalMarked=5'
-    sid = driver.get_cookie('SID')['value'][1:-1]
-
+    sid = sess.cookies.get_dict()['SID']
 
     payload = {'displayCitedRefs': 'true',
                'displayTimesCited': 'true',
@@ -269,7 +262,7 @@ def outbound_service(qid, **kwargs_f_t):
                'markTo': kwargs_f_t['publ_per_file'],
                }
 
-    r = driver.request('post', url, data=payload)
+    r = sess.post(url, data=payload)
     # driver.get(r.url)
 
     """
@@ -282,18 +275,16 @@ def outbound_service(qid, **kwargs_f_t):
     if not os.path.exists(diretorio):
         os.makedirs(diretorio)
     output = 'output_' + kwargs_f_t['idx'] + '.bib'
-    with open(diretorio+output, 'wb') as handle:
+    with open(diretorio + output, 'wb') as handle:
         handle.write(r.content)
     print 'nois'
-
-
 
 
 def cleanup_marked_list(qid):
     """
     Just as the name says, clean the marked list
     """
-    sid = driver.get_cookie('SID')['value'][1:-1]
+    sid = sess.cookies.get_dict()['SID']
     params = {'search_mode': 'MarkedList',
               'product': 'UA',
               'mark_id': 'UDB',
@@ -303,7 +294,7 @@ def cleanup_marked_list(qid):
     params = urllib.urlencode(params)
 
     url = base_url + 'DeleteMarked.do?' + params
-    r = driver.get(url)
+    r = sess.get(url)
 
 
 def get_files(**kwargs_f_t):
@@ -398,5 +389,3 @@ print "Loop the server"
 # qt_publ = int('71,326'.replace(",", ""))
 loop_the_server(qt_publ)
 print "End loop the server"
-
-driver.close()

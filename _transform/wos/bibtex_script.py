@@ -124,8 +124,8 @@ gerador.parse_bib()
                         # article = key
 
 
-                        unique_id = ('id', content_saved)
-                        doc.append(unique_id)
+                        id = ('id', str(content_saved+1))
+                        doc.append(id)
 
                         try:
                             unique_id = ('unique-id', (self.remove_chaves(item['unique-id'])).strip())
@@ -157,6 +157,8 @@ gerador.parse_bib()
 
                         try:
                             publisher = (item['publisher']).strip()
+                            publisher_add = ('publisher',publisher)
+                            doc.append(publisher_add)
                             journal = (item['journal']).strip()
 
                             try:
