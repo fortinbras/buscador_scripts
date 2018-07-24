@@ -277,7 +277,6 @@ def outbound_service(qid, **kwargs_f_t):
     output = 'output_' + kwargs_f_t['idx'] + '.bib'
     with open(diretorio + output, 'wb') as handle:
         handle.write(r.content)
-    print 'nois'
 
 
 def cleanup_marked_list(qid):
