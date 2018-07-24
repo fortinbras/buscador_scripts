@@ -108,9 +108,9 @@ gerador.parse_bib()
                                 "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
                             st = st.replace('Early Access Date', 'month').replace('Early Access Year',
                                                                                   'year')#.replace('\n', ' ')
-                            parser.ignore_nonstandard_types = False
-                            parser.customization = convert_to_unicode
-                            parser.homogenize_fields = True
+                            # parser.ignore_nonstandard_types = False
+                            # parser.customization = convert_to_unicode
+                            # parser.homogenize_fields = True
                             bib_database = bibtexparser.loads(st,parser=parser)
                         except:
                             self.error.append(file)
@@ -221,15 +221,20 @@ gerador.parse_bib()
                         except KeyError:
                             pass
 
-                        # try:
-                        #
-                        #     affiliations = (self.remove_chaves(item['affiliation'])).split(r'\n')
-                        #     for aff in affiliations:
-                        #         affiliation = ('affiliation', aff)
-                        #         doc.append(affiliation)
-                        #         # print(type)
-                        # except KeyError:
-                        #     pass
+                        try:
+
+                            affiliations = (self.remove_chaves(item['affiliation'])).split('\n')
+                            for aff in affiliations:
+                                affiliation = ('affiliation', aff)
+                                # c = aff.split(',')[-1].replace('.','')
+                                country_aff = ('affiliation_country',aff.split(',')[-1].split(' ')[-1].replace('.',''))
+                                print country_aff
+                                doc.append(affiliation)
+                                doc.append(country_aff)
+
+                                # print(type)
+                        except KeyError:
+                            pass
 
                         try:
                             language = ('language', (self.remove_chaves(item['language'])).strip())
