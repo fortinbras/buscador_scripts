@@ -121,6 +121,8 @@ gerador.parse_bib()
                     self.total_entries += content_entries
                     print 'O arquivo ' + file + ' tem: ' + str(content_entries) + ' registros'
                     for key, item in bib_database.entries_dict.items():
+                        for k,v in item.iteritems():
+                            item[k]=self.remove_chaves(v)
                         doc = []
                         # article = key
 
@@ -178,12 +180,14 @@ gerador.parse_bib()
                         try:
 
                             year = item['year']
-                            doc.append(('Year', year.strip()))
+
                             group = gYear(int(year))
 
                         except:
                             year = ''
                             group = ''
+
+                        doc.append(('Year', year.strip()))
 
                         try:
 
@@ -230,7 +234,7 @@ gerador.parse_bib()
                                 # c = aff.split(',')[-1].replace('.','')
                                 country_aff = (
                                 'affiliation_country', aff.split(',')[-1].split(' ')[-1].replace('.', ''))
-                                print country_aff
+                                # print country_aff
                                 doc.append(affiliation)
                                 doc.append(country_aff)
 

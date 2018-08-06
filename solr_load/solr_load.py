@@ -93,9 +93,10 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def reload_collection(self):
-        url = 'http://192.168.0.212/solr/' + \
-              self.collection + \
-              '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
+        url = 'http://192.168.0.212/solr/admin/collections?action=RELOAD&name='+self.collection
+        # url = 'http://192.168.0.212/solr/' + \
+        #       self.collection + \
+        #       '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
         try:
             req = requests.post(url)
             print req.status_code

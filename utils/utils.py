@@ -3,12 +3,13 @@
 
 import os
 
+
 def gYear(year):
     ano = int(year)
     digit = str(ano)[-1]
     inicial = ano - int(digit)
     fim = inicial + 9
-    return "{}-{}".format(inicial,fim)
+    return "{}-{}".format(inicial, fim)
 
     # ini = 1940
     # end = 2050
@@ -74,17 +75,16 @@ def list_output_files(collectiondir, transform):
 
 
 def find_zips_pnad():
-
     from ftplib import FTP
 
-    anos = ['2011','2012','2013','2014','2015']
+    anos = ['2011', '2012', '2013', '2014', '2015']
     ftp = FTP("ftp.ibge.gov.br")
     ftp.login()
     ftp.cwd('Trabalho_e_Rendimento')
     ftp.cwd('Pesquisa_Nacional_por_Amostra_de_Domicilios_anual')
     ftp.cwd('microdados')
     for ano in anos:
-        filename = "pnad_"+ano+".zip"
+        filename = "pnad_" + ano + ".zip"
         print ano
         ftp.cwd(ano)
         file_list = ftp.nlst()
@@ -105,4 +105,27 @@ def year_gp(year):
     digit = str(ano)[-1]
     inicial = ano - int(digit)
     fim = inicial + 9
-    return "{}-{}".format(inicial,fim)
+    return "{}-{}".format(inicial, fim)
+
+
+def facet_citations(citation):
+    lenght = len(citation)
+    if lenght >= 4:
+        return "{}".format(citation)
+    elif lenght == 3:
+        cited = int(citation)
+        digit = str(cited)[-1]
+        inicial_dec = cited - int(digit)
+        fim_dec = inicial_dec + 9
+        digit = str(cited)[-2:]
+        inicial_cent = cited - int(digit)
+        fim_cent = inicial_cent + 99
+        return "{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
+    elif 0 < lenght <= 2:
+        cited = int(citation)
+        digit = str(cited)[-1]
+        inicial_dec = cited - int(digit)
+        fim_dec = inicial_dec + 9
+        return "{}-{}|{}".format(inicial_dec, fim_dec, citation)
+    else:
+        return ''
