@@ -11,6 +11,7 @@
     -->
     <field name="publisher_journal_volume_facet" type="descendent_path"/>
     <field name="Year-Month_facet" type="descendent_path"/>
+    <field name="times_cited_facet" type="descendent_path"/>
 
     <copyField source="*" dest="_text_"/>
 
