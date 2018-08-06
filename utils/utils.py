@@ -110,22 +110,47 @@ def year_gp(year):
 
 def facet_citations(citation):
     lenght = len(citation)
+    cited = int(citation)
+
+    digit = str(cited)[-1]
+    inicial_dec = cited - int(digit)
+    fim_dec = inicial_dec + 9
+
+    digit = str(cited)[-2:]
+    inicial_cent = cited - int(digit)
+    fim_cent = inicial_cent + 99
+
+    digit = str(cited)[-3:]
+    inicial_mil = cited - int(digit)
+    fim_mil = inicial_mil + 999
+
     if lenght >= 4:
-        return "{}".format(citation)
+        return "{}-{}|{}-{}|{}-{}|{}".format(inicial_mil, fim_mil, inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
     elif lenght == 3:
-        cited = int(citation)
-        digit = str(cited)[-1]
-        inicial_dec = cited - int(digit)
-        fim_dec = inicial_dec + 9
-        digit = str(cited)[-2:]
-        inicial_cent = cited - int(digit)
-        fim_cent = inicial_cent + 99
-        return "{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
+        return "0-999|{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
     elif 0 < lenght <= 2:
-        cited = int(citation)
-        digit = str(cited)[-1]
-        inicial_dec = cited - int(digit)
-        fim_dec = inicial_dec + 9
-        return "{}-{}|{}".format(inicial_dec, fim_dec, citation)
+        return "0-999|0-99|{}-{}|{}".format(inicial_dec, fim_dec, citation)
     else:
         return ''
+
+# def facet_citations(citation):
+#     lenght = len(citation)
+#     if lenght >= 4:
+#         return "{}".format(citation)
+#     elif lenght == 3:
+#         cited = int(citation)
+#         digit = str(cited)[-1]
+#         inicial_dec = cited - int(digit)
+#         fim_dec = inicial_dec + 9
+#         digit = str(cited)[-2:]
+#         inicial_cent = cited - int(digit)
+#         fim_cent = inicial_cent + 99
+#         return "0-999|{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
+#     elif 0 < lenght <= 2:
+#         cited = int(citation)
+#         digit = str(cited)[-1]
+#         inicial_dec = cited - int(digit)
+#         fim_dec = inicial_dec + 9
+#         return "0-999|0-99|{}-{}|{}".format(inicial_dec, fim_dec, citation)
+#     else:
+#         return ''
