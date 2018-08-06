@@ -9,12 +9,13 @@ sys.path.insert(0, '../../../buscador_scripts/')
 
 import re
 from lxml import etree
-from utils import gYear
+from utils import gYear,facet_citations
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 import datetime
 import time
+
 
 class BibtoXML(object):
     """ classe gera arquivo xml no formato aceito pelo Solr a partir de um arquivo .bib
@@ -107,11 +108,11 @@ gerador.parse_bib()
                                                                                                                   "[").replace(
                                 "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
                             st = st.replace('Early Access Date', 'month').replace('Early Access Year',
-                                                                                  'year')#.replace('\n', ' ')
+                                                                                  'year')  # .replace('\n', ' ')
                             # parser.ignore_nonstandard_types = False
                             # parser.customization = convert_to_unicode
                             # parser.homogenize_fields = True
-                            bib_database = bibtexparser.loads(st,parser=parser)
+                            bib_database = bibtexparser.loads(st, parser=parser)
                         except:
                             self.error.append(file)
                             continue
@@ -123,8 +124,7 @@ gerador.parse_bib()
                         doc = []
                         # article = key
 
-
-                        id = ('id', str(content_saved+1))
+                        id = ('id', str(content_saved + 1))
                         doc.append(id)
 
                         try:
@@ -157,7 +157,7 @@ gerador.parse_bib()
 
                         try:
                             publisher = (item['publisher']).strip()
-                            publisher_add = ('publisher',publisher)
+                            publisher_add = ('publisher', publisher)
                             doc.append(publisher_add)
                             journal = (item['journal']).strip()
 
@@ -178,6 +178,7 @@ gerador.parse_bib()
                         try:
 
                             year = item['year']
+                            doc.append(('Year', year.strip()))
                             group = gYear(int(year))
 
                         except:
@@ -227,7 +228,8 @@ gerador.parse_bib()
                             for aff in affiliations:
                                 affiliation = ('affiliation', aff)
                                 # c = aff.split(',')[-1].replace('.','')
-                                country_aff = ('affiliation_country',aff.split(',')[-1].split(' ')[-1].replace('.',''))
+                                country_aff = (
+                                'affiliation_country', aff.split(',')[-1].split(' ')[-1].replace('.', ''))
                                 print country_aff
                                 doc.append(affiliation)
                                 doc.append(country_aff)
@@ -321,12 +323,20 @@ gerador.parse_bib()
                             pass
 
                         try:
-                            times_cited = ('times-cited', (item['times-cited']).strip())
+                            tc = (item['times-cited']).strip()
+                            times_cited = ('times-cited', tc)
                             doc.append(times_cited)
 
                             # print(times_cited)
                         except KeyError:
                             pass
+
+                        try:
+                            times_cited_facet = ('times_cited_facet',facet_citations(tc))
+                            doc.append(times_cited_facet)
+                        except:
+                            pass
+
 
                         try:
                             journal_iso = ('journal-iso', (item['journal-iso']).strip())
@@ -340,7 +350,7 @@ gerador.parse_bib()
                         self.generateDoc(doc)
                         content_saved += 1
                     # print("{} arquivos salvos".format(content))
-                    #print(file)
+                    # print(file)
         # for doc in docs:
         #     self.generateDoc(doc)
 
@@ -351,7 +361,7 @@ gerador.parse_bib()
     def logger(self):
         directory = '/var/tmp/wos/transform/'
         log_file = self.log_file
-        logging = directory+log_file
+        logging = directory + log_file
         with open(logging, 'a') as log:
             log.write("\n")
             log.write('############ TASK WOS ###############')
