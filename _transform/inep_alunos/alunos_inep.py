@@ -294,7 +294,10 @@ class InepVincAlunos(object):
             df['GEOGRAFICO_ALUNO_NASC_facet'] = df['REG_NASCIMENTO'] + '|' + df[
                 'UF_NASCIMENTO'] + '|' + df['MUNICIPIO_NASCIMENTO']
             df['GEOGRAFICO_IES_facet'] = df['NO_REGIAO_IES'] + '|' + df['SGL_UF_IES'] + '|' + df['NO_MUNICIPIO_IES']
-            df['ANO_facet'] = gYear(self.ano)
+            df['ANO_facet'] = "{}|{}".format(gYear(self.ano), str(self.ano))
+            df['IDADE_facet'] = df['NU_IDADE_ALUNO'].apply(facet_idade)
+            df['ANO_INGRESSO_facet'] = df['ANO_INGRESSO'].apply(utils.gYear) + '|' + df['ANO_INGRESSO'].astype(
+                str)
             csv_file = '/inep_alunos_' + str(self.ano) + '_' + str(i) + '.csv'
             try:
                 os.makedirs(self.destino_transform)
@@ -351,3 +354,7 @@ def inep_alunos_transform():
             raise
         print('Fim!!')
         print('\n')
+
+
+if __name__ == "__main__":
+    inep_alunos_transform()

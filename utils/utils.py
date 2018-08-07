@@ -11,23 +11,6 @@ def gYear(year):
     fim = inicial + 9
     return "{}-{}".format(inicial, fim)
 
-    # ini = 1940
-    # end = 2050
-    # lista = []
-    # for a in range(ini, end, 10):
-    #     group = '{}-{}'.format((a - 10), (a - 1))
-    #     lista.append(group)
-    #
-    # for i in lista:
-    #     a = int(i[0:4])
-    #     b = int(i[5:])
-    #     try:
-    #         if int(year) in range(a, (b + 1), 1):
-    #             return i
-    #     except:
-    #         if year in range(a, (b + 1), 1):
-    #             return i
-
 
 def find_regiao(cod):
     regioes = {'Regiao Norte': [11, 12, 13, 14, 15, 16, 17],
@@ -109,7 +92,7 @@ def year_gp(year):
 
 
 def facet_citations(citation):
-    lenght = len(citation)
+    lenght = len(str(citation))
     cited = int(citation)
 
     digit = str(cited)[-1]
@@ -125,7 +108,8 @@ def facet_citations(citation):
     fim_mil = inicial_mil + 999
 
     if lenght >= 4:
-        return "{}-{}|{}-{}|{}-{}|{}".format(inicial_mil, fim_mil, inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
+        return "{}-{}|{}-{}|{}-{}|{}".format(inicial_mil, fim_mil, inicial_cent, fim_cent, inicial_dec, fim_dec,
+                                             citation)
     elif lenght == 3:
         return "0-999|{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
     elif 0 < lenght <= 2:
@@ -133,24 +117,12 @@ def facet_citations(citation):
     else:
         return ''
 
-# def facet_citations(citation):
-#     lenght = len(citation)
-#     if lenght >= 4:
-#         return "{}".format(citation)
-#     elif lenght == 3:
-#         cited = int(citation)
-#         digit = str(cited)[-1]
-#         inicial_dec = cited - int(digit)
-#         fim_dec = inicial_dec + 9
-#         digit = str(cited)[-2:]
-#         inicial_cent = cited - int(digit)
-#         fim_cent = inicial_cent + 99
-#         return "0-999|{}-{}|{}-{}|{}".format(inicial_cent, fim_cent, inicial_dec, fim_dec, citation)
-#     elif 0 < lenght <= 2:
-#         cited = int(citation)
-#         digit = str(cited)[-1]
-#         inicial_dec = cited - int(digit)
-#         fim_dec = inicial_dec + 9
-#         return "0-999|0-99|{}-{}|{}".format(inicial_dec, fim_dec, citation)
-#     else:
-#         return ''
+
+def facet_idade(idade):
+    age = int(idade)
+
+    digit = str(age)[-1]
+    inicial_dec = age - int(digit)
+    fim_dec = inicial_dec + 9
+
+    return "{}-{}|{}".format(inicial_dec, fim_dec, idade)

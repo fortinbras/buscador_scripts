@@ -12,12 +12,30 @@
     <field name="publisher_journal_volume_facet" type="descendent_path"/>
     <field name="Year-Month_facet" type="descendent_path"/>
     <field name="times_cited_facet" type="descendent_path"/>
-    <field name="abstract" type = "strings"/>
-    <field name="abstract_nuvem_palavras" type="text_gen_stopword"  multiValued="true" indexed="true" stored="true"/>
+
+    <field name="abstract" type="text"/>
+    <copyField source="abstract" dest="abstract_busca"/>
+
+    <field name="Author" type="strings"/>
+    <copyField source="Author" dest="Author_busca"/>
+
+    <field name="title" type="strings"/>
+    <copyField source="title" dest="title_busca"/>
+
+    <field name="affiliation" type="strings" multiValued="true"/>
+    <copyField source="affiliation" dest="affiliation_busca"/>
+
+    <field name="web-of-science-categories" type="strings"/>
+    <copyField source="web-of-science-categories" dest="web-of-science-categories_busca"/>
+
+    <field name="abstract_nuvem_palavras" type="text_gen_stopword" multiValued="true" indexed="true" stored="true"/>
     <copyField source="abstract" dest="abstract_nuvem_palavras"/>
 
-    <copyField source="*" dest="_text_"/>
+    <field name="keyword" type="strings" multiValued="true" indexed="true" stored="true"/>
+    <copyField source="keyword" dest="keyword_busca"/>
 
+    <dynamicField name="*_busca" type="text_busca" multiValued="true" indexed="true" stored="true"/>
+    <copyField source="*" dest="_text_"/>
     <dynamicField name="cross_collection_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
     <dynamicField name="*_is" type="ints" indexed="true" stored="true"/>
@@ -50,6 +68,32 @@
     <dynamicField name="random_*" type="random"/>
 
     <uniqueKey>id</uniqueKey>
+
+    <fieldType name="text_busca" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
+            <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1"
+                    catenateWords="1" catenateNumbers="1" catenateAll="0"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="18"/>
+            <filter class="solr.PortugueseLightStemFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
+            <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1"
+                    catenateWords="0" catenateNumbers="0" catenateAll="0"/>
+            <filter class="solr.ASCIIFoldingFilterFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.PortugueseLightStemFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+    </fieldType>
 
 
     <fieldType name="text" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
