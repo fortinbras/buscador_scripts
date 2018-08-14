@@ -9,7 +9,7 @@ def gYear(year):
     digit = str(ano)[-1]
     inicial = ano - int(digit)
     fim = inicial + 9
-    return "{}-{}".format(inicial, fim)
+    return "{}-{}|{}".format(inicial, fim, year)
 
 
 def find_regiao(cod):

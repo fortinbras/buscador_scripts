@@ -78,7 +78,7 @@
   <field name="ANO_facet" type="descendent_path"/>
   <field name="CO_ALUNO" type="long"/>
   <field name="CO_ALUNO_CURSO" type="long"/>
-  <field name="CO_ALUNO_SITUACAO" type="long"/>
+  <field name="CO_ALUNO_SITUACAO" type="strings"/>
   <field name="CO_CURSO_POLO" type="double"/>
   <field name="CO_GRAU_ACADEMICO" type="strings"/>
   <field name="CO_IES" type="long"/>
@@ -117,7 +117,7 @@
   <field name="IN_COMPL_EXTENSAO" type="strings"/>
   <field name="IN_COMPL_MONITORIA" type="strings"/>
   <field name="IN_COMPL_PESQUISA" type="strings"/>
-  <field name="IN_CONCLUINTE" type="long"/>
+  <field name="IN_CONCLUINTE" type="strings"/>
   <field name="IN_DEF_AUDITIVA" type="strings"/>
   <field name="IN_DEF_BAIXA_VISAO" type="strings"/>
   <field name="IN_DEF_CEGUEIRA" type="strings"/>
