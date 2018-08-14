@@ -399,7 +399,7 @@ class RaisTransform(object):
                     iterdf = pd.read_csv(arquivo, sep=';', chunksize=200000, encoding='latin-1')
                     self.c = 0
                     for df in iterdf:
-                        nfile = self.destino_transform + self.f + '_' + str(c) + '.csv'
+                        nfile = self.destino_transform + self.f + '_' + str(self.c) + '.csv'
                         df = self.resolve_dicionario(df)
                         try:
                             os.makedirs(self.destino_transform)
