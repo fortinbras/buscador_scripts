@@ -442,7 +442,10 @@ class RaisTransform(object):
         df['Regiao_trabalho'] = df['Mun_Trab'].apply(find_regiao)
 
         for k, v in self.variaveis.items():
-            df[k] = df[k].map(v).fillna(df[k])
+            try:
+                df[k] = df[k].map(v).fillna(df[k])
+            except KeyError:
+                df[k] = 'Não disponivel'
 
         df['UF_moradia'] = df[u'Município'].str.split('-').str.get(0)
         df[u'Município'] = df[u'Município'].str.split('-').str.get(1)
