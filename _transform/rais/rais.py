@@ -23,6 +23,7 @@ from municipios import municipios_dic
 class RaisTransform(object):
 
     def __init__(self, ano):
+        self.horas = datetime.datetime.now()
         self.input_lenght = 0
         self.output_lenght = 0
         self.df = pd.DataFrame()
@@ -397,6 +398,7 @@ class RaisTransform(object):
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
                     print 'Arquivo {} de entrada possui {} linhas de informacao'.format(f, int(self.input_lenght))
                     iterdf = pd.read_csv(arquivo, sep=';', chunksize=200000, encoding='latin-1')
+                    # iterdf = pd.read_csv(arquivo, sep=';', nrows=1000, chunksize=500, encoding='latin-1')
                     self.c = 0
                     for df in iterdf:
                         nfile = self.destino_transform + self.f + '_' + str(self.c) + '.csv'
@@ -412,10 +414,21 @@ class RaisTransform(object):
                         print 'Arquivo {} de saida foi criado'.format(
                             (self.f + '_' + str(self.c) + '.csv'))
                         self.c += 1
+
+                    with open(self.destino_transform + '_log.txt', 'a') as logfile:
+                        logfile.write('################\n')
+                        logfile.write('Log gerado em {}\n'.format(self.horas.strftime("%Y-%m-%d %H:%M")))
+                        logfile.write(
+                            'Arquivo {} de entrada possui {} linhas de informacao\n'.format(f, int(self.input_lenght)))
+                        logfile.write('O arquivo de saida possui {} linhas de informacao\n'.format(
+                            (int(self.output_lenght) + 1) - self.c))
+                        logfile.write('################\n')
+
                     print 'Arquivo de saida possui {} linhas de informacao'.format(
                         (int(self.output_lenght) + 1) - self.c)
                     print 'FIM'
-                    os.remove(os.path.join(root, f))
+
+                    # os.remove(os.path.join(root, f))
 
     def resolve_dicionario(self, df):
 
@@ -453,6 +466,3 @@ def rais_transform():
     for ano in anos:
         rais = RaisTransform(ano)
         rais.pega_arquivos_ano()
-
-
-rais_transform()

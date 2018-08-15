@@ -60,7 +60,14 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/enem/conf'},
 
-
+    'rais': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/rais',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'rais',
+        'content_type': 'text/csv',
+        'schema': '_transform/rais/conf'},
 
     'lattes': {
         'filetype': '.xml',
@@ -88,7 +95,7 @@ def executa(coll):
             param['content_type'], param['schema']
         )
         load.full_sequence()
-    except TypeError:
+    except (TypeError,KeyError):
         print 'collection invalida'
     except KeyboardInterrupt:
         print '\nAtividade interrompida pelo usuario!'
