@@ -78,6 +78,7 @@
   <field name="Geografico_trabalho_facet" type="descendent_path"/>
   <field name="Geografico_moradia_facet" type="descendent_path"/>
   <field name="Idade_facet" type="descendent_path"/>
+  <field name="CBO_Ocupa__o_2002" type="strings"/>
   <field name="_root_" type="string" docValues="false" indexed="true" stored="false"/>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="long" indexed="true" stored="false"/>
