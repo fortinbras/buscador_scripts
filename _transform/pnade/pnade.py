@@ -27,7 +27,7 @@ class Pnade(object):
     def pega_arquivo_ano(self):
         cols = [x for x in range(0, 60)]
         avoid = ['V0401', 'V0403', 'V0407', 'V0409', 'V0410', 'v0412']
-        var = '/var/tmp/pnade/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/pnade/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -127,7 +127,7 @@ class Pnade(object):
 
     def gera_csv(self):
         df = self.resolve_dicionario()
-        destino_transform = '/var/tmp/pnade/' + str(self.ano) + '/transform'
+        destino_transform = '/var/tmp/solr_front/collections/pnade/' + str(self.ano) + '/transform'
         csv_file = '/pnade_' + str(self.ano) + '.csv'
         log_file = '/pnade_' + str(self.ano) + '.log'
         try:
@@ -152,7 +152,7 @@ class Pnade(object):
 
 
 def pnade_tranform():
-    PATH_ORIGEM = '/var/tmp/pnade/'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/pnade/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()

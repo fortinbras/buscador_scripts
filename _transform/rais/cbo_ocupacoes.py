@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 def cbo_ocup():
     cbo_ocup_dic = {
+        "-1": 'Ignorado',
         "10105": "Oficial general da aeronáutica",
         "10110": "Oficial general do exército",
         "10115": "Oficial general da marinha",
@@ -2614,7 +2615,8 @@ def cbo_ocup():
         "992210": "Encarregado de equipe de conservação de vias permanentes (exceto trilhos)",
         "992215": "Operador de ceifadeira na conservação de vias permanentes",
         "992220": "Pedreiro de conservação de vias permanentes (exceto trilhos)",
-        "992225": "Auxiliar geral de conservação de vias permanentes (exceto trilhos)"
+        "992225": "Auxiliar geral de conservação de vias permanentes (exceto trilhos)",
+
     }
     # d = cbo_ocup_dic.get(str(num))
     d = {int(k): unicode(v, 'utf8') for k, v in cbo_ocup_dic.items()}

@@ -15,7 +15,7 @@ def get_rais():
     ftp.login()
     ftp.cwd('pdet/microdados/RAIS/')
     for ano in anos:
-        dir_destino = '/var/tmp/rais/' + str(ano) + '/download/'
+        dir_destino = '/var/tmp/solr_front/collections/rais/' + str(ano) + '/download/'
         try:
             os.makedirs(dir_destino)
         except OSError as e:

@@ -24,7 +24,7 @@ def find_zips_pnad():
     ftp.cwd('Pesquisa_Nacional_por_Amostra_de_Domicilios_anual')
     ftp.cwd('microdados')
     for ano in anos:
-        dir_destino = '/var/tmp/pnade/' + str(ano) + '/download/'
+        dir_destino = '/var/tmp/solr_front/collections/pnade/' + str(ano) + '/download/'
         ano_str = str(ano)
         nome_arquivo = ano_str + '.zip'
         nome_csv = ano_str + '.csv'

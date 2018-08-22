@@ -62,7 +62,8 @@ class RaisTransform(object):
                                      99: 'Sem Afastamentos', -1: 'Ignorado'},
             u'Vínculo_Ativo_31/12': {0: 'Não', 1: 'Sim'},
             u'Faixa_Etária': {1: '10 A 14 anos', 2: '15 A 17 anos', 3: '18 A 24 anos', 4: '25 A 29 anos',
-                              5: '30 A 39 anos', 6: '40 A 49 anos', 7: '50 A 64 anos', 8: '65 anos ou mais'},
+                              5: '30 A 39 anos', 6: '40 A 49 anos', 7: '50 A 64 anos', 8: '65 anos ou mais',
+                              99: 'Sem significado no dicionário oficial'},
             u'Faixa_Hora_Contrat': {1: 'Até 12 horas', 2: '13 a 15 horas', 3: '16 a 20 horas', 4: '21 a 30 horas',
                                     5: '31 a 40 horas', 6: '41 a 44 horas'},
             u'Faixa_Remun_Dezem_(SM)': {0: 'Até 0,50 salários mínimos', 1: 'Até 0,50 salários mínimos',
@@ -225,12 +226,13 @@ class RaisTransform(object):
             },
             u'Ind_Portador_Defic': {0: 'Não', 1: 'Sim'},
             u'Raça_Cor': {-1: 'Ignorado',
-                          1: 'indígena',
+                          1: 'Indígena',
                           2: 'Branca',
                           4: 'Preta',
                           6: 'Amarela',
-                          8: 'Parta',
-                          9: 'Não identificado'},
+                          8: 'Parda',
+                          9: 'Não identificado',
+                          99: 'Sem significado no dicionário oficial'},
             u'Sexo_Trabalhador': {
                 1: 'Masculino',
                 2: 'Feminino',
@@ -385,19 +387,19 @@ class RaisTransform(object):
         self.ano = ano
         self.avoid = ['Bairros SP', 'Bairros Fortaleza', 'Bairros RJ', 'Distritos SP', u'Regiões Adm DF',
                       'CNAE 2.0 Classe']
-        self.destino_transform = '/var/tmp/rais/' + str(self.ano) + '/transform/'
+        self.destino_transform = '/var/tmp/solr_front/collections/rais/' + str(self.ano) + '/transform/'
 
     def pega_arquivos_ano(self):
-        var = '/var/tmp/rais/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/rais/' + str(self.ano) + '/download/'
         for root, dirs, files in os.walk(var):
             for f in files:
-                if f.endswith(".txt"):
+                if f.endswith(".txt") and f.startswith('SP'):
                     self.output_lenght = 0
                     self.f = f.split('.')[0]
                     arquivo = open(os.path.join(root, f), 'r')
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
                     print 'Arquivo {} de entrada possui {} linhas de informacao'.format(f, int(self.input_lenght))
-                    iterdf = pd.read_csv(arquivo, sep=';', chunksize=200000, encoding='latin-1')
+                    iterdf = pd.read_csv(arquivo, sep=';', chunksize=200000, encoding='latin-1', low_memory=False)
                     # iterdf = pd.read_csv(arquivo, sep=';', nrows=1000, chunksize=500, encoding='latin-1')
                     self.c = 0
                     for df in iterdf:
@@ -440,9 +442,11 @@ class RaisTransform(object):
         df['ID'] = [self.f + '_' + str(self.c) + '_' + str(i + 1) for i in range(df.index.size)]
         df['Regiao_moradia'] = df[u'Município'].apply(find_regiao)
         df['Regiao_trabalho'] = df['Mun_Trab'].apply(find_regiao)
+        df.loc[df[u'CBO_Ocupação_2002'] == '0000-1', u'CBO_Ocupação_2002'] = -1  #
 
         for k, v in self.variaveis.items():
             try:
+                df[k] = df[k].astype('int')  #
                 df[k] = df[k].map(v).fillna(df[k])
             except KeyError:
                 df[k] = 'Não disponivel'
@@ -455,17 +459,35 @@ class RaisTransform(object):
         df['Geografico_trabalho_facet'] = df['Regiao_trabalho'] + '|' + df['UF_trabalho'] + '|' + df['Mun_Trab']
         df['Ano'] = self.ano
         df['Ano_facet'] = gYear(self.ano)
+        df['Ano_chegada_facet'] = df['Ano_Chegada_Brasil'].apply(gYear)
+
+        salarios = [u'Vl_Remun_Dezembro_Nom', u'Vl_Remun_Dezembro_(SM)', u'Vl_Remun_Média_Nom', u'Vl_Remun_Média_(SM)',
+                    u'Tempo_Emprego', u"Vl_Rem_Janeiro_CC", u"Vl_Rem_Fevereiro_CC", u"Vl_Rem_Abril_CC",
+                    u"Vl_Rem_Maio_CC",
+                    u"Vl_Rem_Junho_CC", u"Vl_Rem_Julho_CC", u"Vl_Rem_Agosto_CC", u"Vl_Rem_Setembro_CC",
+                    u"Vl_Rem_Outubro_CC",
+                    u"Vl_Rem_Novembro_CC", u"Vl_Rem_Março_CC"]
+        for s in salarios:
+            try:
+                df[s] = df[s].str.replace(',', '.')
+                df[s] = df[s].astype('float')
+            except:
+                raise
+
         return df
 
 
 def rais_transform():
     try:
-        PATH_ORIGIN = '/var/tmp/rais/'
+        PATH_ORIGIN = '/var/tmp/solr_front/collections/rais/'
         anos = [f for f in os.listdir(PATH_ORIGIN) if not f.startswith('.')]
         anos.sort()
         print anos
     except:
         raise
-    for ano in anos:
-        rais = RaisTransform(ano)
-        rais.pega_arquivos_ano()
+    rais = RaisTransform('2016')
+    rais.pega_arquivos_ano()
+
+    # for ano in anos:
+    #     rais = RaisTransform(ano)
+    #     rais.pega_arquivos_ano()

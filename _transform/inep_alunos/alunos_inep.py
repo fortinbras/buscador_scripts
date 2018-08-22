@@ -25,7 +25,7 @@ class InepVincAlunos(object):
         self.input_lenght = 0
         self.output_length = 0
         self.gano = gYear(ano)
-        self.destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform/alunos'
+        self.destino_transform = '/var/tmp/solr_front/collections/inep/' + str(self.ano) + '/transform/alunos'
         self.log_file = '/alunos_vinculo_ies_' + str(self.ano) + '.log'
         self.df_mun = self.municipios_facet()
         self.ies = self.pega_arquivo_ies_por_ano()
@@ -39,7 +39,7 @@ class InepVincAlunos(object):
 
     def pega_arquivo_aluno_por_ano(self):
         """ Para cada ano solicitado, retorna dict com o csv de alunos e csv de ies. """
-        var = '/var/tmp/inep/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/inep/' + str(self.ano) + '/download/'
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file.endswith(".CSV"):
@@ -56,7 +56,7 @@ class InepVincAlunos(object):
 
     def pega_arquivo_ies_por_ano(self):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
-        var = '/var/tmp/inep/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/inep/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -335,7 +335,7 @@ class InepVincAlunos(object):
 
 
 def inep_alunos_transform():
-    PATH_ORIGEM = '/var/tmp/inep/'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/inep/'
     try:
         anos = [f for f in os.listdir(PATH_ORIGEM) if not f.startswith('.')]
         anos.sort()

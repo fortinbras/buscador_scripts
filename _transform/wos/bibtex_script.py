@@ -30,7 +30,7 @@ gerador.parse_bib()
 
     limit_docs_in_file = 5000
     file_finish = 0
-    path_save_xml = '/var/tmp/wos/transform/'
+    path_save_xml = '/var/tmp/solr_front/collections/wos/transform/'
     tree = []
     xml_filename = 'output'
 
@@ -363,7 +363,7 @@ gerador.parse_bib()
         self.logger()
 
     def logger(self):
-        directory = '/var/tmp/wos/transform/'
+        directory = '/var/tmp/solr_front/collections/wos/transform/'
         log_file = self.log_file
         logging = directory + log_file
         with open(logging, 'a') as log:
@@ -386,11 +386,11 @@ gerador.parse_bib()
 
 
 def wos_tranform():
-    wos_xml = BibtoXML('/var/tmp/bibtex/')
+    wos_xml = BibtoXML('/var/tmp/solr_front/collections/bibtex/')
     wos_xml.parse_bib()
 
 
 if __name__ == '__main__':
-    diretorio = '/var/tmp/bibtex/'
-    bib_xml = BibtoXML('/var/tmp/bibtex/')
+    diretorio = '/var/tmp/solr_front/collections/bibtex/'
+    bib_xml = BibtoXML('/var/tmp/solr_front/collections/bibtex/')
     bib_xml.parse_bib()

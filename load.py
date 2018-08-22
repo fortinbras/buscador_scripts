@@ -8,7 +8,7 @@ collection = {
 
     'wos': {
         'filetype': '.xml',
-        'collectiondir': '/var/tmp/wos',
+        'collectiondir': '/var/tmp/solr_front/collections/wos',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'wos',
@@ -17,7 +17,7 @@ collection = {
 
     'enade': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/enade',
+        'collectiondir': '/var/tmp/solr_front/collections/enade',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'enade',
@@ -26,7 +26,7 @@ collection = {
 
     'inep_alunos': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/inep',
+        'collectiondir': '/var/tmp/solr_front/collections/inep',
         'transformdir': 'transform/alunos',
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_alunos',
@@ -35,7 +35,7 @@ collection = {
 
     'inep_docentes': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/inep',
+        'collectiondir': '/var/tmp/solr_front/collections/inep',
         'transformdir': 'transform/docentes',
         'localhost': '192.168.0.212:8983',
         'collection': 'inep_docentes',
@@ -44,7 +44,7 @@ collection = {
 
     'pnad': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/pnade',
+        'collectiondir': '/var/tmp/solr_front/collections/pnade',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'pnade',
@@ -53,7 +53,7 @@ collection = {
 
     'enem': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/enem',
+        'collectiondir': '/var/tmp/solr_front/collections/enem',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'enem',
@@ -62,7 +62,7 @@ collection = {
 
     'rais': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/rais',
+        'collectiondir': '/var/tmp/solr_front/collections/rais',
         'transformdir': 'transform/',
         'localhost': '192.168.0.212:8983',
         'collection': 'rais',
@@ -71,7 +71,7 @@ collection = {
 
     'lattes': {
         'filetype': '.xml',
-        'collectiondir': '/var/tmp/lattes',
+        'collectiondir': '/var/tmp/solr_front/collections/lattes',
         'transformdir': 'transform/',  # deve estar em /var/tm/lattes/transform
         'localhost': '192.168.0.212:8983',
         'collection': 'lattes',

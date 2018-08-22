@@ -31,7 +31,7 @@ all_links = {
 
 
 def download_enade(ano):
-    dir_destino = '/var/tmp/enade/' + str(ano) + '/download/'
+    dir_destino = '/var/tmp/solr_front/collections/enade/' + str(ano) + '/download/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'
