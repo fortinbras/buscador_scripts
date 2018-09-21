@@ -1,0 +1,893 @@
+transform.py:44: DtypeWarning: Columns (7) have mixed types. Specify dtype option on import or set low_memory=False.
+  rais_transform()
+['2015', '2016']
+Arquivo MT2015.txt de entrada possui 1396330 linhas de informacao
+Arquivo MT2015_0.csv de saida foi criado
+Arquivo MT2015_1.csv de saida foi criado
+Arquivo MT2015_2.csv de saida foi criado
+Arquivo MT2015_3.csv de saida foi criado
+Arquivo MT2015_4.csv de saida foi criado
+Arquivo MT2015_5.csv de saida foi criado
+Arquivo MT2015_6.csv de saida foi criado
+Arquivo de saida possui 1396330 linhas de informacao
+FIM
+Arquivo AL2015.txt de entrada possui 694803 linhas de informacao
+Arquivo AL2015_0.csv de saida foi criado
+Arquivo AL2015_1.csv de saida foi criado
+Arquivo AL2015_2.csv de saida foi criado
+Arquivo AL2015_3.csv de saida foi criado
+Arquivo de saida possui 694803 linhas de informacao
+FIM
+Arquivo RO2015.txt de entrada possui 539018 linhas de informacao
+Arquivo RO2015_0.csv de saida foi criado
+Arquivo RO2015_1.csv de saida foi criado
+Arquivo RO2015_2.csv de saida foi criado
+Arquivo de saida possui 539018 linhas de informacao
+FIM
+Arquivo RS2015.txt de entrada possui 4538012 linhas de informacao
+Arquivo RS2015_0.csv de saida foi criado
+Arquivo RS2015_1.csv de saida foi criado
+Arquivo RS2015_2.csv de saida foi criado
+Arquivo RS2015_3.csv de saida foi criado
+Arquivo RS2015_4.csv de saida foi criado
+Arquivo RS2015_5.csv de saida foi criado
+Arquivo RS2015_6.csv de saida foi criado
+Arquivo RS2015_7.csv de saida foi criado
+Arquivo RS2015_8.csv de saida foi criado
+Arquivo RS2015_9.csv de saida foi criado
+Arquivo RS2015_10.csv de saida foi criado
+Arquivo RS2015_11.csv de saida foi criado
+Arquivo RS2015_12.csv de saida foi criado
+Arquivo RS2015_13.csv de saida foi criado
+Arquivo RS2015_14.csv de saida foi criado
+Arquivo RS2015_15.csv de saida foi criado
+Arquivo RS2015_16.csv de saida foi criado
+Arquivo RS2015_17.csv de saida foi criado
+Arquivo RS2015_18.csv de saida foi criado
+Arquivo RS2015_19.csv de saida foi criado
+Arquivo RS2015_20.csv de saida foi criado
+Arquivo RS2015_21.csv de saida foi criado
+Arquivo RS2015_22.csv de saida foi criado
+Arquivo de saida possui 4538012 linhas de informacao
+FIM
+Arquivo DF2015.txt de entrada possui 1756666 linhas de informacao
+Arquivo DF2015_0.csv de saida foi criado
+Arquivo DF2015_1.csv de saida foi criado
+Arquivo DF2015_2.csv de saida foi criado
+Arquivo DF2015_3.csv de saida foi criado
+Arquivo DF2015_4.csv de saida foi criado
+Arquivo DF2015_5.csv de saida foi criado
+Arquivo DF2015_6.csv de saida foi criado
+Arquivo DF2015_7.csv de saida foi criado
+Arquivo DF2015_8.csv de saida foi criado
+Arquivo de saida possui 1756666 linhas de informacao
+FIM
+Arquivo PA2015.txt de entrada possui 1631231 linhas de informacao
+Arquivo PA2015_0.csv de saida foi criado
+Arquivo PA2015_1.csv de saida foi criado
+Arquivo PA2015_2.csv de saida foi criado
+Arquivo PA2015_3.csv de saida foi criado
+Arquivo PA2015_4.csv de saida foi criado
+Arquivo PA2015_5.csv de saida foi criado
+Arquivo PA2015_6.csv de saida foi criado
+Arquivo PA2015_7.csv de saida foi criado
+Arquivo PA2015_8.csv de saida foi criado
+Arquivo de saida possui 1631231 linhas de informacao
+FIM
+Arquivo CE2015.txt de entrada possui 2252710 linhas de informacao
+Arquivo CE2015_0.csv de saida foi criado
+Arquivo CE2015_1.csv de saida foi criado
+Arquivo CE2015_2.csv de saida foi criado
+Arquivo CE2015_3.csv de saida foi criado
+Arquivo CE2015_4.csv de saida foi criado
+Arquivo CE2015_5.csv de saida foi criado
+Arquivo CE2015_6.csv de saida foi criado
+Arquivo CE2015_7.csv de saida foi criado
+Arquivo CE2015_8.csv de saida foi criado
+Arquivo CE2015_9.csv de saida foi criado
+Arquivo CE2015_10.csv de saida foi criado
+Arquivo CE2015_11.csv de saida foi criado
+Arquivo de saida possui 2252710 linhas de informacao
+FIM
+Arquivo SE2015.txt de entrada possui 554873 linhas de informacao
+Arquivo SE2015_0.csv de saida foi criado
+Arquivo SE2015_1.csv de saida foi criado
+Arquivo SE2015_2.csv de saida foi criado
+Arquivo de saida possui 554873 linhas de informacao
+FIM
+Arquivo PE2015.txt de entrada possui 2409995 linhas de informacao
+Arquivo PE2015_0.csv de saida foi criado
+Arquivo PE2015_1.csv de saida foi criado
+Arquivo PE2015_2.csv de saida foi criado
+Arquivo PE2015_3.csv de saida foi criado
+Arquivo PE2015_4.csv de saida foi criado
+Arquivo PE2015_5.csv de saida foi criado
+Arquivo PE2015_6.csv de saida foi criado
+Arquivo PE2015_7.csv de saida foi criado
+Arquivo PE2015_8.csv de saida foi criado
+Arquivo PE2015_9.csv de saida foi criado
+Arquivo PE2015_10.csv de saida foi criado
+Arquivo PE2015_11.csv de saida foi criado
+Arquivo PE2015_12.csv de saida foi criado
+Arquivo de saida possui 2409995 linhas de informacao
+FIM
+Arquivo GO2015.txt de entrada possui 2365770 linhas de informacao
+Arquivo GO2015_0.csv de saida foi criado
+Arquivo GO2015_1.csv de saida foi criado
+Arquivo GO2015_2.csv de saida foi criado
+Arquivo GO2015_3.csv de saida foi criado
+Arquivo GO2015_4.csv de saida foi criado
+Arquivo GO2015_5.csv de saida foi criado
+Arquivo GO2015_6.csv de saida foi criado
+Arquivo GO2015_7.csv de saida foi criado
+Arquivo GO2015_8.csv de saida foi criado
+Arquivo GO2015_9.csv de saida foi criado
+Arquivo GO2015_10.csv de saida foi criado
+Arquivo GO2015_11.csv de saida foi criado
+Arquivo de saida possui 2365770 linhas de informacao
+FIM
+Arquivo ES2015.txt de entrada possui 1454538 linhas de informacao
+Arquivo ES2015_0.csv de saida foi criado
+Arquivo ES2015_1.csv de saida foi criado
+Arquivo ES2015_2.csv de saida foi criado
+Arquivo ES2015_3.csv de saida foi criado
+Arquivo ES2015_4.csv de saida foi criado
+Arquivo ES2015_5.csv de saida foi criado
+Arquivo ES2015_6.csv de saida foi criado
+Arquivo ES2015_7.csv de saida foi criado
+Arquivo de saida possui 1454538 linhas de informacao
+FIM
+Arquivo BA2015.txt de entrada possui 3338764 linhas de informacao
+Arquivo BA2015_0.csv de saida foi criado
+Arquivo BA2015_1.csv de saida foi criado
+Arquivo BA2015_2.csv de saida foi criado
+Arquivo BA2015_3.csv de saida foi criado
+Arquivo BA2015_4.csv de saida foi criado
+Arquivo BA2015_5.csv de saida foi criado
+Arquivo BA2015_6.csv de saida foi criado
+Arquivo BA2015_7.csv de saida foi criado
+Arquivo BA2015_8.csv de saida foi criado
+Arquivo BA2015_9.csv de saida foi criado
+Arquivo BA2015_10.csv de saida foi criado
+Arquivo BA2015_11.csv de saida foi criado
+Arquivo BA2015_12.csv de saida foi criado
+Arquivo BA2015_13.csv de saida foi criado
+Arquivo BA2015_14.csv de saida foi criado
+Arquivo BA2015_15.csv de saida foi criado
+Arquivo BA2015_16.csv de saida foi criado
+Arquivo de saida possui 3338764 linhas de informacao
+FIM
+Arquivo AC2015.txt de entrada possui 191102 linhas de informacao
+Arquivo AC2015_0.csv de saida foi criado
+Arquivo de saida possui 191102 linhas de informacao
+FIM
+Arquivo PI2015.txt de entrada possui 618061 linhas de informacao
+Arquivo PI2015_0.csv de saida foi criado
+Arquivo PI2015_1.csv de saida foi criado
+Arquivo PI2015_2.csv de saida foi criado
+Arquivo PI2015_3.csv de saida foi criado
+Arquivo de saida possui 618061 linhas de informacao
+FIM
+Arquivo AP2015.txt de entrada possui 169874 linhas de informacao
+Arquivo AP2015_0.csv de saida foi criado
+Arquivo de saida possui 169874 linhas de informacao
+FIM
+Arquivo TO2015.txt de entrada possui 408674 linhas de informacao
+Arquivo TO2015_0.csv de saida foi criado
+Arquivo TO2015_1.csv de saida foi criado
+Arquivo TO2015_2.csv de saida foi criado
+Arquivo de saida possui 408674 linhas de informacao
+FIM
+Arquivo AM2015.txt de entrada possui 901720 linhas de informacao
+Arquivo AM2015_0.csv de saida foi criado
+Arquivo AM2015_1.csv de saida foi criado
+Arquivo AM2015_2.csv de saida foi criado
+Arquivo AM2015_3.csv de saida foi criado
+Arquivo AM2015_4.csv de saida foi criado
+Arquivo de saida possui 901720 linhas de informacao
+FIM
+Arquivo RN2015.txt de entrada possui 853662 linhas de informacao
+Arquivo RN2015_0.csv de saida foi criado
+Arquivo RN2015_1.csv de saida foi criado
+Arquivo RN2015_2.csv de saida foi criado
+Arquivo RN2015_3.csv de saida foi criado
+Arquivo RN2015_4.csv de saida foi criado
+Arquivo de saida possui 853662 linhas de informacao
+FIM
+Arquivo RR2015.txt de entrada possui 135547 linhas de informacao
+Arquivo RR2015_0.csv de saida foi criado
+Arquivo de saida possui 135547 linhas de informacao
+FIM
+Arquivo SC2015.txt de entrada possui 3545157 linhas de informacao
+Arquivo SC2015_0.csv de stransform.py:44: DtypeWarning: Columns (7,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  rais_transform()
+aida foi criado
+Arquivo SC2015_1.csv de saida foi criado
+Arquivo SC2015_2.csv de saida foi criado
+Arquivo SC2015_3.csv de saida foi criado
+Arquivo SC2015_4.csv de saida foi criado
+Arquivo SC2015_5.csv de saida foi criado
+Arquivo SC2015_6.csv de saida foi criado
+Arquivo SC2015_7.csv de saida foi criado
+Arquivo SC2015_8.csv de saida foi criado
+Arquivo SC2015_9.csv de saida foi criado
+Arquivo SC2015_10.csv de saida foi criado
+Arquivo SC2015_11.csv de saida foi criado
+Arquivo SC2015_12.csv de saida foi criado
+Arquivo SC2015_13.csv de saida foi criado
+Arquivo SC2015_14.csv de saida foi criado
+Arquivo SC2015_15.csv de saida foi criado
+Arquivo SC2015_16.csv de saida foi criado
+Arquivo SC2015_17.csv de saida foi criado
+Arquivo de saida possui 3545157 linhas de informacao
+FIM
+Arquivo SP2015.txt de entrada possui 20604436 linhas de informacao
+Arquivo SP2015_0.csv de saida foi criado
+Arquivo SP2015_1.csv de saida foi criado
+Arquivo SP2015_2.csv de saida foi criado
+Arquivo SP2015_3.csv de saida foi criado
+Arquivo SP2015_4.csv de saida foi criado
+Arquivo SP2015_5.csv de saida foi criado
+Arquivo SP2015_6.csv de saida foi criado
+Arquivo SP2015_7.csv de saida foi criado
+Arquivo SP2015_8.csv de saida foi criado
+Arquivo SP2015_9.csv de saida foi criado
+Arquivo SP2015_10.csv de saida foi criado
+Arquivo SP2015_11.csv de saida foi criado
+Arquivo SP2015_12.csv de saida foi criado
+Arquivo SP2015_13.csv de saida foi criado
+Arquivo SP2015_14.csv de saida foi criado
+Arquivo SP2015_15.csv de saida foi criado
+Arquivo SP2015_16.csv de saida foi criado
+Arquivo SP2015_17.csv de saida foi criado
+Arquivo SP2015_18.csv de saida foi criado
+Arquivo SP2015_19.csv de saida foi criado
+Arquivo SP2015_20.csv de saida foi criado
+Arquivo SP2015_21.csv de saida foi criado
+Arquivo SP2015_22.csv de saida foi criado
+Arquivo SP2015_23.csv de saida foi criado
+Arquivo SP2015_24.csv de saida foi criado
+Arquivo SP2015_25.csv de saida foi criado
+Arquivo SP2015_26.csv de saida foi criado
+Arquivo SP2015_27.csv de saida foi criado
+Arquivo SP2015_28.csv de saida foi criado
+Arquivo SP2015_29.csv de saida foi criado
+Arquivo SP2015_30.csv de saida foi criado
+Arquivo SP2015_31.csv de saida foi criado
+Arquivo SP2015_32.csv de saida foi criado
+Arquivo SP2015_33.csv de saida foi criado
+Arquivo SP2015_34.csv de saida foi criado
+Arquivo SP2015_35.csv de saida foi criado
+Arquivo SP2015_36.csv de saida foi criado
+Arquivo SP2015_37.csv de saida foi criado
+Arquivo SP2015_38.csv de saida foi criado
+Arquivo SP2015_39.csv de saida foi criado
+Arquivo SP2015_40.csv de saida foi criado
+Arquivo SP2015_41.csv de saida foi criado
+Arquivo SP2015_42.csv de saida foi criado
+Arquivo SP2015_43.csv de saida foi criado
+Arquivo SP2015_44.csv de saida foi criado
+Arquivo SP2015_45.csv de saida foi criado
+Arquivo SP2015_46.csv de saida foi criado
+Arquivo SP2015_47.csv de saida foi criado
+Arquivo SP2015_48.csv de saida foi criado
+Arquivo SP2015_49.csv de saida foi criado
+Arquivo SP2015_50.csv de saida foi criado
+Arquivo SP2015_51.csv de saida foi criado
+Arquivo SP2015_52.csv de saida foi criado
+Arquivo SP2015_53.csv de saida foi criado
+Arquivo SP2015_54.csv de saida foi criado
+Arquivo SP2015_55.csv de saida foi criado
+Arquivo SP2015_56.csv de saida foi criado
+Arquivo SP2015_57.csv de saida foi criado
+Arquivo SP2015_58.csv de saida foi criado
+Arquivo SP2015_59.csv de saida foi criado
+Arquivo SP2015_60.csv de saida foi criado
+Arquivo SP2015_61.csv de saida foi criado
+Arquivo SP2015_62.csv de saida foi criado
+Arquivo SP2015_63.csv de saida foi criado
+Arquivo SP2015_64.csv de saida foi criado
+Arquivo SP2015_65.csv de saida foi criado
+Arquivo SP2015_66.csv de saida foi criado
+Arquivo SP2015_67.csv de saida foi criado
+Arquivo SP2015_68.csv de saida foi criado
+Arquivo SP2015_69.csv de saida foi criado
+Arquivo SP2015_70.csv de saida foi criado
+Arquivo SP2015_71.csv de saida foi criado
+Arquivo SP2015_72.csv de saida foi criado
+Arquivo SP2015_73.csv de saida foi criado
+Arquivo SP2015_74.csv de saida foi criado
+Arquivo SP2015_75.csv de saida foi criado
+Arquivo SP2015_76.csv de saida foi criado
+Arquivo SP2015_77.csv de satransform.py:44: DtypeWarning: Columns (0,7,10) have mixed types. Specify dtype option on import or set low_memory=False.
+  rais_transform()
+ida foi criado
+Arquivo SP2015_78.csv de saida foi criado
+Arquivo SP2015_79.csv de saida foi criado
+Arquivo SP2015_80.csv de saida foi criado
+Arquivo SP2015_81.csv de saida foi criado
+Arquivo SP2015_82.csv de saida foi criado
+Arquivo SP2015_83.csv de saida foi criado
+Arquivo SP2015_84.csv de saida foi criado
+Arquivo SP2015_85.csv de saida foi criado
+Arquivo SP2015_86.csv de saida foi criado
+Arquivo SP2015_87.csv de saida foi criado
+Arquivo SP2015_88.csv de saida foi criado
+Arquivo SP2015_89.csv de saida foi criado
+Arquivo SP2015_90.csv de saida foi criado
+Arquivo SP2015_91.csv de saida foi criado
+Arquivo SP2015_92.csv de saida foi criado
+Arquivo SP2015_93.csv de saida foi criado
+Arquivo SP2015_94.csv de saida foi criado
+Arquivo SP2015_95.csv de saida foi criado
+Arquivo SP2015_96.csv de saida foi criado
+Arquivo SP2015_97.csv de saida foi criado
+Arquivo SP2015_98.csv de saida foi criado
+Arquivo SP2015_99.csv de saida foi criado
+Arquivo SP2015_100.csv de saida foi criado
+Arquivo SP2015_101.csv de saida foi criado
+Arquivo SP2015_102.csv de saida foi criado
+Arquivo SP2015_103.csv de saida foi criado
+Arquivo de saida possui 20604436 linhas de informacao
+FIM
+Arquivo MA2015.txt de entrada possui 998535 linhas de informacao
+Arquivo MA2015_0.csv de saida foi criado
+Arquivo MA2015_1.csv de saida foi criado
+Arquivo MA2015_2.csv de saida foi criado
+Arquivo MA2015_3.csv de saida foi criado
+Arquivo MA2015_4.csv de saida foi criado
+Arquivo de saida possui 998535 linhas de informacao
+FIM
+Arquivo PB2015.txt de entrada possui 887250 linhas de informacao
+Arquivo PB2015_0.csv de saida foi criado
+Arquivo PB2015_1.csv de saida foi criado
+Arquivo PB2015_2.csv de saida foi criado
+Arquivo PB2015_3.csv de saida foi criado
+Arquivo PB2015_4.csv de saida foi criado
+Arquivo de saida possui 887250 linhas de informacao
+FIM
+Arquivo PR2015.txt de entrada possui 4756403 linhas de informacao
+Arquivo PR2015_0.csv de saida foi criado
+Arquivo PR2015_1.csv de saida foi criado
+Arquivo PR2015_2.csv de saida foi criado
+Arquivo PR2015_3.csv de saida foi criado
+Arquivo PR2015_4.csv de saida foi criado
+Arquivo PR2015_5.csv de saida foi criado
+Arquivo PR2015_6.csv de saida foi criado
+Arquivo PR2015_7.csv de saida foi criado
+Arquivo PR2015_8.csv de saida foi criado
+Arquivo PR2015_9.csv de saida foi criado
+Arquivo PR2015_10.csv de saida foi criado
+Arquivo PR2015_11.csv de saida foi criado
+Arquivo PR2015_12.csv de saida foi criado
+Arquivo PR2015_13.csv de saida foi criado
+Arquivo PR2015_14.csv de saida foi criado
+Arquivo PR2015_15.csv de saida foi criado
+Arquivo PR2015_16.csv de saida foi criado
+Arquivo PR2015_17.csv de saida foi criado
+Arquivo PR2015_18.csv de saida foi criado
+Arquivo PR2015_19.csv de saida foi criado
+Arquivo PR2015_20.csv de saida foi criado
+Arquivo PR2015_21.csv de saida foi criado
+Arquivo PR2015_22.csv de saida foi criado
+Arquivo PR2015_23.csv de saida foi criado
+Arquivo de saida possui 4756403 linhas de informacao
+FIM
+Arquivo MG2015.txt de entrada possui 7538792 linhas de informacao
+Arquivo MG2015_0.csv de saida foi criado
+Arquivo MG2015_1.csv de saida foi criado
+Arquivo MG2015_2.csv de saida foi criado
+Arquivo MG2015_3.csv de saida foi criado
+Arquivo MG2015_4.csv de saida foi criado
+Arquivo MG2015_5.csv de saida foi criado
+Arquivo MG2015_6.csv de saida foi criado
+Arquivo MG2015_7.csv de saida foi criado
+Arquivo MG2015_8.csv de saida foi criado
+Arquivo MG2015_9.csv de saida foi criado
+Arquivo MG2015_10.csv de saida foi criado
+Arquivo MG2015_11.csv de saida foi criado
+Arquivo MG2015_12.csv de saida foi criado
+Arquivo MG2015_13.csv de saida foi criado
+Arquivo MG2015_14.csv de saida foi criado
+Arquivo MG2015_15.csv de saida foi criado
+Arquivo MG2015_16.csv de saida foi criado
+Arquivo MG2015_17.csv de saida foi criado
+Arquivo MG2015_18.csv de saida foi criado
+Arquivo MG2015_19.csv de saida foi criado
+Arquivo MG2015_20.csv de saida foi criado
+Arquivo MG2015_21.csv de saida foi criado
+Arquivo MG2015_22.csv de saida foi criado
+Arquivo MG2015_23.csv de saida foi criado
+Arquivo MG2015_24.csv de saida foi criado
+Arquivo MG2015_25.csv de saida foi criado
+Arquivtransform.py:44: DtypeWarning: Columns (2,7) have mixed types. Specify dtype option on import or set low_memory=False.
+  rais_transform()
+o MG2015_26.csv de saida foi criado
+Arquivo MG2015_27.csv de saida foi criado
+Arquivo MG2015_28.csv de saida foi criado
+Arquivo MG2015_29.csv de saida foi criado
+Arquivo MG2015_30.csv de saida foi criado
+Arquivo MG2015_31.csv de saida foi criado
+Arquivo MG2015_32.csv de saida foi criado
+Arquivo MG2015_33.csv de saida foi criado
+Arquivo MG2015_34.csv de saida foi criado
+Arquivo MG2015_35.csv de saida foi criado
+Arquivo MG2015_36.csv de saida foi criado
+Arquivo MG2015_37.csv de saida foi criado
+Arquivo de saida possui 7538792 linhas de informacao
+FIM
+Arquivo RJ2015.txt de entrada possui 6581609 linhas de informacao
+Arquivo RJ2015_0.csv de saida foi criado
+Arquivo RJ2015_1.csv de saida foi criado
+Arquivo RJ2015_2.csv de saida foi criado
+Arquivo RJ2015_3.csv de saida foi criado
+Arquivo RJ2015_4.csv de saida foi criado
+Arquivo RJ2015_5.csv de saida foi criado
+Arquivo RJ2015_6.csv de saida foi criado
+Arquivo RJ2015_7.csv de saida foi criado
+Arquivo RJ2015_8.csv de saida foi criado
+Arquivo RJ2015_9.csv de saida foi criado
+Arquivo RJ2015_10.csv de saida foi criado
+Arquivo RJ2015_11.csv de saida foi criado
+Arquivo RJ2015_12.csv de saida foi criado
+Arquivo RJ2015_13.csv de saida foi criado
+Arquivo RJ2015_14.csv de saida foi criado
+Arquivo RJ2015_15.csv de saida foi criado
+Arquivo RJ2015_16.csv de saida foi criado
+Arquivo RJ2015_17.csv de saida foi criado
+Arquivo RJ2015_18.csv de saida foi criado
+Arquivo RJ2015_19.csv de saida foi criado
+Arquivo RJ2015_20.csv de saida foi criado
+Arquivo RJ2015_21.csv de saida foi criado
+Arquivo RJ2015_22.csv de saida foi criado
+Arquivo RJ2015_23.csv de saida foi criado
+Arquivo RJ2015_24.csv de saida foi criado
+Arquivo RJ2015_25.csv de saida foi criado
+Arquivo RJ2015_26.csv de saida foi criado
+Arquivo RJ2015_27.csv de saida foi criado
+Arquivo RJ2015_28.csv de saida foi criado
+Arquivo RJ2015_29.csv de saida foi criado
+Arquivo RJ2015_30.csv de saida foi criado
+Arquivo RJ2015_31.csv de saida foi criado
+Arquivo RJ2015_32.csv de saida foi criado
+Arquivo de saida possui 6581609 linhas de informacao
+FIM
+Arquivo MS2015.txt de entrada possui 1051597 linhas de informacao
+Arquivo MS2015_0.csv de saida foi criado
+Arquivo MS2015_1.csv de saida foi criado
+Arquivo MS2015_2.csv de saida foi criado
+Arquivo MS2015_3.csv de saida foi criado
+Arquivo MS2015_4.csv de saida foi criado
+Arquivo MS2015_5.csv de saida foi criado
+Arquivo de saida possui 1051597 linhas de informacao
+FIM
+Arquivo RJ2016.txt de entrada possui 6059757 linhas de informacao
+Arquivo RJ2016_0.csv de saida foi criado
+Arquivo RJ2016_1.csv de saida foi criado
+Arquivo RJ2016_2.csv de saida foi criado
+Arquivo RJ2016_3.csv de saida foi criado
+Arquivo RJ2016_4.csv de saida foi criado
+Arquivo RJ2016_5.csv de saida foi criado
+Arquivo RJ2016_6.csv de saida foi criado
+Arquivo RJ2016_7.csv de saida foi criado
+Arquivo RJ2016_8.csv de saida foi criado
+Arquivo RJ2016_9.csv de saida foi criado
+Arquivo RJ2016_10.csv de saida foi criado
+Arquivo RJ2016_11.csv de saida foi criado
+Arquivo RJ2016_12.csv de saida foi criado
+Arquivo RJ2016_13.csv de saida foi criado
+Arquivo RJ2016_14.csv de saida foi criado
+Arquivo RJ2016_15.csv de saida foi criado
+Arquivo RJ2016_16.csv de saida foi criado
+Arquivo RJ2016_17.csv de saida foi criado
+Arquivo RJ2016_18.csv de saida foi criado
+Arquivo RJ2016_19.csv de saida foi criado
+Arquivo RJ2016_20.csv de saida foi criado
+Arquivo RJ2016_21.csv de saida foi criado
+Arquivo RJ2016_22.csv de saida foi criado
+Arquivo RJ2016_23.csv de saida foi criado
+Arquivo RJ2016_24.csv de saida foi criado
+Arquivo RJ2016_25.csv de saida foi criado
+Arquivo RJ2016_26.csv de saida foi criado
+Arquivo RJ2016_27.csv de saida foi criado
+Arquivo RJ2016_28.csv de saida foi criado
+Arquivo RJ2016_29.csv de saida foi criado
+Arquivo RJ2016_30.csv de saida foi criado
+Arquivo de saida possui 6059757 linhas de informacao
+FIM
+Arquivo PE2016.txt de entrada possui 2209497 linhas de informacao
+Arquivo PE2016_0.csv de saida foi criado
+Arquivo PE2016_1.csv de saida foi criado
+Arquivo PE2016_2.csv de saida foi criado
+Arquivo PE2016_3.csv de saida foi criado
+Arquivo PE2016_4.csv de saida foi criado
+Arquivo PE2016_5.csv de saida foi criado
+Arquivo PE2016_6.csv de saida foi criado
+Arquivo PE2016_7.csv de saida foi criado
+Arquivo PE2016_8.csv de saida foi criado
+Arquivo PE2016_9.csv de saida foi criado
+Arquivo PE2016_10.csv de saida foi criado
+Arquivo PE2016_11.csv de saida foi criado
+Arquivo de saida possui 2209497 linhas de informacao
+FIM
+Arquivo AP2016.txt de entrada possui 167937 linhas de informacao
+Arquivo AP2016_0.csv de saida foi criado
+Arquivo de saida possui 167937 linhas de informacao
+FIM
+Arquivo SC2016.txt de entrada possui 3327198 linhas de informacao
+Arquivo SC2016_0.csv de saida foi criado
+Arquivo SC2016_1.csv de saida foi criado
+Arquivo SC2016_2.csv de saida foi criado
+Arquivo SC2016_3.csv de saida foi criado
+Arquivo SC2016_4.csv de saida foi criado
+Arquivo SC2016_5.csv de saida foi criado
+Arquivo SC2016_6.csv de saida foi criado
+Arquivo SC2016_7.csv de saida foi criado
+Arquivo SC2016_8.csv de saida foi criado
+Arquivo SC2016_9.csv de saida foi criado
+Arquivo SC2016_10.csv de saida foi criado
+Arquivo SC2016_11.csv de saida foi criado
+Arquivo SC2016_12.csv de saida foi criado
+Arquivo SC2016_13.csv de saida foi criado
+Arquivo SC2016_14.csv de saida foi criado
+Arquivo SC2016_15.csv de saida foi criado
+Arquivo SC2016_16.csv de saida foi criado
+Arquivo de saida possui 3327198 linhas de informacao
+FIM
+Arquivo BA2016.txt de entrada possui 3100696 linhas de informacao
+Arquivo BA2016_0.csv de saida foi criado
+Arquivo BA2016_1.csv de saida foi criado
+Arquivo BA2016_2.csv de saida foi criado
+Arquivo BA2016_3.csv de saida foi criado
+Arquivo BA2016_4.csv de saida foi criado
+Arquivo BA2016_5.csv de saida foi criado
+Arquivo BA2016_6.csv de saida foi criado
+Arquivo BA2016_7.csv de saida foi criado
+Arquivo BA2016_8.csv de saida foi criado
+Arquivo BA2016_9.csv de saida foi criado
+Arquivo BA2016_10.csv de saida foi criado
+Arquivo BA2016_11.csv de saida foi criado
+Arquivo BA2016_12.csv de saida foi criado
+Arquivo BA2016_13.csv de saida foi criado
+Arquivo BA2016_14.csv de saida foi criado
+Arquivo BA2016_15.csv de saida foi criado
+Arquivo de saida possui 3100696 linhas de informacao
+FIM
+Arquivo AL2016.txt de entrada possui 663298 linhas de informacao
+Arquivo AL2016_0.csv de saida foi criado
+Arquivo AL2016_1.csv de saida foi criado
+Arquivo AL2016_2.csv de saida foi criado
+Arquivo AL2016_3.csv de saida foi criado
+Arquivo de saida possui 663298 linhas de informacao
+FIM
+Arquivo AC2016.txt de entrada possui 175734 linhas de informacao
+Arquivo AC2016_0.csv de saida foi criado
+Arquivo de saida possui 175734 linhas de informacao
+FIM
+Arquivo RO2016.txt de entrada possui 490592 linhas de informacao
+Arquivo RO2016_0.csv de saida foi criado
+Arquivo RO2016_1.csv de saida foi criado
+Arquivo RO2016_2.csv de saida foi criado
+Arquivo de saida possui 490592 linhas de informacao
+FIM
+Arquivo TO2016.txt de entrada possui 386104 linhas de informacao
+Arquivo TO2016_0.csv de saida foi criado
+Arquivo TO2016_1.csv de saida foi criado
+Arquivo de saida possui 386104 linhas de informacao
+FIM
+Arquivo PB2016.txt de entrada possui 831624 linhas de informacao
+Arquivo PB2016_0.csv de saida foi criado
+Arquivo PB2016_1.csv de saida foi criado
+Arquivo PB2016_2.csv de saida foi criado
+Arquivo PB2016_3.csv de saida foi criado
+Arquivo PB2016_4.csv de saida foi criado
+Arquivo de saida possui 831624 linhas de informacao
+FIM
+Arquivo MT2016.txt de entrada possui 1292109 linhas de informacao
+Arquivo MT2016_0.csv de saida foi criado
+Arquivo MT2016_1.csv de saida foi criado
+Arquivo MT2016_2.csv de saida foi criado
+Arquivo MT2016_3.csv de saida foi criado
+Arquivo MT2016_4.csv de saida foi criado
+Arquivo MT2016_5.csv de saida foi criado
+Arquivo MT2016_6.csv de saida foi criado
+Arquivo de saida possui 1292109 linhas de informacao
+FIM
+Arquivo CE2016.txt de entrada possui 2099011 linhas de informacao
+Arquivo CE2016_0.csv de saida foi criado
+Arquivo CE2016_1.csv de saida foi criado
+Arquivo CE2016_2.csv de saida foi criado
+Arquivo CE2016_3.csv de saida foi criado
+Arquivo CE2016_4.csv de saida foi criado
+Arquivo CE2016_5.csv de saida foi criado
+Arquivo CE2016_6.csv de saida foi criado
+Arquivo CE2016_7.csv de saida foi criado
+Arquivo CE2016_8.csv de saida foi criado
+Arquivo CE2016_9.csv de saida foi criado
+Arquivo CE2016_10.csv de saida foi criado
+Arquivo de saida possui 2099011 linhas de informacao
+FIM
+Arquivo PR2016.txt de entrada possui 4470469 linhas de informacao
+Arquivo PR2016_0.csv de saida foi criado
+Arquivo PR2016_1.csv de saida foi criado
+Arquivo PR2016_2.csv de saida foi criado
+Arquivo PR2016_3.csv de saida foi criado
+Arquivo PR2016_4.csv de saida foi criado
+Arquivo PR2016_5.csv de saida foi criado
+Arquivo PR2016_6.csv de saida foi criado
+Arquivo PR2016_7.csv de saida foi criado
+Arquivo PR2016_8.csv de saida foi criado
+Arquivo PR2016_9.csv de saida foi criado
+Arquivo PR2016_10.csv de saida foi criado
+Arquivo PR2016_11.csv de saida foi criado
+Arquivo PR2016_12.csv de saida foi criado
+Arquivo PR2016_13.csv de saida foi criado
+Arquivo PR2016_14.csv de saida foi criado
+Arquivo PR2016_15.csv de saida foi criado
+Arquivo PR2016_16.csv de saida foi criado
+Arquivo PR2016_17.csv de saida foi criado
+Arquivo PR2016_18.csv de saida foi criado
+Arquivo PR2016_19.csv de saida foi criado
+Arquivo PR2016_20.csv de saida foi criado
+Arquivo PR2016_21.csv de saida foi criado
+Arquivo PR2016_22.csv de saida foi criado
+Arquivo de saida possui 4470469 linhas de informacao
+FIM
+Arquivo MA2016.txt de entrada possui 945012 linhas de informacao
+Arquivo MA2016_0.csv de saida foi criado
+Arquivo MA2016_1.csv de saida foi criado
+Arquivo MA2016_2.csv de saida foi criado
+Arquivo MA2016_3.csv de saida foi criado
+Arquivo MA2016_4.csv de saida foi criado
+Arquivo de saida possui 945012 linhas de informacao
+FIM
+Arquivo AM2016.txt de entrada possui 810273 linhas de informacao
+Arquivo AM2016_0.csv de saida foi criado
+Arquivo AM2016_1.csv de saida foi criado
+Arquivo AM2016_2.csv de saida foi criado
+Arquivo AM2016_3.csv de saida foi criado
+Arquivo AM2016_4.csv de saida foi criado
+Arquivo de saida possui 810273 linhas de informacao
+FIM
+Arquivo SE2016.txt de entrada possui 523723 linhas de informacao
+Arquivo SE2016_0.csv de saida foi criado
+Arquivo SE2016_1.csv de saida foi criado
+Arquivo SE2016_2.csv de saida foi criado
+Arquivo de saida possui 523723 linhas de informacao
+FIM
+Arquivo RN2016.txt de entrada possui 815253 linhas de informacao
+Arquivo RN2016_0.csv de saida foi criado
+Arquivo RN2016_1.csv de saida foi criado
+Arquivo RN2016_2.csv de saida foi criado
+Arquivo RN2016_3.csv de saida foi criado
+Arquivo RN2016_4.csv de saida foi criado
+Arquivo de saida possui 815253 linhas de informacao
+FIM
+Arquivo RR2016.txt de entrada possui 128365 linhas de informacao
+Arquivo RR2016_0.csv de saida foi criado
+Arquivo de saida possui 128365 linhas de informacao
+FIM
+Arquivo DF2016.txt de entrada possui 1674349 linhas de informacao
+Arquivo DF2016_0.csv de saida foi criado
+Arquivo DF2016_1.csv de saida foi criado
+Arquivo DF2016_2.csv de saida foi criado
+Arquivo DF2016_3.csv de saida foi criado
+Arquivo DF2016_4.csv de saida foi criado
+Arquivo DF2016_5.csv de saida foi criado
+Arquivo DF2016_6.csv de saida foi criado
+Arquivo DF2016_7.csv de saida foi criado
+Arquivo DF2016_8.csv de saida foi criado
+Arquivo de saida possui 1674349 linhas de informacao
+FIM
+Arquivo GO2016.txt de entrada possui 2195530 linhas de informacao
+Arquivo GO2016_0.csv de saida foi criado
+Arquivo GO2016_1.csv de saida foi criado
+Arquivo GO2016_2.csv de saida foi criado
+Arquivo GO2016_3.csv de saida foi criado
+Arquivo GO2016_4.csv de saida foi criado
+Arquivo GO2016_5.csv de saida foi criado
+Arquivo GO2016_6.csv de saida foi criado
+Arquivo GO2016_7.csv de saida foi criado
+Arquivo GO2016_8.csv de saida foi criado
+Arquivo GO2016_9.csv de saida foi criado
+Arquivo GO2016_10.csv de saida foi criado
+Arquivo de saida possui 2195530 linhas de informacao
+FIM
+Arquivo PI2016.txt de entrada possui 586490 linhas de informacao
+Arquivo PI2016_0.csv de saida foi criado
+Arquivo PI2016_1.csv de saida foi criado
+Arquivo PI2016_2.csv de saida foi criado
+Arquivo de saida possui 586490 linhas de informacao
+FIM
+Arquivo SP2016.txt de entrada possui 19120517 linhas de informacao
+Arquivo SP2016_0.csv de saida foi criado
+Arquivo SP2016_1.csv de saida foi criado
+Arquivo SP2016_2.csv de saida foi criado
+Arquivo SP2016_3.csv de saida foi criado
+Arquivo SP2016_4.csv de saida foi criado
+Arquivo SP2016_5.csv de saida foi criado
+Arquivo SP2016_6.csv de saida foi criado
+Arquivo SP2016_7.csv de saida foi criado
+Arquivo SP2016_8.csv de saida foi criado
+Arquivo SP2016_9.csv de saida foi criado
+Arquivo SP2016_10.csv de saida foi criado
+Arquivo SP2016_11.csv de saida foi criado
+Arquivo SP2016_12.csv de saida foi criado
+Arquivo SP2016_13.csv de saida foi criado
+Arquivo SP2016_14.csv de saida foi criado
+Arquivo SP2016_15.csv de saida foi criado
+Arquivo SP2016_16.csv de saida foi criado
+Arquivo SP2016_17.csv de saida foi criado
+Arquivo SP2016_18.csv de saida foi criado
+Arquivo SP2016_19.csv de saida foi criado
+Arquivo SP2016_20.csv de saida foi criado
+Arquivo SP2016_21.csv de saida foi criado
+Arquivo SP2016_22.csv de saida foi criado
+Arquivo SP2016_23.csv de saida foi criado
+Arquivo SP2016_24.csv de saida foi criado
+Arquivo SP2016_25.csv de saida foi criado
+Arquivo SP2016_26.csv de saida foi criado
+Arquivo SP2016_27.csv de saida foi criado
+Arquivo SP2016_28.csv de saida foi criado
+Arquivo SP2016_29.csv de saida foi criado
+Arquivo SP2016_30.csv de saida foi criado
+Arquivo SP2016_31.csv de saida foi criado
+Arquivo SP2016_32.csv de saida foi criado
+Arquivo SP2016_33.csv de saida foi criado
+Arquivo SP2016_34.csv de saida foi criado
+Arquivo SP2016_35.csv de saida foi criado
+Arquivo SP2016_36.csv de saida foi criado
+Arquivo SP2016_37.csv de saida foi criado
+Arquivo SP2016_38.csv de saida foi criado
+Arquivo SP2016_39.csv de saida foi criado
+Arquivo SP2016_40.csv de saida foi criado
+Arquivo SP2016_41.csv de saida foi criado
+Arquivo SP2016_42.csv de saida foi criado
+Arquivo SP2016_43.csv de saida foi criado
+Arquivo SP2016_44.csv de saida foi criado
+Arquivo SP2016_45.csv de saida foi criado
+Arquivo SP2016_46.csv de saida foi criado
+Arquivo SP2016_47.csv de saida foi criado
+Arquivo SP2016_48.csv de saida foi criado
+Arquivo SP2016_49.csv de saida foi criado
+Arquivo SP2016_50.csv de saida foi criado
+Arquivo SP2016_51.csv de saida foi criado
+Arquivo SP2016_52.csv de saida foi criado
+Arquivo SP2016_53.csv de saida foi criado
+Arquivo SP2016_54.csv de saida foi criado
+Arquivo SP2016_55.csv de saida foi criado
+Arquivo SP2016_56.csv de saida foi criado
+Arquivo SP2016_57.csv de saida foi criado
+Arquivo SP2016_58.csv de saida foi criado
+Arquivo SP2016_59.csv de saida foi criado
+Arquivo SP2016_60.csv de saida foi criado
+Arquivo SP2016_61.csv de saida foi criado
+Arquivo SP2016_62.csv de saida foi criado
+Arquivo SP2016_63.csv de saida foi criado
+Arquivo SP2016_64.csv de saida foi criado
+Arquivo SP2016_65.csv de saida foi criado
+Arquivo SP2016_66.csv de saida foi criado
+Arquivo SP2016_67.csv de saida foi criado
+Arquivo SP2016_68.csv de saida foi criado
+Arquivo SP2016_69.csv de saida foi criado
+Arquivo SP2016_70.csv de saida foi criado
+Arquivo SP2016_71.csv de saida foi criado
+Arquivo SP2016_72.csv de saida foi criado
+Arquivo SP2016_73.csv de saida foi criado
+Arquivo SP2016_74.csv de saida foi criado
+Arquivo SP2016_75.csv de saida foi criado
+Arquivo SP2016_76.csv de saida foi criado
+Arquivo SP2016_77.csv de saida foi criado
+Arquivo SP2016_78.csv de saida foi criado
+Arquivo SP2016_79.csv de saida foi criado
+Arquivo SP2016_80.csv de saida foi criado
+Arquivo SP2016_81.csv de saida foi criado
+Arquivo SP2016_82.csv de saida foi criado
+Arquivo SP2016_83.csv de saida foi criado
+Arquivo SP2016_84.csv de saida foi criado
+Arquivo SP2016_85.csv de saida foi criado
+Arquivo SP2016_86.csv de saida foi criado
+Arquivo SP2016_87.csv de saida foi criado
+Arquivo SP2016_88.csv de saida foi criado
+Arquivo SP2016_89.csv de saida foi criado
+Arquivo SP2016_90.csv de saida foi criado
+Arquivo SP2016_91.csv de saida foi criado
+Arquivo SP2016_92.csv de saida foi criado
+Arquivo SP2016_93.csv de saida foi criado
+Arquivo SP2016_94.csv de saida foi criado
+Arquivo SP2016_95.csv de saida foi criado
+Arquivo de saida possui 19120517 linhas de informacao
+FIM
+Arquivo ES2016.txt de entrada possui 1322035 linhas de informacao
+Arquivo ES2016_0.csv de saida foi criado
+Arquivo ES2016_1.csv de saida foi criado
+Arquivo ES2016_2.csv de saida foi criado
+Arquivo ES2016_3.csv de saida foi criado
+Arquivo ES2016_4.csv de saida foi criado
+Arquivo ES2016_5.csv de saida foi criado
+Arquivo ES2016_6.csv de saida foi criado
+Arquivo de saida possui 1322035 linhas de informacao
+FIM
+Arquivo RS2016.txt de entrada possui 4233676 linhas de informacao
+Arquivo RS2016_0.csv de saida foi criado
+Arquivo RS2016_1.csv de saida foi criado
+Arquivo RS2016_2.csv de saida foi criado
+Arquivo RS2016_3.csv de saida foi criado
+Arquivo RS2016_4.csv de saida foi criado
+Arquivo RS2016_5.csv de saida foi criado
+Arquivo RS2016_6.csv de saida foi criado
+Arquivo RS2016_7.csv de saida foi criado
+Arquivo RS2016_8.csv de saida foi criado
+Arquivo RS2016_9.csv de saida foi criado
+Arquivo RS2016_10.csv de saida foi criado
+Arquivo RS2016_11.csv de saida foi criado
+Arquivo RS2016_12.csv de saida foi criado
+Arquivo RS2016_13.csv de saida foi criado
+Arquivo RS2016_14.csv de saida foi criado
+Arquivo RS2016_15.csv de saida foi criado
+Arquivo RS2016_16.csv de saida foi criado
+Arquivo RS2016_17.csv de saida foi criado
+Arquivo RS2016_18.csv de saida foi criado
+Arquivo RS2016_19.csv de saida foi criado
+Arquivo RS2016_20.csv de saida foi criado
+Arquivo RS2016_21.csv de saida foi criado
+Arquivo de saida possui 4233676 linhas de informacao
+FIM
+Arquivo MS2016.txt de entrada possui 997934 linhas de informacao
+Arquivo MS2016_0.csv de saida foi criado
+Arquivo MS2016_1.csv de saida foi criado
+Arquivo MS2016_2.csv de saida foi criado
+Arquivo MS2016_3.csv de saida foi criado
+Arquivo MS2016_4.csv de saida foi criado
+Arquivo de saida possui 997934 linhas de informacao
+FIM
+Arquivo PA2016.txt de entrada possui 1491880 linhas de informacao
+Arquivo PA2016_0.csv de saida foi criado
+Arquivo PA2016_1.csv de saida foi criado
+Arquivo PA2016_2.csv de saida foi criado
+Arquivo PA2016_3.csv de saida foi criado
+Arquivo PA2016_4.csv de saida foi criado
+Arquivo PA2016_5.csv de saida foi criado
+Arquivo PA2016_6.csv de saida foi criado
+Arquivo PA2016_7.csv de saida foi criado
+Arquivo de saida possui 1491880 linhas de informacao
+FIM
+Arquivo MG2016.txt de entrada possui 7025562 linhas de informacao
+Arquivo MG2016_0.csv de saida foi criado
+Arquivo MG2016_1.csv de saida foi criado
+Arquivo MG2016_2.csv de saida foi criado
+Arquivo MG2016_3.csv de saida foi criado
+Arquivo MG2016_4.csv de saida foi criado
+Arquivo MG2016_5.csv de saida foi criado
+Arquivo MG2016_6.csv de saida foi criado
+Arquivo MG2016_7.csv de saida foi criado
+Arquivo MG2016_8.csv de saida foi criado
+Arquivo MG2016_9.csv de saida foi criado
+Arquivo MG2016_10.csv de saida foi criado
+Arquivo MG2016_11.csv de saida foi criado
+Arquivo MG2016_12.csv de saida foi criado
+Arquivo MG2016_13.csv de saida foi criado
+Arquivo MG2016_14.csv de saida foi criado
+Arquivo MG2016_15.csv de saida foi criado
+Arquivo MG2016_16.csv de saida foi criado
+Arquivo MG2016_17.csv de saida foi criado
+Arquivo MG2016_18.csv de saida foi criado
+Arquivo MG2016_19.csv de saida foi criado
+Arquivo MG2016_20.csv de saida foi criado
+Arquivo MG2016_21.csv de saida foi criado
+Arquivo MG2016_22.csv de saida foi criado
+Arquivo MG2016_23.csv de saida foi criado
+Arquivo MG2016_24.csv de saida foi criado
+Arquivo MG2016_25.csv de saida foi criado
+Arquivo MG2016_26.csv de saida foi criado
+Arquivo MG2016_27.csv de saida foi criado
+Arquivo MG2016_28.csv de saida foi criado
+Arquivo MG2016_29.csv de saida foi criado
+Arquivo MG2016_30.csv de saida foi criado
+Arquivo MG2016_31.csv de saida foi criado
+Arquivo MG2016_32.csv de saida foi criado
+Arquivo MG2016_33.csv de saida foi criado
+Arquivo MG2016_34.csv de saida foi criado
+Arquivo MG2016_35.csv de saida foi criado
+Arquivo de saida possui 7025562 linhas de informacao
+FIM
