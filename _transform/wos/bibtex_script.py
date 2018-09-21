@@ -386,11 +386,20 @@ gerador.parse_bib()
 
 
 def wos_tranform():
+<<<<<<< HEAD
     wos_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
+=======
+    wos_xml = BibtoXML('/var/tmp/solr_front/collections/bibtex/')
+>>>>>>> 077744bf6bf73172dbd917afcb383cd698deed6e
     wos_xml.parse_bib()
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     diretorio = '/var/tmp/solr_front/collections/wos/download/'
     bib_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
+=======
+    diretorio = '/var/tmp/solr_front/collections/bibtex/'
+    bib_xml = BibtoXML('/var/tmp/solr_front/collections/bibtex/')
+>>>>>>> 077744bf6bf73172dbd917afcb383cd698deed6e
     bib_xml.parse_bib()

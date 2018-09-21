@@ -95,7 +95,10 @@ def executa(coll):
             param['content_type'], param['schema']
         )
         load.full_sequence()
+<<<<<<< HEAD
         # load.upload_schema()
+=======
+>>>>>>> 077744bf6bf73172dbd917afcb383cd698deed6e
     except (TypeError,KeyError):
         print 'collection invalida'
     except KeyboardInterrupt:
