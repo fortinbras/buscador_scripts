@@ -10,7 +10,7 @@
     <field name="Ano_facet" type="descendent_path"/>
     -->
     <field name="publisher_journal_volume_facet" type="descendent_path"/>
-    <field name="Year-Month_facet" type="descendent_path"/>
+    <field name="Year_Month_facet" type="descendent_path"/>
     <field name="times_cited_facet" type="descendent_path"/>
 
     <field name="abstract" type="text"/>
@@ -25,8 +25,8 @@
     <field name="affiliation" type="strings" multiValued="true"/>
     <copyField source="affiliation" dest="affiliation_busca"/>
 
-    <field name="web-of-science-categories" type="strings"/>
-    <copyField source="web-of-science-categories" dest="web-of-science-categories_busca"/>
+    <field name="web_of_science_categories" type="strings"/>
+    <copyField source="web_of_science_categories" dest="web-of-science-categories_busca"/>
 
     <field name="abstract_nuvem_palavras" type="text_gen_stopword" multiValued="true" indexed="true" stored="true"/>
     <copyField source="abstract" dest="abstract_nuvem_palavras"/>
@@ -194,12 +194,12 @@
     <fieldType name="text_gen_stopword" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt"/>
             <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt"/>
             <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
     </fieldType>

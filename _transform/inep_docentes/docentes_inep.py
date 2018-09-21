@@ -25,7 +25,7 @@ class inepVincDocentes():
 
     def pega_arquivo_por_ano(self, ano):
         """ Para cada ano solicitado, retorna dict com o csv de docentes e csv de ies. """
-        var = '/var/tmp/inep/' + str(ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/inep/' + str(ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -149,7 +149,7 @@ class inepVincDocentes():
 
     def gera_csv(self):
         df = self.resolve_dicionarios()
-        destino_transform = '/var/tmp/inep/' + str(self.ano) + '/transform/docentes'
+        destino_transform = '/var/tmp/solr_front/collections/inep/' + str(self.ano) + '/transform/docentes'
         csv_file = '/docentes_vinculo_ies_' + str(self.ano) + '.csv'
         log_file = '/docentes_vinculo_ies_' + str(self.ano) + '.log'
         try:
@@ -174,7 +174,7 @@ class inepVincDocentes():
 
 
 def inep_docentes_tranform():
-    PATH_ORIGEM = '/var/tmp/inep/'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/inep/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()
@@ -196,7 +196,7 @@ def inep_docentes_tranform():
 
 # if __name__ == "__main__":
 #
-#     PATH_ORIGEM = '/var/tmp/inep/'
+#     PATH_ORIGEM = '/var/tmp/solr_front/collections/inep/'
 #     try:
 #         anos = os.listdir(PATH_ORIGEM)
 #         anos.sort()

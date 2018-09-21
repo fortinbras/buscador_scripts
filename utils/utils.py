@@ -9,7 +9,7 @@ def gYear(year):
     digit = str(ano)[-1]
     inicial = ano - int(digit)
     fim = inicial + 9
-    return "{}-{}".format(inicial, fim)
+    return "{}-{}|{}".format(inicial, fim, year)
 
 
 def find_regiao(cod):
@@ -126,3 +126,40 @@ def facet_idade(idade):
     fim_dec = inicial_dec + 9
 
     return "{}-{}|{}".format(inicial_dec, fim_dec, idade)
+
+
+dicionario = {
+    'cross': [12345],
+    'filtros': {
+        'termos': ['aaaa', 'bbbb'],
+        'sexo': ['m']
+    },
+    'wc': {
+        'termos': ['ccc', 'ddd'],
+        'wordss': ['eeeee'],
+        'sexo':['MMM']
+    }
+}
+
+
+def create_one_dict(dic):
+    dict_f = {}
+    for k, v in dic.iteritems():
+        if type(v) == dict:
+            dict_x = create_one_dict(v)
+            for xkey, xv in dict_x.iteritems():
+                if xkey in dict_f.keys():
+                    for i in xv:
+                        dict_f[xkey].append(i)
+                else:
+                    dict_f[xkey] = xv
+        elif type(v) == list:
+            if k in dict_f.keys():
+                if len(dict_f[k]) > 0:
+                    for i in dic[k]:
+                        dict_f[k].append(i)
+            else:
+                dict_f[k] = v
+    return dict_f
+
+print create_one_dict(dicionario)

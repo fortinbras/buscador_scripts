@@ -6,6 +6,7 @@ from _download.enade_download import executa_download_enade
 from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
+from _download.rais import executa_rais
 
 def executa(coll):
 
@@ -22,6 +23,9 @@ def executa(coll):
 
     elif coll == 'enem':
         executa_download_enem()
+
+    elif coll == 'rais':
+        executa_rais()
 
     else:
         print('digite enade ou inep como parametro')

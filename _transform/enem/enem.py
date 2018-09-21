@@ -50,7 +50,7 @@ class Enem(object):
     def pega_arquivo_ano(self, ano):
         file_list = ['MICRODADOS_ENEM_2015.csv', 'microdados_enem_2016.csv', 'MICRODADOS_ENEM_2017.csv']
 
-        var = '/var/tmp/enem/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/enem/' + str(self.ano) + '/download/'
         exclude_prefixes = ('__', '.')
         for root, dirs, files in os.walk(var, topdown=True):
             dirs[:] = [dirname for dirname in dirs if not dirname.startswith(exclude_prefixes)]
@@ -156,7 +156,7 @@ class Enem(object):
         return 'FIM'
 
     def gera_csv(self, df, control, mode, ):
-        destino_transform = '/var/tmp/enem/' + str(self.ano) + '/transform/'
+        destino_transform = '/var/tmp/solr_front/collections/enem/' + str(self.ano) + '/transform/'
 
         try:
             os.makedirs(destino_transform)
@@ -178,7 +178,7 @@ class Enem(object):
 
 
 def enem_transform():
-    PATH_ORIGEM = '/var/tmp/enem/'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/enem/'
     try:
         anos = [f for f in os.listdir(PATH_ORIGEM) if not f.startswith('.')]
         anos.sort()

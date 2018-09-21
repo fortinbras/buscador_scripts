@@ -271,7 +271,7 @@ def outbound_service(qid, **kwargs_f_t):
     Antes era necessario gerar um arquivo e fazer o download. Agora jah vem no r.content.
 
     """
-    diretorio = '/var/tmp/bibtex/'
+    diretorio = '/var/tmp/wos/download'
     if not os.path.exists(diretorio):
         os.makedirs(diretorio)
     output = 'output_' + kwargs_f_t['idx'] + '.bib'

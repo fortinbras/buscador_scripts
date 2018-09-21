@@ -254,7 +254,7 @@ class Enade(object):
 
     def pega_arquivo_ano(self):
 
-        var = '/var/tmp/enade/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/enade/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -460,7 +460,7 @@ class Enade(object):
             df_enade = self.dicionario_2013()
         else:
             pass
-        destino_transform = '/var/tmp/enade/' + str(self.ano) + '/transform'
+        destino_transform = '/var/tmp/solr_front/collections/enade/' + str(self.ano) + '/transform'
         csv_file = '/enade_' + str(self.ano) + '.csv'
         log_file = '/enade_' + str(self.ano) + '.log'
         try:
@@ -486,7 +486,7 @@ class Enade(object):
 
 
 def enade_tranform():
-    PATH_ORIGEM = '/var/tmp/enade/'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/enade/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()
@@ -507,7 +507,7 @@ def enade_tranform():
         print('\n')
 
 # if __name__ == '__main__':
-#     PATH_ORIGEM = '/var/tmp/enade/'
+#     PATH_ORIGEM = '/var/tmp/solr_front/collections/enade/'
 #     try:
 #         anos = os.listdir(PATH_ORIGEM)
 #         anos.sort()

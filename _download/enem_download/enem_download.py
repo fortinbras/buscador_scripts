@@ -27,7 +27,7 @@ all_links = {
 
 
 def download_enem(ano):
-    dir_destino = '/var/tmp/enem/' + str(ano) + '/download/'
+    dir_destino = '/var/tmp/solr_front/collections/enem/' + str(ano) + '/download/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'

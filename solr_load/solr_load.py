@@ -40,7 +40,7 @@ class SolrLoad(object):
                 var = self.collectiondir + '/' + ano + '/' + self.transformdir
                 for root, dirs, files in os.walk(var):
                     for f in files:
-                        if f.endswith(self.filetype):
+                        if f.endswith(self.filetype) and f.startswith('SP'):
                             self.fileslist.append(os.path.join(root, f))
             print '%s arquivos encontrado' % len(self.fileslist)
             return self.fileslist
@@ -61,6 +61,7 @@ class SolrLoad(object):
                     data=my_data, headers={"Content-Type": self.content_type}
                 )
                 print req.status_code
+                sleep(0.5)
                 # print req.headers['status']
 
             except requests.ConnectionError as errc:
@@ -137,6 +138,7 @@ class SolrLoad(object):
         print('Collection upload')
         self.files_load()
 
+
         print('\n')
         print('Carga finalizada')
 
@@ -147,5 +149,9 @@ class SolrLoad(object):
 # checar responses
 
 # /opt/solr-6.6.2/bin/solr zk -upconfig -n enade  -z localhost:9983 -d <dir onde se encontra o managed-schema>
+# /opt/solr-6.6.2/bin/solr zk -upconfig -n wos  -z localhost:9983 -d /home/gro/solr_conf/wos
+# /opt/solr-6.6.2/bin/solr zk -upconfig -n bv_memoria  -z localhost:9983 -d /home/gro/solr_conf/bv_memoria
 
 # http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name=enade&wt=jso
+
+# /opt/solr-6.6.2/bin/solr zk downconfig -z localhost:9983 -n bv_memoria -d /home/gro/solr_conf/bv_memoria/

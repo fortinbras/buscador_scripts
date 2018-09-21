@@ -30,7 +30,7 @@ gerador.parse_bib()
 
     limit_docs_in_file = 5000
     file_finish = 0
-    path_save_xml = '/var/tmp/wos/transform/'
+    path_save_xml = '/var/tmp/solr_front/collections/wos/transform/'
     tree = []
     xml_filename = 'output'
 
@@ -109,13 +109,13 @@ gerador.parse_bib()
                                 "\}", "]").replace("\{", "[").replace("\%", "%").replace("\\", '')
                             st = st.replace('Early Access Date', 'month').replace('Early Access Year',
                                                                                   'year')  # .replace('\n', ' ')
-                            # parser.ignore_nonstandard_types = False
-                            # parser.customization = convert_to_unicode
-                            # parser.homogenize_fields = True
+                            parser.ignore_nonstandard_types = False
+                            parser.customization = convert_to_unicode
+                            parser.homogenize_fields = True
                             bib_database = bibtexparser.loads(st, parser=parser)
                         except:
                             self.error.append(file)
-                            continue
+                            raise
 
                     content_entries = len(bib_database.entries)
                     self.total_entries += content_entries
@@ -130,7 +130,7 @@ gerador.parse_bib()
                         doc.append(id)
 
                         try:
-                            unique_id = ('unique-id', (self.remove_chaves(item['unique-id'])).strip())
+                            unique_id = ('unique_id', (self.remove_chaves(item['unique-id'])).strip())
                             doc.append(unique_id)
 
                             # print(unique_id)
@@ -193,10 +193,10 @@ gerador.parse_bib()
 
                             month = item['month'][0:4]
                             year_month = (
-                                'Year-Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
+                                'Year_Month_facet', '{}|{}|{}'.format(group.strip(), year.strip(), month.strip()))
                             doc.append(year_month)
                         except KeyError:
-                            year_month = ('Year-Month_facet', '{}|{}|'.format(group.strip(), year.strip()))
+                            year_month = ('Year_Month_facet', '{}|{}|'.format(group.strip(), year.strip()))
                             doc.append(year_month)
                         # print(year_month)
 
@@ -286,14 +286,14 @@ gerador.parse_bib()
                             keywords_plus = re.split(padrao, (item['keywords-plus']).strip())
                             for k in keywords_plus:
                                 if k:
-                                    doc.append(('keyword-plus', k.strip()))
+                                    doc.append(('keyword_plus', k.strip()))
                         except KeyError:
                             pass
 
                         try:
 
                             research_area = (
-                                'research-areas', ((item['research-areas']).replace('; ', '|')).strip())
+                                'research_areas', ((item['research-areas']).replace('; ', '|')).strip())
                             doc.append(research_area)
                             # print(research_area)
                         except KeyError:
@@ -301,7 +301,7 @@ gerador.parse_bib()
 
                         try:
                             web_of_science_categories = (
-                                'web-of-science-categories',
+                                'web_of_science_categories',
                                 ((item['web-of-science-categories']).replace('; ', '|')).strip())
                             doc.append(web_of_science_categories)
 
@@ -311,7 +311,7 @@ gerador.parse_bib()
 
                         try:
                             funding_acknowledgement = (
-                                'funding-acknowledgement', (item['funding-acknowledgement']).strip())
+                                'funding_acknowledgement', (item['funding-acknowledgement']).strip())
                             # print(funding_acknowledgement)
                             doc.append(funding_acknowledgement)
                         except KeyError:
@@ -319,7 +319,7 @@ gerador.parse_bib()
 
                         try:
                             nro_cited_ref = (
-                                'number-of-cited-references', (item['number-of-cited-references']).strip())
+                                'number_of_cited_references', (item['number-of-cited-references']).strip())
                             doc.append(nro_cited_ref)
 
                             # print(nro_cited_ref)
@@ -328,7 +328,7 @@ gerador.parse_bib()
 
                         try:
                             tc = (item['times-cited']).strip()
-                            times_cited = ('times-cited', tc)
+                            times_cited = ('times_cited', tc)
                             doc.append(times_cited)
 
                             # print(times_cited)
@@ -343,7 +343,7 @@ gerador.parse_bib()
 
 
                         try:
-                            journal_iso = ('journal-iso', (item['journal-iso']).strip())
+                            journal_iso = ('journal_iso', (item['journal-iso']).strip())
                             doc.append(journal_iso)
 
                             # print(journal_iso)
@@ -363,7 +363,7 @@ gerador.parse_bib()
         self.logger()
 
     def logger(self):
-        directory = '/var/tmp/wos/transform/'
+        directory = '/var/tmp/solr_front/collections/wos/transform/'
         log_file = self.log_file
         logging = directory + log_file
         with open(logging, 'a') as log:
@@ -386,11 +386,11 @@ gerador.parse_bib()
 
 
 def wos_tranform():
-    wos_xml = BibtoXML('/var/tmp/bibtex/')
+    wos_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
     wos_xml.parse_bib()
 
 
 if __name__ == '__main__':
-    diretorio = '/var/tmp/bibtex/'
-    bib_xml = BibtoXML('/var/tmp/bibtex/')
+    diretorio = '/var/tmp/solr_front/collections/wos/download/'
+    bib_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
     bib_xml.parse_bib()

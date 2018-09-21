@@ -12,7 +12,7 @@
         fontSize = null,
         svg = null,
         vis = null,
-        onwordclick = undefined;
+        onwordclick = true;
 
     wordcloud.element = function(x) {
       if (!arguments.length) return element;
