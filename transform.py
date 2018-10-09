@@ -42,6 +42,9 @@ def executa(coll):
 
     elif coll == 'rais':
         rais_transform()
+        
+    elif coll == 'capes':
+        capes_transform()
 
     else:
         print('digite collection como parametro')

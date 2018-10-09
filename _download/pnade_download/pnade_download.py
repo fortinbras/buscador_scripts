@@ -8,7 +8,7 @@ import errno, io
 import zipfile
 
 """
-Este script faz o downloa dos arquivos do Pnade e descompacta-os na pasta dos respectivos anos.
+Este script faz o download dos arquivos do Pnade e descompacta-os na pasta dos respectivos anos.
 Deve-se escolher o ano de inicio e o ano final dos arquivos a serem baixados.
 Antes de 2010, a nomenclatura e formato dos arquivos nao batem.
 """

@@ -11,13 +11,13 @@ import pandas as pd
 import codecs
 import csv
 import commands
-import datetime
+from datetime import datetime
 
 
 class Enade(object):
 
     def __init__(self, year):
-        self.date = datetime.datetime.now()
+        self.date = datetime.now()
         self.ano = year
         self.input_lenght = 0
         self.output_length = 0
@@ -260,7 +260,7 @@ class Enade(object):
             for file in files:
                 if file.endswith(".txt"):
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l')[1]
+                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
                     df_enade = df_enade.loc[:, self.colunas]
