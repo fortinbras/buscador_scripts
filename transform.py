@@ -11,6 +11,7 @@ from _transform.wos import wos_tranform
 from _transform.pnade import pnade_tranform
 from _transform.enem import enem_transform
 from _transform.rais import rais_transform
+from _transform.capes import capes_transform
 
 
 def executa(coll):
@@ -42,7 +43,7 @@ def executa(coll):
 
     elif coll == 'rais':
         rais_transform()
-        
+
     elif coll == 'capes':
         capes_transform()
 
