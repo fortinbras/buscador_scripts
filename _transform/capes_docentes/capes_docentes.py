@@ -63,7 +63,7 @@ class Capes(object):
 
     def pega_arquivo_ano(self):
 
-        var = '/var/tmp/solr_front/collections/capes/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/capes/capes_discentes' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -87,7 +87,7 @@ class Capes(object):
 
         df_capes = self.resolver_dicionario()
 
-        destino_transform = '/var/tmp/solr_front/collections/capes/' + str(self.ano) + '/transform'
+        destino_transform = '/var/tmp/solr_front/collections/capes/capes_discentes' + str(self.ano) + '/transform'
         csv_file = '/capes_' + str(self.ano) + '.csv'
         log_file = '/capes_' + str(self.ano) + '.log'
         try:
@@ -111,7 +111,7 @@ class Capes(object):
                                                                                       destino_transform + log_file))
 
 
-def capes_transform():
+def capes_transform_discentes():
     PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/'
 
     try:

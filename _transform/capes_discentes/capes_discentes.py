@@ -1,0 +1,160 @@
+# coding=utf-8
+import errno
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, '../../../buscador_scripts/')
+
+from utils import *
+import pandas as pd
+import codecs
+import csv
+import commands
+from datetime import datetime
+
+
+class CapesDiscentes(object):
+
+    #def __init__(self, year):
+    def __init__(self, nome_arquivo):
+
+        self.date = datetime.now()
+        #self.ano = year
+        self.nome_arquivo
+        self.input_lenght = 0
+        self.output_length = 0
+        self.colunas = [
+            'AN_BASE',
+            'NM_GRANDE_AREA_CONHECIMENTO',
+            'CD_AREA_AVALIACAO',
+            'NM_AREA_AVALIACAO',
+            'SG_ENTIDADE_ENSINO',
+            'NM_ENTIDADE_ENSINO',
+            'CS_STATUS_JURIDO',
+            'DS_DEPENDENCIA_ADMINISTRATIVA',
+            'NM_MODALIDADE_PROGRAMA',
+            'NM_GRAU_PROGRAMA',
+            'CD_PROGRAMA_IES',
+            'NM_PROGRAMA_IES',
+            'NM_REGIAO',
+            'SG_UF_PROGRAMA',
+            'NM_MUNICIPIO_PROGRAMA_IES',
+            'CD_CONCEITO_PROGRAMA',
+            'CD_CONCEITO_CURSO',
+            'ID_PESSOA',
+            'NM_DISCENTE',
+            'NM_PAIS_NASCIONALIDADE_DISCENTE',
+            'DS_TIPO_NACIONALIDADE_DISCENTE',
+            'TP_SEXO_DISCENTE',
+            'DS_FAIXA_ETARIA',
+            'DS_GRAU_ACADEMICO_DISCENTE',
+            'ST_INGRESSANTE',
+            'NM_SITUACAO_DISCENTE',
+            'DT_MATRICULA_DISCENTE',
+            'DT_SITUACAO_DISCENTE',
+            'QT_MES_TITULACAO',
+            'NM_TESE_DISSERTACAO',
+            'NM_ORIENTADOR',
+            'ID_ADD_FOTO_PROGRAMA',
+            'ID_ADD_FOTO_PROGRAMA_IES',
+            'NR_DOCUMENTO_DISCENTE',
+            'TP_DOCUMENTO_DISCENTE',
+
+        ]
+
+
+    #def pega_arquivo_ano(self):
+    def pega_arquivo_nome(self):
+
+
+        #var = '/var/tmp/solr_front/collections/capes/discentes' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/capes/discentes/download/' + str(self.nome_arquivo)
+
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                if file.endswith(".csv"):
+                    arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
+                    print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
+                    df_capes = pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252')
+                    #df_capes.append(df_capes)
+                    #df_capes = df_capes.loc[:, self.colunas]
+
+
+        return df_capes
+
+    def resolver_dicionario(self):
+        df_capes = self.pega_arquivo_nome()
+
+        return df_capes
+
+
+    def gera_csv(self):
+
+        df_capes = self.resolver_dicionario()
+
+        #destino_transform = '/var/tmp/solr_front/collections/capes/discentes' + str(self.ano) + '/transform'
+        destino_transform = '/var/tmp/solr_front/collections/capes/discentes/transform' + str(self.nome_arquivo)
+
+        #csv_file = '/capes/discentes_' + str(self.ano) + '.csv'
+        csv_file = '/capes/discentes_' + str(self.nome_arquivo) + '.csv'
+        #log_file = '/capes/discentes_' + str(self.ano) + '.log'
+        log_file = '/capes/discentes_' + str(self.nome_arquivo) + '.log'
+        try:
+            os.makedirs(destino_transform)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+
+        df_capes.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
+                        line_terminator='\n', quoting=csv.QUOTE_ALL)
+        self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
+        print 'Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1)
+
+        with open(destino_transform + log_file, 'w') as log:
+            log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
+            log.write("\n")
+            log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
+            log.write("\n")
+            log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1))
+        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(str(self.ano),
+                                                                                      destino_transform + log_file))
+
+
+def capes_discentes_transform():
+    #PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/discentes'
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/discentes/download'
+
+
+    try:
+        #anos = os.listdir(PATH_ORIGEM)
+        arquivos = os.listdir(PATH_ORIGEM)
+        arquivos.sort()
+        arquivo_inical = arquivos[0].split('_')
+        tamanho_arquivo = len(arquivos) - 1
+        arquivo_final = arquivos[tamanho_arquivo]
+        print('Quantos arquivos tem: ', len(arquivos))
+        print(arquivos[0])
+        print
+
+        print(arquivo_final)
+        print
+        #anos.sort()
+    except OSError:
+        #print('Nenhuma pasta encontrada')
+        print('Nenhum arquivo encontrado')
+        raise
+    for arquivo in arquivos:
+        print(arquivo)
+    exit()
+        #try:
+            #capes_doc = CapesDiscentes(ano)
+            #capes_doc.gera_csv()
+            #print('Arquivo do ano, {} finalizado'.format(ano))
+
+        #except:
+            #print 'Arquivo do ano, {} não encontrado'.format(ano)
+            #raise
+        #print('Fim!!')
+        #print('\n')
