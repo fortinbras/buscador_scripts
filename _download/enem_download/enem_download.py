@@ -20,8 +20,8 @@ all_links = {
     # '2012': 'http://download.inep.gov.br/microdados/microdados_enem2012.zip',
     # '2013': 'http://download.inep.gov.br/microdados/microdados_enem2013.zip',
     #'2014': 'http://download.inep.gov.br/microdados/microdados_enem2014.zip',
-    '2015': 'http://download.inep.gov.br/microdados/microdados_enem2015.zip',
-    '2016': 'http://download.inep.gov.br/microdados/microdados_enem2016.zip',
+    # '2015': 'http://download.inep.gov.br/microdados/microdados_enem2015.zip',
+    # '2016': 'http://download.inep.gov.br/microdados/microdados_enem2016.zip',
     '2017': 'http://download.inep.gov.br/microdados/microdados_enem2017.zip',
 }
 
