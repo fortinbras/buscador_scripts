@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 import errno
 import os
 import sys
@@ -14,11 +14,13 @@ import commands
 from datetime import datetime
 
 
-class Capes(object):
+class CapesDocentes(object):
 
-    def __init__(self, year):
+    def __init__(self, arquivos, nome_arquivo):
+
         self.date = datetime.now()
-        self.ano = year
+        self.arquivos = arquivos
+        self.nome_arquivo = nome_arquivo
         self.input_lenght = 0
         self.output_length = 0
         self.colunas = [
@@ -61,35 +63,31 @@ class Capes(object):
         ]
 
 
-    def pega_arquivo_ano(self):
+    def pega_arquivo_nome(self):
 
-        var = '/var/tmp/solr_front/collections/capes/capes_discentes' + str(self.ano) + '/download/'
-
+        var = '/var/tmp/solr_front/collections/capes/docentes/download/'
+        df_auxiliar = []
         for root, dirs, files in os.walk(var):
             for file in files:
-                if file.endswith(".csv"):
+                if file in self.arquivos:
+
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
+                    self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
-                    df_capes = pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252')
-                    #df_capes = df_capes.loc[:, self.colunas]
+                    df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
 
-
-        return df_capes
-
-    def resolver_dicionario(self):
-        df_capes = self.pega_arquivo_ano()
-
-        return df_capes
-
+        #import pdb;pdb.set_trace()  #para testar o código
+        df_concat = pd.concat(df_auxiliar)
+        return df_concat
 
     def gera_csv(self):
 
-        df_capes = self.resolver_dicionario()
+        df_capes = self.pega_arquivo_nome()
 
-        destino_transform = '/var/tmp/solr_front/collections/capes/capes_discentes' + str(self.ano) + '/transform'
-        csv_file = '/capes_' + str(self.ano) + '.csv'
-        log_file = '/capes_' + str(self.ano) + '.log'
+        destino_transform = '/var/tmp/solr_front/collections/capes/docentes/transform'
+        csv_file = '/capes_' + self.nome_arquivo + '.csv'
+        log_file = '/capes_' + self.nome_arquivo + '.log'
+
         try:
             os.makedirs(destino_transform)
         except OSError as e:
@@ -107,28 +105,20 @@ class Capes(object):
             log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
             log.write("\n")
             log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1))
-        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(str(self.ano),
-                                                                                      destino_transform + log_file))
+        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(self.nome_arquivo, (destino_transform + log_file)))
 
+def capes_docentes_transform():
 
-def capes_transform_discentes():
-    PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/'
-
+    PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/docentes/download'
     try:
-        anos = os.listdir(PATH_ORIGEM)
-        anos.sort()
-    except OSError:
-        print('Nenhuma pasta encontrada')
-        raise
-    for ano in anos:
-        print(ano)
-        try:
-            capes_doc = Capes(ano)
-            capes_doc.gera_csv()
-            print('Arquivo do ano, {} finalizado'.format(ano))
+        arquivos = os.listdir(PATH_ORIGEM)
+        arquivos.sort()
+        arquivo_inicial = arquivos[0]
+        nome_arquivo = arquivo_inicial.split('_')[0]
+        capes_doc = CapesDocentes(arquivos, nome_arquivo)
+        capes_doc.gera_csv()
+        print('Arquivo {} finalizado!'.format(nome_arquivo))
 
-        except:
-            print 'Arquivo do ano, {} não encontrado'.format(ano)
-            raise
-        print('Fim!!')
-        print('\n')
+    except OSError:
+        print('Nenhum arquivo encontrado')
+        raise

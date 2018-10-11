@@ -12,7 +12,7 @@ from _transform.pnade import pnade_tranform
 from _transform.enem import enem_transform
 from _transform.rais import rais_transform
 from _transform.capes_discentes import capes_discentes_transform
-#from _transform.capes_docentes import capes_docentes_transform
+from _transform.capes_docentes import capes_docentes_transform
 
 
 
