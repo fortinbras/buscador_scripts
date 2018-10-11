@@ -22,7 +22,7 @@ class SolrLoad(object):
         self.schemadir = schemadir
 
     def list_output_files(self):
-        if self.collection == 'wos' or self.collection == 'lattes':
+        if self.collection == 'wos' or self.collection == 'lattes' or self.collection == 'capes_discentes':
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
                     if (f.endswith(self.filetype)) and ('transform' in root):
@@ -94,7 +94,7 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def reload_collection(self):
-        url = 'http://192.168.0.212/solr/admin/collections?action=RELOAD&name='+self.collection
+        url = 'http://192.168.0.212/solr/admin/collections?action=RELOAD&name=' + self.collection
         # url = 'http://192.168.0.212/solr/' + \
         #       self.collection + \
         #       '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
@@ -113,7 +113,7 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def upload_schema(self):
-        command = '/opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z localhost:9983 -d ' + \
+        command = '/opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z 192.168.0.35:2181 -d ' + \
                   self.schemadir
         os.system(command)
 
@@ -138,7 +138,6 @@ class SolrLoad(object):
         print('Collection upload')
         self.files_load()
 
-
         print('\n')
         print('Carga finalizada')
 
@@ -154,4 +153,7 @@ class SolrLoad(object):
 
 # http://192.168.0.212/solr/admin/collectionsaction=RELOAD&name=enade&wt=jso
 
-# /opt/solr-6.6.2/bin/solr zk downconfig -z localhost:9983 -n bv_memoria -d /home/gro/solr_conf/bv_memoria/
+# /opt/solr-6.6.2/bin/solr zk downconfig -z localhost:9983 -n capes_discentes -d /home/gro/solr_conf/capes_discentes/
+
+# /opt/solr-6.6.2/bin/solr zk -n capes_docentes -upconfig -z 192.168.0.35:2181 -d  ./
+# /opt/solr-6.6.2/bin/solr zk -n capes_discentes downconfig -z 192.168.0.35:2181 -d /home/gro/solr_conf/capes_discentes/

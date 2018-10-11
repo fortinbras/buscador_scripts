@@ -69,6 +69,16 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/rais/conf'},
 
+
+    'capes_discentes': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/solr_front/collections/capes/discentes',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'capes_discentes',
+        'content_type': 'text/csv',
+        'schema': '_transform/capes_discentes/conf'},
+
     'lattes': {
         'filetype': '.xml',
         'collectiondir': '/var/tmp/solr_front/collections/lattes',
