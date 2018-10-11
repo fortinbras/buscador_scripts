@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
@@ -11,7 +12,6 @@ from _download.rais import executa_rais
 
 
 def executa(coll, ano):
-
 
     if coll == 'inep':
         executa_inep_download()

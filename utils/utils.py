@@ -1,6 +1,5 @@
 # coding=utf-8
 
-
 import os
 
 
@@ -28,14 +27,14 @@ def find_zip():
     import requests
     from bs4 import BeautifulSoup
 
-    url = 'http://web.fflch.usp.br/centrodametropole/1148'
+    url = 'http://portal.inep.gov.br/microdados'
 
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
 
     all_hrefs = soup.find_all('a')
     all_links = [link.get('href') for link in all_hrefs]
-    zip_files = [dl for dl in all_links if dl and '.7z' in dl]
+    zip_files = [dl for dl in all_links if dl and '.zip' in dl]
     for l in zip_files:
         print(l)
 
@@ -137,7 +136,7 @@ dicionario = {
     'wc': {
         'termos': ['ccc', 'ddd'],
         'wordss': ['eeeee'],
-        'sexo':['MMM']
+        'sexo': ['MMM']
     }
 }
 
@@ -156,10 +155,11 @@ def create_one_dict(dic):
         elif type(v) == list:
             if k in dict_f.keys():
                 if len(dict_f[k]) > 0:
-                    for i in dic[k]:
+                   for i in dic[k]:
                         dict_f[k].append(i)
             else:
                 dict_f[k] = v
+
     return dict_f
 
 #print create_one_dict(dicionario)
@@ -183,3 +183,5 @@ def download_um_ou_todos_anos(ano_ref, funcao_download, all_links):
                 print('digite ano que deseja como parametro entre (2009~2016)')
             except KeyError:
                 print('Ano invalido digite ano entre (2009~2016)')
+
+    return dict_f
