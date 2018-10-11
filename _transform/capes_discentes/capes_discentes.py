@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 import errno
 import os
 import sys
@@ -16,12 +16,11 @@ from datetime import datetime
 
 class CapesDiscentes(object):
 
-    #def __init__(self, year):
-    def __init__(self, nome_arquivo):
+    def __init__(self, arquivos, nome_arquivo):
 
         self.date = datetime.now()
-        #self.ano = year
-        self.nome_arquivo
+        self.arquivos = arquivos
+        self.nome_arquivo = nome_arquivo
         self.input_lenght = 0
         self.output_length = 0
         self.colunas = [
@@ -64,43 +63,31 @@ class CapesDiscentes(object):
         ]
 
 
-    #def pega_arquivo_ano(self):
     def pega_arquivo_nome(self):
 
-
-        #var = '/var/tmp/solr_front/collections/capes/discentes' + str(self.ano) + '/download/'
-        var = '/var/tmp/solr_front/collections/capes/discentes/download/' + str(self.nome_arquivo)
-
+        var = '/var/tmp/solr_front/collections/capes/discentes/download/'
+        df_auxiliar = []
         for root, dirs, files in os.walk(var):
             for file in files:
-                if file.endswith(".csv"):
+                if file in self.arquivos:
+
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                    self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
+                    self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
-                    df_capes = pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252')
-                    #df_capes.append(df_capes)
-                    #df_capes = df_capes.loc[:, self.colunas]
+                    df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
 
-
-        return df_capes
-
-    def resolver_dicionario(self):
-        df_capes = self.pega_arquivo_nome()
-
-        return df_capes
-
+        #import pdb;pdb.set_trace()  #para testar o código
+        df_concat = pd.concat(df_auxiliar)
+        return df_concat
 
     def gera_csv(self):
 
-        df_capes = self.resolver_dicionario()
+        df_capes = self.pega_arquivo_nome()
 
-        #destino_transform = '/var/tmp/solr_front/collections/capes/discentes' + str(self.ano) + '/transform'
-        destino_transform = '/var/tmp/solr_front/collections/capes/discentes/transform' + str(self.nome_arquivo)
+        destino_transform = '/var/tmp/solr_front/collections/capes/discentes/transform'
+        csv_file = '/capes_' + self.nome_arquivo + '.csv'
+        log_file = '/capes_' + self.nome_arquivo + '.log'
 
-        #csv_file = '/capes/discentes_' + str(self.ano) + '.csv'
-        csv_file = '/capes/discentes_' + str(self.nome_arquivo) + '.csv'
-        #log_file = '/capes/discentes_' + str(self.ano) + '.log'
-        log_file = '/capes/discentes_' + str(self.nome_arquivo) + '.log'
         try:
             os.makedirs(destino_transform)
         except OSError as e:
@@ -118,43 +105,20 @@ class CapesDiscentes(object):
             log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
             log.write("\n")
             log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1))
-        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(str(self.ano),
-                                                                                      destino_transform + log_file))
-
+        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(self.nome_arquivo, (destino_transform + log_file)))
 
 def capes_discentes_transform():
-    #PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/discentes'
+
     PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/discentes/download'
-
-
     try:
-        #anos = os.listdir(PATH_ORIGEM)
         arquivos = os.listdir(PATH_ORIGEM)
         arquivos.sort()
-        arquivo_inical = arquivos[0].split('_')
-        tamanho_arquivo = len(arquivos) - 1
-        arquivo_final = arquivos[tamanho_arquivo]
-        print('Quantos arquivos tem: ', len(arquivos))
-        print(arquivos[0])
-        print
+        arquivo_inicial = arquivos[0]
+        nome_arquivo = arquivo_inicial.split('_')[0]
+        capes_doc = CapesDiscentes(arquivos, nome_arquivo)
+        capes_doc.gera_csv()
+        print('Arquivo {} finalizado!'.format(nome_arquivo))
 
-        print(arquivo_final)
-        print
-        #anos.sort()
     except OSError:
-        #print('Nenhuma pasta encontrada')
         print('Nenhum arquivo encontrado')
         raise
-    for arquivo in arquivos:
-        print(arquivo)
-    exit()
-        #try:
-            #capes_doc = CapesDiscentes(ano)
-            #capes_doc.gera_csv()
-            #print('Arquivo do ano, {} finalizado'.format(ano))
-
-        #except:
-            #print 'Arquivo do ano, {} não encontrado'.format(ano)
-            #raise
-        #print('Fim!!')
-        #print('\n')
