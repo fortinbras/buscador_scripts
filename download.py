@@ -9,15 +9,16 @@ from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
 from _download.rais import executa_rais
+from _download.capes_teses_download import executa_download_capes_teses
 
 
-def executa(coll, ano):
+def executa(coll):
 
     if coll == 'inep':
         executa_inep_download()
 
     elif coll == 'enade':
-        executa_download_enade(ano)
+        executa_download_enade()
 
     elif coll == 'pnad':
         executa_pnad()
@@ -28,13 +29,17 @@ def executa(coll, ano):
     elif coll == 'rais':
         executa_rais()
 
+
+    elif coll == 'capes_teses':
+        executa_download_capes_teses()
+
     else:
         print('digite enade ou inep como parametro')
 
 
 if __name__ == "__main__":
     try:
-        executa(sys.argv[1], sys.argv[2])
+        executa(sys.argv[1])
     except IndexError:
         print('Digite a collection como primeiro argumento! No segundo, um ano'
         'de referencia ou 0 para baixar todos.')

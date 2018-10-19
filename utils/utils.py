@@ -4,12 +4,14 @@ import os
 
 
 def gYear(year):
-    ano = int(year)
-    digit = str(ano)[-1]
-    inicial = ano - int(digit)
-    fim = inicial + 9
-    return "{}-{}|{}".format(inicial, fim, year)
-
+    try:
+        ano = int(year)
+        digit = str(ano)[-1]
+        inicial = ano - int(digit)
+        fim = inicial + 9
+        return "{}-{}|{}".format(inicial, fim, ano)
+    except:
+        return ''
 
 def find_regiao(cod):
     regioes = {'Regiao Norte': [11, 12, 13, 14, 15, 16, 17],
@@ -184,4 +186,3 @@ def download_um_ou_todos_anos(ano_ref, funcao_download, all_links):
             except KeyError:
                 print('Ano invalido digite ano entre (2009~2016)')
 
-    return dict_f

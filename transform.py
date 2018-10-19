@@ -13,6 +13,7 @@ from _transform.enem import enem_transform
 from _transform.rais import rais_transform
 from _transform.capes_discentes import capes_discentes_transform
 from _transform.capes_docentes import capes_docentes_transform
+from _transform.capes_teses import capes_teses_tranform
 
 
 
@@ -51,6 +52,10 @@ def executa(coll):
 
     elif coll == 'capes_docentes':
         capes_docentes_transform()
+
+
+    elif coll == 'capes_teses':
+        capes_teses_tranform()
 
     else:
         print('digite collection como parametro')
