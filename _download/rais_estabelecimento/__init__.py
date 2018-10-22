@@ -1,0 +1,1 @@
+from rais_estabelecimento_download import executa_rais_estabelecimento

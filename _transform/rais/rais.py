@@ -485,7 +485,7 @@ def rais_transform():
         print anos
     except:
         raise
-    rais = RaisTransform('2016')
+    rais = RaisTransform('2015')
     rais.pega_arquivos_ano()
 
     # for ano in anos:

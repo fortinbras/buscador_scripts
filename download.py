@@ -9,6 +9,8 @@ from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
 from _download.rais import executa_rais
+from _download.rais_estabelecimento import executa_rais_estabelecimento
+
 
 
 def executa(coll, ano):
@@ -28,6 +30,9 @@ def executa(coll, ano):
     elif coll == 'rais':
         executa_rais()
 
+    elif coll == 'rais_estabelecimento':
+        executa_rais_estabelecimento()
+
     else:
         print('digite enade ou inep como parametro')
 
@@ -37,5 +42,5 @@ if __name__ == "__main__":
         executa(sys.argv[1], sys.argv[2])
     except IndexError:
         print('Digite a collection como primeiro argumento! No segundo, um ano'
-        'de referencia ou 0 para baixar todos.')
+        ' de referencia ou 0 para baixar todos.')
         print('digite enade ou inep como parametro')
