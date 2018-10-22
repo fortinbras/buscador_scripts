@@ -54,6 +54,8 @@ class CapesTeses(object):
         df['ID_GRAU_ACADEMICO'] = df['ID_GRAU_ACADEMICO'].fillna(0).astype(int)
         df['CD_GRANDE_AREA_CONHECIMENTO'] = df['CD_GRANDE_AREA_CONHECIMENTO'].fillna(0).astype(int)
         df['CD_AREA_CONHECIMENTO'] = df['CD_AREA_CONHECIMENTO'].fillna(0).astype(int)
+        df['NR_PAGINAS'] = df['NR_PAGINAS'].fillna(0).astype(int)
+
 
 
         df['AN_BASE_facet'] = gYear(self.ano)
