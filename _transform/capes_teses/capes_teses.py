@@ -1,15 +1,25 @@
-# coding=utf-8
+# coding=utf8
 import pandas as pd
 import os
 import csv
 import commands
 import datetime
 import errno
+import re
+import chardet
+from bs4 import UnicodeDammit
 from utils import gYear
 
 
 # pd.set_option('display.max_rows', 500)
 # pd.set_option('display.max_columns', 500)
+def norm_keyword(palavras):
+    if not isinstance(palavras, (unicode, str)):
+        return palavras
+    palavras = palavras.encode('utf8')
+    palavras = re.sub(r'\d.', '', palavras)
+    palavras = palavras.replace(';', ',').replace('.', ',').replace('¿', 'E').replace('[', '').replace(']', '')
+    return palavras.split(',')
 
 
 class CapesTeses(object):
@@ -28,9 +38,8 @@ class CapesTeses(object):
                 if f.endswith('.csv'):
                     arquivo = open(os.path.join(root, f), 'r')
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
-                    print 'Arquivo {} de entrada possui {} linhas de informacao'.format(f, int(self.input_lenght)-1)
-                    df = pd.read_csv(arquivo, sep=';', low_memory=False, engine='c', encoding='cp1252',
-                                     )
+                    print 'Arquivo {} de entrada possui {} linhas de informacao'.format(f, int(self.input_lenght) - 1)
+                    df = pd.read_csv(arquivo, sep=';', low_memory=False, engine='c', encoding='latin1', )
 
                     return df
 
@@ -56,8 +65,6 @@ class CapesTeses(object):
         df['CD_AREA_CONHECIMENTO'] = df['CD_AREA_CONHECIMENTO'].fillna(0).astype(int)
         df['NR_PAGINAS'] = df['NR_PAGINAS'].fillna(0).astype(int)
 
-
-
         df['AN_BASE_facet'] = gYear(self.ano)
         df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         df['ANO_TITULACAO_facet'] = df['DT_TITULACAO'].dt.year.apply(gYear)
@@ -66,6 +73,11 @@ class CapesTeses(object):
         df['GEOGRAFICO_IES_facet'] = df['NM_REGIAO'] + '|' + df['NM_UF_IES'] + '-' + df['SG_UF_IES']
         df['AREA_CONHECIMENTO_facet'] = df['NM_GRANDE_AREA_CONHECIMENTO'] + '|' + df[
             'NM_AREA_CONHECIMENTO']
+        df['DS_PALAVRA_CHAVE_exact'] = df['DS_PALAVRA_CHAVE'].apply(norm_keyword)
+        df['DS_KEYWORD_exact'] = df['DS_KEYWORD'].apply(norm_keyword)
+
+        df['TITULO_RESUMO'] = df['NM_PRODUCAO'] + '\n' + df['DS_RESUMO']
+
         return df
 
     def gera_csv(self):
