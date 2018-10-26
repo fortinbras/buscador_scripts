@@ -13,7 +13,7 @@ from _transform.enem import enem_transform
 from _transform.rais import rais_transform
 from _transform.capes_discentes import capes_discentes_transform
 from _transform.capes_docentes import capes_docentes_transform
-from _transform.rais_estabelecimento import rais_estabelecimento_transform
+from _transform.rais_estabelecimentos import rais_estabelecimentos_transform
 
 
 def executa(coll):
@@ -46,8 +46,8 @@ def executa(coll):
     elif coll == 'rais':
         rais_transform()
 
-    elif coll == 'rais_estabelecimento':
-        rais_estabelecimento_transform()
+    elif coll == 'rais_estabelecimentos':
+        rais_estabelecimentos_transform()
 
     elif coll == 'capes_discentes':
         capes_discentes_transform()

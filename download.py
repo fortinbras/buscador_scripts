@@ -9,8 +9,7 @@ from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
 from _download.rais import executa_rais
-from _download.rais_estabelecimento import executa_rais_estabelecimento
-
+from _download.rais_estabelecimento import executa_rais_estabelecimentos
 
 
 def executa(coll, ano):
@@ -30,8 +29,8 @@ def executa(coll, ano):
     elif coll == 'rais':
         executa_rais()
 
-    elif coll == 'rais_estabelecimento':
-        executa_rais_estabelecimento()
+    elif coll == 'rais_estabelecimentos':
+        executa_rais_estabelecimentos()
 
     else:
         print('digite enade ou inep como parametro')

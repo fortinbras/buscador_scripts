@@ -4,32 +4,32 @@ import os
 import sys
 import unicodedata
 import re
-
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, '../../../buscador_scripts/')
-
-from utils import *
 import pandas as pd
 import csv
 import commands
 from datetime import datetime
-from cnae1 import cnae1_dic
-from cnae2_subclasse import cnae2subclasse_dic
-from natureza_juridica import natureza_juridica_dic
-from uf import uf_dic
-from tamanho_estabelecimento import tamanho_estab_dic
-from ibge_subsetor import ibge_sub_dic
-#from distrito_sp import distrito_sp_dic
-#from bairro_fort import bairro_fort_dic
-#from bairro_rj import bairro_rj_dic
-#from bairro_sp import bairro_sp_dic
-from regioes_adm_df import regioes_adm_df_dic
-from municipios import municipios_dic
+from utils import *
+
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, '../../../buscador_scripts/')
+
+from dicionarios.cnae1 import cnae1_dic
+from dicionarios.cnae2_subclasse import cnae2subclasse_dic
+from dicionarios.natureza_juridica import natureza_juridica_dic
+from dicionarios.uf import uf_dic
+from dicionarios.tamanho_estabelecimento import tamanho_estab_dic
+from dicionarios.ibge_subsetor import ibge_sub_dic
+#from dicionarios.distrito_sp import distrito_sp_dic
+#from dicionarios.bairro_fort import bairro_fort_dic
+#from dicionarios.bairro_rj import bairro_rj_dic
+#from dicionarios.bairro_sp import bairro_sp_dic
+from dicionarios.regioes_adm_df import regioes_adm_df_dic
+from dicionarios.municipios import municipios_dic
 
 # pd.set_option('display.max_rows', 500)
 # pd.set_option('display.max_columns', 500)
 
-class RaisEstabelecimentoTransform(object):
+class RaisEstabelecimentosTransform(object):
 
     def __init__(self, ano):
         self.horas = datetime.now()
@@ -52,16 +52,16 @@ class RaisEstabelecimentoTransform(object):
             u'CNAE 2.0 Subclasse': cnae2subclasse_dic(),
             u'Tamanho Estabelecimento': tamanho_estab_dic(),
             u'Tipo Estab': {1: 'CNPJ', 3: 'CEI', 9: 'Não identificado', -1: 'Ignorado'},
-            u'Tipo Estab.1':{'CNPJ':'CNPJ', 'CEI': 'CEI'},
+            u'Tipo Estab.1':{'cnpj':'CNPJ', 'cei': 'CEI'},
             u'UF': uf_dic(),
             u'IBGE Subsetor': ibge_sub_dic(),
 
         }
         self.avoid = ['Bairros SP', 'Bairros Fortaleza', 'Bairros RJ', 'Distritos SP']
-        self.destino_transform = '/var/tmp/solr_front/collections/rais_estabelecimento/' + str(self.ano) + '/transform/'
+        self.destino_transform = '/var/tmp/solr_front/collections/rais_estabelecimentos/' + str(self.ano) + '/transform/'
 
     def pega_arquivos_ano(self):
-        var = '/var/tmp/solr_front/collections/rais_estabelecimento/' + str(self.ano) + '/download/'
+        var = '/var/tmp/solr_front/collections/rais_estabelecimentos/' + str(self.ano) + '/download/'
         for root, dirs, files in os.walk(var):
             for f in files:
                 if f.endswith(".txt"):
@@ -129,9 +129,9 @@ class RaisEstabelecimentoTransform(object):
         return df
 
 
-def rais_estabelecimento_transform():
+def rais_estabelecimentos_transform():
     try:
-        path_origem = '/var/tmp/solr_front/collections/rais_estabelecimento/'
+        path_origem = '/var/tmp/solr_front/collections/rais_estabelecimentos/'
         anos = [f for f in os.listdir(path_origem) if not f.startswith('.')]
         anos.sort()
         print anos
@@ -141,7 +141,7 @@ def rais_estabelecimento_transform():
     #rais_estabelecimento.pega_arquivos_ano()
 
     for ano in anos:
-        rais = RaisEstabelecimentoTransform(ano)
+        rais = RaisEstabelecimentosTransform(ano)
         rais.pega_arquivos_ano()
 
 def remover_acentos(palavra, codif='utf-8'):

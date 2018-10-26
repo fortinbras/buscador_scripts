@@ -69,6 +69,14 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/rais/conf'},
 
+    'rais_estabelecimentos': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/solr_front/collections/rais_estabelecimentos',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'rais_estabelecimentos',
+        'content_type': 'text/csv',
+        'schema': '_transform/rais_estabelecimentos/conf'},
 
     'capes_discentes': {
         'filetype': '.csv',
@@ -78,8 +86,6 @@ collection = {
         'collection': 'capes_discentes',
         'content_type': 'text/csv',
         'schema': '_transform/capes_discentes/conf'},
-
-
 
     'capes_docentes': {
         'filetype': '.csv',
@@ -110,13 +116,15 @@ def executa(coll):
     """
     try:
         param = collection.get(coll)
+
         load = SolrLoad(
             param['filetype'], param['collectiondir'], param['transformdir'],
             param['localhost'], param['collection'],
             param['content_type'], param['schema']
         )
-        load.full_sequence()
 
+        load.full_sequence()
+        
     except (TypeError,KeyError):
         print 'collection invalida'
     except KeyboardInterrupt:

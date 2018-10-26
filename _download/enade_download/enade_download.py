@@ -6,7 +6,7 @@ sys.path.insert(0, '../../../buscador_scripts/')
 import os, errno
 import requests
 import zipfile
-from utils.utils import download_um_ou_todos_anos
+from utils.utils import download_all_links
 
 """
 Este script faz o download dos arquivos do ENADE e descompacta-os na pasta dos respectivos anos.
@@ -67,7 +67,7 @@ def download_enade(ano):
     print "Download do ano {} finalizado".format(ano)
 
 def executa_download_enade(ano_ref):
-    download_um_ou_todos_anos(ano_ref, download_enade, all_links) # funcão em utils para download dos anos
+    download_all_links(ano_ref, download_enade, all_links) # funcão em utils para download dos anos
 
 
 # if __name__ == "__main__":

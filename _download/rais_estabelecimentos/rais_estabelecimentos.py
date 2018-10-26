@@ -9,7 +9,7 @@ from ftplib import FTP
 
 # 7za x
 
-def get_rais_estabelecimento():
+def get_rais_estabelecimentos():
     anos = [str(x) for x in range(2010, 2018)]
     print
     print('Anos = ', anos)
@@ -18,7 +18,7 @@ def get_rais_estabelecimento():
     ftp.login()
     ftp.cwd('pdet/microdados/RAIS/')
     for ano in anos:
-        dir_destino = '/var/tmp/solr_front/collections/rais_estabelecimento/' + str(ano) + '/download/'
+        dir_destino = '/var/tmp/solr_front/collections/rais_estabelecimentos/' + str(ano) + '/download/'
         try:
             os.makedirs(dir_destino)
         except OSError as e:
@@ -43,5 +43,5 @@ def get_rais_estabelecimento():
         ftp.cwd('../')
 
 
-def executa_rais_estabelecimento():
-    get_rais_estabelecimento()
+def executa_rais_estabelecimentos():
+    get_rais_estabelecimentos()
