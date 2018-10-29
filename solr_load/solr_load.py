@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
 import sys
-
-sys.path.insert(0, '../../../buscador_scripts/')
 import requests
 import os
 from time import sleep
+from settings import SOLR_PATCH, ZK_URL
 
 
 class SolrLoad(object):
 
-    def __init__(self, filetype, collectiondir, transformdir, localhost, collection, content_type, schemadir):
-        # type: (object, object, object, object, object, object, object) -> object
+    def __init__(self, filetype, collectiondir, transformdir, localhost, port, collection, content_type, schemadir):
 
         self.fileslist = []
         self.filetype = filetype
         self.collectiondir = collectiondir
         self.transformdir = transformdir
         self.localhost = localhost
+        self.port = port
         self.collection = collection
         self.content_type = content_type
         self.schemadir = schemadir
 
     def list_output_files(self):
-        if self.collection == 'wos' or self.collection == 'lattes' or self.collection in ['capes_discentes','capes_docentes']:
+        if self.collection in ['capes_discentes', 'capes_docentes', 'wos', 'lattes']:
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
                     print f
@@ -52,9 +51,9 @@ class SolrLoad(object):
             with open(f, 'rb') as data_file:
                 my_data = data_file.read()
             if self.filetype == '.csv':
-                url = 'http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true&separator=;'
+                url = 'http://' + self.localhost + ':' + self.port + '/solr/' + self.collection + '/update?commit=true&separator=;'
             else:
-                url = 'http://' + self.localhost + '/solr/' + self.collection + '/update?commit=true'
+                url = 'http://' + self.localhost + ':' + self.port + '/solr/' + self.collection + '/update?commit=true'
 
             try:
                 req = requests.post(
@@ -77,7 +76,7 @@ class SolrLoad(object):
                 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
     def delete_collection(self):
-        url = 'http://192.168.0.212/solr/' + \
+        url = 'http://' + self.localhost + '/solr/' + \
               self.collection + \
               '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
         try:
@@ -95,14 +94,10 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def reload_collection(self):
-        url = 'http://192.168.0.212/solr/admin/collections?action=RELOAD&name=' + self.collection
-        # url = 'http://192.168.0.212/solr/' + \
-        #       self.collection + \
-        #       '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
+        url = 'http://' + self.localhost + '/solr/admin/collections?action=RELOAD&name=' + self.collection
         try:
             req = requests.post(url)
             print req.status_code
-            # print req.headers['status']
 
         except requests.ConnectionError as errc:
             print ("Error Connecting:", errc)
@@ -114,7 +109,7 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def upload_schema(self):
-        command = '/opt/solr-6.6.2/bin/solr zk -upconfig -n ' + self.collection + ' -z 192.168.0.35:2181 -d ' + \
+        command = SOLR_PATCH + ' zk -upconfig -n ' + self.collection + ' -z ' + ZK_URL + ' -d ' + \
                   self.schemadir
         os.system(command)
 

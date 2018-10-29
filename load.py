@@ -2,109 +2,117 @@
 
 import sys
 from solr_load import SolrLoad
+from settings import BASE_PATH_DATA
+from settings import SOLR_URL, SOLR_PORT
 
 collection = {
 
-
     'wos': {
         'filetype': '.xml',
-        'collectiondir': '/var/tmp/solr_front/collections/wos',
+        'collectiondir': BASE_PATH_DATA + 'wos',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'wos',
         'content_type': 'text/xml',
         'schema': '_transform/wos/conf'},
 
     'enade': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/enade',
+        'collectiondir': BASE_PATH_DATA + 'enade',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'enade',
         'content_type': 'text/csv',
         'schema': '_transform/enade/conf'},
 
     'inep_alunos': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/inep',
+        'collectiondir': BASE_PATH_DATA + 'inep',
         'transformdir': 'transform/alunos',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'inep_alunos',
         'content_type': 'text/csv',
         'schema': '_transform/inep_alunos/conf'},
 
     'inep_docentes': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/inep',
+        'collectiondir': BASE_PATH_DATA + 'inep',
         'transformdir': 'transform/docentes',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'inep_docentes',
         'content_type': 'text/csv',
         'schema': '_transform/inep_docentes/conf'},
 
     'pnad': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/pnade',
+        'collectiondir': BASE_PATH_DATA + 'pnade',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'pnade',
         'content_type': 'text/csv',
         'schema': '_transform/pnade/conf'},
 
     'enem': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/enem',
+        'collectiondir': BASE_PATH_DATA + 'enem',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'enem',
         'content_type': 'text/csv',
         'schema': '_transform/enem/conf'},
 
     'rais': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/rais',
+        'collectiondir': BASE_PATH_DATA + 'rais',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'rais',
         'content_type': 'text/csv',
         'schema': '_transform/rais/conf'},
 
-
     'capes_discentes': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/capes/discentes',
+        'collectiondir': BASE_PATH_DATA + 'capes/discentes',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'capes_discentes',
         'content_type': 'text/csv',
         'schema': '_transform/capes_discentes/conf'},
 
-
-
     'capes_docentes': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/capes/docentes',
+        'collectiondir': BASE_PATH_DATA + 'capes/docentes',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'capes_docentes',
         'content_type': 'text/csv',
         'schema': '_transform/capes_docentes/conf'},
 
-
     'capes_teses': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/capes_teses',
+        'collectiondir': BASE_PATH_DATA + 'capes_teses',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'capes_teses',
         'content_type': 'text/csv',
         'schema': '_transform/capes_teses/conf'},
 
     'lattes': {
         'filetype': '.xml',
-        'collectiondir': '/var/tmp/solr_front/collections/lattes',
+        'collectiondir': BASE_PATH_DATA + 'lattes',
         'transformdir': 'transform/',  # deve estar em /var/tm/lattes/transform
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'lattes',
         'content_type': 'text/xml',
         'schema': '_transform/lattes/conf'},
@@ -121,13 +129,18 @@ def executa(coll):
     try:
         param = collection.get(coll)
         load = SolrLoad(
-            param['filetype'], param['collectiondir'], param['transformdir'],
-            param['localhost'], param['collection'],
-            param['content_type'], param['schema']
+            filetype=param['filetype'],
+            collectiondir=param['collectiondir'],
+            transformdir=param['transformdir'],
+            localhost=param['localhost'],
+            port=param['port'],
+            collection=param['collection'],
+            content_type=param['content_type'],
+            schemadir=param['schema']
         )
         load.full_sequence()
 
-    except (TypeError,KeyError):
+    except (TypeError, KeyError):
         print 'collection invalida'
     except KeyboardInterrupt:
         print '\nAtividade interrompida pelo usuario!'
