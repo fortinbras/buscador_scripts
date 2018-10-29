@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 from utils import *
 import pandas as pd
 import codecs
@@ -62,21 +63,20 @@ class CapesDiscentes(object):
 
         ]
 
-
     def pega_arquivo_nome(self):
 
-        var = '/var/tmp/solr_front/collections/capes/discentes/download/'
+        var = BASE_PATH_DATA + 'capes/discentes/download/'
         df_auxiliar = []
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file in self.arquivos:
-
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                    self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
+                    self.input_lenght += int(
+                        commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
 
-        #import pdb;pdb.set_trace()  #para testar o código
+        # import pdb;pdb.set_trace()  #para testar o código
         df_concat = pd.concat(df_auxiliar)
         return df_concat
 
@@ -84,7 +84,7 @@ class CapesDiscentes(object):
 
         df_capes = self.pega_arquivo_nome()
 
-        destino_transform = '/var/tmp/solr_front/collections/capes/discentes/transform'
+        destino_transform = BASE_PATH_DATA + 'capes/discentes/transform'
         csv_file = '/capes_' + self.nome_arquivo + '.csv'
         log_file = '/capes_' + self.nome_arquivo + '.log'
 
@@ -105,11 +105,12 @@ class CapesDiscentes(object):
             log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
             log.write("\n")
             log.write('Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1))
-        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(self.nome_arquivo, (destino_transform + log_file)))
+        print('Processamento CAPES {} finalizado, arquivo de log gerado em {}'.format(self.nome_arquivo,
+                                                                                      (destino_transform + log_file)))
+
 
 def capes_discentes_transform():
-
-    PATH_ORIGEM = '/var/tmp/solr_front/collections/capes/discentes/download'
+    PATH_ORIGEM = BASE_PATH_DATA + 'capes/discentes/download'
     try:
         arquivos = os.listdir(PATH_ORIGEM)
         arquivos.sort()

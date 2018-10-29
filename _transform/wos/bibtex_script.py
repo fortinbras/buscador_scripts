@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-
 # !/usr/bin/python
 import sys
+from settings import BASE_PATH_DATA
 import os
-
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, '../../../buscador_scripts/')
-
 import re
 from lxml import etree
 from utils import gYear,facet_citations
@@ -30,7 +26,7 @@ gerador.parse_bib()
 
     limit_docs_in_file = 5000
     file_finish = 0
-    path_save_xml = '/var/tmp/solr_front/collections/wos/transform/'
+    path_save_xml = BASE_PATH_DATA+'wos/transform/'
     tree = []
     xml_filename = 'output'
 
@@ -387,12 +383,12 @@ gerador.parse_bib()
 
 def wos_tranform():
 
-    wos_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
+    wos_xml = BibtoXML(BASE_PATH_DATA+'wos/download/')
     wos_xml.parse_bib()
 
 
 if __name__ == '__main__':
-    diretorio = '/var/tmp/solr_front/collections/wos/download/'
-    bib_xml = BibtoXML('/var/tmp/solr_front/collections/wos/download/')
+    # diretorio = BASE_PATH_DATA+'wos/download/'
+    bib_xml = BibtoXML(BASE_PATH_DATA+'wos/download/')
 
     bib_xml.parse_bib()

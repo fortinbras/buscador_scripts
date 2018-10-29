@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 from utils import *
 import pandas as pd
 import numpy as np
@@ -50,7 +51,7 @@ class Enem(object):
     def pega_arquivo_ano(self, ano):
         file_list = ['MICRODADOS_ENEM_2015.csv', 'microdados_enem_2016.csv', 'MICRODADOS_ENEM_2017.csv']
 
-        var = '/var/tmp/solr_front/collections/enem/' + str(self.ano) + '/download/'
+        var = BASE_PATH_DATA + 'enem/' + str(self.ano) + '/download/'
         exclude_prefixes = ('__', '.')
         for root, dirs, files in os.walk(var, topdown=True):
             dirs[:] = [dirname for dirname in dirs if not dirname.startswith(exclude_prefixes)]
@@ -109,7 +110,7 @@ class Enem(object):
                    'IN_APOIO_PERNA', 'IN_GUIA_INTERPRETE', 'IN_ESTUDA_CLASSE_HOSPITALAR']
 
         variaveis = {
-            'TP_COR_RACA': {0: 'ND', 1: 'Branca', 2: 'Preta', 3: 'Parda', 4: 'Amarela', 5: 'Indigena', 6:'ND'},
+            'TP_COR_RACA': {0: 'ND', 1: 'Branca', 2: 'Preta', 3: 'Parda', 4: 'Amarela', 5: 'Indigena', 6: 'ND'},
             'TP_ESTADO_CIVIL': {0: 'Solteiro', 1: 'Casado/Uniao Estavel', 2: 'Divorciado', 3: 'Viuvo'},
             'TP_LINGUA': {0: 'Ingles', 1: 'Espanhol'},
             'TP_ESCOLA': {1: 'Não Respondeu', 2: 'Publica', 3: 'Privada', 4: 'Exterior'}
@@ -156,7 +157,7 @@ class Enem(object):
         return 'FIM'
 
     def gera_csv(self, df, control, mode, ):
-        destino_transform = '/var/tmp/solr_front/collections/enem/' + str(self.ano) + '/transform/'
+        destino_transform = BASE_PATH_DATA + 'enem/' + str(self.ano) + '/transform/'
 
         try:
             os.makedirs(destino_transform)
@@ -178,7 +179,7 @@ class Enem(object):
 
 
 def enem_transform():
-    PATH_ORIGEM = '/var/tmp/solr_front/collections/enem/'
+    PATH_ORIGEM = BASE_PATH_DATA + 'enem/'
     try:
         anos = [f for f in os.listdir(PATH_ORIGEM) if not f.startswith('.')]
         anos.sort()

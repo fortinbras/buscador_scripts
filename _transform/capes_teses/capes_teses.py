@@ -1,13 +1,12 @@
 # coding=utf8
 import pandas as pd
 import os
+from settings import BASE_PATH_DATA
 import csv
 import commands
 import datetime
 import errno
 import re
-import chardet
-from bs4 import UnicodeDammit
 from utils import gYear
 
 
@@ -30,7 +29,7 @@ class CapesTeses(object):
         self.output_length = 0
 
     def pega_arquivo_ano(self):
-        var = '/var/tmp/solr_front/collections/capes_teses/' + str(self.ano) + '/download/'
+        var = BASE_PATH_DATA + 'capes_teses/' + str(self.ano) + '/download/'
         exclude_prefixes = ('__', '.')
         for root, dirs, files in os.walk(var, topdown=True):
             dirs[:] = [dirname for dirname in dirs if not dirname.startswith(exclude_prefixes)]
@@ -82,7 +81,7 @@ class CapesTeses(object):
 
     def gera_csv(self):
         df = self.resolve_dicionarios()
-        destino_transform = '/var/tmp/solr_front/collections/capes_teses/' + str(self.ano) + '/transform'
+        destino_transform = BASE_PATH_DATA + 'capes_teses/' + str(self.ano) + '/transform'
         csv_file = '/capes_teses_' + str(self.ano) + '.csv'
         log_file = '/capes_teses_' + str(self.ano) + '.log'
         try:
@@ -90,7 +89,6 @@ class CapesTeses(object):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-        # df_enade = df_enade.astype(str)
 
         df.to_csv(destino_transform + csv_file, sep=';', index=False, encoding='utf8',
                   line_terminator='\n', quoting=csv.QUOTE_ALL)
@@ -108,7 +106,7 @@ class CapesTeses(object):
 
 
 def capes_teses_tranform():
-    PATH_ORIGEM = '/var/tmp/solr_front/collections/capes_teses/'
+    PATH_ORIGEM = BASE_PATH_DATA + 'capes_teses/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()

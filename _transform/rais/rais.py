@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 from utils import *
 import pandas as pd
 import csv
@@ -387,10 +388,10 @@ class RaisTransform(object):
         self.ano = ano
         self.avoid = ['Bairros SP', 'Bairros Fortaleza', 'Bairros RJ', 'Distritos SP', u'Regiões Adm DF',
                       'CNAE 2.0 Classe']
-        self.destino_transform = '/var/tmp/solr_front/collections/rais/' + str(self.ano) + '/transform/'
+        self.destino_transform = BASE_PATH_DATA + 'rais/' + str(self.ano) + '/transform/'
 
     def pega_arquivos_ano(self):
-        var = '/var/tmp/solr_front/collections/rais/' + str(self.ano) + '/download/'
+        var = BASE_PATH_DATA + 'rais/' + str(self.ano) + '/download/'
         for root, dirs, files in os.walk(var):
             for f in files:
                 if f.endswith(".txt") and f.startswith('SP'):
@@ -479,7 +480,7 @@ class RaisTransform(object):
 
 def rais_transform():
     try:
-        PATH_ORIGIN = '/var/tmp/solr_front/collections/rais/'
+        PATH_ORIGIN = BASE_PATH_DATA + 'rais/'
         anos = [f for f in os.listdir(PATH_ORIGIN) if not f.startswith('.')]
         anos.sort()
         print anos

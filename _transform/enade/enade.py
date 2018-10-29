@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 from utils import *
 import pandas as pd
 import codecs
@@ -254,7 +255,7 @@ class Enade(object):
 
     def pega_arquivo_ano(self):
 
-        var = '/var/tmp/solr_front/collections/enade/' + str(self.ano) + '/download/'
+        var = BASE_PATH_DATA + 'enade/' + str(self.ano) + '/download/'
 
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -460,7 +461,7 @@ class Enade(object):
             df_enade = self.dicionario_2013()
         else:
             pass
-        destino_transform = '/var/tmp/solr_front/collections/enade/' + str(self.ano) + '/transform'
+        destino_transform = BASE_PATH_DATA + 'enade/' + str(self.ano) + '/transform'
         csv_file = '/enade_' + str(self.ano) + '.csv'
         log_file = '/enade_' + str(self.ano) + '.log'
         try:
@@ -486,7 +487,7 @@ class Enade(object):
 
 
 def enade_tranform():
-    PATH_ORIGEM = '/var/tmp/solr_front/collections/enade/'
+    PATH_ORIGEM = BASE_PATH_DATA + 'enade/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()
