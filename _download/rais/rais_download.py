@@ -2,6 +2,7 @@ import sys
 
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 import os, errno
 import commands
 from ftplib import FTP
@@ -15,7 +16,7 @@ def get_rais():
     ftp.login()
     ftp.cwd('pdet/microdados/RAIS/')
     for ano in anos:
-        dir_destino = '/var/tmp/solr_front/collections/rais/' + str(ano) + '/download/'
+        dir_destino = BASE_PATH_DATA + 'rais/' + str(ano) + '/download/'
         try:
             os.makedirs(dir_destino)
         except OSError as e:

@@ -3,6 +3,7 @@ import sys
 
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 import os, errno
 import requests
 import zipfile
@@ -19,7 +20,7 @@ all_links = {
     # '2011': 'http://download.inep.gov.br/microdados/microdados_enem2011.zip', #Não esta em csv
     # '2012': 'http://download.inep.gov.br/microdados/microdados_enem2012.zip',
     # '2013': 'http://download.inep.gov.br/microdados/microdados_enem2013.zip',
-    #'2014': 'http://download.inep.gov.br/microdados/microdados_enem2014.zip',
+    # '2014': 'http://download.inep.gov.br/microdados/microdados_enem2014.zip',
     # '2015': 'http://download.inep.gov.br/microdados/microdados_enem2015.zip',
     # '2016': 'http://download.inep.gov.br/microdados/microdados_enem2016.zip',
     '2017': 'http://download.inep.gov.br/microdados/microdados_enem2017.zip',
@@ -27,7 +28,7 @@ all_links = {
 
 
 def download_enem(ano):
-    dir_destino = '/var/tmp/solr_front/collections/enem/' + str(ano) + '/download/'
+    dir_destino = BASE_PATH_DATA + 'enem/' + str(ano) + '/download/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'
@@ -84,13 +85,13 @@ def executa_download_enem():
         except KeyError:
             print('Ano invalido digite ano entre (2009~2016)')
 
-
-if __name__ == "__main__":
-    anos = all_links.keys()
-    for ano in anos:
-        try:
-            download_enem(ano)
-        except IndexError:
-            print('digite ano que deseja como parametro entre (2009~2017)')
-        except KeyError:
-            print('Ano invalido digite ano entre (2009~2017)')
+#
+# if __name__ == "__main__":
+#     anos = all_links.keys()
+#     for ano in anos:
+#         try:
+#             download_enem(ano)
+#         except IndexError:
+#             print('digite ano que deseja como parametro entre (2009~2017)')
+#         except KeyError:
+#             print('Ano invalido digite ano entre (2009~2017)')

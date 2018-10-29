@@ -3,11 +3,11 @@ import sys
 
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 import os, errno
 import requests
 import zipfile
 import patoolib
-
 
 """
 Este script faz o downloa dos arquivos do INEP e descompacta-os na pasta dos respectivos anos.
@@ -30,7 +30,7 @@ all_links = {
     # '2006': 'http://download.inep.gov.br/microdados/microdados_educacao_superior_2006.zip',
     # '2007': 'http://download.inep.gov.br/microdados/microdados_educacao_superior_2007.zip',
     # '2008': 'http://download.inep.gov.br/microdados/micro_censo_edu_superior2008.zip',
-    #'2009': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2009.zip',
+    # '2009': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2009.zip',
     '2010': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2010.zip',
     '2011': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2011.zip',
     '2012': 'http://download.inep.gov.br/microdados/microdados_censo_superior_2012.zip',
@@ -42,7 +42,7 @@ all_links = {
 
 
 def download_censo_superior(ano):
-    dir_destino = '/var/tmp/solr_front/collections/inep/' + str(ano) + '/download/'
+    dir_destino = BASE_PATH_DATA + 'inep/' + str(ano) + '/download/'
     mbyte = 1024 * 1024
     ano_str = str(ano)
     nome_arquivo = ano_str + '.zip'
@@ -64,7 +64,7 @@ def download_censo_superior(ano):
     print 'Downloading %s (%sMb)' % (fullpath, fsize / mbyte)
     # Gravando o arquivo zip
     with open(fullpath, 'wb') as f:
-        for chunk in resp.iter_content(chunk_size=1024*100):
+        for chunk in resp.iter_content(chunk_size=1024 * 100):
             if chunk:
                 f.write(chunk)
         f.close()
@@ -84,6 +84,7 @@ def download_censo_superior(ano):
     except:
         raise
 
+
 def executa_inep_download():
     anos = all_links.keys()
     for ano in anos:
@@ -93,7 +94,6 @@ def executa_inep_download():
             print('digite ano que deseja como parametro entre (2009~2016)')
         except KeyError:
             print('Ano invalido digite ano entre (2009~2016)')
-
 
 # if __name__ == "__main__":
 #     anos = ['2014']

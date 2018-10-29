@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import sys,os
+import sys, os
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
+from settings import BASE_PATH_DATA
 import errno, io
 import zipfile
 
@@ -17,14 +18,14 @@ Antes de 2010, a nomenclatura e formato dos arquivos nao batem.
 def find_zips_pnad():
     from ftplib import FTP
 
-    anos = ['2011','2012','2013','2014']
+    anos = ['2011', '2012', '2013', '2014']
     ftp = FTP("ftp.ibge.gov.br")
     ftp.login()
     ftp.cwd('Trabalho_e_Rendimento')
     ftp.cwd('Pesquisa_Nacional_por_Amostra_de_Domicilios_anual')
     ftp.cwd('microdados')
     for ano in anos:
-        dir_destino = '/var/tmp/solr_front/collections/pnade/' + str(ano) + '/download/'
+        dir_destino = BASE_PATH_DATA + 'pnade/' + str(ano) + '/download/'
         ano_str = str(ano)
         nome_arquivo = ano_str + '.zip'
         nome_csv = ano_str + '.csv'
