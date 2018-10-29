@@ -144,7 +144,7 @@
 
     <copyField source="DS_ABSTRACT" dest="DS_ABSTRACT_nuvem_palavras"/>
     <copyField source="DS_ABSTRACT" dest="DS_ABSTRACT_busca"/>
-    <copyField source="DS_ABSTRACT" dest="DS_ABSTRACT_str_busca"/>
+    <copyField source="DS_ABSTRACT" dest="DS_ABSTRACT_str_search"/>
 
 
     <field name="DS_RESUMO_nuvem_palavras" type="text_pt_stopword" multiValued="true" indexed="true" stored="true"/>
@@ -152,7 +152,7 @@
 
     <copyField source="DS_RESUMO" dest="DS_RESUMO_nuvem_palavras"/>
     <copyField source="DS_RESUMO" dest="DS_RESUMO_busca"/>
-    <copyField source="DS_RESUMO" dest="DS_RESUMO_str_busca"/>
+    <copyField source="DS_RESUMO" dest="DS_RESUMO_str_search"/>
 
     <field name="NM_PRODUCAO_nuvem_palavras" type="text_pt_stopword" multiValued="true" indexed="true" stored="true"/>
     <copyField source="NM_PRODUCAO" dest="NM_PRODUCAO_nuvem_palavras"/>
@@ -223,28 +223,21 @@
 
     <fieldType name="string_busca_pt" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
         <analyzer type="index">
-            <!--<analyzer>-->
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            <!--<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>-->
             <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" splitOnCaseChange="0" generateNumberParts="0"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.FlattenGraphFilterFactory"/>
-            <!--<filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="18"/>-->
-            <!--<filter class="solr.PortugueseLightStemFilterFactory"/>-->
             <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            <!--<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>-->
             <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_pt.txt" format="snowball"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" splitOnCaseChange="0" generateNumberParts="0"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.FlattenGraphFilterFactory"/>
-            <!--<filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="18"/>-->
-            <!--<filter class="solr.PortugueseLightStemFilterFactory"/>-->
             <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
         </analyzer>
     </fieldType>
@@ -252,20 +245,15 @@
 
     <fieldType name="string_busca_en" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
         <analyzer type="index">
-            <!--<analyzer>-->
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            <!--<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>-->
             <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" format="snowball"/>
             <filter class="solr.WordDelimiterGraphFilterFactory" splitOnCaseChange="0" generateNumberParts="0"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.FlattenGraphFilterFactory"/>
-            <!--<filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="18"/>-->
-            <!--<filter class="solr.PortugueseLightStemFilterFactory"/>-->
             <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
         </analyzer>
         <analyzer type="query">
-            <!--<analyzer>-->
             <tokenizer class="solr.StandardTokenizerFactory"/>
             <!--<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>-->
             <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_en.txt" format="snowball"/>
