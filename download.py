@@ -9,16 +9,16 @@ from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
 from _download.rais import executa_rais
-from _download.rais_estabelecimento import executa_rais_estabelecimentos
+from _download.rais_estabelecimentos import executa_rais_estabelecimentos
 
 
-def executa(coll, ano):
+def executa(coll):
 
     if coll == 'inep':
         executa_inep_download()
 
     elif coll == 'enade':
-        executa_download_enade(ano)
+        executa_download_enade()
 
     elif coll == 'pnad':
         executa_pnad()
@@ -38,7 +38,7 @@ def executa(coll, ano):
 
 if __name__ == "__main__":
     try:
-        executa(sys.argv[1], sys.argv[2])
+        executa(sys.argv[1])
     except IndexError:
         print('Digite a collection como primeiro argumento! No segundo, um ano'
         ' de referencia ou 0 para baixar todos.')

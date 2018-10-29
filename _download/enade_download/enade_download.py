@@ -6,7 +6,7 @@ sys.path.insert(0, '../../../buscador_scripts/')
 import os, errno
 import requests
 import zipfile
-from utils.utils import download_all_links
+#from utils.utils import download_all_links
 
 """
 Este script faz o download dos arquivos do ENADE e descompacta-os na pasta dos respectivos anos.
@@ -15,18 +15,18 @@ Antes de 2009, a nomenclatura e formato dos arquivos nao batem.
 """
 
 all_links = {
-    '2004': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2004.zip',
-    '2005': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2005.zip',
-    '2006': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2006.zip',
-    '2007': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2007.zip',
-    '2008': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2008.zip',
-    '2009': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2009.zip',
-    '2010': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2010.zip',#
-    '2011': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2011.zip',#
-    '2012': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2012.zip',#
-    '2013': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2013.zip',
-    '2014': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2014.zip',
-    '2015': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2015.zip',
+    # '2004': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2004.zip',
+    # '2005': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2005.zip',
+    # '2006': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2006.zip',
+    # '2007': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2007.zip',
+    # '2008': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2008.zip',
+    # '2009': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2009.zip',
+    # '2010': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2010.zip',#
+    # '2011': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2011.zip',#
+    # '2012': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2012.zip',#
+    # '2013': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2013.zip',
+    # '2014': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2014.zip',
+    # '2015': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2015.zip',
     '2016': 'http://download.inep.gov.br/microdados/Enade_Microdados/microdados_enade_2016_versao_28052018.zip'
 }
 
@@ -66,8 +66,16 @@ def download_enade(ano):
     os.remove(fullpath)
     print "Download do ano {} finalizado".format(ano)
 
-def executa_download_enade(ano_ref):
-    download_all_links(ano_ref, download_enade, all_links) # funcão em utils para download dos anos
+def executa_download_enade():
+    #download_all_links(ano_ref, download_enade, all_links) # funcão em utils para download dos anos
+    anos = all_links.keys()
+    for ano in anos:
+        try:
+            download_enade(ano)
+        except IndexError:
+            print('digite ano que deseja como parametro entre (2009~2016)')
+        except KeyError:
+            print('Ano invalido digite ano entre (2009~2016)')
 
 
 # if __name__ == "__main__":

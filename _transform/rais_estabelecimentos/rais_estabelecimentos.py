@@ -105,7 +105,7 @@ class RaisEstabelecimentosTransform(object):
         for item in self.avoid:
             del (df[item])
         #A coluna UF não existe nos arquivos(anos:2010, 2011, 2012), portanto
-        #foi feito slice do index de municipio e passado o codigo do Mestrado
+        #foi feito slice do index de municipio e passado o codigo do estado
         #para o campo UF criado.
         codigo = df[u'Município'].apply(str)
         df[u'UF'] = codigo.str.slice(0,2).astype(int)
