@@ -96,6 +96,15 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/capes_docentes/conf'},
 
+    'capes_programas': {
+        'filetype': '.csv',
+        'collectiondir': '/var/tmp/solr_front/collections/capes/programas',
+        'transformdir': 'transform/',
+        'localhost': '192.168.0.212:8983',
+        'collection': 'capes_programas',
+        'content_type': 'text/csv',
+        'schema': '_transform/capes_programas/conf'},
+
     'lattes': {
         'filetype': '.xml',
         'collectiondir': '/var/tmp/solr_front/collections/lattes',
@@ -124,7 +133,7 @@ def executa(coll):
         )
 
         load.full_sequence()
-        
+
     except (TypeError,KeyError):
         print 'collection invalida'
     except KeyboardInterrupt:
