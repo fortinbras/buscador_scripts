@@ -167,10 +167,11 @@ def create_one_dict(dic):
 #print create_one_dict(dicionario)
 
 # função para download de um ano especifico ou todos os anos
-def download_um_ou_todos_anos(ano_ref, funcao_download, all_links):
+def download_all_links(ano_ref, funcao_download, all_links):
 
     if ano_ref != '0':
         try:
+            # funcao_download == download_enade(), passa para a função download_enade() o ano de referência
             funcao_download(ano_ref)
         except IndexError:
             print('digite ano que deseja como parametro entre (2009~2016)')
@@ -180,9 +181,13 @@ def download_um_ou_todos_anos(ano_ref, funcao_download, all_links):
         anos = all_links.keys()
         for ano in anos:
             try:
+                # funcao_download == download_enade(), passa para a função download_enade() os anos de referência(all_links)
                 funcao_download(ano)
             except IndexError:
                 print('digite ano que deseja como parametro entre (2009~2016)')
             except KeyError:
                 print('Ano invalido digite ano entre (2009~2016)')
+<<<<<<< HEAD
 
+=======
+>>>>>>> carlos

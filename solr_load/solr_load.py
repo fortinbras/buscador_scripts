@@ -21,7 +21,9 @@ class SolrLoad(object):
         self.schemadir = schemadir
 
     def list_output_files(self):
-        if self.collection in ['capes_discentes', 'capes_docentes', 'wos', 'lattes']:
+
+        if self.collection == 'wos' or self.collection == 'lattes' or self.collection in ['capes_discentes','capes_docentes','capes_programas','rais_estabelecimentos']:
+
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
                     print f

@@ -75,8 +75,9 @@ class CapesDocentes(object):
                         commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
+                    #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=3000, chunksize=3000, encoding='latin-1', low_memory=False)
+        #import pdb;pdb.set_trace()  #para testar o código
 
-        # import pdb;pdb.set_trace()  #para testar o código
         df_concat = pd.concat(df_auxiliar)
         return df_concat
 
