@@ -77,18 +77,16 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/rais/conf'},
 
-<<<<<<< HEAD
-=======
     'rais_estabelecimentos': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/rais_estabelecimentos',
+        'collectiondir':  BASE_PATH_DATA + 'rais_estabelecimentos',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost':  SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'rais_estabelecimentos',
         'content_type': 'text/csv',
         'schema': '_transform/rais_estabelecimentos/conf'},
 
->>>>>>> carlos
     'capes_discentes': {
         'filetype': '.csv',
         'collectiondir': BASE_PATH_DATA + 'capes/discentes',
@@ -109,7 +107,6 @@ collection = {
         'content_type': 'text/csv',
         'schema': '_transform/capes_docentes/conf'},
 
-<<<<<<< HEAD
     'capes_teses': {
         'filetype': '.csv',
         'collectiondir': BASE_PATH_DATA + 'capes_teses',
@@ -119,16 +116,16 @@ collection = {
         'collection': 'capes_teses',
         'content_type': 'text/csv',
         'schema': '_transform/capes_teses/conf'},
-=======
+
     'capes_programas': {
         'filetype': '.csv',
-        'collectiondir': '/var/tmp/solr_front/collections/capes/programas',
+        'collectiondir': BASE_PATH_DATA + 'capes/programas',
         'transformdir': 'transform/',
-        'localhost': '192.168.0.212:8983',
+        'localhost': SOLR_URL,
+        'port': SOLR_PORT,
         'collection': 'capes_programas',
         'content_type': 'text/csv',
         'schema': '_transform/capes_programas/conf'},
->>>>>>> carlos
 
     'lattes': {
         'filetype': '.xml',
