@@ -97,9 +97,23 @@ class CapesProgramas(object):
         #df_concat = pd.concat(df_auxiliar)
         return df_auxiliar
 
+    def resolve_dicionarios(self):
+        df = self.pega_arquivo_nome()
+        parse_dates = ['DT_SITUACAO_PROGRAMA']
+
+        for dt in parse_dates:
+            df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
+
+        df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
+
+        # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
+        #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
+
+        return df
+
     def gera_csv(self):
 
-        df_capes = self.pega_arquivo_nome()
+        df_capes = self.resolve_dicionarios()
 
         destino_transform = '/var/tmp/solr_front/collections/capes/programas/transform'
         csv_file = '/capes_programas_' + self.nome_arquivo + '.csv'

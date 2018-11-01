@@ -66,6 +66,8 @@ class CapesTeses(object):
 
         df['AN_BASE_facet'] = gYear(self.ano)
         df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
+        #df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].dt.year == '2013']['DT_MATRICULA'].dt.year.apply(gYear)
+
         df['ANO_TITULACAO_facet'] = df['DT_TITULACAO'].dt.year.apply(gYear)
         df['ANO_INICIO_LINHA_facet'] = df['DH_INICIO_LINHA'].dt.year.apply(gYear)
         df['ANO_FIM_LINHA_facet'] = df['DH_FIM_LINHA'].dt.year.apply(gYear)

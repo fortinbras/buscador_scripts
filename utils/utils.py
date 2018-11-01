@@ -1,7 +1,8 @@
 # coding=utf-8
 
 import os
-
+import datetime
+import time
 
 def gYear(year):
     try:
@@ -187,7 +188,3 @@ def download_all_links(ano_ref, funcao_download, all_links):
                 print('digite ano que deseja como parametro entre (2009~2016)')
             except KeyError:
                 print('Ano invalido digite ano entre (2009~2016)')
-<<<<<<< HEAD
-
-=======
->>>>>>> carlos
