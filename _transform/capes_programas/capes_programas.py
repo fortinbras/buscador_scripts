@@ -84,7 +84,6 @@ class CapesProgramas(object):
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file in self.arquivos:
-
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
@@ -95,6 +94,7 @@ class CapesProgramas(object):
                     #df_enade = df_enade.loc[:, self.colunas]
         #import pdb;pdb.set_trace()  #para testar o código
         #df_concat = pd.concat(df_auxiliar)
+        
         return df_auxiliar
 
     def resolve_dicionarios(self):

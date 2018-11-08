@@ -14,6 +14,9 @@ import csv
 import commands
 from datetime import datetime
 
+# pd.set_option('display.max_rows', 500)
+# pd.set_option('display.max_columns', 500)
+
 
 class CapesDiscentes(object):
 
@@ -24,7 +27,7 @@ class CapesDiscentes(object):
         self.nome_arquivo = nome_arquivo
         self.input_lenght = 0
         self.output_length = 0
-        self.ies = self.pega_arquivo_ies_por_ano()
+        self.ies = self.pega_arquivo_programas_download()
         self.colunas = [
             'AN_BASE',
             'NM_GRANDE_AREA_CONHECIMENTO',
@@ -65,83 +68,109 @@ class CapesDiscentes(object):
         ]
 
     def pega_arquivo_nome(self):
+        ''' Pega os arquivos em discentes/download em Discentes, faz um append deles e os retorna'''
 
         var = BASE_PATH_DATA + 'capes/discentes/download/'
         df_auxiliar = []
+        print 'Lendo os arquivos CAPES Discentes......'
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file in self.arquivos:
+                    print file
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
-                    #df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
-                    df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=3000, chunksize=3000, encoding='latin-1', low_memory=False)
+                    df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
+                    #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=1, chunksize=1, encoding='cp1252', low_memory=False)
 
-        # import pdb;pdb.set_trace()  #para testar o código
-        df_discentes_concat = pd.concat(df_auxiliar)
+        df_discentes_concat = pd.concat(df_auxiliar, sort=False)
         return df_discentes_concat # retornando todos os anos 2013_2015 a 2016_2017
 
 
     def pega_arquivo_programas_download(self):
-        '''Pega os arquivos do diretorio capes/programas - os anos, para anexar a capes_docentes'''
+        '''Pega os arquivos do diretorio capes/programas, faz um append deles e os retorna'''
+
         var = BASE_PATH_DATA + 'capes/programas/download/'
         df_auxiliar = []
+        print 'Lendo os arquivos do CAPES programas....'
         for root, dirs, files in os.walk(var):
+
             for file in files:
-                if file in self.arquivos:
-                    arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                    self.input_lenght += int(
-                        commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
-                    print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
-                    df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
-                    #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=3000, chunksize=3000, encoding='latin-1', low_memory=False)
-        #import pdb;pdb.set_trace()  #para testar o código
-        df_programas_concat = pd.concat(df_auxiliar)
+                print file
+                arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                # self.input_lenght += int(
+                #     commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
+                # print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
+                df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
+                #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=1, chunksize=1, encoding='cp1252', low_memory=False)
+
+        df_programas_concat = pd.concat(df_auxiliar, sort=False)
         return df_programas_concat
 
-    def merge_programas(self, df_p):
-        ''' Colunas que serão agregadas aos dicentes, segundo o modelo '''
+
+    def merge_programas(self, df):
+        ''' Colunas que serão agregadas aos dicentes, segundo o modelo. Esta função
+            recebe um dataframe de parametro e faz o merge dele com os arquivos
+            do CAPESP Programa, por hora, estão sendo carregados no solr todos os
+            arquivos dos dfs merged, porém, futuramente, subirão apenas estes.'''
+
         colunas_adicionadas = [
+
             u'AN_BASE',
-            u'CD_PROGRAMA_IES',
+            u'NM_GRANDE_AREA_CONHECIMENTO',
             u'NM_AREA_CONHECIMENTO',
+            u'NM_AREA_BASICA',
             u'NM_SUBAREA_CONHECIMENTO',
             u'NM_ESPECIALIDADE',
+            u'CD_AREA_AVALIACAO',
+            u'NM_AREA_AVALIACAO',
+            u'SG_ENTIDADE_ENSINO',
+            u'NM_ENTIDADE_ENSINO',
+            u'CS_STATUS_JURIDICO',
+            u'DS_DEPENDENCIA_ADMINISTRATIVA',
+            u'DS_ORGANIZACAO_ACADEMICA',
+            u'NM_REGIAO',
+            u'SG_UF_PROGRAMA',
+            u'NM_MUNICIPIO_PROGRAMA_IES',
+            u'NM_MODALIDADE_PROGRAMA',
+            u'CD_PROGRAMA_IES',
+            u'NM_PROGRAMA_IES',
+            u'NM_PROGRAMA_IDIOMA',
+            u'NM_GRAU_PROGRAMA',
+            u'CD_CONCEITO_PROGRAMA',
+            u'ANO_INICIO_PROGRAMA',
+            u'AN_INICIO_CURSO',
             u'IN_REDE',
+            u'SG_ENTIDADE_ENSINO_REDE',
             u'DS_SITUACAO_PROGRAMA',
-            u'DT_SITUACAO_PROGRAMA'
+            u'DT_SITUACAO_PROGRAMA',
+            u'ID_ADD_FOTO_PROGRAMA_IES',
+            u'ID_ADD_FOTO_PROGRAMA'
+
         ]
-
-        df_merged = df_p.merge(self.ies, how='left')
-        return df_merged[colunas_adicionadas]
-
-    def pega_arquivo_programas(self):
-        """ Para cada ano solicitado, retorna dict com o csv de discentes """
-        var = BASE_PATH_DATA + '/capes/download/'
-
-        for root, dirs, files in os.walk(var):
-            for file in files:
-                if file.endswith(".CSV"):
-                    arquivo = open(os.path.join(root, file), 'r')
-
-                    if file == 'DM_IES.CSV':
-                        df_ies = pd.read_csv(arquivo, sep='|', encoding='cp1252', low_memory=False, engine='c')
-
-        try:
-            return df_ies
-        except:
-            pass
+        print 'Fazendo o merge......'
+        df_merged = df.merge(self.ies, on=['AN_BASE', 'CD_PROGRAMA_IES'])
+        #df_merged = df.merge(self.ies, how='left')
+        #df_merge = df_merged.loc(colunas_adicionadas)
+        #return df_merged[colunas_adicionadas]
+        return df_merged
 
 
     def resolve_dicionarios(self):
+
         df = self.pega_arquivo_nome()
+        df = self.merge_programas(df)
+
+        #print df[u'DT_SITUACAO_PROGRAMA'][0]
         parse_dates = ['DT_SITUACAO_PROGRAMA']
 
         for dt in parse_dates:
             df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
 
         df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
-
+        df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
+        df['AN_INICIO_CURSO'] = df['AN_INICIO_CURSO'].astype(str)
+        df['ANO_INICIO_PROGRAMA'] = df[df['ANO_INICIO_PROGRAMA'].notnull()]['ANO_INICIO_PROGRAMA'].astype(str)
         # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
 

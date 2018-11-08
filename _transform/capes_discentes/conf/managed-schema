@@ -110,6 +110,10 @@
     <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
 
     <field name="NR_DOCUMENTO_DISCENTE" type="strings"/>
+    <field name="AN_INICIO_CURSO" type="strings"/>
+    <field name="DT_SITUACAO_PROGRAMA" type="strings"/>
+    <field name="ANO_INICIO_PROGRAMA" type="strings"/>
+
 
     <fieldType name="descendent_path" class="solr.TextField">
         <analyzer type="index">
