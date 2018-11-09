@@ -7,12 +7,12 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
 from settings import BASE_PATH_DATA
-from utils import *
+from utils.utils import *
 import pandas as pd
 import codecs
 import csv
 import commands
-from datetime import datetime
+import datetime
 
 # pd.set_option('display.max_rows', 500)
 # pd.set_option('display.max_columns', 500)
@@ -22,7 +22,7 @@ class CapesDiscentes(object):
 
     def __init__(self, arquivos, nome_arquivo):
 
-        self.date = datetime.now()
+        self.date = datetime.datetime.now()
         self.arquivos = arquivos
         self.nome_arquivo = nome_arquivo
         self.input_lenght = 0
@@ -98,9 +98,9 @@ class CapesDiscentes(object):
             for file in files:
                 print file
                 arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                # self.input_lenght += int(
-                #     commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
-                # print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
+                self.input_lenght += int(
+                    commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
+                print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                 df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
                 #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=1, chunksize=1, encoding='cp1252', low_memory=False)
 
@@ -162,18 +162,30 @@ class CapesDiscentes(object):
         df = self.merge_programas(df)
 
         #print df[u'DT_SITUACAO_PROGRAMA'][0]
-        parse_dates = ['DT_SITUACAO_PROGRAMA']
+        parse_dates = ['DT_SITUACAO_PROGRAMA', 'DT_MATRICULA_DISCENTE', 'DT_SITUACAO_DISCENTE' ]
 
         for dt in parse_dates:
             df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
 
-        df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
-        df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
         df['AN_INICIO_CURSO'] = df['AN_INICIO_CURSO'].astype(str)
-        df['ANO_INICIO_PROGRAMA'] = df[df['ANO_INICIO_PROGRAMA'].notnull()]['ANO_INICIO_PROGRAMA'].astype(str)
+        #df['ANO_INICIO_PROGRAMA'] = df[df['ANO_INICIO_PROGRAMA'].notnull()]['ANO_INICIO_PROGRAMA'].astype(str)
+
         # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
 
+        # Criação dos campos facets
+        df['AN_BASE_facet'] = df['AN_BASE'].apply(gYear)
+        df['NM_REGIAO_facet'] = df['NM_REGIAO_x'] + '|' + df['SG_UF_PROGRAMA_x'] + '|' + df['NM_MUNICIPIO_PROGRAMA_IES_x']
+        df['AREA_CONHECIMENTO_facet'] = df['NM_GRANDE_AREA_CONHECIMENTO_x'] + '|' + df['NM_AREA_CONHECIMENTO'] + '|' + df['NM_SUBAREA_CONHECIMENTO']
+        #df['NM_SUBAREA_CONHECIMENTO_facet'] = df['AREA_CONHECIMENTO_facet'] + '|' + df['NM_SUBAREA_CONHECIMENTO']
+        #df['DT_SITUACAO_PROGRAMA_facet'] = df['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
+        df['ANO_INICIO_PROGRAMA_facet'] = df['ANO_INICIO_PROGRAMA'].apply(gYear)
+        #df['AN_INICIO_CURSO_facet'] = df['AN_INICIO_CURSO'].apply(gYear)
+
+        df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
+        df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
+        df['DT_SITUACAO_PROGRAMA_facet'] = df['DT_SITUACAO_PROGRAMA'].apply(data_facet)
+        # import pdb; pdb.set_trace()
         return df
 
 

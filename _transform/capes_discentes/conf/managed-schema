@@ -109,10 +109,16 @@
     <fieldType name="binary" class="solr.BinaryField"/>
     <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
 
-    <field name="NR_DOCUMENTO_DISCENTE" type="strings"/>
+     <field name="NR_DOCUMENTO_DISCENTE" type="strings"/>
+    <!--    <field name="DT_SITUACAO_PROGRAMA" type="strings"/>
+    <field name="ANO_INICIO_PROGRAMA" type="strings"/> -->
     <field name="AN_INICIO_CURSO" type="strings"/>
-    <field name="DT_SITUACAO_PROGRAMA" type="strings"/>
-    <field name="ANO_INICIO_PROGRAMA" type="strings"/>
+
+    <field name="AN_BASE_facet" type="descendent_path"/>
+    <field name="NM_REGIAO_facet" type="descendent_path"/>
+    <field name="AREA_CONHECIMENTO_facet" type="descendent_path"/>
+    <field name="ANO_INICIO_PROGRAMA_facet" type="descendent_path"/>
+    <field name="DT_SITUACAO_PROGRAMA_facet" type="descendent_path"/>
 
 
     <fieldType name="descendent_path" class="solr.TextField">

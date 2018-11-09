@@ -6,13 +6,25 @@ import time
 
 def gYear(year):
     try:
-        ano = int(year)
-        digit = str(ano)[-1]
-        inicial = ano - int(digit)
-        fim = inicial + 9
-        return "{}-{}|{}".format(inicial, fim, ano)
+        ano = int(year) # 2017
+        digit = str(ano)[-1] # 7
+        inicial = ano - int(digit) # 2010
+        fim = inicial + 9 # 2019
+        return "{}-{}|{}".format(inicial, fim, ano) # 2010-2019|2017
     except:
         return ''
+
+def data_facet(data):
+    try:
+        data = str(data)
+        ano = data[:4]
+        mes = data[4:6]
+        dia = data[6:]
+
+        return "{}|{}|{}".format(ano, mes, dia)
+    except:
+        return ''
+
 
 def find_regiao(cod):
     regioes = {'Regiao Norte': [11, 12, 13, 14, 15, 16, 17],
