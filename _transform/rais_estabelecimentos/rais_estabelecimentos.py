@@ -108,6 +108,7 @@ class RaisEstabelecimentosTransform(object):
         #foi feito slice do index de municipio e passado o codigo do estado
         #para o campo UF criado.
         codigo = df[u'Município'].apply(str)
+
         df[u'UF'] = codigo.str.slice(0,2).astype(int)
 
         for k, v in self.variaveis.items():
@@ -124,8 +125,17 @@ class RaisEstabelecimentosTransform(object):
                     del(df[u'IBGE Subsetor'])
 
         df[u'Município'] = df[u'Município'].str.split('-').str.get(1)
+
+        df[u'REGIAO_facet'] = codigo.str.slice(0,2).astype(int).apply(find_regiao)
+        df[u'REGIAO_facet'] = df['REGIAO_facet'] + '|' + df[u'UF'] + '|' + df[u'Município']
+        df[u'CNAE_2.0'] = df[u'CNAE 2.0 Classe']
+        df[u'CNAE_2.0_Subclasse'] = df[u'CNAE 2.0 Subclasse']
+        df[u'Tipo_Estab.1'] = df[u'Tipo Estab.1'].str.strip()
+        df[u'CNAE_2.0_facet'] = str(df[u'CNAE_2.0']) + '|' + str(df[u'CNAE_2.0_Subclasse'])
+
         #df.columns = df.columns.str.replace(' ', '_')
         #df.columns = [remover_acentos(x) for x in list(df.columns)]
+        #import pdb; pdb.set_trace()
         return df
 
 
