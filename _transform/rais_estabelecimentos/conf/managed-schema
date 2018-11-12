@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
+<schema name="sematext-cdrc-example-schema" version="1.6">
+  <uniqueKey>id</uniqueKey>
+  <fieldType name="binary" class="solr.BinaryField"/>
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+  <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="date" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="dates" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="descendent_path" class="solr.TextField">
+    <analyzer type="index">
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="|"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="double" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="doubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="float" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="floats" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="int" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="ints" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
+  <fieldType name="longs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
+  <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+  <fieldType name="strings" class="solr.StrField" sortMissingLast="true" docValues="true" multiValued="true"/>
+  <fieldType name="tdate" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" precisionStep="6"/>
+  <fieldType name="tdates" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="6"/>
+  <fieldType name="tdouble" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tdoubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="text" class="solr.TextField" positionIncrementGap="100" sortMissingLast="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_pt.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="1" generateNumberParts="1" generateWordParts="1" catenateAll="0" catenateWords="1"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EdgeNGramFilterFactory" maxGramSize="18" minGramSize="1"/>
+      <filter class="solr.PortugueseLightStemFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_pt.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="0" generateNumberParts="1" generateWordParts="1" catenateAll="0" catenateWords="0"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.PortugueseLightStemFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="tfloat" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tfloats" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="tint" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tints" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <fieldType name="tlong" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
+  <fieldType name="tlongs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
+  <field name="ANO_facet" type="descendent_path"/>
+  <field name="Ano" type="long"/>
+  <field name="Ano_Chegada_Brasil" type="long"/>
+  <field name="Ano_chegada_facet" type="strings"/>
+  <field name="Ano_facet" type="strings"/>
+  <field name="CBO_Ocupa__o_2002" type="strings"/>
+  <field name="CEP_Estab" type="long"/>
+  <field name="CNAE_2.0_Classe" type="long"/>
+  <field name="CNAE_2.0_Subclasse" type="strings"/>
+  <field name="CNAE_95_Classe" type="strings"/>
+  <field name="Causa_Afastamento_1" type="strings"/>
+  <field name="Causa_Afastamento_2" type="strings"/>
+  <field name="Causa_Afastamento_3" type="strings"/>
+  <field name="Escolaridade_ap_s_2005" type="strings"/>
+  <field name="Faixa_Et_ria" type="strings"/>
+  <field name="Faixa_Hora_Contrat" type="strings"/>
+  <field name="Faixa_Remun_Dezem__SM_" type="strings"/>
+  <field name="Faixa_Remun_M_dia__SM_" type="strings"/>
+  <field name="Faixa_Tempo_Emprego" type="strings"/>
+  <field name="Geografico_moradia_facet" type="descendent_path"/>
+  <field name="Geografico_trabalho_facet" type="descendent_path"/>
+  <field name="IBGE_Subsetor" type="strings"/>
+  <field name="ID" type="strings"/>
+  <field name="Idade" type="long"/>
+  <field name="Idade_facet" type="descendent_path"/>
+  <field name="Ind_Atividade_Ano" type="strings"/>
+  <field name="Ind_CEI_Vinculado" type="strings"/>
+  <field name="Ind_Estab_Participa_PAT" type="strings"/>
+  <field name="Ind_Portador_Defic" type="strings"/>
+  <field name="Ind_Rais_Negativa" type="strings"/>
+  <field name="Ind_Simples" type="strings"/>
+  <field name="M_s_Admiss_o" type="strings"/>
+  <field name="M_s_Desligamento" type="strings"/>
+  <field name="Motivo_Desligamento" type="strings"/>
+  <field name="Mun_Trab" type="strings"/>
+  <field name="Munic_pio" type="strings"/>
+  <field name="Nacionalidade" type="strings"/>
+  <field name="Natureza_Jur_dica" type="strings"/>
+  <field name="Qtd_Dias_Afastamento" type="long"/>
+  <field name="Qtd_Hora_Contr" type="long"/>
+  <field name="Qtd_V_nculos_Ativos" type="long"/>
+  <field name="Qtd_V_nculos_CLT" type="long"/>
+  <field name="Qtd_V_nculos_Estatut_rios" type="long"/>
+  <field name="Ra_a_Cor" type="strings"/>
+  <field name="Regi_es_Adm_DF" type="strings"/>
+  <field name="Regiao_moradia" type="strings"/>
+  <field name="Regiao_trabalho" type="strings"/>
+  <field name="Sexo_Trabalhador" type="strings"/>
+  <field name="Tamanho_Estabelecimento" type="strings"/>
+  <field name="Tempo_Emprego" type="double"/>
+  <field name="Tipo_Admiss_o" type="strings"/>
+  <field name="Tipo_Defic" type="strings"/>
+  <field name="Tipo_Estab" type="strings"/>
+  <field name="Tipo_Estab.1" type="strings"/>
+  <field name="Tipo_V_nculo" type="strings"/>
+  <field name="UF" type="strings"/>
+  <field name="UF_moradia" type="strings"/>
+  <field name="UF_trabalho" type="strings"/>
+  <field name="V_nculo_Ativo_31_12" type="strings"/>
+  <field name="Vl_Rem_Abril_CC" type="double"/>
+  <field name="Vl_Rem_Agosto_CC" type="double"/>
+  <field name="Vl_Rem_Fevereiro_CC" type="double"/>
+  <field name="Vl_Rem_Janeiro_CC" type="double"/>
+  <field name="Vl_Rem_Julho_CC" type="double"/>
+  <field name="Vl_Rem_Junho_CC" type="double"/>
+  <field name="Vl_Rem_Maio_CC" type="double"/>
+  <field name="Vl_Rem_Mar_o_CC" type="double"/>
+  <field name="Vl_Rem_Novembro_CC" type="double"/>
+  <field name="Vl_Rem_Outubro_CC" type="double"/>
+  <field name="Vl_Rem_Setembro_CC" type="double"/>
+  <field name="Vl_Remun_Dezembro_Nom" type="double"/>
+  <field name="Vl_Remun_Dezembro__SM_" type="double"/>
+  <field name="Vl_Remun_M_dia_Nom" type="double"/>
+  <field name="Vl_Remun_M_dia__SM_" type="double"/>
+  <field name="_root_" type="string" docValues="false" indexed="true" stored="false"/>
+  <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
+  <field name="_version_" type="long" indexed="true" stored="false"/>
+  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <dynamicField name="cross_collection_*" type="string" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" useDocValuesAsStored="false"/>
+  <dynamicField name="random_*" type="random"/>
+  <dynamicField name="*_tdts" type="tdates" indexed="true" stored="true"/>
+  <dynamicField name="attr_*" type="text_general" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
+  <dynamicField name="*_dts" type="date" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="*_tis" type="tints" indexed="true" stored="true"/>
+  <dynamicField name="*_tls" type="tlongs" indexed="true" stored="true"/>
+  <dynamicField name="*_tfs" type="tfloats" indexed="true" stored="true"/>
+  <dynamicField name="*_tds" type="tdoubles" indexed="true" stored="true"/>
+  <dynamicField name="*_tdt" type="tdate" indexed="true" stored="true"/>
+  <dynamicField name="*_is" type="ints" indexed="true" stored="true"/>
+  <dynamicField name="*_ss" type="strings" indexed="true" stored="true"/>
+  <dynamicField name="*_ls" type="longs" indexed="true" stored="true"/>
+  <dynamicField name="*_bs" type="booleans" indexed="true" stored="true"/>
+  <dynamicField name="*_fs" type="floats" indexed="true" stored="true"/>
+  <dynamicField name="*_ds" type="doubles" indexed="true" stored="true"/>
+  <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
+  <dynamicField name="*_ti" type="tint" indexed="true" stored="true"/>
+  <dynamicField name="*_tl" type="tlong" indexed="true" stored="true"/>
+  <dynamicField name="*_tf" type="tfloat" indexed="true" stored="true"/>
+  <dynamicField name="*_td" type="tdouble" indexed="true" stored="true"/>
+  <dynamicField name="*_ws" type="text_ws" indexed="true" stored="true"/>
+  <dynamicField name="*_i" type="int" indexed="true" stored="true"/>
+  <dynamicField name="*_s" type="string" indexed="true" stored="true"/>
+  <dynamicField name="*_l" type="long" indexed="true" stored="true"/>
+  <dynamicField name="*_t" type="text_general" indexed="true" stored="true"/>
+  <dynamicField name="*_b" type="boolean" indexed="true" stored="true"/>
+  <dynamicField name="*_f" type="float" indexed="true" stored="true"/>
+  <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
+  <copyField source="*" dest="_text_"/>
+</schema>
