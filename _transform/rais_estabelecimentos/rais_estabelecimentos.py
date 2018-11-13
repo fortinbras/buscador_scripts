@@ -54,7 +54,7 @@ class RaisEstabelecimentosTransform(object):
             u'Tipo Estab': {1: 'CNPJ', 3: 'CEI', 9: 'Não identificado', -1: 'Ignorado'},
             u'Tipo Estab.1':{'cnpj':'CNPJ', 'cei': 'CEI'},
             u'UF': uf_dic(),
-            u'IBGE Subsetor': ibge_sub_dic(),
+            u'IBGE Subsetor': ibge_sub_dic()
 
         }
         self.avoid = ['Bairros SP', 'Bairros Fortaleza', 'Bairros RJ', 'Distritos SP']
@@ -77,6 +77,7 @@ class RaisEstabelecimentosTransform(object):
                     for df in iterdf:
                         nfile = self.destino_transform + self.f + '_' + str(self.c)+ '.csv'
                         df = self.resolve_dicionario(df)
+
                         try:
                             os.makedirs(self.destino_transform)
                         except OSError as e:
@@ -110,6 +111,8 @@ class RaisEstabelecimentosTransform(object):
         codigo = df[u'Município'].apply(str)
 
         df[u'UF'] = codigo.str.slice(0,2).astype(int)
+        # df[u'CNAE 2.0 Classe'] = df[u'CNAE 2.0 Classe'].astype(str)
+        # df[u'CNAE 2.0 Subclasse'] = df[u'CNAE 2.0 Subclasse']
 
         for k, v in self.variaveis.items():
             # import pdb; pdb.set_trace()
@@ -125,15 +128,16 @@ class RaisEstabelecimentosTransform(object):
                     del(df[u'IBGE Subsetor'])
 
         df[u'Município'] = df[u'Município'].str.split('-').str.get(1)
-
         df[u'REGIAO_facet'] = codigo.str.slice(0,2).astype(int).apply(find_regiao)
         df[u'REGIAO_facet'] = df['REGIAO_facet'] + '|' + df[u'UF'] + '|' + df[u'Município']
-        df[u'CNAE_2.0'] = df[u'CNAE 2.0 Classe']
-        df[u'CNAE_2.0_Subclasse'] = df[u'CNAE 2.0 Subclasse']
-        df[u'Tipo_Estab.1'] = df[u'Tipo Estab.1'].str.strip()
-        df[u'CNAE_2.0_facet'] = str(df[u'CNAE_2.0']) + '|' + str(df[u'CNAE_2.0_Subclasse'])
+        # df[u'CNAE_2.0'] = df[u'CNAE 2.0 Classe']
+        # df[u'CNAE_2.0_Subclasse'] = df[u'CNAE 2.0 Subclasse']
+        df[u'Tipo Estab.1'] = df[u'Tipo Estab.1'].str.strip()
 
-        #df.columns = df.columns.str.replace(' ', '_')
+        # import pdb; pdb.set_trace()
+        # df[u'CNAE_2.0_facet'] = df[u'CNAE 2.0 Classe'] + '|' + df[u'CNAE 2.0 Subclasse']
+
+        df.columns = df.columns.str.replace(' ', '_')
         #df.columns = [remover_acentos(x) for x in list(df.columns)]
         #import pdb; pdb.set_trace()
         return df
@@ -145,6 +149,7 @@ def rais_estabelecimentos_transform():
         anos = [f for f in os.listdir(path_origem) if not f.startswith('.')]
         anos.sort()
         print anos
+
     except:
         raise
     #rais_estabelecimento = RaisEstabelecimentoTransform('2010')
