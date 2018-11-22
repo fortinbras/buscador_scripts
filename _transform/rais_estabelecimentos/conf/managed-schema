@@ -8,13 +8,19 @@
   <fieldType name="date" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
   <fieldType name="dates" class="solr.TrieDateField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
   <fieldType name="descendent_path" class="solr.TextField">
+
+
     <analyzer type="index">
       <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="|"/>
     </analyzer>
+
     <analyzer type="query">
       <tokenizer class="solr.KeywordTokenizerFactory"/>
     </analyzer>
-  </fieldType>
+    </fieldType>
+
+
+
   <fieldType name="double" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
   <fieldType name="doubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="0"/>
   <fieldType name="float" class="solr.TrieFloatField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
@@ -31,6 +37,8 @@
   <fieldType name="tdouble" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
   <fieldType name="tdoubles" class="solr.TrieDoubleField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
   <fieldType name="text" class="solr.TextField" positionIncrementGap="100" sortMissingLast="true">
+
+
     <analyzer type="index">
       <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
@@ -53,6 +61,7 @@
       <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
     </analyzer>
   </fieldType>
+  
   <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
     <analyzer type="index">
       <tokenizer class="solr.StandardTokenizerFactory"/>

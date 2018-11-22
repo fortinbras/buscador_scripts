@@ -134,7 +134,6 @@
 
     <!--<copyField source="DS_PALAVRA_CHAVE" dest="DS_PALAVRA_CHAVE_exact"/>-->
 
-
     <field name="DS_KEYWORD_nuvem_palavras" type="text_en_stopword" multiValued="true" indexed="true" stored="true"/>
     <copyField source="DS_KEYWORD" dest="DS_KEYWORD_nuvem_palavras"/>
     <copyField source="DS_KEYWORD" dest="DS_KEYWORD_busca"/>

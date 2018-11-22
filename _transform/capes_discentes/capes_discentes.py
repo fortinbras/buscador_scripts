@@ -70,8 +70,10 @@ class CapesDiscentes(object):
     def pega_arquivo_nome(self):
         ''' Pega os arquivos em discentes/download em Discentes, faz um append deles e os retorna'''
 
+
         var = BASE_PATH_DATA + 'capes/discentes/download/'
         df_auxiliar = []
+
         print 'Lendo os arquivos CAPES Discentes......'
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -81,9 +83,10 @@ class CapesDiscentes(object):
                     self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
-                    #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=1, chunksize=1, encoding='cp1252', low_memory=False)
+                    #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=10000, chunksize=1000, encoding='cp1252', low_memory=False)
 
         df_discentes_concat = pd.concat(df_auxiliar, sort=False)
+
         return df_discentes_concat # retornando todos os anos 2013_2015 a 2016_2017
 
 
@@ -98,15 +101,14 @@ class CapesDiscentes(object):
             for file in files:
                 print file
                 arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
-                self.input_lenght += int(
-                    commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
+                self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                 print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                 df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
-                #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=1, chunksize=1, encoding='cp1252', low_memory=False)
+                #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=10000, chunksize=1000, encoding='cp1252', low_memory=False)
 
         df_programas_concat = pd.concat(df_auxiliar, sort=False)
-        return df_programas_concat
 
+        return df_programas_concat
 
     def merge_programas(self, df):
         ''' Colunas que serão agregadas aos dicentes, segundo o modelo. Esta função
@@ -153,6 +155,7 @@ class CapesDiscentes(object):
         #df_merged = df.merge(self.ies, how='left')
         #df_merge = df_merged.loc(colunas_adicionadas)
         #return df_merged[colunas_adicionadas]
+
         return df_merged
 
 
@@ -170,7 +173,7 @@ class CapesDiscentes(object):
         df['AN_INICIO_CURSO'] = df['AN_INICIO_CURSO'].astype(str)
         #df['ANO_INICIO_PROGRAMA'] = df[df['ANO_INICIO_PROGRAMA'].notnull()]['ANO_INICIO_PROGRAMA'].astype(str)
 
-        # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
+        #df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
 
         # Criação dos campos facets
@@ -185,7 +188,12 @@ class CapesDiscentes(object):
         df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
         df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
         df['DT_SITUACAO_PROGRAMA_facet'] = df['DT_SITUACAO_PROGRAMA'].apply(data_facet)
-        # import pdb; pdb.set_trace()
+
+        df['NM_PROGRAMA_IES_exact'] = df['NM_PROGRAMA_IES_x']
+        df['NM_PROGRAMA_IDIOMA_exact'] = df['NM_PROGRAMA_IDIOMA']
+        df[u'NM_TESE_DISSERTACAO_exact'] = df[u'NM_TESE_DISSERTACAO'].apply(norm_keyword)
+
+        import pdb; pdb.set_trace()
         return df
 
 

@@ -7,19 +7,11 @@ import commands
 import datetime
 import errno
 import re
-from utils import gYear
+from utils.utils import *
 
 
 # pd.set_option('display.max_rows', 500)
 # pd.set_option('display.max_columns', 500)
-def norm_keyword(palavras):
-    if not isinstance(palavras, (unicode, str)):
-        return palavras
-    palavras = palavras.encode('utf8')
-    palavras = re.sub(r'\d.', '', palavras)
-    palavras = palavras.replace(';', ',').replace('.', ',').replace('¿', 'E').replace('[', '').replace(']', '')
-    return palavras.split(',')
-
 
 class CapesTeses(object):
     def __init__(self, year):
@@ -78,7 +70,7 @@ class CapesTeses(object):
         df['DS_KEYWORD_exact'] = df['DS_KEYWORD'].apply(norm_keyword)
 
         df['TITULO_RESUMO'] = df['NM_PRODUCAO'] + '\n' + df['DS_RESUMO']
-
+        import pdb; pdb.set_trace()
         return df
 
     def gera_csv(self):

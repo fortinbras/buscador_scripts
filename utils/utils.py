@@ -3,6 +3,7 @@
 import os
 import datetime
 import time
+import re
 
 def gYear(year):
     try:
@@ -13,6 +14,14 @@ def gYear(year):
         return "{}-{}|{}".format(inicial, fim, ano) # 2010-2019|2017
     except:
         return ''
+
+def norm_keyword(palavras):
+    if not isinstance(palavras, (unicode, str)):
+        return palavras
+    palavras = palavras.encode('utf8')
+    palavras = re.sub(r'\d.', '', palavras)
+    palavras = palavras.replace(';', ',').replace('.', ',').replace('¿', 'E').replace('[', '').replace(']', '')
+    return palavras.split(',')
 
 def data_facet(data):
     try:

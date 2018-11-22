@@ -8,7 +8,7 @@ import pandas as pd
 import csv
 import commands
 from datetime import datetime
-from utils import *
+from utils.utils import *
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
@@ -32,7 +32,7 @@ from dicionarios.municipios import municipios_dic
 class RaisEstabelecimentosTransform(object):
 
     def __init__(self, ano):
-        self.horas = datetime.now()
+        self.horas = datetime.datetime.now()
         self.input_lenght = 0
         self.output_lenght = 0
         self.df = pd.DataFrame()
@@ -133,7 +133,8 @@ class RaisEstabelecimentosTransform(object):
         # df[u'CNAE_2.0'] = df[u'CNAE 2.0 Classe']
         # df[u'CNAE_2.0_Subclasse'] = df[u'CNAE 2.0 Subclasse']
         df[u'Tipo Estab.1'] = df[u'Tipo Estab.1'].str.strip()
-
+        df[u'PALAVRAS_CNAE95_exact'] = df[u'CNAE 95 Classe'].apply(norm_keyword)
+        df[u'PALAVRA_CNAE20_exact'] = df[u'CNAE 2.0 Subclasse']
         # import pdb; pdb.set_trace()
         # df[u'CNAE_2.0_facet'] = df[u'CNAE 2.0 Classe'] + '|' + df[u'CNAE 2.0 Subclasse']
 
