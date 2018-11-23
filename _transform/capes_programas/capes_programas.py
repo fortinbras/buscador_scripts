@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
 
-from utils import *
+from utils.utils import *
 import pandas as pd
 import codecs
 import csv
@@ -94,7 +94,7 @@ class CapesProgramas(object):
                     #df_enade = df_enade.loc[:, self.colunas]
         #import pdb;pdb.set_trace()  #para testar o código
         #df_concat = pd.concat(df_auxiliar)
-        
+
         return df_auxiliar
 
     def resolve_dicionarios(self):
@@ -104,11 +104,19 @@ class CapesProgramas(object):
         for dt in parse_dates:
             df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
 
-        df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
 
         # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
+        df['AN_BASE_facet'] = df['AN_BASE'].apply(gYear)
+        df['NM_REGIAO_facet'] = df['NM_REGIAO'] + '|' + df['SG_UF_PROGRAMA'] + '|' + df['NM_MUNICIPIO_PROGRAMA_IES']
+        df['AREA_CONHECIMENTO_facet'] = df['NM_GRANDE_AREA_CONHECIMENTO'] + '|' + df['NM_AREA_CONHECIMENTO'] + '|' + df['NM_SUBAREA_CONHECIMENTO']
+        df['ANO_INICIO_PROGRAMA_facet'] = df['ANO_INICIO_PROGRAMA'].apply(gYear)
 
+        df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
+        df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
+        df['DT_SITUACAO_PROGRAMA_facet'] = df['DT_SITUACAO_PROGRAMA'].apply(data_facet)
+        df['INSTITUICAO_ENSINO_facet'] =  df['SG_ENTIDADE_ENSINO'] + '|' + df['NM_ENTIDADE_ENSINO']
+        import pdb; pdb.set_trace()
         return df
 
     def gera_csv(self):

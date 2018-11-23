@@ -8,7 +8,7 @@ import pandas as pd
 import csv
 import commands
 from datetime import datetime
-from utils import *
+from utils.utils import *
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, '../../../buscador_scripts/')
@@ -32,7 +32,7 @@ from dicionarios.municipios import municipios_dic
 class RaisEstabelecimentosTransform(object):
 
     def __init__(self, ano):
-        self.horas = datetime.now()
+        self.horas = datetime.datetime.now()
         self.input_lenght = 0
         self.output_lenght = 0
         self.df = pd.DataFrame()
@@ -54,7 +54,7 @@ class RaisEstabelecimentosTransform(object):
             u'Tipo Estab': {1: 'CNPJ', 3: 'CEI', 9: 'Não identificado', -1: 'Ignorado'},
             u'Tipo Estab.1':{'cnpj':'CNPJ', 'cei': 'CEI'},
             u'UF': uf_dic(),
-            u'IBGE Subsetor': ibge_sub_dic(),
+            u'IBGE Subsetor': ibge_sub_dic()
 
         }
         self.avoid = ['Bairros SP', 'Bairros Fortaleza', 'Bairros RJ', 'Distritos SP']
@@ -77,6 +77,7 @@ class RaisEstabelecimentosTransform(object):
                     for df in iterdf:
                         nfile = self.destino_transform + self.f + '_' + str(self.c)+ '.csv'
                         df = self.resolve_dicionario(df)
+
                         try:
                             os.makedirs(self.destino_transform)
                         except OSError as e:
@@ -108,7 +109,10 @@ class RaisEstabelecimentosTransform(object):
         #foi feito slice do index de municipio e passado o codigo do estado
         #para o campo UF criado.
         codigo = df[u'Município'].apply(str)
+
         df[u'UF'] = codigo.str.slice(0,2).astype(int)
+        # df[u'CNAE 2.0 Classe'] = df[u'CNAE 2.0 Classe'].astype(str)
+        # df[u'CNAE 2.0 Subclasse'] = df[u'CNAE 2.0 Subclasse']
 
         for k, v in self.variaveis.items():
             # import pdb; pdb.set_trace()
@@ -124,8 +128,19 @@ class RaisEstabelecimentosTransform(object):
                     del(df[u'IBGE Subsetor'])
 
         df[u'Município'] = df[u'Município'].str.split('-').str.get(1)
-        #df.columns = df.columns.str.replace(' ', '_')
+        df[u'REGIAO_facet'] = codigo.str.slice(0,2).astype(int).apply(find_regiao)
+        df[u'REGIAO_facet'] = df['REGIAO_facet'] + '|' + df[u'UF'] + '|' + df[u'Município']
+        # df[u'CNAE_2.0'] = df[u'CNAE 2.0 Classe']
+        # df[u'CNAE_2.0_Subclasse'] = df[u'CNAE 2.0 Subclasse']
+        df[u'Tipo Estab.1'] = df[u'Tipo Estab.1'].str.strip()
+        df[u'PALAVRAS_CNAE95_exact'] = df[u'CNAE 95 Classe'].apply(norm_keyword)
+        df[u'PALAVRA_CNAE20_exact'] = df[u'CNAE 2.0 Subclasse']
+        # import pdb; pdb.set_trace()
+        # df[u'CNAE_2.0_facet'] = df[u'CNAE 2.0 Classe'] + '|' + df[u'CNAE 2.0 Subclasse']
+
+        df.columns = df.columns.str.replace(' ', '_')
         #df.columns = [remover_acentos(x) for x in list(df.columns)]
+        #import pdb; pdb.set_trace()
         return df
 
 
@@ -135,6 +150,7 @@ def rais_estabelecimentos_transform():
         anos = [f for f in os.listdir(path_origem) if not f.startswith('.')]
         anos.sort()
         print anos
+
     except:
         raise
     #rais_estabelecimento = RaisEstabelecimentoTransform('2010')

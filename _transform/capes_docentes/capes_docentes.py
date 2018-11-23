@@ -81,9 +81,16 @@ class CapesDocentes(object):
         df_concat = pd.concat(df_auxiliar)
         return df_concat
 
+    def resolve_dicionarios(self):
+
+        df = self.pega_arquivo_nome()
+        df['NM_REGIAO_facet'] = df['NM_REGIAO'] + '|' + df['SG_UF_PROGRAMA'] + '|' + df['NM_MUNICIPIO_PROGRAMA_IES']
+
+        return df
+
     def gera_csv(self):
 
-        df_capes = self.pega_arquivo_nome()
+        df_capes = self.resolve_dicionarios()
 
         destino_transform = BASE_PATH_DATA + 'capes/docentes/transform'
         csv_file = '/capes_' + self.nome_arquivo + '.csv'
