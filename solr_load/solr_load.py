@@ -153,5 +153,5 @@ class SolrLoad(object):
 
 # /opt/solr-6.6.2/bin/solr zk downconfig -z localhost:9983 -n capes_discentes -d /home/gro/solr_conf/capes_discentes/
 
-# /opt/solr-6.6.2/bin/solr zk -n capes_docentes -upconfig -z 192.168.0.35:2181 -d  ./
-# /opt/solr-6.6.2/bin/solr zk -n rais_estabelecimentos downconfig -z 192.168.0.35:2181 -d /home/gro/solr_conf/rais_estabelecimentos/
+# /opt/solr-6.6.2/bin/solr zk -n capes_programas -upconfig -z 192.168.0.35:2181 -d  ./
+# /opt/solr-6.6.2/bin/solr zk -n capes_programas downconfig -z 192.168.0.35:2181 -d .
