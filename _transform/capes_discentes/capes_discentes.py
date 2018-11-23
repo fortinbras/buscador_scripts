@@ -188,6 +188,7 @@ class CapesDiscentes(object):
         df['DT_SITUACAO_PROGRAMA'] = df[dt].dt.strftime('%Y%m%d')
         df['DT_SITUACAO_PROGRAMA'] = df['DT_SITUACAO_PROGRAMA'].astype(str)
         df['DT_SITUACAO_PROGRAMA_facet'] = df['DT_SITUACAO_PROGRAMA'].apply(data_facet)
+        df['INSTITUICAO_ENSINO_facet'] =  df['SG_ENTIDADE_ENSINO_x'] + '|' + df['NM_ENTIDADE_ENSINO_x']
 
         df['NM_PROGRAMA_IES_exact'] = df['NM_PROGRAMA_IES_x']
         df['NM_PROGRAMA_IDIOMA_exact'] = df['NM_PROGRAMA_IDIOMA']
