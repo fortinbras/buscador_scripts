@@ -101,6 +101,7 @@
     <field name="NR_DOCUMENTO_DOCENTE" type="strings"/>
 
     <field name="NM_REGIAO_facet" type="descendent_path"/>
+    <field name="NM_AREA_CONHECIMENTO_facet" type="descendent_path"/>
 
     <fieldType name="descendent_path" class="solr.TextField">
       <analyzer type="index">

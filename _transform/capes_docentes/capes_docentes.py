@@ -85,6 +85,8 @@ class CapesDocentes(object):
 
         df = self.pega_arquivo_nome()
         df['NM_REGIAO_facet'] = df['NM_REGIAO'] + '|' + df['SG_UF_PROGRAMA'] + '|' + df['NM_MUNICIPIO_PROGRAMA_IES']
+        df['NM_AREA_CONHECIMENTO_facet'] = df['NM_GRANDE_AREA_CONHECIMENTO'] + '|' + df['NM_AREA_CONHECIMENTO']
+        import pdb; pdb.set_trace()
 
         return df
 
