@@ -154,6 +154,11 @@
   <copyField source="*" dest="_text_"/>
 
   <field name="AN_INICIO_CURSO" type="strings"/>
+  <field name="Codigo_GEI" type="strings"/>
+  <field name="Codigo_do_Tipo_de_Instituicao_" type="int"/>
+  <field name="Codigo_Natureza_Juridica_-_GEI" type="int"/>
+  <field name="CD_ORGANIZACAO_ACADEMICA_-_GEI" type="int"/>
+  <field name="Codigo_Mantenedora" type="int"/>
 
   <field name="AN_BASE_facet" type="descendent_path"/>
   <field name="NM_REGIAO_facet" type="descendent_path"/>

@@ -12,6 +12,12 @@ import codecs
 import csv
 import commands
 from datetime import datetime
+# Imports para acrescentar ao programas o cadastro das CAPES
+#from dicionarios.cod_gei import cod_gei_dic
+#from dicionarios.cod_mantenedora import cod_mantenedora_dic
+#from dicionarios.cod_oorgani_acad_gei import cod_org_acad_gei_dic
+#from dicionarios.cod_tipo_institu import cod_tipo_institu_dic
+#from dicionarios.nat_juridica_gei import nat_jurudica_gei_dic
 
 
 class CapesProgramas(object):
@@ -23,6 +29,7 @@ class CapesProgramas(object):
         self.nome_arquivo = nome_arquivo
         self.input_lenght = 0
         self.output_length = 0
+        self.ies = self.pega_arquivo_cadastro_ies_capes()
         self.colunas = [
             'AN_BASE',
             'ID_PESSOA',
@@ -84,6 +91,7 @@ class CapesProgramas(object):
         for root, dirs, files in os.walk(var):
             for file in files:
                 if file in self.arquivos:
+                    print file
                     arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
                     self.input_lenght += int(commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1])
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
@@ -95,15 +103,48 @@ class CapesProgramas(object):
         #import pdb;pdb.set_trace()  #para testar o código
         #df_concat = pd.concat(df_auxiliar)
 
-        return df_auxiliar
+        return df_auxiliar # retorna um (pandas.io.parsers.TextFileReader)
+
+    def pega_arquivo_cadastro_ies_capes(self):
+        var = '/var/tmp/solr_front/collections/capes/programas/cadastro/'
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                df_cad_temp = pd.read_csv(arquivo, sep=';', low_memory=False, encoding='latin-1')
+        # eliminando as colunas vazias do csv.
+        df_cad = df_cad_temp.dropna(how = 'all', axis = 'columns')
+        df_cad = df_cad.dropna(how = 'all', axis = 'rows')
+
+        return df_cad
+
+    def merge_programas(self, df):
+        ''' Colunas que serão agregadas à capes programas, segundo o modelo(excel). Esta função
+            recebe um dataframe de parametro e faz o merge dele com os arquivos
+            do CAPES Programas.'''
+
+        print 'Fazendo o merge......'
+        #df_merged = df.merge(self.ies, how='left')
+        df_merged = df.merge(self.ies, on=['SG_ENTIDADE_ENSINO_Capes'])
+        #df_merged = df.merge(self.ies, how='left')
+        #df_merge = df_merged.loc(colunas_adicionadas)
+        #return df_merged[colunas_adicionadas]
+
+        return df_merged
+
+
 
     def resolve_dicionarios(self):
+
         df = self.pega_arquivo_nome()
+        df['SG_ENTIDADE_ENSINO_Capes'] = df['SG_ENTIDADE_ENSINO']
+
+        df = self.merge_programas(df)
+        df.columns = df.columns.str.replace(' ', '_')
+
         parse_dates = ['DT_SITUACAO_PROGRAMA']
 
         for dt in parse_dates:
             df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
-
 
         # df['ANO_MATRICULA_facet'] = df[df['DT_MATRICULA'].notnull()]['DT_MATRICULA'].dt.year.apply(gYear)
         #df['DT_SITUACAO_PROGRAMA'] = df[df['DT_SITUACAO_PROGRAMA'].dt.year == '2013']['DT_SITUACAO_PROGRAMA'].dt.year.apply(gYear)
@@ -119,6 +160,14 @@ class CapesProgramas(object):
 
         df['NM_PROGRAMA_IES_exact'] = df['NM_PROGRAMA_IES']
         df['NM_PROGRAMA_IDIOMA_exact'] = df['NM_PROGRAMA_IDIOMA']
+        
+        df['Codigo_GEI'] = df['Codigo_GEI'].astype(str)
+        df['Codigo_do_Tipo_de_Instituicao_'] = df['Codigo_do_Tipo_de_Instituicao_'].astype(int)
+        df['Codigo_Natureza_Juridica_-_GEI'] = df['Codigo_Natureza_Juridica_-_GEI'].astype(int)
+        df['CD_ORGANIZACAO_ACADEMICA_-_GEI'] = df['CD_ORGANIZACAO_ACADEMICA_-_GEI'].astype(int)
+        df['Codigo_Mantenedora'] = df['Codigo_Mantenedora'].astype(int)
+
+
         import pdb; pdb.set_trace()
         return df
 

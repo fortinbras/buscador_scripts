@@ -113,8 +113,7 @@ class CapesDiscentes(object):
     def merge_programas(self, df):
         ''' Colunas que serão agregadas aos dicentes, segundo o modelo. Esta função
             recebe um dataframe de parametro e faz o merge dele com os arquivos
-            do CAPESP Programa, por hora, estão sendo carregados no solr todos os
-            arquivos dos dfs merged, porém, futuramente, subirão apenas estes.'''
+            do CAPES Programas.'''
 
         colunas_adicionadas = [
 
