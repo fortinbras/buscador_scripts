@@ -253,7 +253,7 @@ def cod_gei_dic():
         "100149" : "FAMERP",
         "100093" : "FMJ",
         "100126" : "INATEL",
-        "10110M" : "FGV",
+        "10110M" : "FGV", # letra
         "100152" : "FACIC",
         "100171" : "FDSM",
         "100200" : "FCL",
@@ -416,7 +416,7 @@ def cod_gei_dic():
         "900019" : "FCRB",
         "900020" : "ENAP",
         "900021" : "CEFOR",
-        "900022I" : "CESAR"
+        "900022I" : "CESAR" # letra
 
     }
 

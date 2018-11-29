@@ -179,9 +179,11 @@ class CapesDiscentes(object):
         df = self.merge_programas(df)
 
         df['SG_ENTIDADE_ENSINO_Capes'] = df['SG_ENTIDADE_ENSINO_x']
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         df = df.merge(self.cadastro, on=['SG_ENTIDADE_ENSINO_Capes'])
-        import pdb; pdb.set_trace()
+
+        df.columns = df.columns.str.replace(' ', '_')
+
         #print df[u'DT_SITUACAO_PROGRAMA'][0]
         parse_dates = ['DT_SITUACAO_PROGRAMA', 'DT_MATRICULA_DISCENTE', 'DT_SITUACAO_DISCENTE' ]
 
@@ -212,7 +214,14 @@ class CapesDiscentes(object):
         df['NM_PROGRAMA_IDIOMA_exact'] = df['NM_PROGRAMA_IDIOMA']
         df[u'NM_TESE_DISSERTACAO_exact'] = df[u'NM_TESE_DISSERTACAO'].apply(norm_keyword)
 
-        import pdb; pdb.set_trace()
+        # Campos setados do cadastro CAPES IES
+        df['Codigo_GEI'] = df['Codigo_GEI'].astype(str)
+        df['Codigo_do_Tipo_de_Instituicao_'] = df['Codigo_do_Tipo_de_Instituicao_'].astype(int)
+        df['Codigo_Natureza_Juridica_-_GEI'] = df['Codigo_Natureza_Juridica_-_GEI'].astype(int)
+        df['CD_ORGANIZACAO_ACADEMICA_-_GEI'] = df['CD_ORGANIZACAO_ACADEMICA_-_GEI'].astype(int)
+        df['Codigo_Mantenedora'] = df['Codigo_Mantenedora'].astype(int)
+
+        #import pdb; pdb.set_trace()
         return df
 
 
