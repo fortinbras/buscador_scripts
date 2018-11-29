@@ -106,6 +106,8 @@ class CapesProgramas(object):
         return df_auxiliar # retorna um (pandas.io.parsers.TextFileReader)
 
     def pega_arquivo_cadastro_ies_capes(self):
+        '''pega arquivo cadastro CAPES IES que serão agregados aos programas'''
+
         var = '/var/tmp/solr_front/collections/capes/programas/cadastro/'
         for root, dirs, files in os.walk(var):
             for file in files:
@@ -130,7 +132,6 @@ class CapesProgramas(object):
         #return df_merged[colunas_adicionadas]
 
         return df_merged
-
 
 
     def resolve_dicionarios(self):
@@ -160,7 +161,7 @@ class CapesProgramas(object):
 
         df['NM_PROGRAMA_IES_exact'] = df['NM_PROGRAMA_IES']
         df['NM_PROGRAMA_IDIOMA_exact'] = df['NM_PROGRAMA_IDIOMA']
-        
+
         df['Codigo_GEI'] = df['Codigo_GEI'].astype(str)
         df['Codigo_do_Tipo_de_Instituicao_'] = df['Codigo_do_Tipo_de_Instituicao_'].astype(int)
         df['Codigo_Natureza_Juridica_-_GEI'] = df['Codigo_Natureza_Juridica_-_GEI'].astype(int)

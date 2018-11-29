@@ -28,6 +28,7 @@ class CapesDiscentes(object):
         self.input_lenght = 0
         self.output_length = 0
         self.ies = self.pega_arquivo_programas_download()
+        self.cadastro = self.pega_arquivo_cadastro_ies_capes()
         self.colunas = [
             'AN_BASE',
             'NM_GRANDE_AREA_CONHECIMENTO',
@@ -70,7 +71,6 @@ class CapesDiscentes(object):
     def pega_arquivo_nome(self):
         ''' Pega os arquivos em discentes/download em Discentes, faz um append deles e os retorna'''
 
-
         var = BASE_PATH_DATA + 'capes/discentes/download/'
         df_auxiliar = []
 
@@ -88,6 +88,21 @@ class CapesDiscentes(object):
         df_discentes_concat = pd.concat(df_auxiliar, sort=False)
 
         return df_discentes_concat # retornando todos os anos 2013_2015 a 2016_2017
+
+
+    def pega_arquivo_cadastro_ies_capes(self):
+        '''pega os arquivos de cadastro CAPES IES que serão agregados aos Discentes'''
+
+        var = '/var/tmp/solr_front/collections/capes/programas/cadastro/'
+        for root, dirs, files in os.walk(var):
+            for file in files:
+                arquivo = codecs.open(os.path.join(root, file), 'r')  # , encoding='latin-1')
+                df_cad_temp = pd.read_csv(arquivo, sep=';', low_memory=False, encoding='latin-1')
+        # eliminando as colunas vazias do csv.
+        df_cad = df_cad_temp.dropna(how = 'all', axis = 'columns')
+        df_cad = df_cad.dropna(how = 'all', axis = 'rows')
+
+        return df_cad
 
 
     def pega_arquivo_programas_download(self):
@@ -111,7 +126,7 @@ class CapesDiscentes(object):
         return df_programas_concat
 
     def merge_programas(self, df):
-        ''' Colunas que serão agregadas aos dicentes, segundo o modelo. Esta função
+        ''' Colunas que serão agregadas aos Discentes, segundo o modelo. Esta função
             recebe um dataframe de parametro e faz o merge dele com os arquivos
             do CAPES Programas.'''
 
@@ -163,6 +178,10 @@ class CapesDiscentes(object):
         df = self.pega_arquivo_nome()
         df = self.merge_programas(df)
 
+        df['SG_ENTIDADE_ENSINO_Capes'] = df['SG_ENTIDADE_ENSINO_x']
+        import pdb; pdb.set_trace()
+        df = df.merge(self.cadastro, on=['SG_ENTIDADE_ENSINO_Capes'])
+        import pdb; pdb.set_trace()
         #print df[u'DT_SITUACAO_PROGRAMA'][0]
         parse_dates = ['DT_SITUACAO_PROGRAMA', 'DT_MATRICULA_DISCENTE', 'DT_SITUACAO_DISCENTE' ]
 
