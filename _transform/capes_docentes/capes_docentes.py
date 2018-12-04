@@ -16,8 +16,25 @@ from datetime import datetime
 
 
 class CapesDocentes(object):
+    """
+    A classe CapesDocentes é responsável pela transformaçao da base de dados(Collection - docentes),
+    faz parte do processo de ETL(Extração, Transformação e Carga).
+
+    Atributos:
+        date            (date): data de execução deste arquivo.
+        input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
+        output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
+        colunas         (dic): Dicionário das colunas do arquivo csv.
+
+    """
 
     def __init__(self, arquivos, nome_arquivo):
+        """
+        Construtor da classe CapesDocentes, necessita de 2 parâmetros:
+        arquivos        (list): Lista com todos os arquivos da pasta download -  BASE_PATH_DATA + 'capes/docentes/download/'.
+        nome_arquivo    (str): Nome dos arquivos da pasta download BASE_PATH_DATA + 'capes/docentes/download/'.
+
+        """
 
         self.date = datetime.now()
         self.arquivos = arquivos
@@ -64,6 +81,10 @@ class CapesDocentes(object):
         ]
 
     def pega_arquivo_nome(self):
+        ''' Pega os arquivos em docentes/download, conta as linhas de entrada do arquivo,
+            adiciona cada arquivo na lista(df_auxiliar), faz a concatenação deles e os retorna
+
+        '''
 
         var = BASE_PATH_DATA + 'capes/docentes/download/'
         df_auxiliar = []
@@ -77,20 +98,29 @@ class CapesDocentes(object):
                     df_auxiliar.append(pd.read_csv(arquivo, sep=';', low_memory=False, encoding='cp1252'))
                     #df_auxiliar = pd.read_csv(arquivo, sep=';', nrows=3000, chunksize=3000, encoding='latin-1', low_memory=False)
         #import pdb;pdb.set_trace()  #para testar o código
-
         df_concat = pd.concat(df_auxiliar)
         return df_concat
 
     def resolve_dicionarios(self):
+        """
+        Pega o Dataframe de retorno do método pega_arquivo_nome, resolve os campos para facet
+        e os retorna para o gera_csv.
+
+        """
 
         df = self.pega_arquivo_nome()
         df['NM_REGIAO_facet'] = df['NM_REGIAO'] + '|' + df['SG_UF_PROGRAMA'] + '|' + df['NM_MUNICIPIO_PROGRAMA_IES']
         df['NM_AREA_CONHECIMENTO_facet'] = df['NM_GRANDE_AREA_CONHECIMENTO'] + '|' + df['NM_AREA_CONHECIMENTO']
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
 
         return df
 
     def gera_csv(self):
+        """
+        Pega o Dataframe de retorno do método resolve_dicionario, cria o diretório de destino,
+        conta as linhas do arquivo de saída e grava o .csv e o .log no diretório de destino.
+
+        """
 
         df_capes = self.resolve_dicionarios()
 
@@ -120,6 +150,13 @@ class CapesDocentes(object):
 
 
 def capes_docentes_transform():
+    """
+    Função chamada em transform.py para ajustar os dados da  CAPES Docentes e prepará-los
+    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    e passa os parâmetros - arquivos e nome_arquivo para a classe CapesDocentes.
+
+    """
+
     PATH_ORIGEM = BASE_PATH_DATA + 'capes/docentes/download'
     try:
         arquivos = os.listdir(PATH_ORIGEM)

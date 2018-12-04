@@ -19,9 +19,27 @@ import datetime
 
 
 class CapesDiscentes(object):
+    """
+    A classe CapesDiscentes é responsável pela transformaçao da base de dados(Collection - Discentes),
+    faz parte do processo de ETL(Extração, Transformação e Carga).
+
+    Atributos:
+        date            (date): data de execução deste arquivo.
+        input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
+        output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
+        ies             (class: pandas.core.frame.DataFrame): Dataframe dos arquivos de download da capes programas.
+        cadastro        (class: pandas.core.frame.DataFrame): Dataframe dos arquivos de download da capes cadastro IES.
+        colunas         (dic): Dicionário das colunas do arquivo csv.
+
+    """
 
     def __init__(self, arquivos, nome_arquivo):
+        """
+        Construtor da classe CapesDiscentes, recebe 2 parâmetros:
+        arquivos    (list): Lista com todos os arquivos da pasta download -  BASE_PATH_DATA + 'capes/discentes/download/'.
+        nome_arquivo    (str): Nome dos arquivos da pasta download BASE_PATH_DATA + 'capes/discentes/download/'.
 
+        """
         self.date = datetime.datetime.now()
         self.arquivos = arquivos
         self.nome_arquivo = nome_arquivo
@@ -64,12 +82,15 @@ class CapesDiscentes(object):
             'ID_ADD_FOTO_PROGRAMA',
             'ID_ADD_FOTO_PROGRAMA_IES',
             'NR_DOCUMENTO_DISCENTE',
-            'TP_DOCUMENTO_DISCENTE',
-
+            'TP_DOCUMENTO_DISCENTE'
         ]
 
     def pega_arquivo_nome(self):
-        ''' Pega os arquivos em discentes/download em Discentes, faz um append deles e os retorna'''
+        '''
+        Pega os arquivos em discentes/download em Discentes, conta as linhas de entrada do arquivo,
+        adiciona cada arquivo na lista(df_auxiliar) e no final, faz a concatenação deles e os retorna
+
+        '''
 
         var = BASE_PATH_DATA + 'capes/discentes/download/'
         df_auxiliar = []
@@ -174,6 +195,16 @@ class CapesDiscentes(object):
 
 
     def resolve_dicionarios(self):
+        """
+        Pega o Dataframe pega_arquivo_nome, o passa como parâmetro para o método
+        merge_programas - que faz o merge deles, recebe este dataframe e faz outro merge
+        com o dataframe self.cadastro passando com chave a coluna SG_ENTIDADE_ENSINO_Capes,
+        substitui os espaços em branco dos nomes das colunas do dataframe por underline,
+        corrige o formato das datas, faz os ajustes dos campos do dataframe,
+        resolve os campos para facet, busca e nuvem de palavras e
+        os retorna para o gera_csv.
+
+        """
 
         df = self.pega_arquivo_nome()
         df = self.merge_programas(df)
@@ -182,12 +213,15 @@ class CapesDiscentes(object):
         #import pdb; pdb.set_trace()
         df = df.merge(self.cadastro, on=['SG_ENTIDADE_ENSINO_Capes'])
 
+        #Substitui os espaçoes em branco dos nomes das colunas do dataframe por undeline
         df.columns = df.columns.str.replace(' ', '_')
 
-        #print df[u'DT_SITUACAO_PROGRAMA'][0]
+        # Lista com as datas que devem ser formatada
         parse_dates = ['DT_SITUACAO_PROGRAMA', 'DT_MATRICULA_DISCENTE', 'DT_SITUACAO_DISCENTE' ]
 
         for dt in parse_dates:
+            # Percorre a lista de datas e seta o formato da data que o datetime usará para a conversão, ou seja,
+            # a máscara do formato.
             df[dt] = pd.to_datetime(df[dt], infer_datetime_format=False, format='%d%b%Y:%H:%M:%S', errors='coerce')
 
         df['AN_INICIO_CURSO'] = df['AN_INICIO_CURSO'].astype(str)
@@ -226,6 +260,12 @@ class CapesDiscentes(object):
 
 
     def gera_csv(self):
+        """
+        Pega o Dataframe de retorno do método resolve_dicionario,
+        cria os arquivos de saída(.csv e .log) e o diretório de destino,
+        conta as linhas do arquivo .csv e os grava no diretório de destino.
+
+        """
 
         df_capes = self.resolve_dicionarios()
 
@@ -255,12 +295,20 @@ class CapesDiscentes(object):
 
 
 def capes_discentes_transform():
+    """
+    Função chamada em transform.py para ajustar os dados da CAPES Discentes e prepará-los
+    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    passa os parâmetros - arquivos e nome_arquivo para a classe CapesDiscentes.
+
+    """
     PATH_ORIGEM = BASE_PATH_DATA + 'capes/discentes/download'
     try:
         arquivos = os.listdir(PATH_ORIGEM)
         arquivos.sort()
+
         arquivo_inicial = arquivos[0]
         nome_arquivo = arquivo_inicial.split('_')[0]
+
         capes_doc = CapesDiscentes(arquivos, nome_arquivo)
         capes_doc.gera_csv()
         print('Arquivo {} finalizado!'.format(nome_arquivo))

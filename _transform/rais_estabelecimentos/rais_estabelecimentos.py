@@ -30,12 +30,30 @@ from dicionarios.municipios import municipios_dic
 # pd.set_option('display.max_columns', 500)
 
 class RaisEstabelecimentosTransform(object):
+    """
+    A classe RaisEstabelecimentosTransform é responsável pela transformaçao da base de dados(Collection - rais_estabelecimentos),
+    faz parte do processo de ETL(Extração, Transformação e Carga).
+
+    Atributos:
+        horas               (date): data de execução deste arquivo.
+        input_lenght        (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
+        output_length       (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
+        f                   (str): Variável para armazenar o nome dos arquivos contidos no diretório download da rais estabelecimentos.
+        variáveis           (dic): Dicionário das colunas do arquivo csv, para serem resolvidos de acordo com sua chave.
+        avoid               (list): Lista com os campos/colunas que não farão parte do arquivo .csv gerado para a carga no solr.
+        destino_transform   (str): Path de destino do arquivo .csv gerado para a carga no solr.
+
+    """
 
     def __init__(self, ano):
+        """
+        Construtor da classe RaisEstabelecimentosTransform, recebe de 1 parâmetro:
+        ano    (str): Nome dos diretórios na pasta BASE_PATH_DATA + 'rais_estabelecimentos/'.
+
+        """
         self.horas = datetime.datetime.now()
         self.input_lenght = 0
         self.output_lenght = 0
-        self.df = pd.DataFrame()
         self.f = ''
         self.ano = ano
         self.variaveis = {
@@ -61,6 +79,14 @@ class RaisEstabelecimentosTransform(object):
         self.destino_transform = '/var/tmp/solr_front/collections/rais_estabelecimentos/' + str(self.ano) + '/transform/'
 
     def pega_arquivos_ano(self):
+        '''
+        Pega o arquivo em "rais_estabelecimentos/self.ano/download/", conta as linhas de entrada do arquivo,
+        faz um chunck de 200.000 linhas, atribui ao iterdf - que é um TextFileReader e o Percorre
+        gerando um dataframe que é passado ao método resolve_dicionário. Cria um contador - self.c
+        que será agregado ao nome final do arquivo, recebe o dataframe final do método resolve_dicionário,
+        cria o .csv e o .log e os salva no diretório destino_transform.
+
+        '''
         var = '/var/tmp/solr_front/collections/rais_estabelecimentos/' + str(self.ano) + '/download/'
         for root, dirs, files in os.walk(var):
             for f in files:
@@ -71,6 +97,7 @@ class RaisEstabelecimentosTransform(object):
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, f) + ' |wc -l')[1]
                     print 'Arquivo {} de entrada possui {} linhas de informacao'.format(f, int(self.input_lenght))
                     iterdf = pd.read_csv(arquivo, sep=';', chunksize=200000, encoding='latin-1', low_memory=False)
+                    # iterdf aqui é o pandas.io.parsers.TextFileReader
                     #iterdf = pd.read_csv(arquivo, sep=';', nrows=1000, chunksize=500, encoding='latin-1', low_memory=False)
                     self.c = 0
 
@@ -102,7 +129,15 @@ class RaisEstabelecimentosTransform(object):
                     # os.remove(os.path.join(root, f))
 
     def resolve_dicionario(self, df):
-        # import pdb; pdb.set_trace()
+        """
+        Pega o Dataframe da iteração do iterdf do método pega_arquivos_ano, remove as colunas
+        da lista - self.avoid, adiciona a coluna UF ao dataframe - pegando os códigos do município,
+        resolve os dicionários em self.variaveis pegando as chaves e retornando os valores,
+        deleta a coluna IBGE subsetor dos anos que não a contém, resolve os campos para facet, busca e nuvem de palavras,
+        substitui o espaço vazio dos nomes das colunas por underline e os retorna.
+
+        """
+
         for item in self.avoid:
             del (df[item])
         #A coluna UF não existe nos arquivos(anos:2010, 2011, 2012), portanto
@@ -115,7 +150,7 @@ class RaisEstabelecimentosTransform(object):
         # df[u'CNAE 2.0 Subclasse'] = df[u'CNAE 2.0 Subclasse']
 
         for k, v in self.variaveis.items():
-            # import pdb; pdb.set_trace()
+
             try:
                 df[k] = df[k].map(v).fillna(df[k])
 
@@ -145,6 +180,12 @@ class RaisEstabelecimentosTransform(object):
 
 
 def rais_estabelecimentos_transform():
+    """
+    Função chamada em transform.py para ajustar os dados da Rais estabelecimentos e prepará-los
+    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    passa o parâmetro - ano para a classe RaisEstabelecimentosTransform.
+
+    """
     try:
         path_origem = '/var/tmp/solr_front/collections/rais_estabelecimentos/'
         anos = [f for f in os.listdir(path_origem) if not f.startswith('.')]
@@ -160,6 +201,7 @@ def rais_estabelecimentos_transform():
         rais = RaisEstabelecimentosTransform(ano)
         rais.pega_arquivos_ano()
 
+# função para remover acentos - não usada pq gera um erro devido a codificação do arquivo de origem
 def remover_acentos(palavra, codif='utf-8'):
 
     nfkd = unicodedata.normalize('NFKD', palavra.decode(codif)).encode('ASCII', 'ignore')

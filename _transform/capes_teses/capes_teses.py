@@ -14,13 +14,33 @@ from utils.utils import *
 # pd.set_option('display.max_columns', 500)
 
 class CapesTeses(object):
+    """
+    A classe CapesTeses é responsável pela transformaçao da base de dados(Collection - capes_teses),
+    faz parte do processo de ETL(Extração, Transformação e Carga).
+
+    Atributos:
+        date            (date): data de execução deste arquivo.
+        input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
+        output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
+    """
+
     def __init__(self, year):
+        """
+        Construtor da classe CapesTeses, recebe 1 parâmetro:
+        year   (str): Nome do diretório da pasta download, em: BASE_PATH_DATA + 'capes_teses/year/download/'.
+
+        """
         self.date = datetime.datetime.now()
         self.ano = year
         self.input_lenght = 0
         self.output_length = 0
 
     def pega_arquivo_ano(self):
+        '''
+        Pega os arquivos em capes_teses/ano/download, trata os nomes dos diretórios,
+        conta as linhas de entrada do arquivo, gera o dataframe e o retorna.
+
+        '''
         var = BASE_PATH_DATA + 'capes_teses/' + str(self.ano) + '/download/'
         exclude_prefixes = ('__', '.')
         for root, dirs, files in os.walk(var, topdown=True):
@@ -35,6 +55,12 @@ class CapesTeses(object):
                     return df
 
     def resolve_dicionarios(self):
+        """
+        Pega o Dataframe de retorno do método pega_arquivo_ano, corrige o formato das datas,
+        preenche os campos inteiros vazios do dataframe com 0, resolve os campos para facet,
+        busca e nuvem de palavras, faz os ajustes dos campos do dataframe e o retorna para o gera_csv.
+
+        """
         df = self.pega_arquivo_ano()
         parse_dates = ['DT_MATRICULA', 'DH_INICIO_AREA_CONC', 'DH_FIM_AREA_CONC',
                        'DH_INICIO_LINHA', 'DH_FIM_LINHA', 'DT_TITULACAO']
@@ -70,10 +96,16 @@ class CapesTeses(object):
         df['DS_KEYWORD_exact'] = df['DS_KEYWORD'].apply(norm_keyword)
 
         df['TITULO_RESUMO'] = df['NM_PRODUCAO'] + '\n' + df['DS_RESUMO']
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         return df
 
     def gera_csv(self):
+        """
+        Pega o Dataframe de retorno do método resolve_dicionario,
+        cria os arquivos de saída(.csv e .log) e o diretório de destino,
+        conta as linhas do arquivo .csv e os grava no diretório de destino.
+
+        """
         df = self.resolve_dicionarios()
         destino_transform = BASE_PATH_DATA + 'capes_teses/' + str(self.ano) + '/transform'
         csv_file = '/capes_teses_' + str(self.ano) + '.csv'
@@ -100,15 +132,22 @@ class CapesTeses(object):
 
 
 def capes_teses_tranform():
+    """
+    Função chamada em transform.py para ajustar os dados da CAPES teses e prepará-los
+    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    passa o parâmetro - ano para a classe CapesTeses.
+
+    """
     PATH_ORIGEM = BASE_PATH_DATA + 'capes_teses/'
     try:
         anos = os.listdir(PATH_ORIGEM)
         anos.sort()
+
     except OSError:
         print('Nenhuma pasta encontrada')
         raise
     for ano in anos:
-        print(ano)
+
         try:
             capes_teses = CapesTeses(ano)
             capes_teses.gera_csv()
