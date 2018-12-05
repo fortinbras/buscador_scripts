@@ -18,12 +18,20 @@ from _transform.capes_programas import capes_programas_transform
 from _transform.rais_estabelecimentos import rais_estabelecimentos_transform
 
 
-
 def executa(coll):
-    """
-    :param coll: argumento para selecionar collection que será executada ex. "python load.py wos" para webOfScience
+    '''
+    Função para ajuste/transformação das collections, chama outras funções de
+    acordo com o parâmetro passado, se nenhum parâmetro for passado, exibe a mensagem
+    para passar uma collection como parâmetro.
+    ex: python transform.py capes_discentes
 
-    """
+    PARAMETROS:
+    coll  (str): Nome da collection para download.
+
+    RETORNO:
+    Sem retorno.
+
+    '''
 
     if coll == 'inep_alunos':
         inep_alunos_transform()
@@ -66,11 +74,11 @@ def executa(coll):
 
 
     else:
-        print('digite collection como parametro')
+        print('Digite uma collection como parâmetro')
 
 
 if __name__ == "__main__":
     try:
         executa(sys.argv[1])
     except IndexError:
-        print('digite collection como parametro')
+        print('Digite o nome da collection para transformação')

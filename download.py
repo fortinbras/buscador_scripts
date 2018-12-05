@@ -9,14 +9,23 @@ from _download.inep_download import executa_inep_download
 from _download.pnade_download import executa_pnad
 from _download.enem_download import executa_download_enem
 from _download.rais import executa_rais
-<<<<<<< HEAD
 from _download.capes_teses_download import executa_download_capes_teses
-=======
 from _download.rais_estabelecimentos import executa_rais_estabelecimentos
->>>>>>> carlos
-
 
 def executa(coll):
+    '''
+    Função para download das collections, chama outras funções de acordo com
+    o parâmetro passado, se nenhum parâmetro for passado, exibe a mensagem
+    para passar uma collection como parâmetro.
+    ex: python download.py enade
+
+    PARAMETROS:
+    coll  (str): Nome da collection para download.
+
+    RETORNO:
+    Sem retorno.
+
+    '''
 
     if coll == 'inep':
         executa_inep_download()
@@ -33,23 +42,19 @@ def executa(coll):
     elif coll == 'rais':
         executa_rais()
 
-<<<<<<< HEAD
-
     elif coll == 'capes_teses':
         executa_download_capes_teses()
-=======
+
     elif coll == 'rais_estabelecimentos':
         executa_rais_estabelecimentos()
->>>>>>> carlos
 
     else:
-        print('digite enade ou inep como parametro')
+        print('Digite uma collection como parâmetro')
 
 
 if __name__ == "__main__":
     try:
         executa(sys.argv[1])
     except IndexError:
-        print('Digite a collection como primeiro argumento! No segundo, um ano'
-        ' de referencia ou 0 para baixar todos.')
-        print('digite enade ou inep como parametro')
+        print('Digite o nome da collection para download ')
+        #print('digite enade ou inep como parametro')

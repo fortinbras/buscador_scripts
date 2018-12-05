@@ -16,8 +16,31 @@ from datetime import datetime
 
 
 class Enade(object):
+    """
+    A classe Enade é responsável pela transformaçao da base de dados(Collection - enade),
+    faz parte do processo de ETL(Extração, Transformação e Carga).
+
+    Atributos:
+        date            (datetime): data de execução deste arquivo.
+        input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
+        output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
+        CO_GRUPO        (dic): Dicionário das colunas do arquivo .csv, muda de acordo com o ano.
+        colunas         (dic): Dicionário das colunas do arquivo csv - enade.
+        CO_CATEGAD      (dic): Dicionário das colunas do arquivo csv - enade.
+        CO_ORGACAD      (dic): Dicionário das colunas do arquivo csv - enade.
+        CO_MODALIDADE   (dic): Dicionário das colunas do arquivo csv - enade.
+        QE_I01 a QE_I26 (dic): Dicionário das colunas do arquivo csv - enade.
+
+    """
 
     def __init__(self, year):
+        """
+        Construtor da classe Enade, recebe 1 parâmetro.
+
+        PARAMETRO:
+            year   (str): Nome do diretório da pasta enade em: BASE_PATH_DATA + 'enade/year(ano)'.
+
+        """
         self.date = datetime.now()
         self.ano = year
         self.input_lenght = 0
@@ -254,6 +277,17 @@ class Enade(object):
         }
 
     def pega_arquivo_ano(self):
+        '''
+        Este método itera os arquivos em: BASE_PATH_DATA + 'capes/programas/download/'
+        conta suas linhas e adiciona self.colunas ao dataframe df_enade.
+
+        PARAMETRO:
+            Não recebe parâmetros.
+
+        RETORNO:
+            Retorna um dataframe para cada ano.
+
+        '''
 
         var = BASE_PATH_DATA + 'enade/' + str(self.ano) + '/download/'
 
@@ -264,12 +298,29 @@ class Enade(object):
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
+                    import pdb;pdb.set_trace()
                     df_enade = df_enade.loc[:, self.colunas]
+                    import pdb;pdb.set_trace()
                     # df_enade.fillna('', inplace=True)
-
+        import pdb;pdb.set_trace()
         return df_enade
 
     def resolver_dicionario(self):
+        """
+        Método para modificar/alterar/atualizar/remover colunas e linhas
+        do dataframe e também resolver o(s) dicionário(s), pega o retorno
+        do método pega_arquivo_ano, cria o dataframe municipios, renomeia a
+        coluna CÓDIGO DO MUNICÍPIO por CO_MUNIC_CURSO, faz o merge left com o
+        dataframe de retorno passando com chave a coluna CO_MUNIC_CURSO,
+        resolve os campos para facet e faz os ajustes dos campos do dataframe.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna um dataframe pronto para ser convertido em csv pelo método gera_csv.
+
+        """
         df_enade = self.pega_arquivo_ano()
 
         municipios = pd.read_csv('lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
@@ -451,6 +502,20 @@ class Enade(object):
         return df_enade
 
     def gera_csv(self):
+        """
+        Método recebe o retorno do método resolve_dicionario,
+        verifica se o ano pertence a 2013, 2014, 2015 ou 2016 que são dicionários
+        com grupos diferentes, cria os arquivos de saída(.csv e .log) e o diretório de destino,
+        conta as linhas do arquivo .csv e os grava no diretório de destino.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Método sem retorno, mostra apenas uma mensagem de processamento finalizado.
+
+        """
+
         if str(self.ano) == '2016':
             df_enade = self.dicionario_2016()
         elif str(self.ano) == '2015':
@@ -485,8 +550,19 @@ class Enade(object):
         print('Processamento ENADE {} finalizado, arquivo de log gerado em {}'.format(str(self.ano),
                                                                                       destino_transform + log_file))
 
-
 def enade_tranform():
+    """
+    Função chamada em transform.py para ajustar os dados do enade e prepará-los
+    para a carga no indexador. Seta o diretório onde os arquivos a serem transformados/ajustados estão,
+    passa os parâmetros - arquivo e nome_arquivo para a classe CapesProgramas.
+
+    PARAMETRO:
+        Não recebe parâmetros.
+
+    RETORNO:
+        Função sem retorno.
+
+    """
     PATH_ORIGEM = BASE_PATH_DATA + 'enade/'
     try:
         anos = os.listdir(PATH_ORIGEM)

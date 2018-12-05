@@ -141,11 +141,20 @@ collection = {
 
 
 def executa(coll):
-    """
-    :param coll: argumento para selecionar collection que será executada ex.
-     "python load.py wos" para webOfScience
+    '''
+    Função para carregar uma collection no solr de acordo com
+    o parâmetro passado, resolve o dicionário collection, mapeando os campos para
+    a carga, se nenhum parâmetro for passado, exibe a mensagem para passar
+    uma collection como parâmetro.
+    ex: python load.py programas
 
-    """
+    PARAMETROS:
+    coll  (str): Nome da collection para carregar no solr.
+
+    RETORNO:
+    Sem retorno.
+
+    '''
     try:
         param = collection.get(coll)
 
@@ -163,7 +172,7 @@ def executa(coll):
         load.full_sequence()
 
     except (TypeError, KeyError):
-        print 'collection invalida'
+        print 'Collection inválida'
     except KeyboardInterrupt:
         print '\nAtividade interrompida pelo usuario!'
 
@@ -172,4 +181,4 @@ if __name__ == "__main__":
     try:
         executa(sys.argv[1])
     except IndexError:
-        print('digite collection como parametro')
+        print('Digite uma collection como parâmetro')

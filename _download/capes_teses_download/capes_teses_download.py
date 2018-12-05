@@ -15,6 +15,17 @@ all_links = {
 
 
 def download_capes_teses(ano):
+    '''
+    Função para download dos arquivos da CAPES Teses, esta função cria o diretório
+    onde serão salvos os arquivos, faz o download dos arquivos do dicionário all_links.
+
+    PARAMETROS:
+    ano  (str): É obtido pela chave do dicionário all_links.
+
+    RETORNO:
+    Mensagem de arquivo finalizado.
+
+    '''
     dir_destino = BASE_PATH_DATA+'capes_teses/' + str(ano) + '/download/'
     ano_str = str(ano)
     nome_arquivo = ano_str + '.csv'
@@ -47,6 +58,17 @@ def download_capes_teses(ano):
 
 
 def executa_download_capes_teses():
+    '''
+    Função chamada em download.py para download dos arquivos da CAPES Teses,
+    esta função chama a função download_capes_teses passando o ano como parâmetro.
+
+    PARAMETROS:
+    Sem parâmetros.
+
+    RETORNO:
+    Sem retorno.
+
+    '''
     anos = all_links.keys()
     for ano in anos:
         try:

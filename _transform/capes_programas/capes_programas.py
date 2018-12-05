@@ -26,7 +26,7 @@ class CapesProgramas(object):
     faz parte do processo de ETL(Extração, Transformação e Carga).
 
     Atributos:
-        date            (date): data de execução deste arquivo.
+        date            (datetime): data de execução deste arquivo.
         input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
         output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
         ies             (class: pandas.core.frame.DataFrame): Dataframe dos arquivos de download da capes cadastro IES, em BASE_PATH_DATA + 'capes/programas/cadastro/'.
@@ -36,9 +36,11 @@ class CapesProgramas(object):
 
     def __init__(self, arquivo, nome_arquivo):
         """
-        Construtor da classe CapesProgramas, recebe 2 parâmetros:
-        arquivos        (list): Lista com todos os arquivos da pasta download -  BASE_PATH_DATA + 'capes/programas/download/'.
-        nome_arquivo    (str): Nome dos arquivos da pasta download BASE_PATH_DATA + 'capes/programas/download/'.
+        Construtor da classe CapesProgramas, recebe 2 parâmetros.
+
+        PARAMETROS:
+            arquivos        (list): Lista com todos os arquivos da pasta download -  BASE_PATH_DATA + 'capes/programas/download/'.
+            nome_arquivo    (str): Nome dos arquivos da pasta download BASE_PATH_DATA + 'capes/programas/download/'.
 
         """
         self.date = datetime.now()
@@ -102,11 +104,17 @@ class CapesProgramas(object):
         ]
 
     def pega_arquivo_nome(self):
-        '''
-        Pega os arquivos em BASE_PATH_DATA + 'capes/programas/download/',
-        conta as linhas de entrada dos arquivos e os retorna
+        """
+        Este método itera os arquivos em: BASE_PATH_DATA + 'capes/programas/download/'
+        e conta suas as linhas.
 
-        '''
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna o df_auxiliar, que é um TextFileReader da classe pandas.io.parses.TextFileReader
+
+        """
 
         var = '/var/tmp/solr_front/collections/capes/programas/download/'
         #df_auxiliar = []
@@ -128,11 +136,17 @@ class CapesProgramas(object):
         return df_auxiliar # retorna um (pandas.io.parsers.TextFileReader)
 
     def pega_arquivo_cadastro_ies_capes(self):
-        '''
-        pega o arquivo cadastro CAPES IES que será agregado aos programas. Elimina
-        as colunas e linhas vazias e o retorna.
+        """
+        Este método itera os arquivos de cadastro da CAPES IES em: BASE_PATH_DATA + 'capes/programas/cadastro/'
+        que será agregado ao programas e elimina as colunas e linhas vazias.
 
-        '''
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna o df_cad que é o dataframe de cadastro da IES Capes.
+
+        """
 
         var = '/var/tmp/solr_front/collections/capes/programas/cadastro/'
         for root, dirs, files in os.walk(var):
@@ -146,12 +160,18 @@ class CapesProgramas(object):
         return df_cad
 
     def merge_programas(self, df):
-        '''
-        Recebe um dataframe como parâmetro e faz o merge dele com os arquivos
-        do CAPES Programas, passando como chave o campo SG_ENTIDE_ENSINO_Capes.
-        Retorna o dataframe com todas as linhas e colunas que foram agregadas.
+        """
+        Este método recebe um dataframe como parâmetro e faz o merge dele com
+        o atributo self.ies, que recebe o método pega_arquivo_cadastro_ies_capes,
+        passando como chave o campo SG_ENTIDE_ENSINO_Capes.
 
-        '''
+        PARAMETRO:
+            Recebe um dataframe como parâmetro, que o retorno do método pega_arquivo_nome.
+
+        RETORNO:
+            Retorna o dataframe com todas as linhas e colunas agregadas.
+
+        """
         print 'Fazendo o merge......'
         #df_merged = df.merge(self.ies, how='left')
         df_merged = df.merge(self.ies, on=['SG_ENTIDADE_ENSINO_Capes'])
@@ -163,12 +183,19 @@ class CapesProgramas(object):
 
     def resolve_dicionarios(self):
         """
-        Pega o Dataframe de retorno do método pega_arquivo_nome, o passa como
-        parâmetro para o método merge_programas() - que faz o merge dos dataframes
-        pega_arquivo_nome e pega_arquivo_cadastro_ies_capes,
-        substitui os espaços em branco das colunas do dataframe por underline,
-        corrige o formato das datas, resolve os campos para facet, busca e nuvem de palavras,
-        faz os ajustes dos campos do dataframe e os retorna para o método - gera_csv.
+        Método para modificar/alterar/atualizar/remover colunas e linhas
+        do dataframe e também resolver o(s) dicionário(s), pega o retorno
+        do método pega_arquivo_nome, o passa como parâmetro para o
+        método merge_programas, substitui os espaços em branco das colunas
+        do dataframe por underline, corrige o formato das datas,
+        resolve os campos para facet, busca e nuvem de palavras e faz os ajustes
+        dos campos do dataframe.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna um dataframe pronto para ser convertido em csv pelo método gera_csv.
 
         """
         df = self.pega_arquivo_nome()
@@ -208,9 +235,15 @@ class CapesProgramas(object):
 
     def gera_csv(self):
         """
-        Pega o Dataframe de retorno do método - resolve_dicionario,
+        Método recebe o retorno do método resolve_dicionario,
         cria os arquivos de saída(.csv e .log) e o diretório de destino,
         conta as linhas do arquivo .csv e os grava no diretório de destino.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Método sem retorno, mostra apenas uma mensagem de processamento finalizado.
 
         """
 
@@ -241,8 +274,14 @@ class CapesProgramas(object):
 def capes_programas_transform():
     """
     Função chamada em transform.py para ajustar os dados da Capes Programas e prepará-los
-    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    para a carga no indexador. Seta o diretório onde os arquivos a serem transformados/ajustados estão,
     passa os parâmetros - arquivo e nome_arquivo para a classe CapesProgramas.
+
+    PARAMETRO:
+        Não recebe parâmetro.
+
+    RETORNO:
+        Função sem retorno.
 
     """
 

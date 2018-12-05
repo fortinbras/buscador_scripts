@@ -26,8 +26,10 @@ class CapesTeses(object):
 
     def __init__(self, year):
         """
-        Construtor da classe CapesTeses, recebe 1 parâmetro:
-        year   (str): Nome do diretório da pasta download, em: BASE_PATH_DATA + 'capes_teses/year/download/'.
+        Construtor da classe CapesTeses, recebe 1 parâmetro.
+
+        PARAMETRO:
+            year   (str): Nome do diretório da pasta download, em: BASE_PATH_DATA + 'capes_teses/year/download/'.
 
         """
         self.date = datetime.datetime.now()
@@ -37,8 +39,14 @@ class CapesTeses(object):
 
     def pega_arquivo_ano(self):
         '''
-        Pega os arquivos em capes_teses/ano/download, trata os nomes dos diretórios,
-        conta as linhas de entrada do arquivo, gera o dataframe e o retorna.
+        Este método itera os arquivos em: BASE_PATH_DATA + capes_teses/ano/download,
+        trata os nomes dos diretórios e conta as linhas dos arquivos.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna um dataframe.
 
         '''
         var = BASE_PATH_DATA + 'capes_teses/' + str(self.ano) + '/download/'
@@ -56,9 +64,17 @@ class CapesTeses(object):
 
     def resolve_dicionarios(self):
         """
-        Pega o Dataframe de retorno do método pega_arquivo_ano, corrige o formato das datas,
+        Método para modificar/alterar/atualizar/remover colunas e linhas
+        do dataframe e também resolver o(s) dicionário(s), pega o retorno
+        do método pega_arquivo_ano, corrige o formato das datas,
         preenche os campos inteiros vazios do dataframe com 0, resolve os campos para facet,
-        busca e nuvem de palavras, faz os ajustes dos campos do dataframe e o retorna para o gera_csv.
+        busca e nuvem de palavras, faz os ajustes dos campos do dataframe.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Retorna um dataframe pronto para ser convertido em csv pelo método gera_csv.
 
         """
         df = self.pega_arquivo_ano()
@@ -101,9 +117,15 @@ class CapesTeses(object):
 
     def gera_csv(self):
         """
-        Pega o Dataframe de retorno do método resolve_dicionario,
+        Método recebe o retorno do método resolve_dicionario,
         cria os arquivos de saída(.csv e .log) e o diretório de destino,
         conta as linhas do arquivo .csv e os grava no diretório de destino.
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Método sem retorno, mostra apenas uma mensagem de processamento finalizado.
 
         """
         df = self.resolve_dicionarios()
@@ -133,9 +155,15 @@ class CapesTeses(object):
 
 def capes_teses_tranform():
     """
-    Função chamada em transform.py para ajustar os dados da CAPES teses e prepará-los
-    para a carga no indexador. Seta o diretorio onde os arquivos a serem transformados/ajustados estão,
+    Função chamada em transform.py para ajustar os dados da Capes Teses e prepará-los
+    para a carga no indexador. Seta o diretório onde os arquivos a serem transformados/ajustados estão,
     passa o parâmetro - ano para a classe CapesTeses.
+
+    PARAMETRO:
+        Não recebe parâmetro.
+
+    RETORNO:
+        Função sem retorno.
 
     """
     PATH_ORIGEM = BASE_PATH_DATA + 'capes_teses/'
