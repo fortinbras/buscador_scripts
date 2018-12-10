@@ -30,7 +30,7 @@ class CapesProgramas(object):
         input_lenght    (int): Variável que irá guardar a quantidade de linhas do arquivo de entrada(download).
         output_length   (int): Variável que irá guardar a quantidade de linhas do arquivo de saída(transform).
         ies             (class: pandas.core.frame.DataFrame): Dataframe dos arquivos de download da capes cadastro IES, em BASE_PATH_DATA + 'capes/programas/cadastro/'.
-        colunas         (dic): Dicionário das colunas do arquivo csv - programas.
+        colunas         (dict): Dicionário das colunas do arquivo csv - programas.
 
     """
 

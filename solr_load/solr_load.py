@@ -7,9 +7,25 @@ from settings import SOLR_PATCH, ZK_URL
 
 
 class SolrLoad(object):
-
+    """
+    A classe SolrLoad é responsável pela carga/load das bases de dados(collections)
+    no indexador solr_front.
+    Atributos:
+        fileslist    (list): Lista vazia, usada para fazer um append dos arquivos do diretório - transform.
+    """
     def __init__(self, filetype, collectiondir, transformdir, localhost, port, collection, content_type, schemadir):
-
+        """
+        Construtor da classe SolrLoad, recebe 8 parâmetros.
+        PARAMETROS:
+            filetype        (csv): Tipo do arquivo.
+            collectiondir   (PATH:str): Caminho onde se encontra a collection.
+            transformdir    (PATH:str): Caminho onde se encontra o diretório - transform da collection.
+            localhost       (IP:str): Endereço de IP do solr.
+            port            (str): Número da porta do solr.
+            collection      (str): Nome da collection que será carregada.
+            content_type    (text/csv): Tipo de arquivo que se irá trabalhar.
+            schemadir       (PATH:str): Caminho do diretório de configuração(conf) da collection.
+        """
         self.fileslist = []
         self.filetype = filetype
         self.collectiondir = collectiondir
@@ -21,9 +37,20 @@ class SolrLoad(object):
         self.schemadir = schemadir
 
     def list_output_files(self):
+        """
+        Este método verifica se a collection passada como parâmetro se encontra na
+        lista - collections_mapeadas, se o arquivo está no formato .csv e no Diretório
+        transform, caso contrário, tentar pegar o diretório com o nome dos anos da collection.
 
-        if self.collection == 'wos' or self.collection == 'lattes' or self.collection in ['capes_discentes','capes_docentes','capes_programas','rais_estabelecimentos']:
+        PARAMETRO:
+            Não recebe parâmetro.
 
+        RETORNO:
+            Retorna uma lista com os arquivos encontrados.
+        """
+
+        collections_mapeadas = ['wos', 'lattes','capes_discentes','capes_docentes','capes_programas','rais_estabelecimentos']
+        if self.collection in collections_mapeadas:
             for root, dirs, files in os.walk(self.collectiondir):
                 for f in files:
                     print f
@@ -48,7 +75,21 @@ class SolrLoad(object):
             return self.fileslist
 
     def files_load(self):
-        for f in self.list_output_files():
+        """
+        Este método recebe o retorno da lista de arquivos do list_output_files,
+        itera sobre ela, abre o arquivo para leitura, verifica se tem a
+        extensão .csv, o envia através da requests pelo método http - post e
+        printa o status_code. Também, lançam as exceptions, são elas: HTTP error
+        timeout e RequestException
+
+        PARAMETRO:
+            Não recebe parâmetro.
+
+        RETORNO:
+            Sem retorno.
+        """
+        lista_de_arquivos_encontrados = self.list_output_files()
+        for f in lista_de_arquivos_encontrados:
             print('Uploading file {}'.format(f))
             with open(f, 'rb') as data_file:
                 my_data = data_file.read()

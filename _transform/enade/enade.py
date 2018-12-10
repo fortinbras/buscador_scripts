@@ -298,11 +298,9 @@ class Enade(object):
                     self.input_lenght = commands.getstatusoutput('cat ' + os.path.join(root, file) + ' |wc -l ')[1]
                     print 'Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1)
                     df_enade = pd.read_csv(arquivo, sep=';', low_memory=False)
-                    import pdb;pdb.set_trace()
                     df_enade = df_enade.loc[:, self.colunas]
-                    import pdb;pdb.set_trace()
                     # df_enade.fillna('', inplace=True)
-        import pdb;pdb.set_trace()
+        #import pdb;pdb.set_trace()
         return df_enade
 
     def resolver_dicionario(self):
@@ -540,8 +538,8 @@ class Enade(object):
                         line_terminator='\n', quoting=csv.QUOTE_ALL)
         self.output_length = commands.getstatusoutput('cat ' + destino_transform + csv_file + ' |wc -l')[1]
         print 'Arquivo de saida possui {} linhas de informacao'.format(int(self.output_length) - 1)
-
         with open(destino_transform + log_file, 'w') as log:
+
             log.write('Log gerado em {}'.format(self.date.strftime("%Y-%m-%d %H:%M")))
             log.write("\n")
             log.write('Arquivo de entrada possui {} linhas de informacao'.format(int(self.input_lenght) - 1))
