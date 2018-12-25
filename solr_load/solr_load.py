@@ -78,7 +78,7 @@ class SolrLoad(object):
                 # 'http://localhost:8983/solr/lattes/update?commit=true'
 
     def delete_collection(self):
-        url = 'http://' + self.localhost + '/solr/' + \
+        url = 'http://' + self.localhost + ':' + self.port + '/solr/' + \
               self.collection + \
               '/update?commit=true&stream.body=<delete><query>*:*</query></delete>'
         try:
@@ -96,7 +96,7 @@ class SolrLoad(object):
             print ("OOps: Something Else", err)
 
     def reload_collection(self):
-        url = 'http://' + self.localhost + '/solr/admin/collections?action=RELOAD&name=' + self.collection
+        url = 'http://' + self.localhost + ':' + self.port + '/solr/admin/collections?action=RELOAD&name=' + self.collection
         try:
             req = requests.post(url)
             print req.status_code
