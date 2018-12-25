@@ -320,7 +320,10 @@ class Enade(object):
         """
         df_enade = self.pega_arquivo_ano()
 
-        municipios = pd.read_csv('lista_municipios.csv', sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
+        lista_municipios = os.path.dirname(os.path.realpath(__file__)) + '/lista_municipios.csv'
+
+        municipios = pd.read_csv(lista_municipios, sep=';', dtype={'CÓDIGO DO MUNICÍPIO': 'str'})
+
         municipios = municipios.rename(columns={'CÓDIGO DO MUNICÍPIO': 'CO_MUNIC_CURSO'})
         municipios['REGIAO'] = municipios['CO_MUNIC_CURSO'].apply(find_regiao)
         df_enade = df_enade.astype('str')
