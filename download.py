@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import sys
 
@@ -13,7 +15,7 @@ from _download.capes_teses_download import executa_download_capes_teses
 from _download.rais_estabelecimentos import executa_rais_estabelecimentos
 
 def executa(coll):
-    '''
+    """
     Função para download das collections, chama outras funções de acordo com
     o parâmetro passado, se nenhum parâmetro for passado, exibe a mensagem
     para passar uma collection como parâmetro.
@@ -25,7 +27,7 @@ def executa(coll):
     RETORNO:
     Sem retorno.
 
-    '''
+    """
 
     if coll == 'inep':
         executa_inep_download()

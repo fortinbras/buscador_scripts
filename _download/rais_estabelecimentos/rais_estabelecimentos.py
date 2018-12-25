@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 
 sys.path.insert(0, '../../../buscador_scripts/')
@@ -10,7 +12,7 @@ from ftplib import FTP
 # 7za x
 
 def get_rais_estabelecimentos():
-    '''
+    """
     Função para download dos arquivos da Rais Estabelecimentos, esta função faz
     o download via ftp dos arquivos dos anos de 2010 a 2018 - apenas arquivos
     com o nome ESTB+ano.7z e cria o diretório onde serão salvos.
@@ -20,8 +22,9 @@ def get_rais_estabelecimentos():
 
     RETORNO:
     Sem retorno.
+    """
 
-    '''
+
     anos = [str(x) for x in range(2010, 2018)]
     print
     print('Anos = ', anos)
