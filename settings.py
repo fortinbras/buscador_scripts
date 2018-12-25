@@ -16,3 +16,9 @@ SOLR_PATCH = '/opt/solr-6.6.2/bin/solr'
 
 # ZK_URL -> Endereco do zookeeper
 ZK_URL = '192.168.0.35:2181'
+
+
+try:
+    from local_settings import *
+except ImportError as e:
+    print "No local_settings.py found"
