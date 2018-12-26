@@ -74,12 +74,11 @@
   <fieldType name="tints" class="solr.TrieIntField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
   <fieldType name="tlong" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="8"/>
   <fieldType name="tlongs" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" multiValued="true" precisionStep="8"/>
-  <field name="ANO_FACET" type="descendent_path"/>
   <field name="ANO_FIM_2G" type="long"/>
   <field name="ANO_FIM_2G_facet" type="descendent_path"/>
   <field name="ANO_IN_GRAD" type="long"/>
   <field name="ANO_IN_GRAD_facet" type="descendent_path"/>
-  <field name="ANO_facet" type="strings"/>
+  <field name="ANO_facet" type="descendent_path"/>
   <field name="COR_RACA" type="strings"/>
   <field name="CO_CATEGAD" type="strings"/>
   <field name="CO_CURSO" type="strings"/>
